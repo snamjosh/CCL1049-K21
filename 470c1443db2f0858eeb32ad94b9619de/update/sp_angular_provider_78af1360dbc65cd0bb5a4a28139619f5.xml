@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_angular_provider">
+    <sp_angular_provider action="INSERT_OR_UPDATE">
+        <name>gdepCategoryService</name>
+        <script><![CDATA[function gdepCategoryService($http){
+	var categoryList = {};
+	var c = {};
+	var _articleId = "";
+	var kbId = "";
+	var title = "";
+
+	function helloWorld(){
+		return "hello world";
+	}
+
+	function init(dataObj){
+		c = dataObj;
+	}
+
+	function initFromArticleNum(kbNum){
+		var url = "/api/now/table/kb_knowledge?sysparm_fields=kb_category%2Cshort_description&latest=true&number=" + kbNum;
+		$http.get(url).then(function(response){
+			if(response.data.result.message) {
+				console.log(response.data.result.message);
+			} else {
+				var result = response.data.result;
+				if(Array.isArray(result)) result = result[0];
+				
+				c.subTitle = result.short_description;
+				c.kb_category = result.kb_category.value;
+				console.log(result);
+			}
+		})
+	}
+
+	function getCategoryByID(sysID) {
+		//debugger;
+		/*if(categoryList[sysID]){
+			console.log("getCategoryByID: " + sysID + " already exists");
+			return categoryList[sysID];
+		}*/
+		var url = "/api/now/table/kb_category?sysparm_limit=1&sys_id=" + sysID;
+		var promise = $http.get(url);
+		//debugger;
+		promise.then(function (response) {
+			if (response.data.result.message) {
+				c.error = response.data.result.message;
+			} else {
+				categoryList[sysID] = response;
+				c.categoryList = categoryList;
+				c.response = response;
+			}
+		}, function (ex) {
+			console.log("ex: " + ex);
+		});
+		return promise;
+	}
+	
+	function getKBCategoryBranch(sysID){
+	  caches.categories = [];	
+		_getKBCategoryBranch(sysID);
+	}
+
+	function _getKBCategoryBranch(sysID) {
+		var grKBCat = new GlideRecord("kb_category");
+		grKBCat.addQuery("sys_id", sysID);
+		grKBCat.query();
+		if (grKBCat.next()) {
+			var category = {};
+			category.title = grKBCat.getDisplayValue();
+			category.sys_id = grKBCat.getValue("sys_id");
+			if (grKBCat.parent_table == "kb_category") {
+				category.parent_id = grKBCat.getValue("parent_id");
+				category.parent_table = grKBCat.getValue("parent_table");
+				getKBCategoryTree(grKBCat.getValue("parent_id"));
+			}
+			caches.categories.push(category);
+		}
+    return;
+  }
+	
+	function getPageTitle(c){
+		var parms = $location.search();
+
+		if(!pageTitle){
+
+			var specialPage = _.find(kbSpecialPages, function(o) { return o.page === pageId });
+
+			if(specialPage){
+				pageTitle = specialPage.label;
+			}
+			else if(parms.kb_category){
+				pageTitle = getKbCategoryLable(parms.kb_category)
+			}
+			else if(parms.sc_category){
+				pageTitle = getLableFromScCategory();
+			}
+		}
+		console.log("%% " + pageTitle);
+		c = pageTitle;
+	}
+	function getLableFromScCategory(sc_category){
+		var url = "/api/now/table/sc_category?sysparm_fields=label&sys_id=" + sys_id;
+
+		$http.get(url).then(function(response){
+			if(response.data.result.message) {
+				console.log(response.data.result.message);
+			} else {
+				var result = response.data.result;
+				if(Array.isArray(result)) result = result[0];
+
+				return result.label;
+			}
+		})
+	}
+	
+	function getKbCategoryLable(kb_category){
+		var url = "/api/now/table/kb_category?sysparm_fields=label&sys_id=" + sys_id;
+
+		$http.get(url).then(function(response){
+			if(response.data.result.message) {
+				console.log(response.data.result.message);
+			} else {
+				var result = response.data.result;
+				if(Array.isArray(result)) result = result[0];
+
+				return result.label;
+			}
+		})
+	}
+	/*------------------------------------------------
+	*	Populates data.cache.topCategoryLabel
+	*--------------------------------------------------*/
+	function getTopCategory(){
+		var sys_id = $location.search().kb_category;
+		if(!cache.topCategoryLabel && sys_id){
+			var url = "/api/now/table/kb_category?sysparm_fields=label&sys_id=" + sys_id;
+
+			$http.get(url).then(function(response){
+				if(response.data.result.message) {
+					console.log(response.data.result.message);
+				} else {
+					var result = response.data.result;
+					if(Array.isArray(result)) result = result[0];
+					//		console.log(result);
+
+					cache.topCategoryLabel = result.label;
+					return cache.topCategoryLabel;
+				}
+			})
+		}
+	}
+	return {
+		helloWorld:helloWorld,
+		initFromArticleNum:initFromArticleNum,
+		getCategoryByID:getCategoryByID,
+		getKBCategoryBranch: getKBCategoryBranch,
+		init:init
+	}
+}
+
+]]></script>
+        <sys_class_name>sp_angular_provider</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-07-13 22:49:41</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>78af1360dbc65cd0bb5a4a28139619f5</sys_id>
+        <sys_mod_count>118</sys_mod_count>
+        <sys_name>gdepCategoryService</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_angular_provider_78af1360dbc65cd0bb5a4a28139619f5</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-07-22 04:37:38</sys_updated_on>
+        <type>service</type>
+    </sp_angular_provider>
+</record_update>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="request_filter">
+    <request_filter action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <applies_to>1</applies_to>
+        <data_item/>
+        <filter table="sc_request">sys_idINjavascript:sn_hr_core.hr_scRequestClosedRequestFilterUtil()^EQ<item endquery="false" field="sys_id" goto="false" newquery="false" operator="IN" or="false" value="javascript:sn_hr_core.hr_scRequestClosedRequestFilterUtil()"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter>
+        <group/>
+        <item_stream/>
+        <last_used/>
+        <mobile>false</mobile>
+        <portal_page display_value="gdep_sc_request">b58a1fc9db921850bb5a4a281396197f</portal_page>
+        <primary_display>short_description</primary_display>
+        <roles/>
+        <secondary_display>number,short_description,assigned_to</secondary_display>
+        <short_description>HR Service Request Closed</short_description>
+        <sys_class_name>request_filter</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-27 22:13:01</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_id>f69d5fc9dbd21850bb5a4a281396198a</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>HR Service Request Closed</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>request_filter_f69d5fc9dbd21850bb5a4a281396198a</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-10-29 17:23:10</sys_updated_on>
+        <table>sc_request</table>
+        <table_name>sc_request</table_name>
+        <title>HR Service Request Closed</title>
+        <user/>
+    </request_filter>
+</record_update>

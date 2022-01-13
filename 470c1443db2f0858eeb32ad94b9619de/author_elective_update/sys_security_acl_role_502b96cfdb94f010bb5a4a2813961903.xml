@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="DELETE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-28 04:47:45</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>502b96cfdb94f010bb5a4a2813961903</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>.snc_internal</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_security_acl display_value="">4f1b5acfdb94f010bb5a4a2813961906</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_502b96cfdb94f010bb5a4a2813961903</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-28 04:47:45</sys_updated_on>
+        <sys_user_role display_value="snc_internal" name="snc_internal">7fcaa702933002009c8579b4f47ffbde</sys_user_role>
+        <transaction_id/>
+    </sys_security_acl_role>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>901500ac6f06314023b2a9cc5d3ee4b5</instance_id>
+        <instance_name>godaddydev</instance_name>
+        <name>sys_security_acl_role_502b96cfdb94f010bb5a4a2813961903</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role"><sys_security_acl_role action="INSERT_OR_UPDATE"><sys_class_name>sys_security_acl_role</sys_class_name><sys_created_by>choskins</sys_created_by><sys_created_on>2021-05-28 04:47:45</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>502b96cfdb94f010bb5a4a2813961903</sys_id><sys_mod_count>0</sys_mod_count><sys_name>.snc_internal</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_security_acl display_value="">4f1b5acfdb94f010bb5a4a2813961906</sys_security_acl><sys_update_name>sys_security_acl_role_502b96cfdb94f010bb5a4a2813961903</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2021-05-28 04:47:45</sys_updated_on><sys_user_role display_value="snc_internal" name="snc_internal">7fcaa702933002009c8579b4f47ffbde</sys_user_role><transaction_id/></sys_security_acl_role></record_update>]]></payload>
+        <payload_hash>-716109783</payload_hash>
+        <record_name>.snc_internal</record_name>
+        <reverted_from/>
+        <source>02595a43db94f010bb5a4a281396194b</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-28 04:47:45</sys_created_on>
+        <sys_id>094b1603dbd4f010bb5a4a281396196a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>179b14cb7a60000001</sys_recorded_at>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-28 04:47:45</sys_updated_on>
+        <type>Access Roles</type>
+        <update_guid>014b16035ed4f010c5e83f7b3d70d46a</update_guid>
+        <update_guid_history>014b16035ed4f010c5e83f7b3d70d46a:-716109783</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Record deleted 2021-05-27 21:48:55">028b1243dbd4f010bb5a4a2813961959</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-28 04:48:55</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sys_security_acl_role">sys_security_acl_role</sys_db_object>
+        <sys_id>37853eae33c747bcaaad6ebceba0cea1</sys_id>
+        <sys_metadata>502b96cfdb94f010bb5a4a2813961903</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>.snc_internal</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sys_security_acl_role_502b96cfdb94f010bb5a4a2813961903</sys_update_name>
+        <sys_update_version display_value="sys_security_acl_role_502b96cfdb94f010bb5a4a2813961903">094b1603dbd4f010bb5a4a281396196a</sys_update_version>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-28 04:48:55</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

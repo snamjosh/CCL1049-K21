@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="announcement">
+    <announcement action="DELETE">
+        <active>true</active>
+        <click_target/>
+        <details/>
+        <details_link_text/>
+        <details_page/>
+        <details_url/>
+        <dismiss_options>dismissible</dismiss_options>
+        <display_first>false</display_first>
+        <display_style display_value="Normal">704dedd6e7d4030075c2a117c2f6a91b</display_style>
+        <from>2021-04-28 23:46:20</from>
+        <glyph/>
+        <glyph_alt_text/>
+        <name>Example Info Message</name>
+        <public>true</public>
+        <roles/>
+        <show_for_unauthenticated_users_only>false</show_for_unauthenticated_users_only>
+        <summary/>
+        <sys_class_name>announcement</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-04-28 23:46:50</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>5e100479db3f245059ac6e25ca9619f1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Example Info Message</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>announcement_5e100479db3f245059ac6e25ca9619f1</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-04-28 23:46:50</sys_updated_on>
+        <title>Example Info Message</title>
+        <to>2021-05-01 23:46:26</to>
+        <type>52fa79f8e763320075c2a117c2f6a991</type>
+    </announcement>
+    <sys_translated_text action="DELETE" query="documentkey=5e100479db3f245059ac6e25ca9619f1"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>901500ac6f06314023b2a9cc5d3ee4b5</instance_id>
+        <instance_name>godaddydev</instance_name>
+        <name>announcement_5e100479db3f245059ac6e25ca9619f1</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="announcement"><announcement action="INSERT_OR_UPDATE"><active>true</active><click_target/><details/><details_link_text/><details_page/><details_url/><dismiss_options>dismissible</dismiss_options><display_first>false</display_first><display_style display_value="Normal">704dedd6e7d4030075c2a117c2f6a91b</display_style><from>2021-04-28 23:46:20</from><glyph/><glyph_alt_text/><name>Example Info Message</name><public>true</public><roles/><show_for_unauthenticated_users_only>false</show_for_unauthenticated_users_only><summary/><sys_class_name>announcement</sys_class_name><sys_created_by>choskins</sys_created_by><sys_created_on>2021-04-28 23:46:50</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>5e100479db3f245059ac6e25ca9619f1</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Example Info Message</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>announcement_5e100479db3f245059ac6e25ca9619f1</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2021-04-28 23:46:50</sys_updated_on><title>Example Info Message</title><to>2021-05-01 23:46:26</to><type>52fa79f8e763320075c2a117c2f6a991</type></announcement><sys_translated_text action="delete_multiple" query="documentkey=5e100479db3f245059ac6e25ca9619f1"/></record_update>]]></payload>
+        <payload_hash>-179245380</payload_hash>
+        <record_name>Example Info Message</record_name>
+        <reverted_from/>
+        <source>273a6325dbf3e05059ac6e25ca9619e7</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-04-28 23:46:51</sys_created_on>
+        <sys_id>9a404cb1db7f245059ac6e25ca961982</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1791ae0cf270000001</sys_recorded_at>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-04-28 23:46:51</sys_updated_on>
+        <type>Announcement</type>
+        <update_guid>da400079f3fb2450e429932c44807eee</update_guid>
+        <update_guid_history>da400079f3fb2450e429932c44807eee:-179245380</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Record deleted 2021-04-28 16:49:29">c9e04cfddb7f245059ac6e25ca9619ef</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-04-28 23:49:29</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="Announcement" name="announcement">announcement</sys_db_object>
+        <sys_id>dada7f28aef3472c973114afd1e46b41</sys_id>
+        <sys_metadata>5e100479db3f245059ac6e25ca9619f1</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Example Info Message</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>announcement_5e100479db3f245059ac6e25ca9619f1</sys_update_name>
+        <sys_update_version display_value="announcement_5e100479db3f245059ac6e25ca9619f1">9a404cb1db7f245059ac6e25ca961982</sys_update_version>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-04-28 23:49:29</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

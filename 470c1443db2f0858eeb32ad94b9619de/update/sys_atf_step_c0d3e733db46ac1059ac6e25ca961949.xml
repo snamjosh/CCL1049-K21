@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_atf_step">
+    <sys_atf_step action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <copied_from/>
+        <description>Run Server Side Validation Script</description>
+        <display_name>Run Server Side Script</display_name>
+        <inputs/>
+        <mugshots_cache_json/>
+        <notes>Testing Friends and Family script include</notes>
+        <order>1</order>
+        <snapshot/>
+        <step_config display_value="Run Server Side Script">41de4a935332120028bc29cac2dc349a</step_config>
+        <sys_class_name>sys_atf_step</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-02-07 21:45:07</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>c0d3e733db46ac1059ac6e25ca961949</sys_id>
+        <sys_mod_count>42</sys_mod_count>
+        <sys_name>Run Server Side Script</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_atf_step_c0d3e733db46ac1059ac6e25ca961949</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-02-08 05:12:37</sys_updated_on>
+        <table/>
+        <test display_value="FF Backend">c763afb3db46ac1059ac6e25ca9619b1</test>
+        <timeout/>
+        <warning_message/>
+    </sys_atf_step>
+    <sys_variable_value action="delete_multiple" query="document_key=c0d3e733db46ac1059ac6e25ca961949"/>
+</record_update>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_search_source">
+    <sp_search_source action="INSERT_OR_UPDATE">
+        <advanced_typeahead_config>true</advanced_typeahead_config>
+        <condition table="u_gdep_tile">u_urlISNOTEMPTY^EQ<item endquery="false" field="u_url" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </condition>
+        <data_fetch_script><![CDATA[(function(query) {
+  var results = [];
+  var grQL = new GlideRecord('u_gdep_tile');
+		grQL.addEncodedQuery('u_urlISNOTEMPTY^u_titleLIKE'+query+'^ORu_short_descriptionLIKE'+query+'');
+		grQL.query();
+		while (grQL.next()) {
+			var link = {};
+			link.type = "quicklink";			
+			$sp.getRecordDisplayValues(link, grQL, 'u_title,u_short_description,u_image,u_url,sys_id');
+			link.label = link.u_title;
+			link.url = link.u_url;
+			link.text = link.u_short_description;
+			link.image = link.u_image;
+			results.push(link);
+		}
+  
+  return results;
+})(query);]]></data_fetch_script>
+        <display_fields>u_title</display_fields>
+        <enable_typeahead>true</enable_typeahead>
+        <facet_generation_script><![CDATA[(function(query, facetService, searchResults) {
+	/* Calculate your facets here using facetService */
+	/* var stateFacet = facetService.createFacet('State', 'state'); */
+	/* stateFacet.addFacetItem('Facet Item Label', '123'); */
+
+})(query, facetService, searchResults);]]></facet_generation_script>
+        <id>quicklinks</id>
+        <is_scripted_source>true</is_scripted_source>
+        <name>Quick Links</name>
+        <page/>
+        <pagination_supported>true</pagination_supported>
+        <primary_display_field>u_title</primary_display_field>
+        <roles>snc_internal</roles>
+        <search_page_template><![CDATA[<div>
+  <a href="{{item.u_url}}" target="_blank" class="h4 text-primary m-b-sm block">
+    <i class='ta-icon fa fa-external-link'></i>
+    {{item.u_title}}
+    <span ng-bind-html="highlight(item.primary, data.q)"></span>
+  </a>
+  <span class="text-muted" ng-repeat="f in item.fields">
+    <span class="m-l-xs m-r-xs" ng-if="!$first"> &middot; </span>
+    <span ng-bind-html="highlight(f.display_value, data.q)"></span>
+  </span>
+</div>]]></search_page_template>
+        <source_table>u_gdep_tile</source_table>
+        <sys_class_name>sp_search_source</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-08-26 15:48:08</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>3c24a83adb7e941059ac6e25ca9619b6</sys_id>
+        <sys_mod_count>47</sys_mod_count>
+        <sys_name>Quick Links</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_search_source_3c24a83adb7e941059ac6e25ca9619b6</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-08 05:03:49</sys_updated_on>
+        <typeahead_glyph>external-link</typeahead_glyph>
+        <typeahead_template><![CDATA[<a href={{match.model.u_url}} target="_blank"><i class='ta-icon fa fa-external-link' ng-if="::(match.model.type=='quicklink')"></i>{{match.model.label}}</a>]]></typeahead_template>
+    </sp_search_source>
+    <sys_translated_text action="delete_multiple" query="documentkey=3c24a83adb7e941059ac6e25ca9619b6"/>
+</record_update>

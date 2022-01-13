@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Quick Links Can Read" max_length="40" name="u_quick_links_can_read" sizeclass="92" type="collection">
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Can Read" mandatory="true" max_length="32" name="u_can_read" reference="user_criteria" type="reference"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Quick Link" mandatory="true" max_length="32" name="u_quick_link" reference="u_gdep_tile" reference_qual="u_urlISNOTEMPTY^EQ" reference_qual_condition="u_urlISNOTEMPTY^EQ" type="reference"/>
+        <index name="index">
+            <element name="u_can_read"/>
+        </index>
+        <index name="index2">
+            <element name="u_quick_link"/>
+        </index>
+    </element>
+</database>

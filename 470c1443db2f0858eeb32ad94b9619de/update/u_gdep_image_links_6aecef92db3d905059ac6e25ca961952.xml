@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="u_gdep_image_links">
+    <u_gdep_image_links action="INSERT_OR_UPDATE">
+        <sys_class_name>u_gdep_image_links</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-07-07 00:01:18</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>6aecef92db3d905059ac6e25ca961952</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>u_gdep_image_links_6aecef92db3d905059ac6e25ca961952</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-22 04:40:09</sys_updated_on>
+        <u_identifier>GDEP Homepage Section</u_identifier>
+        <u_image>9769d7acdb065cd0bb5a4a2813961909</u_image>
+        <u_kb_article_id/>
+        <u_link_type/>
+        <u_order>700</u_order>
+        <u_related_document_id/>
+        <u_related_sysid>bc789009dbca909459ac6e25ca961997</u_related_sysid>
+        <u_short_description>Performance reviews and goal tracking</u_short_description>
+        <u_title>Performance Management</u_title>
+        <u_url>?id=gdep_performance_mgmt&amp;sys_id=dfb0bce5dbff4010bb5a4a281396197c&amp;kb_category=bc789009dbca909459ac6e25ca961997&amp;spa=1</u_url>
+    </u_gdep_image_links>
+</record_update>

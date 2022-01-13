@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>color</field_list>
+        <has_preview>false</has_preview>
+        <id>gdep_hrm_catalog_item</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP HRM Catalog Item</name>
+        <option_schema>[{"name":"show_add_cart_button","section":"other","label":"Show Add Cart Button","type":"boolean"},{"hint":"If you turn on this, you will be able to see field validation messages on right side","name":"show_field_validation_messages","default_value":"true","section":"other","label":"Show field validation messages","type":"boolean"},{"hint":"Show Add/Update Wish List buttons","name":"show_add_to_wishlist_button","default_value":"true","section":"other","label":"Show Add/Update Wish List buttons","type":"boolean"},{"hint":"Order item section on top. If you uncheck this, order section will be displayed at bottom of screen","name":"display_cart_on_right","default_value":"true","section":"other","label":"Order Item Section On Top","type":"boolean"},{"hint":"Show item description in few words with an option to read more","name":"show_less_description","default_value":"true","section":"other","label":"Enable Show More/Less for Item description on Mobile","type":"boolean"},{"hint":"Hide the Delivery Time in the widget","name":"hide_delivery_time","section":"other","default_value":"false","label":"Hide Delivery Time","type":"boolean"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	var p = {};
+	p=options;
+	var sys_id= $sp.getParameter('sys_id');
+  sys_id = gs.nil(sys_id) ? "" : sys_id;
+	
+	var isPluginActive = new GlidePluginManager().isActive('com.sn_hr_core');
+	
+	if (isPluginActive && isHRCatalogItem(sys_id)) // redirect to HR ticket page if catalog item is of HR
+			p.page = options.hr_page;
+	
+	data.catalogItem = $sp.getWidget("gdep_sc_catalog_item",p);
+
+	function isHRCatalogItem(catalogItemId){
+		var table_extensions = sn_hr_core.hr.TABLE_CASE_EXTENSIONS;
+		var gr = new GlideRecord('sc_cat_item_producer');
+		if (catalogItemId != "" && gr.get('sys_id', catalogItemId)) {
+			var tableName = gr.getValue('table_name');
+			if (table_extensions.indexOf(tableName) != -1)
+           return true;
+		}
+		return false;
+	}
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-04-26 19:54:22</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>29e7f841dbbb2010bb5a4a2813961991</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>GDEP HRM Catalog Item</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_29e7f841dbbb2010bb5a4a2813961991</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-04-26 19:56:01</sys_updated_on>
+        <template><![CDATA[<div>
+	<sp-widget widget="data.catalogItem"></sp-widget>
+</div>]]></template>
+    </sp_widget>
+</record_update>

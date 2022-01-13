@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="GDEP Case ticket info">e33140b1dbaadc9059ac6e25ca961931</child>
+        <cloned>2020-08-11 00:21:23</cloned>
+        <last_validated>2020-08-11 00:21:23</last_validated>
+        <parent display_value="HRM Case ticket info">690e1f4a233033007e45ff5e17bf65b6</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function hrmCaseInfoController($scope, $http, spUtil, $timeout, spModal, i18n, $window) {
+	var c = this;
+
+	$scope.firstLoad = true;
+	
+	var MOBILE_DEVICE_SCREEN_WIDTH = 767;
+	$scope.mobileDevice = c.data.isMobile || ($window.innerWidth &lt; MOBILE_DEVICE_SCREEN_WIDTH);
+	$scope.moreInfoCollapsed = true;
+
+	$scope.$on('activitySetSelected', function(name, options) {
+		if (options == null || !options.clickActivitySetFromMobile || options.uncheckViewAllToDosFromMobile) 
+			 return;
+		
+		$scope.toggleShowHeader();
+    });
+	
+	$scope.$on('sn_hr_sp.navigateToActivitySetList', function(name, options) {    
+		$scope.toggleShowHeader();
+    });
+	
+	$scope.toggleShowHeader = function() {
+		c.data.showHeader = !c.data.showHeader;
+	};
+	
+	$scope.loadData = function(callback) {		
+		var input = {action:"loadData",
+					 isSummary:c.data.isSummary,
+					 parentCaseId:c.data.parentCaseId};
+		$scope.server.get(input).then(function(resp){
+			$scope.data = resp.data;
+			callback();
+		});
+	};
+
+	//Record watcher 
+	spUtil.recordWatch($scope, "task", 'sys_id=' + $scope.data.parentCaseId, function(name) {
+		if (name.data.changes.length &gt; 0 || name.data.operation == "delete")
+			$scope.loadData(init);
+	});
+	
+	spUtil.recordWatch($scope, "sysapproval_approver", "sysapproval=" + $scope.data.parentCaseId, function(name) {
+		if (name.data.changes.length &gt; 0 || name.data.operation == "delete")
+			$scope.loadData(init); 
+	});
+	
+	$scope.cancelCase = function() {
+		var confirmMsg = $scope.data.i18n.cancelMsgNoChildren;
+		$http.get('/api/sn_hr_core/utils/getGlideRecord?sysparm_name=getGlideRecordSecureSetData&amp;sysparm_tableName=sn_hr_core_case&amp;sysparm_query=active=true^stateNOT IN1,3,4,7^parent=' + $scope.data.parentCaseId).then(function(response) {
+				if (response.data &amp;&amp; JSON.parse(response.data.result).length &gt; 0)
+					confirmMsg = $scope.data.i18n.cancelMsgOpenChildren;
+								
+					spModal.confirm(confirmMsg).then(function() {
+						$scope.data.action = 'cancelCase';
+						$scope.server.update(init);
+					});
+			});
+	};
+
+	$scope.updateListFields = function(fieldName, list) {
+		$scope.data.action = 'updateListFields';
+		$scope.data.updateListFields.fieldName = fieldName;
+		var fieldValues = [];
+		for (var i = 0; i &lt; list.length; i++) {
+			fieldValues.push(list[i].id + '');
+		}
+		$scope.data.updateListFields.fieldValue = fieldValues;
+		$scope.server.update(init);
+	};
+
+	function init (setFirstload) {
+		if (setFirstload)
+			$scope.firstLoad = false;
+		
+		if(!c.data.isSummary) {
+			$timeout(function() {
+				$rootScope.$broadcast('sp.update.breadcrumbs', $scope.data.breadcrumbs);
+			});
+		}
+	}
+
+	if (c.data.async)
+		$scope.loadData(init);
+
+	$scope.$on('sn_hr_sp.filterCountUpdate', function(event, taskInfo) {
+		if (taskInfo == null || !$scope.firstLoad)
+			return;
+
+		$scope.data.hasTask = false;
+
+		for (var pane in taskInfo.pane_filter) {
+			if (taskInfo.pane_filter[pane] &gt; 0) {
+				$scope.data.hasTask = true;
+				break;
+			}
+		}
+		init(true);
+	});
+
+
+	$(document).ready(function() {	
+		if ($scope.firstLoad){
+			init(false);
+		}
+	});
+	
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;$color-dark:#666666 !default;
+$color-darker:#4a4a4a;
+$color-darkest: #2E2E2E !default;
+$border: #e6e8ea;
+$color-lightest: #FFFFFF !default;
+$color-red: #f95050;
+$color-blue: #0a66c7;
+
+/* Scroll on attachment and conversation body */
+.basePanelClass {
+  .panel-body {
+    width: 100%;
+  }
+  .panel-heading {
+    .panel-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.tab-list {
+	padding: 0;
+  background:none!important;
+}
+
+.attachment {
+	@extend .basePanelClass;
+}
+
+ul &amp;gt;li.header-sub-components {
+  font-size: 1.4rem;
+  padding-right:15px;
+  
+  .hide-heading {
+  	.panel-heading {
+  		display: none;
+ 		}
+  }
+  .popover-content{
+    height: 350px;
+    max-height: 350px;
+   	overflow-y:auto;
+    width: 350px;
+  }
+  
+  .close {
+    position: absolute;
+    right: 8px;
+    top: 0px;
+    font-size: 1.8rem;
+    z-index: 999;
+  }
+}
+
+/* Align the conversation to left */
+ul.timeline &amp;gt; li &amp;gt; .timeline-panel:after {
+  right: auto;
+  left: -14px;
+  border-right-width: 14px;
+  border-left-width: 0;
+}
+
+ul.timeline &amp;gt; li &amp;gt; .timeline-avatar, ul.timeline &amp;gt; li &amp;gt; .timeline-badge {
+  top: 16px;
+  left: 15px;
+  margin-left: 0;
+}
+
+ul.timeline:before {
+  left: 40px;
+  right: inherit;
+}
+
+ul.timeline &amp;gt; li &amp;gt; .timeline-avatar, ul.timeline &amp;gt; li &amp;gt; .timeline-badge {
+  top: 16px;
+  left: 15px;
+  margin-left: 0;
+}
+
+ul.timeline &amp;gt; li &amp;gt; .timeline-panel {
+  width: calc(100% - 90px);
+}
+
+ul#case-title-footer-left {
+  margin-left: -15px;
+  margin-bottom: 12px;
+  padding-left: 0;
+  li {
+    display:inline;
+  }
+}
+
+.timeline &amp;gt; li.timeline-item &amp;gt; .timeline-panel:before {
+  right: auto;
+  left: -15px;
+  border-right-width: 15px;
+  border-left-width: 0;
+}
+
+.timeline &amp;gt; li.timeline-item &amp;gt; .timeline-panel:after {
+  right: auto;
+  left: -14px;
+  border-right-width: 14px;
+  border-left-width: 0;
+}
+
+.timeline &amp;gt; li.timeline-item &amp;gt; .timeline-panel {
+  float: right;
+}
+
+//to correct 10px padding left on all media-body under id=""
+.media-body {
+  padding-left: 0px;
+}
+
+.tab-header {
+  font-size: 1.6rem;
+
+  padding: 2px 0 0 15px;
+}
+
+#attachment_add {
+  font-size: 1.3rem;
+}
+
+.header-info{
+  margin-left: 8px;
+	color : $color-dark;
+   .case-number {
+    font-size: 1.6rem;
+    padding-right:10px;
+  }
+}
+
+.info {
+  color: $color-darkest;
+  margin: 0px 15px 0 15px;
+}
+
+.info.info-top {
+	margin-top: 15px;
+}
+
+.info-split {
+  border-bottom: 1px solid $border;
+}
+
+dl.caseDescriptor {
+  margin: 15px 0 15px -15px;
+}
+
+.custom-header-configurations {
+  margin-top: 35px;
+  margin-bottom: 35px;
+}
+
+@media (min-width : 320px) and (max-width : 767px) {
+  .caseInfo .history .panel-body {
+    min-height: 100px;
+  }
+  .caseInfo .approval .panel-body {
+    min-height: 100px;
+  }
+  .caseInfo .description .panel-body {
+    min-height: 100px;
+  }
+  .caseInfo .chat .panel-body {
+    min-height: 100px;
+  }
+  dl .col-xs-6 {
+    margin-bottom: 15px; 
+  }
+  #case-title-footer-left {
+    margin-top: -5px;
+  }
+}
+
+
+.panel-button .glyphicon {
+  font-size: 1.3rem;
+  padding-top: 5px;
+}
+
+h1.case-title {
+  font-size: 2.2rem;
+  line-height:1.2;
+}
+
+h1.case-mobile-title {
+	margin-top: 10px !important;
+}
+
+.formatDesc {
+  background-color: inherit;
+  border: 0px;
+  color: $primary;
+  display: block;
+  font-family: inherit;
+  font-size: inherit;
+  margin-left: 40px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding-top : -5px;
+  padding-left: 2px;
+}
+
+/* Remove attachment button from conversation */
+.ticket_conversation .file-upload-input {
+  display: none;
+}
+
+.header-label {
+  margin-left: 10px;
+  padding-top: -5px;
+  padding-left: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: block;
+  margin-bottom: 0px;
+}
+
+.avatar {
+  margin-top: 2px;
+}
+
+.formatText {
+  	margin-left : 8px;
+  	padding-left: 10px;
+  	color: $color-darker
+}
+
+
+.formatLabels {
+  margin-left : 0px !important;
+  padding-left : 0px !important;
+}
+
+
+.hidePopOver {
+  display : none ;
+}
+
+.close {
+  float: right;
+  font-weight: bold;
+  line-height: 1;
+  color: $color-darkest;
+  text-shadow: 0 1px 0 $color-lightest;
+  opacity: .2; 
+  position: absolute;
+  right: 8px;
+  top: 3px;
+  font-size: 1.1rem;
+  padding: 10px;
+}
+
+.popover {
+    max-width: inherit;
+    background : $color-lightest;
+    border : none;
+}
+
+.popup-edit {
+  width : 100% !important;  
+  margin-top : 50px;
+}
+
+.popover-title {
+	background: $color-lightest;
+}
+
+.popover.bottom &amp;gt; .arrow {
+  left : 25%;
+  border: none;
+  background: $color-lightest;
+}
+
+.user-info {
+  font-size: 0.8rem;
+  display: block;
+}
+
+.info-row {
+  margin:20px 0;
+}
+
+.team-info {
+  max-height: 250px;
+  overflow-y: auto; 
+  overflow-x: hidden;
+  margin: 0 -15px;
+}
+
+.button-container {
+ 	margin : 10px 0 0 0; 
+} 
+
+.button-align {
+  margin-right : 2px;
+}
+
+.format-avatar-label {
+  	margin-left :auto;
+	padding-left : 10px !important;
+}
+
+@media (max-width:425px) {
+
+  dl.caseDescriptor {
+    margin: 0 0 0 -15px;
+  }
+
+  .col-xs-12.text-right {
+    text-align: left;
+    padding: 10px 15px;
+  }
+  .popup-edit {
+    position:fixed;
+    top:0;
+    width:96%;
+    margin:5px 2%;
+    height:95%;
+  }
+  .arrow {
+    display:none;
+  }
+
+  .button-container {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+  }
+  .team-info {
+    max-height: calc(73vh - 50px);
+    overflow: scroll; 
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width : 768px) {
+    dl.caseDescriptor {
+    margin: 0 0 0 -15px;
+  }
+}
+
+@media (min-width : 768px) and (max-width : 1366px) {
+  .popup-edit {
+    left : -150px;
+    width : 279px; 
+  }
+  .popover.bottom &amp;gt; .arrow {
+    left: 80%;
+  }
+}
+
+.upArrow{
+  color:$color-red;
+
+}
+
+.downArrow{
+  color:$color-blue;
+}
+
+.info-tabs{
+  padding: 0px;
+  margin-left: 1px;
+}
+
+.info-tabs.info-tabs-bottom{
+  margin-bottom: 10px;
+}
+
+.info-tabs.todo-info-tabs {
+  margin-top: 2px;
+}
+
+.todo-case-padder {
+  margin-top: 15px;
+  margin-bottom: 34px;
+}
+
+.custom-information {
+    padding-left: 0px;
+    margin-bottom: 10px;
+    margin-top: -5px;
+    font-size: 1.6rem;
+}
+
+.collapse-margin {
+	margin-left: 5px;
+  	font-size: 1.4rem;
+}
+
+.todo-case-more-info {
+	list-style: none;
+  	padding-left: 15px;
+  	margin-left: -15px;
+  	.format-avatar-label {
+    	padding-left: 10px;
+    }
+}
+
+.ticket-description {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  border: 1px solid #e6e8ea;
+  border-radius: 4px !important;
+  border-color: #E6E8EB;
+  border-bottom: none;
+  box-shadow: 0 1px 1px #b3b3b3;
+  min-height: calc(100vh - 260px);
+  margin: 0px -8px 0px -8px;
+}
+
+.ticket-details {
+  text-align:center;
+}
+
+[tabindex]:focus {
+    outline: none;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;hrm-case-ticket-info&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;HRM Case ticket info&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+	data.isMobile = gs.isMobile();
+	data.showHeader = true;
+	
+	data.s2InputShort = gs.getMessage("Please enter {0} or more characters");
+	var grCase = new GlideRecord('sn_hr_core_case');
+	data.updateListFields = {fieldName : "", fieldValue : []};
+
+	if (input &amp;&amp; input.parentCaseId)
+		data.parentCaseId = input.parentCaseId;
+	else
+		data.parentCaseId = options.sys_id || hr_PortalUtilCore.getParentFromUrl($sp.getParameter("sys_id"), $sp.getParameter("table"));
+	
+	if (input &amp;&amp; input.isSummary)
+		data.isSummary = input.isSummary;
+	else
+		data.isSummary = options.isSummary? options.isSummary : false;
+	
+	if (input &amp;&amp; input.action == 'cancelCase') {
+		grCase.get(data.parentCaseId);
+		grCase.state = 7;
+		grCase.update();
+	}
+	
+	if (input &amp;&amp; input.action == 'updateListFields') {
+		grCase.get(data.parentCaseId);
+		var name = input.updateListFields.fieldName;
+		var values = String(input.updateListFields.fieldValue);
+		if (name) {
+			grCase.setValue(name, values);
+			grCase.update();
+		}
+	}
+	
+	data.async = true;
+	if (data.async &amp;&amp; (!input || input.action != "loadData"))
+		return;
+	
+	if (input &amp;&amp; !gs.nil(input.isOpen))
+		data.isOpen = input.isOpen; 
+		
+	if (grCase.get(data.parentCaseId)) {
+		var util = new hr_PortalUtilCore(grCase);
+		
+		data.caseTitle = util.getCaseTitle();
+		data.openForView = util.isOpenedForView();
+		data.isApprovalRequired = util.isApprovalRequired(data.parentCaseId, gs.getUserID());
+		data.lastUpdatedOn = String(grCase.sys_updated_on);
+		data.caseNumber = String(grCase.number);
+		data.state = grCase.getDisplayValue('state');
+		data.transferredTo = String(grCase.transferred_to);
+		data.transferredToDisplayValue = grCase.transferred_to ? grCase.transferred_to.getDisplayValue() : '';
+		data.isHRCase = new sn_hr_core.hr_CoreUtils().isCase(grCase.transferred_to.sys_class_name);
+		data.transferredToUrl = "?id="+$sp.getParameter('id') + '&amp;sys_id=' + data.transferredTo;
+		data.breadcrumbs =[{label: data.caseTitle, url: '#'}];
+		
+		if (data.openForView || data.isApprovalRequired) {
+			
+			//Setting up case info - For OpenedFor Users View
+			data.shortDescription = grCase.getDisplayValue('short_description');
+			data.subjectPerson = grCase.getDisplayValue('subject_person');
+			data.openedForPerson = grCase.getDisplayValue('opened_for');
+			data.assignedTo = grCase.getDisplayValue('assigned_to');
+			data.subjectPersonId = getProfileLink(String(grCase.subject_person));
+			data.assignedToId = getProfileLink(String(grCase.assigned_to));
+			data.openedForId = getProfileLink(String(grCase.opened_for));
+			data.due = getDateLabel(grCase.getDisplayValue('due_date'));
+			data.isCaseCancellable = checkCaseCancellable(grCase);
+
+
+			data.infoTabs = $sp.getWidget('hrm-tabs-ticket-info', {
+				sys_id : grCase.getUniqueValue(),
+				isParentCase: true,
+				isSummary: data.isSummary
+			});
+		} 
+	} else {
+			var task = new GlideRecord('task');
+			if (task.get(data.parentCaseId))
+				data.breadcrumbs =[{label: String(task.number), url: '#'}];
+	}
+		
+	function getProfileLink(user){
+		var link = user == gs.getUserID() ? '?id=hri_user_profile&amp;sys_id=' : '?id=user_profile&amp;sys_id=';
+		return link + user;
+	}
+	
+	function getDateLabel(date) {
+		var gd = new GlideDate(); 
+		gd.setValue(date);
+		return gd.getDisplayValue();
+	}
+	
+	function checkCaseCancellable(hrCase) {
+		if (!hrCase.active || !data.openForView)
+			return false;
+		
+		var caseOptions = hrCase.hr_service.case_options;
+		var optionsGr = new GlideRecord('sn_hr_core_service_option');
+		optionsGr.get('value', 'UserCannotCancel');
+		if (!gs.nil(caseOptions) &amp;&amp; caseOptions.indexOf(String(optionsGr.sys_id)) &gt; -1)
+				return false;
+		
+		return true;
+	}
+
+	data.i18n = {};
+	data.i18n.cancelMsgNoChildren = gs.getMessage('Are you sure you want to cancel this case?');
+	data.i18n.cancelMsgOpenChildren = gs.getMessage('Are you sure you want to cancel this case? Canceling this case will also close child cases.');
+	
+	})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2019-04-15 18:52:16&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;690e1f4a233033007e45ff5e17bf65b6&lt;/sys_id&gt;&lt;sys_mod_count&gt;142&lt;/sys_mod_count&gt;&lt;sys_name&gt;HRM Case ticket info&lt;/sys_name&gt;&lt;sys_package display_value="Human Resources: Core" source="sn_hr_core"&gt;d4ac3fff5b311200a4656ede91f91af2&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Human Resources: Core"&gt;d4ac3fff5b311200a4656ede91f91af2&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_690e1f4a233033007e45ff5e17bf65b6&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2019-05-29 23:01:07&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[
+&lt;div id="case_info_{{data.caseNumber}}" ng-if="data.caseTitle &amp;&amp; data.showHeader" class="panel-title info caseInfo" ng-class="{'info-top': !data.isSummary &amp;&amp; !mobileDevice}"&gt;
+  &lt;i alt="{{data.caseTitle}}" aria-hidden="true" ng-if="!data.isSummary"&gt;&lt;/i&gt;
+	&lt;div class="row" ng-if="!data.isSummary"&gt;
+		&lt;div&gt;
+			&lt;h1 class="case-title" ng-class="{'case-mobile-title' : mobileDevice}"&gt;
+            {{data.caseTitle}}
+		 &lt;/h1&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class="row" ng-class="{'info-split':!mobileDevice}"&gt;
+		&lt;!--Left side elements - Case Number, state, updated and Cancel Request--&gt;
+		&lt;div class="col-sm-6 header-info" ng-if="!data.isSummary"&gt;
+			&lt;ul id="case-title-footer-left"&gt;
+				&lt;li class="case-number" ng-class="{'row col-xs-12':mobileDevice}"&gt;
+                  ${{{data.caseNumber}}}
+               &lt;/li&gt;
+				&lt;li class="header-sub-components state"&gt;
+                  {{data.state}}
+                  
+					&lt;span ng-show="data.transferredTo"&gt; - ${Transferred to}
+                  
+						&lt;span ng-if="data.isHRCase"&gt;
+							&lt;a href="{{data.transferredToUrl}}" target="_blank"&gt;{{data.transferredToDisplayValue}}&lt;/a&gt;
+						&lt;/span&gt;
+						&lt;span ng-if="!data.isHRCase"&gt;
+                  {{data.transferredToDisplayValue}}
+                  &lt;/span&gt;
+					&lt;/span&gt;
+				&lt;/li&gt;
+				&lt;li class="header-sub-components updated"&gt;
+                  ${uppercase_updated}
+                  
+					&lt;sn-time-ago timestamp="data.lastUpdatedOn" /&gt;
+				&lt;/li&gt;
+ &lt;li ng-if="data.isCaseCancellable" class="header-sub-components cancel-request"&gt;
+					&lt;a href="javascript:void(0)" class="link" ng-click="$event.stopPropagation();cancelCase()"&gt;      
+                  ${Cancel Request}
+                  &lt;/a&gt;
+				&lt;/li&gt;       
+			&lt;/ul&gt;
+		&lt;/div&gt;
+		&lt;!--Next div elements - Details, Approvers, Attachments, History and Chat --&gt;
+		&lt;div ng-if="data.infoTabs" class="col-sm-12 info-tabs" ng-class="{'info-tabs-bottom': !data.isSummary, 'todo-info-tabs': data.isSummary}"&gt;
+			&lt;sp-widget widget="data.infoTabs"&gt;&lt;/sp-widget&gt;
+		&lt;/div&gt;
+      	&lt;div ng-if="!data.infoTabs &amp;&amp; data.isSummary &amp;&amp; !mobileDevice" class="todo-case-padder"&gt;&lt;/div&gt; 
+	&lt;/div&gt;
+	&lt;div class="ticket-description"&gt; 
+		&lt;div class="ticket-details"&gt;
+				${{{data.caseNumber}}}
+				&lt;br /&gt;
+				{{data.state}}
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+
+]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-11 00:21:23</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>6f3140b1dbaadc9059ac6e25ca961933</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>e33140b1dbaadc9059ac6e25ca961931</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_6f3140b1dbaadc9059ac6e25ca961933</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-11 00:21:23</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

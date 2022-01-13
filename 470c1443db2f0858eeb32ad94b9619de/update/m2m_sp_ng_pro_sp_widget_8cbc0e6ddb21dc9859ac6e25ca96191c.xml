@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_ng_pro_sp_widget">
+    <m2m_sp_ng_pro_sp_widget action="INSERT_OR_UPDATE">
+        <sp_angular_provider display_value="spDropdownTreeTemplateBB">da8c82e9db21dc9859ac6e25ca961990</sp_angular_provider>
+        <sp_widget display_value="GDEP Brand Bar">2cca8629dbed9c9859ac6e25ca961920</sp_widget>
+        <sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-06-21 22:49:21</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>8cbc0e6ddb21dc9859ac6e25ca96191c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>spDropdownTreeTemplateBB.GDEP Brand Bar</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_8cbc0e6ddb21dc9859ac6e25ca96191c</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-06-21 22:49:21</sys_updated_on>
+    </m2m_sp_ng_pro_sp_widget>
+</record_update>

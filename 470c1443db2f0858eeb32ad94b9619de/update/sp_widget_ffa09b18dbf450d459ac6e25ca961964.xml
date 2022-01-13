@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($location) {
+  var c = this;
+
+	//Page Overrides
+	var urlParms = $location.search();
+	if(urlParms.id == "gdep_forms"){
+		c.cardDisplay = "col-md-3";
+	}
+	
+	if(urlParms.id == "gdep_quick_links"){
+		c.cardDisplay = "col-md-3";
+	}
+	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>@font-face {
+    font-family: 'Boing';
+    src: url('//img1.wsimg-com.ide/ux/fonts/1.3/eot/Boing-Bold.eot?#iefix') format('embedded-opentype'),
+    url('//img1.wsimg-com.ide/ux/fonts/1.3/woff2/Boing-Bold.woff2') format('woff2'),
+    url('//img1.wsimg-com.ide/ux/fonts/1.3/woff/Boing-Bold.woff') format('woff'),
+    url('//img1.wsimg-com.ide/ux/fonts/1.3/ttf/Boing-Bold.ttf') format('truetype');
+    font-weight: 400 !important;
+    font-style: normal;
+}
+
+
+            .box-container {
+                background-color: #FFF /*rgb(244, 244, 244);*/
+                padding: 0em;
+                text-align: center;
+                height: 100%;
+            }
+
+body {
+  /*
+    color: #2B2B2B;
+    font: 20px Boing-Bold, Arial, sans-seriff;
+    padding-top: 150px;
+    background-color: #F3F3F3 !important;
+  */
+    color: #5e5e5e;
+    font: 13px "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+nav {
+    font: 25px Boing-Bold, Arial, sans-serif;
+}
+
+.jumbotron {
+    background-color: $godaddyBlue !important;
+    color: $godaddyBlue !important;
+    padding: 0 10% 0 10%;
+}
+
+.jumbotron a, .jumbotron a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar {
+    background-color: #2B2B2B;
+}
+
+.jumbotron img {
+    max-width: 100px;
+}
+
+.breadCrumb {
+    color: #2B2B2B;
+}
+
+.ui-notification {
+    width: 400px;
+}
+
+.ui-notification.clickable:hover {
+    opacity: 1.0;
+}
+
+.ui-notification a:hover {
+    color: $godaddyBlue !important;
+}
+
+.ui-notification img {
+    max-width: 100px;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background-color: $godaddyBlue !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: $godaddyBlue !important;
+    text-decoration: none;
+}
+
+h2 {
+    color: $godaddyBlue !important;
+}
+
+
+    .banner{
+        background-color: #111116; 
+        color: #ffffff; 
+        border: 0px; 
+        margin-bottom: 0px;
+        padding: 50px 40px;
+        margin: 0;
+    }
+
+    .banner-title{
+        font-size: 36pt; 
+        font-family: 'arial black', arial, helvetica, sans-serif; 
+        font-weight: 900; 
+        color: #ffffff; 
+        line-height: 1;
+        padding-bottom: 30px;
+    }
+
+    .banner-caption{
+        font-family: arial, 
+        helvetica, 
+        sans-serif; 
+        font-size: 14px; 
+        line-height: 1.4;
+    }
+
+
+
+/*medium screen*/
+@media (max-width: 991px){
+    .tile{
+        width: 100%;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 30px 10px 10px 10px;    
+    }
+
+    .tile-link{
+        height: 100%;
+        width: 100%;
+        cursor: hand;
+    }
+
+    .tile-button{
+        font-size: 12px;
+        float: right;
+        color: black;
+    }
+
+    .tile-title{
+        font-size: 20px; 
+        padding-bottom: 5px;
+    }
+
+    .tile-image{
+        max-width: 130px !important;
+    }
+    
+    .tile-caption{
+        font-size: 16px; 
+        padding-bottom: 15px;
+    }
+
+    .tile-chevron{
+        float: right;
+        right: 20px;
+        color: black;
+        font-size: 18px;
+    }
+}
+
+/*small screen*/
+@media (max-width: 767px){
+
+    .tile{
+        padding: 30px 10px 10px 10px;    
+    }
+
+    .tile-chevron{
+        right: 20px;
+        font-size: 18px;
+    }
+
+    .row {
+        margin-left: -15px;
+    }
+}
+
+/*x-small screen*/
+@media (max-width: 543px){
+     .tile{     
+        padding: 10px 0px;    
+    }
+
+    .tile-title{
+        font-size: 18px; 
+        padding-bottom: 5px;
+    }
+
+    .tile-image{
+        max-width: 90px !important;
+    }
+    
+    .tile-caption{
+        font-size: 14px; 
+        padding-bottom: 15px;
+    }
+
+    .tile-chevron{
+        right: 5px;
+        font-size: 18px;
+    }
+  
+    .row {
+        margin-left: -20px;
+    }
+}
+
+
+/*large screen*/
+@media (min-width: 992px){
+    .tile{
+        width: 100%; 
+        padding: 20px 50px 20px 50px; 
+        border-right: 1px solid #e8e8e8;
+        margin-bottom: 50px;
+    }
+
+    .tile-button{
+        font-size: 15px;
+        color: black;
+    }
+
+    .tile-title{
+        font-size: 28px; 
+        padding-bottom: 25px;
+        /*height: 120px;*/
+    }
+
+    .tile-image{
+        width: 130px !important; 
+        height: 100px !important; 
+        margin: 30px 0px 10px 0px; 
+        max-width: 130px !important;
+    }
+    
+    .tile-caption{
+        font-size: 16px; 
+        padding-bottom: 25px;
+    }
+}
+    
+    a.tile-link:hover .tile-title {
+        color: #02C54C;
+        text-decoration: none;    
+    }
+
+    .tile{
+        background-color: #ffffff; 
+        color: #000000; 
+    }
+
+    .tile-button{
+        background-color: black; 
+        color: #ffffff; 
+        padding: 10px 20px; 
+        font-family: 'arial black', arial, helvetica, sans-serif; 
+        border-radius: 3px;
+    }
+
+    .tile-button{
+        text-decoration: $godaddyBlue !important;        
+    }
+
+    .tile-button:hover{
+        text-decoration: none !important;
+        color: #ffffff !important;
+        background: $godaddyBlue !important;
+    }
+
+    .tile-title{
+        color: #000000; 
+        font-family: 'arial black', arial, helvetica, sans-serif; 
+        line-height: 1;
+    }
+    
+    .tile-caption{
+        color: #000000; 
+        font-family: Impact, helvetica, sans-serif; 
+        line-height: 1;
+    }
+
+    .green{
+        color: $godaddyBlue !important; 
+    }
+
+
+    a:focus, a:hover {
+        color: $godaddyBlue !important;
+        text-decoration: none !important;
+    }
+
+    .img-responsive{
+        max-width: 140px;
+    }
+
+
+.box-link,
+.box-link:hover,
+.box-link:visited{
+  text-decoration: none;
+  color: black !important;
+}
+
+
+/* original css
+
+h2 { color: inherit !important;}
+a { text-decoration: none; }
+img{ width:1.5in ;height:1in ;}
+a:hover {border-color: $godaddyBlue !important;color: $godaddyBlue !important;}
+div:hover{border-color: $godaddyBlue !important; text-decoration: none;}
+div:active{border-color: $godaddyBlue !important; text-decoration: none;}
+
+
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+}
+
+
+
+.cta-wrapper{ position: relative; display: grid; width: 500px;height: 150px;padding-left:10px;padding-right:10px;}
+.tile-column-left {float: left; width: 40%;padding:none;}
+.tile-column-right {float: left;width: 60%;}
+.tile-row-categories { height: 132px}
+.tile-row-categories:after {content: "";display: table;clear: both;}
+.tile-title{font-family: $boldFont;font-size:$base-font-size*1.4;}
+.tile-description{font-family: $mediumFont;color: #000000 !important;font-size:$base-font-size*1.2;}
+
+
+*/
+
+
+
+
+
+
+
+
+</css>
+        <data_table>u_gdep_instance_tiles</data_table>
+        <demo_data/>
+        <description>GDEP Tiles for the user to click on</description>
+        <docs/>
+        <field_list>sp_widget,title,class_name,widget_parameters</field_list>
+        <has_preview>false</has_preview>
+        <id>gdep_tiles</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Tiles</name>
+        <option_schema>[{"name":"template","section":"other","default_value":"Buttons","label":"Template","type":"choice","choices":[{"label":"Cards","value":"Cards"},{"label":"Buttons","value":"Buttons"},{"label":"Buttons with Images","value":"Buttons with Images"},{"label":"ImageLinks","value":"ImageLinks"},{"label":"Tiles","value":"Tiles"}]},{"hint":"Bootstrap class: block, inline","name":"display","section":"other","label":"Display","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function () {
+	
+	var helper = new gdepTilesHelper();
+	data.items = helper.getTilesForInstance($sp.getInstanceRecord().getUniqueValue());
+	
+	/*data.items = [];
+
+	var gr = new GlideRecord('u_gdep_tile');
+	gr.addQuery('u_widget_instance', $sp.getInstanceRecord().getUniqueValue());
+	gr.orderBy('u_order');
+	gr.query();
+
+	while (gr.next()) {		
+		var item = {};
+		item.title = gr.getValue('u_title');
+		item.short_description = gr.getValue('u_short_description');
+		item.image = gr.getDisplayValue('u_image');
+		gr.getValue('u_url');
+		
+		var grPage = GlideRecord('sp_page');
+		grPage.get(gr.getValue('u_page'));
+		item.url = "?id=" + grPage.getValue('sys_name');
+		
+		if(gr.getValue('u_url')){
+			item.url = gr.getValue('u_url');
+		}
+		else if (gr.getValue("u_type") == "u_sc_category") {
+			//User criteria check SC Categories
+			var categoryJS = new sn_sc.CatCategory(gr.getValue("u_sc_category"));
+			if (!categoryJS.canView()){
+				continue;
+			}
+			item.url += "&sc_category=" + gr.getValue("u_sc_category") + "&sys_id=" + gr.getValue("u_sc_category");
+		} else if (gr.getValue("u_type") == "u_kb_category") {
+			//User criteria check KB Categories
+			var arts = $sp.getKBCategoryArticleSummary(gr.getValue("u_kb_category"), 250, 250);
+			articleCount = arts.length;
+			if (articleCount == 0){
+				continue;
+			}
+			item.url += "&kb_category=" + gr.getValue("u_kb_category");
+		}
+
+		data.items.push(item);
+	}*/
+
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-05-11 23:46:57</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>ffa09b18dbf450d459ac6e25ca961964</sys_id>
+        <sys_mod_count>879</sys_mod_count>
+        <sys_name>GDEP Tiles</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_ffa09b18dbf450d459ac6e25ca961964</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-10-13 21:33:35</sys_updated_on>
+        <template><![CDATA[<div ng-if="data.items.length>0" class="box-container">
+    <a ng-repeat="cat in ::data.items" class="box-link" href="{{::cat.url}}">
+       <div class="box">
+           <img class="img-circle"  ng-src="{{::cat.image}}">
+           <div class="title">{{::cat.title}}</div>
+           <div class="description">{{::cat.short_description}}</div>
+       </div>
+    </a>    
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

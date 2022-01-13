@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($scope, $rootScope, $timeout, spKBCategoryService) {
+	var accessWordCountMax = 15;
+	var c = this;
+	init();
+	
+	c.getShortenText = function getShortenText(text) {
+		var wordsArray = text.split(" ");
+		if (wordsArray.length > accessWordCountMax)
+			wordsArray = wordsArray.slice(0, accessWordCountMax);
+		return wordsArray.join(" ");
+	}
+	
+	var removeListener = spKBCategoryService.addListener(function(catId) {
+		c.data.category = catId;
+		c.data.items = null;
+		c.data.limit = 10;
+		c.data.new_limit = 10;
+		c.data.finalcall = true;
+		c.server.update().then(function(){
+			init();
+		});
+	});
+	
+	function init() {
+//		$timeout(function() {
+	//		$rootScope.$broadcast('sp.update.breadcrumbs', c.data.breadcrumbs);
+		//});
+	}
+	$scope.hideItemWidget = !$scope.data.category;
+	$scope.showCategories =  function() {
+		$scope.hideItemWidget = true;
+		$rootScope.$broadcast("$sp.kb.show.categories_widget");
+	}
+	$scope.$on('$destroy', function(){
+		removeListener();
+	});
+	
+	$scope.loadMore = function () {
+		if(c.data.finalcall == false){
+			c.data.new_limit = c.data.limit + (parseInt(c.options.limit_article) || 10);
+		}
+		else{
+			c.data.new_limit = 500;
+			c.data.showMore = false;
+		}
+		c.server.update();
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.btn-loadmore {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      margin-bottom: 20px;
+    }
+    
+    .kb-star-on {
+      color: $fav-star-color !important;
+      text-shadow: $fav-star-outline;
+    }
+
+    .kb-star-off {
+      color: $fav-star-color-off !important;
+      text-shadow: $fav-star-outline;
+    }</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>color</field_list>
+        <has_preview>false</has_preview>
+        <id>gdep_category_page</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Category Page</name>
+        <option_schema>[{"name":"show_star_rating","default_value":"Use system properties","section":"Presentation","label":"Show star rating","type":"choice","choices":[{"label":"Yes","value":"Yes"},{"label":"No","value":"No"},{"label":"Use system properties","value":"Use system properties"}]},{"hint":"Number of articles to display per page","name":"limit_article","section":"other","default_value":"10","label":"Number of articles to display per page","type":"integer"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[// populate the 'data' variable
+if (input)
+	data.category = input.category;
+else
+	data.category = $sp.getParameter("kb_category");
+
+var kbIds = $sp.getKnowledgeBases();
+var kbs = kbIds.split(',');
+
+if (!data.loadmore_msg)
+	data.loadmore_msg = 'Show More Documents';
+
+//if (!data.upperlimit)
+	//data.upperlimit = $sp.getKBCategoryArticleSummaries(data.category, 500, 100);
+
+data.limit = parseInt(options.limit_article) || 10;
+
+if (input && input.new_limit){
+    data.limit = input.new_limit;
+		data.items = [];
+}
+
+var kb_cat = new GlideRecord("kb_category");
+data.categoryDisplay = gs.getMessage("Select a category");
+data.items = [];
+data.categoryExists = false;
+if (kb_cat.get(data.category)) {
+  data.categoryExists = true;
+  data.categoryDisplay = kb_cat.getDisplayValue();
+  //data.items = $sp.getKBCategoryArticleSummaries(data.category, data.limit + 1 , 100);
+	data.items = $sp.getKBCategoryArticleSummaries(data.category, data.limit, 100);
+}
+
+//var diff = data.items.length - data.limit;
+//var diff = data.upperlimit.length - data.items.length;
+//var diff = data.limit - data.items.length;
+if (data.limit == 10){
+//if (diff <= 0){
+		data.finalcall = true;
+    data.showMore = true; 
+		data.loadmore_msg = 'Show All Remaining Documents';
+}
+//else if (data.limit < 30){
+//	data.finalcall = false;
+//	data.items.splice(data.limit);
+//	data.showMore = true;
+//	data.loadmore_msg = 'Show More Documents';
+//}
+//data.show_msg = gs.getMessage("Showing {0} items", data.limit + "");
+data.show_msg = gs.getMessage("Showing {0} items ", data.items.length + "");
+
+var kbId = $sp.getParameter('kb_id');
+
+data.kbId=kbId;
+
+if (kbId) {
+	var gr = new GlideRecord("kb_knowledge_base");
+	if (gr.get(kbId))
+		data.kbName = gr.getDisplayValue("title");
+}
+
+data.kb_knowledge_page = $sp.getDisplayValue("kb_knowledge_page") || "kb_view";
+
+/*data.breadcrumbs = [{label: data.categoryDisplay, url: '#'}];
+var rec = kb_cat.parent_id.getRefRecord();
+while (rec.getRecordClassName() == "kb_category") {
+	if (kbId) 
+		data.breadcrumbs.unshift({label: rec.getDisplayValue(), url: '?id=gdep_kb_category&kb_category=' + rec.getUniqueValue() + '&kb_id='+ kbId});
+	else
+		data.breadcrumbs.unshift({label: rec.getDisplayValue(), url: '?id=gdep_kb_category&kb_category=' + rec.getUniqueValue()});
+  rec = rec.parent_id.getRefRecord();
+}
+
+if (kbs && kbs.length > 1){
+	if (kbId)
+		data.breadcrumbs.unshift({label: data.kbName, url: '?id=' + data.kb_knowledge_page + '&kb_id='+ kbId});
+
+	data.breadcrumbs.unshift({label: gs.getMessage("All Knowledge Bases"), url: '?id=' + data.kb_knowledge_page});
+}
+else
+	data.breadcrumbs.unshift({label: gs.getMessage("Knowledge Base"), url: '?id=' + data.kb_knowledge_page});
+*/
+
+data.showStarRating = showStarRating();
+
+function showStarRating() {
+	if (options.show_star_rating == "Yes")
+		return true;
+
+	if (options.show_star_rating == "No")
+		return false;
+
+	// check gating property for all rating options
+	if (gs.getProperty("glide.knowman.show_rating_options", "true") != "true")
+		return false;
+
+	// does user have the right role?
+	if (!gs.hasRole(gs.getProperty("glide.knowman.show_rating_options.roles")))
+		return false;
+
+	// check specific property for stars
+	if (gs.getProperty("glide.knowman.show_star_rating", "true") != "true")
+		return false;
+		
+	// does user have the right role?
+	return gs.hasRole(gs.getProperty("glide.knowman.show_star_rating.roles"));
+}]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-03 23:07:27</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>e03dab57db5a9c94bb5a4a281396194e</sys_id>
+        <sys_mod_count>60</sys_mod_count>
+        <sys_name>GDEP Category Page</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_e03dab57db5a9c94bb5a4a281396194e</sys_update_name>
+        <sys_updated_by>jhanson</sys_updated_by>
+        <sys_updated_on>2021-11-19 17:29:25</sys_updated_on>
+        <template><![CDATA[<div ng-class="{'hidden-xs' : hideItemWidget}">
+  <a ng-click="showCategories()" class="visible-xs m-b-sm pointer" aria-label="${All Categories}">
+     <i class="fa fa-chevron-left m-r-xs"></i> ${All Categories}
+  </a>
+  <div ng-if="data.categoryExists" class="panel panel-{{::options.color}} b">
+    <div class="panel-heading">
+      <h2 class="panel-title">{{data.categoryDisplay}}</h2>
+    </div>
+
+    <div role="list" class="panel-body">
+      <div ng-if="data.items.length == 0">
+        (${No articles})
+      </div>
+      <div role="listitem" ng-repeat="kb_article in data.items|orderBy:'title'" class="sp-kb-topic-article m-b-lg">
+          <a ng-href="?id=gdep_kb_article&sysparm_article={{::kb_article.number}}">{{::kb_article.title}}</a>
+        <div style="max-height: 3em; overflow: hidden; padding-top:4px;" aria-label="{{::c.getShortenText(kb_article.text)}}">{{::kb_article.text}}</div>
+        <div class="kb-about" style="padding-top:4px;">
+          <span class="about-outer-span">
+            <span class="author pad-right" ng-if="kb_article.author">
+              <glyph sn-char="user" class="pad-right" aria-hidden="true"/>
+              ${Authored by {{::kb_article.author}}}
+            </span>
+            <span ng-if="kb_article.sys_view_count == 1" class="views pad-right">
+              <span class="pad-right">&#8226;</span> <glyph sn-char="eye-open" class="pad-right" />
+              ${{{::kb_article.sys_view_count}} View}
+            </span>
+            <span ng-if="kb_article.sys_view_count > 1" class="views pad-right">
+              <span class="pad-right">&#8226;</span> <glyph sn-char="eye-open" class="pad-right" />
+              ${{{::kb_article.sys_view_count}} Views}
+            </span>
+            <span class="published pad-right">
+              <span class="pad-right" aria-hidden="true">&#8226;</span> <glyph sn-char="calendar" class="pad-right" aria-hidden="true" />
+              <sn-day-ago date="kb_article.published"/>
+            </span>
+            <span ng-if="data.showStarRating && kb_article.rating">
+              <span class="pad-right">&#8226;</span>
+              <span class="sr-only">Article rating - {{::kb_article.rating}}</span>
+              <uib-rating sp-rating ng-model="::kb_article.rating" max="5" readonly="true" aria-hidden="true" state-on="'fa fa-star kb-star-on'" state-off="'fa fa-star kb-star-off'" />
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="text-a-c">
+       {{data.show_msg}}
+    </div>
+  <div ng-if="data.showMore">
+    <button class="m-t-xs btn btn-default btn-loadmore" ng-click="loadMore()">
+        {{data.loadmore_msg}}
+    </button>
+  </div>
+  <div ng-if="!data.showMore">
+    &nbsp;
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

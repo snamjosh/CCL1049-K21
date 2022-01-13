@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>false</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>task_sla</collection>
+        <condition/>
+        <description>Checks to see if the location is set to override the datacenter's default schedule.  If it is then it overwrites the default value with the location value.</description>
+        <execute_function>false</execute_function>
+        <filter_condition table="task_sla">task.locationISNOTEMPTY^task.location.u_datacenter_scheduleISNOTEMPTY^task.assignment_group.nameSTARTSWITHOPS-Datacenter^ORtask.assignment_group.nameSTARTSWITHSRE-Hosting MT^EQ<item endquery="false" field="task.location" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
+            <item endquery="false" field="task.location.u_datacenter_schedule" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
+            <item endquery="false" field="task.assignment_group.name" goto="false" newquery="false" operator="STARTSWITH" or="false" value="OPS-Datacenter"/>
+            <item endquery="false" field="task.assignment_group.name" goto="false" newquery="false" operator="STARTSWITH" or="true" value="SRE-Hosting MT"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Set DC SLA Business Hours</name>
+        <order>5</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+	var grTask = new GlideRecord("task");
+	grTask.get(current.task);
+
+	var grDcLocation = new GlideRecord("cmn_location");
+	grDcLocation.get(grTask.location);
+	var dcScheduleOverride = grDcLocation.u_datacenter_schedule;
+
+	if(dcScheduleOverride && dcScheduleOverride != current.schedule){
+		current.schedule = dcScheduleOverride;
+	}
+
+	var grDcSchedule = new GlideRecord("cmn_schedule");
+	grDcSchedule.get(grDcLocation.u_datacenter_schedule);
+
+	if(grDcSchedule.time_zone && grDcSchedule.time_zone != current.timezone){
+		current.timezone = grDcSchedule.time_zone;
+	}
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-02-17 23:11:48</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_id>1678d303dbdaa818bb5a4a2813961978</sys_id>
+        <sys_mod_count>18</sys_mod_count>
+        <sys_name>Set DC SLA Business Hours</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_script_1678d303dbdaa818bb5a4a2813961978</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-02-24 05:18:02</sys_updated_on>
+        <template/>
+        <when>before</when>
+    </sys_script>
+</record_update>

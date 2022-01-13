@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="request_filter">
+    <request_filter action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_to>1</applies_to>
+        <data_item/>
+        <filter table="sn_hr_core_case_total_rewards">sys_idINjavascript:sn_hr_core.hr_caseOpenRequestFilterUtil()^EQ<item endquery="false" field="sys_id" goto="false" newquery="false" operator="IN" or="false" value="javascript:sn_hr_core.hr_caseOpenRequestFilterUtil()"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter>
+        <group/>
+        <item_stream/>
+        <last_used/>
+        <mobile>false</mobile>
+        <portal_page display_value="gdep_hrm_ticket_page">82c91b09db921850bb5a4a28139619c1</portal_page>
+        <primary_display>short_description</primary_display>
+        <roles/>
+        <secondary_display>number</secondary_display>
+        <short_description>HR Cases Open</short_description>
+        <sys_class_name>request_filter</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-27 22:27:28</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_id>aae02701db561850bb5a4a2813961927</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>HR Cases Open</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>request_filter_aae02701db561850bb5a4a2813961927</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-07-27 22:27:28</sys_updated_on>
+        <table>sn_hr_core_case_total_rewards</table>
+        <table_name>sn_hr_core_case</table_name>
+        <title>HR Cases Open</title>
+        <user/>
+    </request_filter>
+</record_update>

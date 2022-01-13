@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_package_dependency_m2m">
+    <sys_package_dependency_m2m action="INSERT_OR_UPDATE">
+        <dependency display_value="Asset Management" source="com.snc.asset_management">b6184f572b3e310054a41bc5a8da1577</dependency>
+        <min_version/>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-04-27 20:37:03</sys_created_on>
+        <sys_id>604bc659dbf360d059ac6e25ca9619f4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-04-27 20:37:03</sys_updated_on>
+    </sys_package_dependency_m2m>
+</record_update>

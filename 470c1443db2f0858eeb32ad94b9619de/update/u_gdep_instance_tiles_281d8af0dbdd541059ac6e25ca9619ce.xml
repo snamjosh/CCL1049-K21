@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="u_gdep_instance_tiles">
+    <u_gdep_instance_tiles action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="2">49dac304db911c14bb5a4a2813961946</sp_column>
+        <sp_widget display_value="GDEP Tiles">ffa09b18dbf450d459ac6e25ca961964</sp_widget>
+        <sys_class_name>u_gdep_instance_tiles</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-06-07 04:39:53</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>281d8af0dbdd541059ac6e25ca9619ce</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>u_gdep_instance_tiles_281d8af0dbdd541059ac6e25ca9619ce</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-07-11 05:41:47</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"template": {
+		"value": "Buttons",
+		"displayValue": "Buttons"
+	}
+}]]></widget_parameters>
+    </u_gdep_instance_tiles>
+    <sys_translated_text action="delete_multiple" query="documentkey=281d8af0dbdd541059ac6e25ca9619ce"/>
+</record_update>

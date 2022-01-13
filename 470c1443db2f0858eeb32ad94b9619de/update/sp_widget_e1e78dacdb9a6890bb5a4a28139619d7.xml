@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($window) {
+	/* widget controller */
+	var c = this;
+
+	c.timeout = 43200000;
+	c.showHC = false;
+	c.fetchHolidayCalendar = function() {
+		if(!c.data.holidayCalendar){
+	       c.server.get({
+				'action': 'getHolidayCalendar'
+			}).then(function(r) {
+				c.data.holidayCalendar = r.data.holidayCalendar;
+			});
+		}
+		c.showHC = true;
+	};
+	
+	c.closePane = function() {
+		c.showHC = false;
+	};
+	
+	c.storeName = 'holidayStore_'+c.data.userID;
+	c.holidayStore = {};
+
+	c.updateStore = function(storeKey,newData){
+		localStorage.setItem(storeKey,JSON.stringify(newData));
+		localStorage.setItem(c.storeName+'LastUpdated', '' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear());
+	};
+
+	c.currentStorage = JSON.parse(localStorage.getItem(c.storeName));
+
+	if(c.currentStorage){
+		var today = '' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear();
+		var lastUpdated = JSON.parse(localStorage.getItem(c.storeName+'LastUpdated'));
+		if(lastUpdated)	c.holidayStore = lastUpdated != today ? {} : c.currentStorage;
+	}
+	
+	if(Object.keys(c.holidayStore).length === 0 || !c.data.holiday){
+		c.server.get({'action': 'fetchHolidays'})
+			.then(function(r){
+			c.holidayStore['name'] = r.data.holiday.name;
+			c.holidayStore['date'] = r.data.holiday.date;
+			c.holidayStore['img'] = r.data.holiday.img;
+
+
+
+			var month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+			var dt = c.holidayStore.date.toString().split("-");
+			c.holidayStore.date = dt[0];
+			c.holidayStore['holidayMonth'] = month[dt[1]-1];
+			c.holidayStore['holidayYr'] = dt[2];
+
+			c.updateStore(c.storeName, c.holidayStore);
+		});
+	} 
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.holiday-days {&#13;
+  font-weight: 300;&#13;
+  font-size: 72px;&#13;
+  color: #000000;&#13;
+  line-height: 1.1&#13;
+}&#13;
+&#13;
+.holiday-month h3{&#13;
+  margin: 5px 0;&#13;
+  font-weight:400;&#13;
+  color: #000000;&#13;
+}&#13;
+&#13;
+.holiday-month{&#13;
+  max-width: 150px;&#13;
+  &#13;
+}&#13;
+&#13;
+.panel {&#13;
+  background-repeat: no-repeat;&#13;
+  background-position: top right;&#13;
+  background-size: auto 101%;&#13;
+  font-size:14px;&#13;
+  width:380px;&#13;
+}&#13;
+.panel-heading {&#13;
+  /*padding-bottom: 40px;*/&#13;
+  text-align: left;&#13;
+  background: transparent;&#13;
+  color: #1BDBDB !important;&#13;
+  background-color: #000000;&#13;
+  border-color: #ddd;&#13;
+  border-radius: 2%;&#13;
+  font-size: 16px;&#13;
+  &#13;
+}&#13;
+&#13;
+.holidayCalendar{&#13;
+    position: absolute;&#13;
+    bottom: 50px;&#13;
+    z-index:1071;&#13;
+  }  &#13;
+  .close-btn {&#13;
+    width: 27px;&#13;
+    position: absolute;&#13;
+    right: -10px;     &#13;
+    z-index: 200; &#13;
+    top:5px;&#13;
+  }&#13;
+&#13;
+.close-calendar:before {&#13;
+    content: 'x'; // here is your X(cross) sign.&#13;
+    font-family: Arial, sans-serif;&#13;
+ 		font-size: 140%;&#13;
+}&#13;
+&#13;
+[class*=" sn-icon-"]:before, [class^=sn-icon-]:before {&#13;
+    font-family: "ServiceNow Icons";&#13;
+    font-style: normal;&#13;
+    speak: none;&#13;
+    display: inline-block;&#13;
+    text-decoration: inherit;&#13;
+    width: 1em;&#13;
+    margin-right: .2em;&#13;
+    text-align: center;&#13;
+    font-variant: normal;&#13;
+    text-transform: none;&#13;
+    line-height: 1em;&#13;
+    margin-left: .2em;&#13;
+    font-size: 150%;&#13;
+}&#13;
+&#13;
+.holiday-name{&#13;
+  color: #000000;&#13;
+  &#13;
+}&#13;
+&#13;
+h4, .h4 {&#13;
+    font-size: 16px;&#13;
+    margin-top: 0px;&#13;
+    margin-bottom: 0px;&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description>Display next holiday from holiday calendar for the logged in user</description>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>gdep-next-holiday</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Next Holiday Widget</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+    if ($sp.getParameter("id") == 'gdep_kb_home' && $sp.getParameter("kb_category") == 'c74549f51b271850ddbe21be6e4bcbe9') {
+
+        data.isHR = true;
+    }
+
+    data.userID = gs.getUserID();
+    if (input && input.action == 'getHolidayCalendar') {
+        data.holidayCalendar = $sp.getWidget('gdep-holiday-calendar', {
+            "title": 'Holiday Calendar'
+        });
+    }
+
+    if (input && input.action == 'fetchHolidays') {
+        var nearestDate = '';
+        var holidays = fetchHoliday();
+        if (holidays.date)
+            data.holiday = holidays;
+        else
+            data.holiday = fetchAllHoliday();
+
+    }
+
+    function fetchAllHoliday() {
+
+        var holidayInfo = {
+            'date': '',
+            'name': '',
+            'img': ''
+        };
+        var usrInfo = getRegion();
+        if (!nearestDate) {
+            nearestDate = new GlideDate();
+        }
+
+        var holidayGr = new GlideRecord('sys_holiday');
+        if (usrInfo.country && usrInfo.location) {
+            //parent_id=2858f3751ba5cc1020f943f6cc4bcb50^
+            holidayGr.addEncodedQuery("dateON" + nearestDate + "@javascript:gs.dateGenerate('" + nearestDate + "','start')@javascript:gs.dateGenerate('" +
+                nearestDate + "','end')^x_snc_holiday_mgmt_country=" + usrInfo.country.toString() + "^x_snc_holiday_mgmt_locationsLIKE" + usrInfo.location.toString() + "^ORx_snc_holiday_mgmt_locations=NULL");
+        } else if (usrInfo.country) {
+            holidayGr.addEncodedQuery("dateON" + nearestDate + "@javascript:gs.dateGenerate('" + nearestDate + "','start')@javascript:gs.dateGenerate('" + nearestDate + "','end')" +
+                "^x_snc_holiday_mgmt_country=" + usrInfo.country.toString());
+        } else {
+            holidayGr.addEncodedQuery("dateON" + nearestDate + "@javascript:gs.dateGenerate('" + nearestDate + "','start')@javascript:gs.dateGenerate('" + nearestDate + "','end')");
+        }
+
+        holidayGr.query();
+        if (holidayGr.next()) {
+            var gd = new GlideDate();
+            gd.setValue(holidayGr.date.toString());
+
+            holidayInfo.date = gd.getByFormat("dd-MM-yyyy");
+            holidayInfo.name = holidayGr.getValue('name');
+            holidayInfo.img = getImage(holidayGr.getValue('x_snc_holiday_mgmt_image'));
+
+        }
+
+        return holidayInfo;
+
+    }
+
+    function fetchHoliday() {
+        var holidayInfo = {
+            'date': '',
+            'name': '',
+            'img': ''
+        };
+        var usrInfo = getRegion();
+        var count = false;
+        var holidayGr = new GlideRecord('sys_holiday');
+        holidayGr.orderBy('date');
+
+        if (usrInfo.location && usrInfo.country) {
+            holidayGr.addEncodedQuery("date>=javascript:gs.dateGenerate('" +
+                new GlideDate() + "','end')^x_snc_holiday_mgmt_country=" + usrInfo.country.toString() +
+                "^x_snc_holiday_mgmt_locationsLIKE" + usrInfo.location.toString() + "^ORx_snc_holiday_mgmt_locations=NULL");
+        } else if (usrInfo.country) {
+            holidayGr.addEncodedQuery("date>=javascript:gs.dateGenerate('" +
+                new GlideDate() + "','end')^x_snc_holiday_mgmt_country=" + usrInfo.country.toString());
+        } else {
+            holidayGr.addEncodedQuery("date>=javascript:gs.dateGenerate('" + new GlideDate() + "','end')");
+        }
+        holidayGr.query();
+        while (holidayGr.next()) {
+            if (count == false) {
+
+                nearestDate = holidayGr.getValue('date');
+                count = true;
+            }
+
+            if ((nearestDate.toString() == holidayGr.date.toString()) && (count == true)) {
+                if (usrInfo.city.indexOf(holidayGr.getValue('x_snc_holiday_mgmt_region_state_city')) >= 0) {
+
+                    var gd = new GlideDate();
+                    gd.setValue(holidayGr.date.getDisplayValue());
+
+                    holidayInfo.date = gd.getByFormat("dd-MM-yyyy");
+                    holidayInfo.name = holidayGr.getValue('name');
+                    holidayInfo.img = getImage(holidayGr.getValue('x_snc_holiday_mgmt_image'));
+                }
+            }
+        }
+
+        return holidayInfo;
+    }
+
+    function getImage(sysId) {
+        var img = "sample-holiday-default.svg";
+        if (sysId) {
+            var imgGr = new GlideRecord('db_image');
+            imgGr.get(sysId);
+            img = imgGr.getValue('name') || "sample-holiday-default.svg";
+        }
+        return img;
+    }
+
+    function getRegion() {
+        var usrInfo = {};
+
+        var usrGr = new GlideRecord('sys_user');
+        usrGr.get(gs.getUserID());
+        usrInfo.city = [];
+        usrInfo.country = usrGr.location.country.toString();
+        usrInfo.location = usrGr.getValue('location');
+        var city = usrGr.location.city.toString();
+        var state = usrGr.location.state.toString();
+        if (city)
+            usrInfo.city.push(city);
+        if (state)
+            usrInfo.city.push(state);
+        usrInfo.city.push("All");
+
+        return usrInfo;
+    }
+
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-02-09 18:13:08</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>e1e78dacdb9a6890bb5a4a28139619d7</sys_id>
+        <sys_mod_count>60</sys_mod_count>
+        <sys_name>GDEP Next Holiday Widget</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_e1e78dacdb9a6890bb5a4a28139619d7</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-09-28 16:15:44</sys_updated_on>
+        <template><![CDATA[<div ng-if="data.isHR == true" class="panel panel-default" style="background-image:url('{{c.holidayStore.img}}')" ng-if="c.holidayStore.date && data.isHR == true";>
+  <div ng-if="data.isHR == true" class="panel-heading">
+    <h4>Next Holiday</h4> 
+  </div>
+  <div ng-if="data.isHR == true" class="panel-body">
+      <div class="holiday-name">
+        {{c.holidayStore.name}}
+      </div>
+      <div class="holiday-month">
+        <h3>{{c.holidayStore.holidayMonth}} {{c.holidayStore.holidayYr}}</h3>
+      </div>
+      <div class="holiday-days">
+        {{c.holidayStore.date}}
+      </div>
+      <div class="view-all">
+        <!--a href="javascript:void(0)" ng-click="c.fetchHolidayCalendar()">View All</a-->
+        <div class="holidayCalendar" ng-hide="!c.showHC">
+            <div class="close-btn pull-right" ng-click="c.closePane()">
+              <span class="close-calendar"></span>
+          </div>  
+          <sp-widget widget="c.data.holidayCalendar"></sp-widget>
+          </div>
+      </div>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

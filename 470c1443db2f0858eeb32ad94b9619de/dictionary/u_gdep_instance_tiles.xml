@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="update_synch=true" extends="sp_instance" label="GDEP Instance Tiles" max_length="40" name="u_gdep_instance_tiles" sizeclass="29" type="collection"/>
+</database>

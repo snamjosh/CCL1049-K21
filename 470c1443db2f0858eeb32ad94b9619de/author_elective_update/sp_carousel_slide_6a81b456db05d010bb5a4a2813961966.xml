@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sp_carousel_slide action="DELETE">
+<background/>
+<carousel display_value="GDEP Announcements">03d60e61db738410bb5a4a28139619a0</carousel>
+<name>Have you updated your goals recently?</name>
+<order>100</order>
+<sys_class_name>sp_carousel_slide</sys_class_name>
+<sys_created_by>choskins</sys_created_by>
+<sys_created_on>2020-05-30 03:35:25</sys_created_on>
+<sys_customer_update>false</sys_customer_update>
+<sys_id>6a81b456db05d010bb5a4a2813961966</sys_id>
+<sys_mod_count>2</sys_mod_count>
+<sys_name>Have you updated your goals recently?</sys_name>
+<sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+<sys_policy/>
+<sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+<sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+<sys_update_name>sp_carousel_slide_6a81b456db05d010bb5a4a2813961966</sys_update_name>
+<sys_updated_by>aerceg</sys_updated_by>
+<sys_updated_on>2020-06-01 04:48:32</sys_updated_on>
+<url>https://www.myworkday.com/godaddy/d/task/2998$8704.htmld</url>
+</sp_carousel_slide>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>sp_carousel_slide_6a81b456db05d010bb5a4a2813961966</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sp_carousel_slide action="INSERT_OR_UPDATE">
+<background/>
+<carousel display_value="GDEP Announcements">03d60e61db738410bb5a4a28139619a0</carousel>
+<name>Have you updated your goals recently?</name>
+<order>100</order>
+<sys_class_name>sp_carousel_slide</sys_class_name>
+<sys_created_by>choskins</sys_created_by>
+<sys_created_on>2020-05-30 03:35:25</sys_created_on>
+<sys_customer_update>false</sys_customer_update>
+<sys_id>6a81b456db05d010bb5a4a2813961966</sys_id>
+<sys_mod_count>2</sys_mod_count>
+<sys_name>Have you updated your goals recently?</sys_name>
+<sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+<sys_policy/>
+<sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+<sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+<sys_update_name>sp_carousel_slide_6a81b456db05d010bb5a4a2813961966</sys_update_name>
+<sys_updated_by>aerceg</sys_updated_by>
+<sys_updated_on>2020-06-01 04:48:32</sys_updated_on>
+<url>https://www.myworkday.com/godaddy/d/task/2998$8704.htmld</url>
+</sp_carousel_slide></record_update>]]></payload>
+        <payload_hash>1667403539</payload_hash>
+        <record_name>Have you updated your goals recently?</record_name>
+        <reverted_from/>
+        <source>3b97cb9f6fb23100fda99aad5d3ee43a</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2020-10-29 16:04:07</sys_created_on>
+        <sys_id>279e8edfdbc0e4144a21892d139619e2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>175751a1e4b0000001</sys_recorded_at>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-10-29 16:04:07</sys_updated_on>
+        <type>Carousel Slide</type>
+        <update_guid>2f9e8edf2fc0e414b57739dbe564e1e1</update_guid>
+        <update_guid_history>2f9e8edf2fc0e414b57739dbe564e1e1:1667403539,b0859bba12c99850ba7d905de1f6a174:-1965681896,584adc6a3d299c90606194b658bec9b8:435123156,b0859bba12c99850ba7d905de1f6a174:-1965681896,cab4173ab1c998508f9aa8add9bce269:597692264,ce91b052dd05d0106fd84dd1f5f95b42:-1228251584</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">2ae42e5bdb0ce4144a21892d1396193a</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2020-10-29 17:41:33</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sp_carousel_slide">sp_carousel_slide</sys_db_object>
+        <sys_id>61d4a393be1e4ef890bd8bc9a3861aa4</sys_id>
+        <sys_metadata>6a81b456db05d010bb5a4a2813961966</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Have you updated your goals recently?</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sp_carousel_slide_6a81b456db05d010bb5a4a2813961966</sys_update_name>
+        <sys_update_version display_value="sp_carousel_slide_6a81b456db05d010bb5a4a2813961966">279e8edfdbc0e4144a21892d139619e2</sys_update_version>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-10-29 17:41:33</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

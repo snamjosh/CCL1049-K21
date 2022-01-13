@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_atf_step_config">
+    <sys_atf_step_config action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <batch_order_constraint/>
+        <can_mutate_page>false</can_mutate_page>
+        <category display_value="Server">317c4dc20b202200a8d7a12cf6673aa8</category>
+        <class_name/>
+        <class_type>script</class_type>
+        <deprecated>false</deprecated>
+        <description_generator><![CDATA[function generateDescription() {
+    // the global variable 'step' represents the current glide record
+    var description = "Generate Test Data for GSO Ticketing";
+	// your code here
+	return description;
+}
+ generateDescription();
+]]></description_generator>
+        <html_description><![CDATA[<p>Generates test data including VI&#39;s, vulnerable entries, ptasks, and problems.  Most importantly, it creates a Vulnerability Category with the sys_id stored in the record_id output variable.</p>]]></html_description>
+        <icon>icon-article-document</icon>
+        <inputs/>
+        <name>Generate Test Data for GSO Ticketing</name>
+        <order>1</order>
+        <outputs/>
+        <step_env display_value="Server - Independent">6c2bcea1870312009dccc9ded0e3ecca</step_env>
+        <step_execution_generator><![CDATA[(function executeStep(inputs, outputs, stepResult) {
+
+	if (gs.nil(inputs.u_vi_count)) {
+		stepResult.setOutputMessage(gs.getMessage("The '{0}' input variable was not specified", 'u_vi_count'));
+		stepResult.setFailed();
+		return;
+	}
+
+	//P3PWSNOWMID01  ee8b7be62b45820054a41bc5a8da1545 
+	//P3PWSNOWMID02  6e8b7be62b45820054a41bc5a8da1545
+	// P3PWSNOWMID03 ea8b7be62b45820054a41bc5a8da1545
+	// P3PWSNOWMID04 6a8b7be62b45820054a41bc5a8da1545
+
+
+	var ci1 = '1921683f1bb524107d32c995624bcb4c'; // midserver
+	var ci2 = '6e8b7be62b45820054a41bc5a8da1545'; // midserver
+
+	var problem = createProblem();
+	var ptask = createPTask(problem, ci1, "123456A");
+	var category = createCategory();
+	var vulnEntry = createVulnEntry();
+	createVi(ci1, ptask, category, vulnEntry);
+	createVi(ci2, ptask, category, vulnEntry);
+
+	outputs.u_record_id = category.getValue('sys_id');
+	stepResult.setOutputMessage('Created Category: ' + outputs.u_record_id);
+	stepResult.setSuccess();
+}(inputs, outputs, stepResult));
+
+function createCategory() {
+	var category = new GlideRecord('u_vulnerability_category');
+
+	category.insert();
+	return category;
+}
+
+function createProblem() {
+	// create problem
+	var grPrbNew = new GlideRecord('problem');
+	grPrbNew.initialize();
+	grPrbNew.insert();
+
+	gs.log("!!!!!!!:" + grPrbNew.getValue('sys_id'));
+	gs.log("!!!!!!!! problem number: " + grPrbNew.number);
+
+	return grPrbNew;
+}
+
+function createPTask(problem, ci, number) {
+	var grPtask = new GlideRecord('problem_task');
+	grPtask.initialize();
+	grPtask.setValue('problem', problem.getValue('sys_id'));
+	//grPtask.setValue('number', number);
+	grPtask.setValue('cmdb_ci', ci);
+	var sys_id_from_insert = grPtask.insert();
+
+	gs.log("@@@@@ sys_id_from_insert:" + sys_id_from_insert);
+	gs.log("@@@@@ PTASK valid:" + grPtask.isValidRecord());
+	gs.log("@@@@@ PTASK problem:" + grPtask.problem.sys_id.toString());
+	gs.log("@@@@@ PTASK number:" + grPtask.getValue('number'));
+	gs.log("@@@@@ PTASK sys_id:" + grPtask.getValue('sys_id'));
+	gs.log("@@@@@ PTASK cmdb_ci:" + grPtask.getValue('cmdb_ci'));
+	gs.log("@@@@@ PTASK state:" + grPtask.getValue('state'));
+	gs.log("@@@@@ PTASK's problem state:" + grPtask.problem.getValue('state'));
+
+	return grPtask;
+}
+
+function createVi(ciSysId, ptask, category, vulnerability) {
+	var yesterday = new GlideDateTime();
+	yesterday.addDays(-1);
+
+	var grVI1 = new GlideRecord('sn_vul_vulnerable_item');
+	grVI1.initialize();
+	grVI1.setValue('cmdb_ci', ciSysId);
+	grVI1.setValue('u_problem_task', ptask.getValue('sys_id'));
+	grVI1.setValue('u_last_found_datetime', yesterday.getDisplayValue());
+	grVI1.setValue('u_vulnerability_category', category.getValue('sys_id').toString());
+	grVI1.setValue('u_vulnerability', vulnerability.getValue('sys_id'));
+	grVI1.insert();
+
+	gs.log("XXXX PTASK state:" + grVI1.u_problem_task.state.toString());
+	gs.log("XXXX PTASK's problem state:" + grVI1.u_problem_task.problem.state.toString());
+
+	return grVI1;
+}
+
+function getVIsInCategory(category) {
+	var grVi = new GlideRecord('sn_vul_vulnerable_item');
+	grVi.addQuery('u_vulnerability_category', category.getValue('sys_id'));
+	grVi.query();
+	return grVi;
+}
+
+function createVulnEntry() {
+	var criticalVulEntry = new GlideRecord('sn_vul_entry');
+	criticalVulEntry.addQuery('normalized_severity', 2);
+	criticalVulEntry.query();
+	criticalVulEntry.next();
+	return criticalVulEntry;
+
+	var grVul = new GlideRecord('sn_vul_entry');
+	grVul.initialize();
+	grVul.setValue('id', 'CVE-0000-0000');
+	for (prop in grVul) {
+		if (!prop.startsWith('sys') && prop != 'id' && prop != 'cwe_id') {
+
+			try {
+				grVul.setValue(prop, criticalVulEntry.getValue(prop));
+			} catch (exception) {
+				gs.log(exception);
+			}
+		}
+	}
+	grVul.insert();
+	return vulnerability;
+}]]></step_execution_generator>
+        <sys_class_name>sys_atf_step_config</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-09-06 03:14:45</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>b66d0ae7db5ebc50bb5a4a28139619bc</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>Generate Test Data for GSO Ticketing</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_atf_step_config_b66d0ae7db5ebc50bb5a4a28139619bc</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-10-16 05:03:48</sys_updated_on>
+        <template_reminder>reminder?</template_reminder>
+        <type display_value="Test Step" name="sys_atf_step">bd6c5bd437023200ce4fb15ec3990e6d</type>
+        <wizard_redirect/>
+    </sys_atf_step_config>
+    <sys_variable_value action="delete_multiple" query="document_key=b66d0ae7db5ebc50bb5a4a28139619bc"/>
+</record_update>

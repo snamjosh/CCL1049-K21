@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="u_gdep_image_links">
+    <u_gdep_image_links action="INSERT_OR_UPDATE">
+        <sys_class_name>u_gdep_image_links</sys_class_name>
+        <sys_created_by>aerceg</sys_created_by>
+        <sys_created_on>2020-07-20 21:31:47</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>c2015b7adb461c18bb5a4a28139619ef</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>u_gdep_image_links_c2015b7adb461c18bb5a4a28139619ef</sys_update_name>
+        <sys_updated_by>aerceg</sys_updated_by>
+        <sys_updated_on>2020-07-30 05:38:10</sys_updated_on>
+        <u_identifier/>
+        <u_image>ff011f7adb461c18bb5a4a2813961937</u_image>
+        <u_kb_article_id>35961f75db9e54d0bb5a4a281396192a</u_kb_article_id>
+        <u_link_type>KB Image</u_link_type>
+        <u_order/>
+        <u_related_document_id/>
+        <u_related_sysid/>
+        <u_short_description/>
+        <u_title/>
+        <u_url/>
+    </u_gdep_image_links>
+</record_update>

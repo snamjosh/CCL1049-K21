@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl">
+    <sys_security_acl action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <admin_overrides>false</admin_overrides>
+        <advanced>true</advanced>
+        <condition/>
+        <description>Allow read for records in sys_attachment, for users with role snc_internal, and if the ACL script returns true.</description>
+        <name>sys_attachment</name>
+        <operation display_value="read">read</operation>
+        <script><![CDATA[answer = (function () {
+    var grAttachment = new GlideRecord("sys_attachment");
+    grAttachment.addQuery("table_sys_id", "8d2671c1db63cc54eeb32ad94b9619d8"); //SysID of the GDEP Theme record
+    grAttachment.addQuery("sys_id", current.sys_id);
+    grAttachment.query();
+    if (grAttachment.next()) {
+        return true;
+    }
+    return false;
+})();
+]]></script>
+        <sys_class_name>sys_security_acl</sys_class_name>
+        <sys_created_by>iremigio</sys_created_by>
+        <sys_created_on>2020-08-25 20:59:48</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>5ca2a026dbf694dc59ac6e25ca96197f</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>sys_attachment</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_security_acl_5ca2a026dbf694dc59ac6e25ca96197f</sys_update_name>
+        <sys_updated_by>iremigio</sys_updated_by>
+        <sys_updated_on>2020-08-25 21:03:14</sys_updated_on>
+        <type display_value="record">record</type>
+    </sys_security_acl>
+</record_update>

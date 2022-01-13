@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_angular_provider">
+    <sp_angular_provider action="INSERT_OR_UPDATE">
+        <name>spDropdownTreeTemplateCustom</name>
+        <script><![CDATA[function () {
+	return {
+		restrict: 'E',
+		scope: {items: '='},
+		replace: true,
+		template: '<ul class="dropdown-menu">' +
+		'<li ng-repeat="mi in items" style="min-width: 20em;" ng-class="{\'dropdown-submenu\': mi.type == \'menu\', \'dropdown-menu-line\':$index < items.length - 1}" ng-include="getURL()">' +
+		'</ul>',
+		link : function(scope, element, attrs, controller) {
+			scope.getURL = function() {
+				return 'spDropdownTreeTemplateCustom';
+			}
+		}
+	}
+};
+(function($) {
+	$("body").on( "click", "a.menu_trigger", function(e) {
+		var current = $(this).next();
+		var grandparent = $(this).parent().parent();
+		if ($(this).hasClass('left-caret') || $(this).hasClass('right-caret'))
+			$(this).toggleClass('right-caret left-caret');
+		grandparent.find('.left-caret').not(this).toggleClass('right-caret left-caret');
+		current.toggle();
+		$(".dropdown-menu").each(function(i, elem) {
+			var elemClosest = $(elem).closest('.dropdown');
+			var currentClosest = current.closest('.dropdown');
+			if (!elem.contains(current[0]) && elem != current[0] && (!currentClosest.length || !elemClosest.length || elemClosest[0] == currentClosest[0]))
+				$(elem).hide();
+		})
+		e.stopPropagation();
+	});
+	$("body").on( "click", "a:not(.menu_trigger)", function() {
+		var root=$(this).closest('.dropdown');
+		root.find('.left-caret').toggleClass('right-caret left-caret');
+	});
+})(jQuery);]]></script>
+        <sys_class_name>sp_angular_provider</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-03-28 00:02:32</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>aba4efb9dbbb4c10bb5a4a28139619f3</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>spDropdownTreeTemplateCustom</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_angular_provider_aba4efb9dbbb4c10bb5a4a28139619f3</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-03-28 00:24:36</sys_updated_on>
+        <type>directive</type>
+    </sp_angular_provider>
+</record_update>

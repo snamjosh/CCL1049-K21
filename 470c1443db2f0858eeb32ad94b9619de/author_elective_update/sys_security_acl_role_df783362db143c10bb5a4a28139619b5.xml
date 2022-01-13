@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="DELETE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-26 22:18:05</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>df783362db143c10bb5a4a28139619b5</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>sys_search_event.*.u_sp_reporting_admin</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_security_acl display_value="sys_search_event.*">17783362db143c10bb5a4a28139619b3</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_df783362db143c10bb5a4a28139619b5</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-27 00:06:20</sys_updated_on>
+        <sys_user_role display_value="u_sp_reporting_admin" name="u_sp_reporting_admin">c0d55d9fdb58ac1059ac6e25ca9619fe</sys_user_role>
+        <transaction_id/>
+    </sys_security_acl_role>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>901500ac6f06314023b2a9cc5d3ee4b5</instance_id>
+        <instance_name>godaddydev</instance_name>
+        <name>sys_security_acl_role_df783362db143c10bb5a4a28139619b5</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role"><sys_security_acl_role action="INSERT_OR_UPDATE"><sys_class_name>sys_security_acl_role</sys_class_name><sys_created_by>choskins</sys_created_by><sys_created_on>2021-05-26 22:18:05</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>df783362db143c10bb5a4a28139619b5</sys_id><sys_mod_count>1</sys_mod_count><sys_name>sys_search_event.*.u_sp_reporting_admin</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_security_acl display_value="sys_search_event.*">17783362db143c10bb5a4a28139619b3</sys_security_acl><sys_update_name>sys_security_acl_role_df783362db143c10bb5a4a28139619b5</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2021-05-27 00:06:20</sys_updated_on><sys_user_role display_value="u_sp_reporting_admin" name="u_sp_reporting_admin">c0d55d9fdb58ac1059ac6e25ca9619fe</sys_user_role><transaction_id/></sys_security_acl_role></record_update>]]></payload>
+        <payload_hash>-1705605124</payload_hash>
+        <record_name>sys_search_event.*.u_sp_reporting_admin</record_name>
+        <reverted_from/>
+        <source>0cf67f66dbd03c10bb5a4a281396194b</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-27 00:06:20</sys_created_on>
+        <sys_id>89415cbedb907c10bb5a4a28139619b1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>179ab24b6cc0000001</sys_recorded_at>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-27 00:06:20</sys_updated_on>
+        <type>Access Roles</type>
+        <update_guid>cd415cbe77907c107f95c000d68493b0</update_guid>
+        <update_guid_history>cd415cbe77907c107f95c000d68493b0:-1705605124,577833627d143c10da5b902f619244ba:807382558</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Record deleted 2021-05-27 15:12:51">58e0810bdbd8fc1059ac6e25ca96197e</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2021-05-27 22:12:51</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sys_security_acl_role">sys_security_acl_role</sys_db_object>
+        <sys_id>2fa5ed17b5524214910cfb711e327b10</sys_id>
+        <sys_metadata>df783362db143c10bb5a4a28139619b5</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sys_search_event.*.u_sp_reporting_admin</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent display_value="sys_search_event.*">17783362db143c10bb5a4a28139619b3</sys_parent>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sys_security_acl_role_df783362db143c10bb5a4a28139619b5</sys_update_name>
+        <sys_update_version display_value="sys_security_acl_role_df783362db143c10bb5a4a28139619b5">89415cbedb907c10bb5a4a28139619b1</sys_update_version>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2021-05-27 22:12:51</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

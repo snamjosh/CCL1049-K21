@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_db_view_table">
+    <sys_db_view_table action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <left_join>true</left_join>
+        <order>100</order>
+        <sys_class_name>sys_db_view_table</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-06-01 20:45:47</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>bb9c5a6cdbac3cd0bb5a4a28139619b1</sys_id>
+        <sys_mod_count>20</sys_mod_count>
+        <sys_name>sys_search_result_clicked</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_db_view_table_bb9c5a6cdbac3cd0bb5a4a28139619b1</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-06-01 22:50:29</sys_updated_on>
+        <table>sys_search_result_clicked</table>
+        <variable_prefix>c</variable_prefix>
+        <view display_value="u_search_analytics">904c96e4dbac3cd0bb5a4a28139619f0</view>
+        <where_clause>c_search_event = s_sys_id</where_clause>
+    </sys_db_view_table>
+</record_update>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.imagesWrapper{
+  margin: 2em;
+}
+.kbCatRow {  padding-left: 20px !important;   padding-right: 20px !important;   padding-bottom: 30px !important; }
+.margins {  padding-left:60;padding-right:60;}
+.homepageSectionImage{
+  max-width: 10em;
+  margin: 0 auto;
+}
+
+@media( min-width:768px ){
+  .margins {padding-left: 75px !important;padding-right: 75px !important; }
+  .kbCatRow { padding-left: 30px !important; padding-right: 30px !important; padding-bottom: 30px !important; }  
+  background-color:lime;
+}
+@media(min-width:1024px ){
+  .margins {margin-left: 30px !important;margin-right: 30px !important;padding-left: 0px !important;padding-right: 10px !important; }
+  .kbCatRow { padding-left: 20px !important; padding-right: 20px !important; padding-bottom: 20px !important; }  
+  background-color:orange;
+}
+@media( min-width: 1366px ){
+  .margins {margin-left: 40px !important;margin-right: 40px !important;padding-left: 0px !important;padding-right: 10px !important; }
+  .kbCatRow { padding-left: 30px !important; padding-right: 30px !important; padding-bottom: 25px !important; }  
+  background-color:blue;
+}
+@media( min-width: 1920px ){
+  .margins {margin-left: 20px !important;margin-right: 20px !important;padding-left: 0 !important;padding-right: 0px !important; }
+  .kbCatRow { padding-left: 30px !important; padding-right: 30px !important; padding-bottom: 30px !important; }  
+  background-color:purple;
+}
+@media( min-width: 2560px ){
+  .margins {margin-left: 95px !important;margin-right: 95px !important;padding-left: 0 !important;padding-right: 0px !important; }
+  .kbCatRow { padding-left: 30px !important; padding-right: 30px !important; padding-bottom: 30px !important; }  
+  background-color:yellow;
+}
+
+
+nav { font: 25px Boing-Bold, Arial, sans-serif;}
+h2 { color: inherit !important;}
+hr { border: none; height: 2px; background-color: #F3F3F3; }
+a { text-decoration: none; }
+a:hover { color: $godaddyBlue; /*#02C54C;*/  text-decoration: none;}
+
+.knowledgeIcon { font-family:'GD-Sherpa-Regular' !important; font-size: 2rem;}
+.ui-notification { width: 400px;}
+.ui-notification.clickable:hover {    opacity: 1.0;}
+.ui-notification img { max-width: 100px;}
+
+/*
+.kbCatRow {  padding-left: 20px !important;   padding-right: 20px !important; padding-top:20px;   padding-bottom: 30px !important; }
+.margins {  padding-left:100px;padding-right:100px;margin-left:100px;margin-right:100px;}
+*/
+
+/*
+.ui-notification a:hover {
+    color: #2B2B2B;
+}*/
+
+
+
+
+
+
+
+</css>
+        <data_table>u_gdep_instance_tiles</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gdep_knowledge_section_tiles</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Knowledge Section Tiles</name>
+        <option_schema>[]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function () {
+	var helper = new gdepTilesHelper();
+	data.items = helper.getTilesForInstance($sp.getInstanceRecord().getUniqueValue(), true);
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-24 04:54:43</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>de7cf779db7a109c59ac6e25ca9619df</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>GDEP Knowledge Section Tiles</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_de7cf779db7a109c59ac6e25ca9619df</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-25 20:47:18</sys_updated_on>
+        <template><![CDATA[<div ng-if="data.items.length==0">
+  There are no tiles.
+</div>
+<div ng-if="data.items.length>0" class="imagesWrapper">
+  <div class="margins">
+    <div ng-repeat="item in ::data.items" >
+      <a class="col-xs-4 col-md-2 col-lg-2 kbCatRow" href="{{::item.url}}">
+        <div class="text-center" style="display: table;max-width:100%; max-height:100%;">
+          <div class="mobile">
+            <hr class="mobile style4"/>
+            <img class="img-responsive homepageSectionImage" src="{{::item.image}}" style="size:50%;">
+          </div>
+          &nbsp;&nbsp;
+          <div class="desktop">
+            <img src="{{::item.image}}" class="img-responsive homepageSectionImage">
+          </div>          
+          <div class="knowledgeIcon">
+            <div class="h2">
+             ${{{::item.title}}}
+            </div> 
+          </div>
+        </div>
+      </a>
+      
+    </div>
+  </div>
+]]></template>
+    </sp_widget>
+</record_update>

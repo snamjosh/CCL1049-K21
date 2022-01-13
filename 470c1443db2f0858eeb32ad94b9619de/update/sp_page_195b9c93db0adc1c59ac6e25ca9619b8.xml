@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <css/>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <id>gdep_quick_links</id>
+        <internal>false</internal>
+        <omit_watcher>false</omit_watcher>
+        <public>false</public>
+        <roles/>
+        <seo_script/>
+        <short_description>Page for Quick Links</short_description>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-21 21:35:13</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>195b9c93db0adc1c59ac6e25ca9619b8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>gdep_quick_links</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_page_195b9c93db0adc1c59ac6e25ca9619b8</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-07-21 21:35:13</sys_updated_on>
+        <title>Quick Links</title>
+        <use_seo_script>false</use_seo_script>
+    </sp_page>
+    <sys_translated_text action="delete_multiple" query="documentkey=195b9c93db0adc1c59ac6e25ca9619b8"/>
+</record_update>

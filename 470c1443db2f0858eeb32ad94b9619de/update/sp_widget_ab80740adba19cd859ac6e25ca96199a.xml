@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($rootScope, $scope, $window,$timeout,$sce, spModal,spUtil, $uibModal,cabrillo) {
+	var c = this;
+	c.hide = false;
+	c.submitted = false;
+	c.helpfulPrompt = c.options.helpful_prompt ?  c.options.helpful_prompt : $rootScope.messages.HELPFUL;
+	c.reasons = c.data.feedback_reasons;
+	c.isMobile = spUtil.isMobile() || cabrillo.isNative();
+	c.data.response = "";
+	c.showRatings = c.options.show_star_rating === 'Use system properties' ? ($rootScope.properties && $rootScope.properties.showKBStarRating && $rootScope.properties.showKBRatingOptions) : c.options.show_star_rating === 'Yes';
+	c.ratingClass = (c.showComments) ? 'pull-right' : 'kb-rate-mobile';
+  c.show_helpful = (c.data.show_helpful == 'true') ? true:false;
+
+	//Use KB specific stylic for "kb" & 'mesp' portal
+	c.KBRatingStyle = c.options.kb_rating_style || ($rootScope.portal ? ($rootScope.portal.sys_id == "45d6680fdb52220099f93691f0b8f5ad" || $rootScope.portal.sys_id == "26f2fffb77322300454792718a1061e5") : false);
+
+	c.previous_rating = 0;
+	c.rating_state = 1;
+	c.submitFeedback = function() {
+		if(c.data.rating == 0 && c.previous_rating){
+			c.data.rating = c.previous_rating;
+			return;
+		}
+		if (c.data.rating && !$scope.data.allowFeedback){
+			if(c.data.rating_threshold != "" && c.data.rating<=parseInt(c.data.rating_threshold)){
+				var feedback_data = {};
+				feedback_data.action = 'rating';
+				feedback_data.rating = c.data.rating;
+				$rootScope.$emit("sp.kb.feedback.openTaskPopup",{"feedback_data":feedback_data});
+				c.previous_rating = c.data.rating;
+			}	else {
+				c.rating_state = 0;
+				c.server.get({action : 'submit_rating', article_id : $rootScope.article_sys_id, rating : c.data.rating}).then(function(r){
+					if(r.data.response){
+						c.type = true;
+						c.data.response = $rootScope.messages.THANK_YOU;
+						c.previous_rating = c.data.rating;
+					}
+					else {
+						c.type = "error";
+						c.data.response = $rootScope.messages.RATE_LIMIT_REACHED;
+						c.data.rating = c.previous_rating;
+					}
+					c.rating_state = 1;
+				});
+			}
+		}
+	}
+	
+	c.rate_a11y = function() {
+		if(event.key == "Tab" && c.previous_rating != c.data.rating && c.rating_state)
+			c.submitFeedback();
+	}
+
+	$scope.$watch("c.data.response", function(){
+		if(c.data.response != ''){
+			if(cabrillo.isNative())
+				cabrillo.message.showMessage(c.type != 'error' ? cabrillo.message.SUCCESS_MESSAGE_STYLE : cabrillo.message.ERROR_MESSAGE_STYLE, c.data.response);
+			else
+				$scope.$emit('$$uiNotification', {
+					"message": c.data.response,
+					"type": c.type});
+		}
+		c.clearMessage();
+	});
+
+	c.clearMessage = function(){
+		$timeout(function() {
+			c.data.response = "";
+		}, 500);
+	};
+
+	/*c.server.get({action : 'getHelpful', article_sys_id : $rootScope.article_sys_id}).then(function(resp){
+		c.data.percent = resp.data.percent;
+		c.data.helpfulContent = resp.data.helpfulContent;
+	});*/
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.kb-help-wrapper{
+  .kb-button{
+    margin-left : 5px;
+  }
+  .kb-line{
+    border-color : #ccc;
+  }
+  .help-buttons{
+    display:inline;
+  }
+
+  .kb-rate-star, .kb-inline{
+    display: inline;
+  }
+  .kb-star-on {
+    color: $fav-star-color !important;
+    text-shadow: $fav-star-outline;
+  }
+  .kb-star-off {
+    color: $fav-star-color-off !important;
+    text-shadow: $fav-star-outline;
+  }
+  .kb-rating-stars{
+    .glyphicon{
+      line-height: 0;
+    }
+    .rating-stars [role="button"] {
+      cursor: text;
+    }
+  }
+}
+.kb-desktop{
+  .kb-help-label {
+    font-size:18px !important;
+  }
+  .rating-section{
+    position:relative;
+    top:3px;
+    .kb-rate-article{
+      position:relative;
+      top:-1px;
+      .kb-inline{
+        font-size:18px !important;
+      }
+    }
+    .kb-rate-star{
+      position:relative;
+      &amp;.r-pad-top{
+        top:2px;
+      }
+      .kb-inline{
+        font-size:20px !important;
+      }
+      .kb-rating-stars{
+        .glyphicon-star:before{
+          color: #ffca1f;
+        }
+        .glyphicon-star-empty{
+          color: #BDC0C4;
+        }
+      }
+    }
+  }
+  .help-section{
+    position:relative;
+    top:2px;
+    .help-use-button{
+      display: inline-flex;
+      .help-use-text{
+        text-align: center;
+        padding-top: 5px;
+      }
+      .help-buttons{
+        .btn{
+          height: 32px;
+          width: 70px;
+          margin-left: 12px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
+.kb-mobile{
+  letter-spacing: 1px;
+  .kb-no-bottom{
+    margin-bottom:0px;
+  }
+  &amp;.mesp-ui{
+    .kb-no-bottom{
+      margin-bottom:20px;
+    }
+  }
+  .kb-help-label {
+    margin:0 0 20px 0;
+    font-size: 20px;
+    display: block;
+    position: inherit;
+  }
+  .help-buttons{
+    .btn{
+      height: 40px;
+      width: 85px;
+      margin-left: 12px;
+    }
+    .help-icon{
+      padding: 20px;
+      i.fa {
+        display: inline-block;
+        border-radius: 60px;
+        box-shadow: 0px 0px 2px #888;
+        padding: 0.5em 0.6em;
+        font-size: 40px;
+      }
+    }
+    .is_selected{
+      i.fa {
+        background-color:$primary;
+        color:#fff;
+      }
+    }
+  }
+  .help-section{
+    text-align:center;
+  }
+  .sp-helpful-percent{
+    padding-left: 0px;
+    display: block;
+    padding-top: 15px;
+    font-size:1em;
+  }
+  .rating-section{
+    text-align:center;
+  }
+  .help-content{
+    padding: 10px;
+  }
+  .help-buttons .btn{
+    margin: 20px;
+  }
+
+  .rating-section{
+    margin: 40px 0 15px 0;
+    .kb-inline{
+      font-size:20px !important;
+    }
+    .kb-rate-star{
+      padding-bottom: 20px;
+      display: block;
+      .kb-inline{
+        font-size: 35px !important;
+        span:focus {
+          outline: none !important;
+          border: none !important;
+          -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+        }
+        .glyphicon{
+          padding:6px;
+        }
+      }
+    }
+  }
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>color,css</field_list>
+        <has_preview>false</has_preview>
+        <id>gdep_kb_helpful_star_rating</id>
+        <internal>false</internal>
+        <link><![CDATA[function(scope) {
+	var c = scope.c;
+
+	c.action = function(state) {
+		if(c.data.state == state)
+			return;
+		c.recordId ="";
+		//c.submitted = true;
+		c.data.state = state;
+		c.data.response = c.data.submittingMsg;
+
+		if(c.data.actionablefeedback_helpful_enabled =='true' && state == "useful_no"){
+			var feedback_data = {};
+			feedback_data.action = 'useful_no';
+			$rootScope.$emit("sp.kb.feedback.openTaskPopup",{"feedback_data":feedback_data});
+		}else{
+			c.server.get({action: 'saveHelpful', article_sys_id : $rootScope.article_sys_id, useful : state}).then(function(resp){
+				c.data.success = resp.data.success;
+				c.data.response = resp.data.response;
+				setTimeout(function() {
+					//c.hide = true;
+				}, 2000);
+			})
+		}
+	}
+
+	c.showPercentHelpful = function() {
+		if (c.submitted)
+			return false;
+
+		/*if (c.data.percent < 0)
+			return false;*/
+
+		return c.options.hide_percent_helpful != true && c.options.hide_percent_helpful != "true";
+	}
+}]]></link>
+        <name>GDEP KB Helpful Star Rating</name>
+        <option_schema>[{"hint":"Show Star Rating","name":"show_star_rating","default_value":"Use system properties","section":"other","label":"Show Star Rating","type":"choice","choices":[{"label":"Yes","value":"Yes"},{"label":"No","value":"No"},{"label":"Use system properties","value":"Use system properties"}]},{"hint":"Show percentage of users who found this article helpful","name":"show_percent_helpful","default_value":"true","label":"Show helpful percentage information","type":"boolean"},{"hint":"Label for Article Helpful (Yes/ No) action","name":"helpful_prompt","label":"Helpful Action Label","type":"string"},{"hint":"Feedback message to be displayed when user clicks on Yes or No button","name":"feedback_message","default_value":"","label":"Feedback Message","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[data.tsQueryId = $sp.getParameter("sysparm_tsqueryId") || "";
+data.rating = 0;
+options.kb_rating_style = options.kb_rating_style ? options.kb_rating_style == "true" : false;
+data.isMESP = ($sp.getParameter("id") == "me_kb_view") || false;
+
+if(!input){
+	getSystemProperties();
+}
+
+if (input) {
+	if(input.action == "saveHelpful"){
+		data.response = options.response || gs.getMessage('Thank you');
+		var kbPortal = new KBPortalServiceImpl();
+		var params = {};
+		params.article = input.article_sys_id;
+		params.useful = (input.useful == 'useful_yes') ? 'yes' : 'no';
+		params.user = gs.getUserID();
+		params.session_id = gs.getSessionID();
+		params.search_id = data.tsQueryId;
+		var resp = kbPortal.saveUsefulWithParams(params) + '';
+		var successMessage = options.feedback_message ? options.feedback_message : gs.getMessage('Thank You');
+		data.response = resp.includes('true') ? successMessage : gs.getMessage('You have reached the daily limit for comments posted by a user.');
+		data.success = resp.includes('true');
+		data.helpfulresp = resp;
+	}
+	else if(input.action == 'getHelpful'){
+		data.percent = getPercent();
+		data.helpfulContent = gs.getMessage("{0}% found this helpful", data.percent + '');
+	}else if (input.action === 'submit_rating'){
+		var kbPortal = new KBPortalServiceImpl();
+		data.response = kbPortal.submitRating(input.rating, input.article_id);
+	}
+}
+
+function getPercent() {
+	var fbs = new GlideRecord("kb_feedback");
+	fbs.addQuery("useful", "yes");
+	fbs.addQuery("article", input.article_sys_id);
+	fbs.query();
+	var useful_yes = fbs.getRowCount();
+	fbs = new GlideRecord("kb_feedback");
+	fbs.addNotNullQuery("useful");
+	fbs.addQuery("article",input.article_sys_id);
+	fbs.query();
+	var useful_total = fbs.getRowCount();
+
+	var percentage = (useful_total > 0) ? Math.round(useful_yes/useful_total*100) : 0;
+	return percentage;
+}
+
+function getSystemProperties(){
+	data.actionablefeedback_helpful_enabled = gs.getProperty('glide.knowman.feedback.enable_actionable_feedback_for_helpful','false');
+	data.rating_threshold =  gs.getProperty('glide.knowman.feedback.enable_actionable_feedback_for_rating',"");
+  data.show_helpful =  gs.getProperty('glide.knowman.show_yn_rating','true');
+}]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-06-23 05:23:47</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>ab80740adba19cd859ac6e25ca96199a</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>GDEP KB Helpful Star Rating</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_ab80740adba19cd859ac6e25ca96199a</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-08-03 22:32:14</sys_updated_on>
+        <template><![CDATA[<div class="kb-help-wrapper" ng-if="$root.properties.showKBRatingOptions && $root.properties.showYesNoRatings && !$root.hideFeedbackOptions && $root.isValid && !c.hide" ng-class="{'mesp-ui' : c.data.isMESP, 'kb-mobile' : c.isMobile ,'kb-desktop' : !c.isMobile}">
+  <hr class="kb-line visible-xs"/>
+  <div class="row">
+    <div class="col-sm-6 help-section">
+      <div ng-if="c.show_helpful" class="help-content">
+        <div class="kb-inline">
+          <h3 ng-if="!c.submitted" class="kb-help-label" ng-bind="::c.helpfulPrompt"></h3>
+        </div>
+        <div class="kb-inline help-use-button">
+          <div>
+            <div class="help-buttons" ng-if="::!c.isMobile">
+              <button type="button" ng-if="!c.submitted" name="useful_yes" class="btn btn-primary btn-question kb-button" ng-click="c.action('useful_yes')">${Yes}</button>
+              <button type="button" ng-if="!c.submitted" name="useful_no" class="btn btn-default btn-question kb-button" ng-click="c.action('useful_no')">${No}</button>
+            </div>
+            <div class="help-buttons" ng-if="::c.isMobile">
+              <a ng-if="!c.submitted" href="javascript:void(0);" class="help-icon" ng-class="{'is_selected':c.data.state == 'useful_yes'}" name="useful_yes" ng-click="c.action('useful_yes')"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+              <a ng-if="!c.submitted" href="javascript:void(0);" class="help-icon" ng-class="{'is_selected':c.data.state == 'useful_no'}" name="useful_no" ng-click="c.action('useful_no')"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+            </div>
+            <div class="help-use-text">
+              <span ng-if="c.options.show_percent_helpful != 'false' && c.showPercentHelpful()" class="sp-helpful-percent" ng-bind="$root.helpfulContent"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="kb-line visible-xs"/>
+    <div class="col-sm-6 rating-section">
+      <div ng-if="$root.isValid" class="kb-inline">
+        <div ng-if="c.showRatings" ng-class="c.ratingClass">
+          <div class="kb-rate-article"> <h3 class="kb-inline">${Rate this article}</h3></div>
+          <div class="kb-rate-star" ng-class="{'r-pad-top' : c.KBRatingStyle}"><h3 class="kb-inline">
+            <span ng-keydown="c.rate_a11y()" ng-click="c.submitFeedback()" class="kb-rating-stars" ng-if="::c.KBRatingStyle">
+             <uib-rating aria-label="${Rate this article}" ng-model="c.data.rating" max="5"></uib-rating>
+            </span>
+            <span ng-keydown="c.rate_a11y()" ng-click="c.submitFeedback()" class="sp-stars" ng-if="!c.KBRatingStyle">
+              <span uib-rating sp-rating ng-model="::c.data.rating" aria-label="${Rate this article}" max="5" state-on="'fa fa-star kb-star-on'" state-off="'fa fa-star kb-star-off'" />
+            </span>
+            </h3></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!--<div role="alert" ng-if="::!c.isMobile && data.response" ng-class="{'alert-success':data.success, 'alert-danger': !data.success}" class="alert" ng-bind="::data.response"></div>-->
+  </div>
+  <hr class="kb-line kb-no-bottom"/>
+</div>
+<style>
+  .kb-help-wrapper .rating-section{
+    text-align:right;
+  }
+  .kb-help-wrapper .kb-help-label {
+    display: inline;
+    position: relative;
+    left: 0px;
+    top: 3px;
+  }
+  .kb-help-wrapper .kb-rate-article{
+    padding-right : 10px;
+    display: inline;
+  }
+  .kb-help-wrapper .sp-helpful-percent{
+    padding-left: 10px;
+    display: inline-block;
+    font-size:1em;
+  }
+  @media only screen and (min-width :1200px){
+    .kb-help-wrapper.kb-desktop .help-content .help-use-text{
+      display:inline;
+    }
+  }
+  @media only screen and (max-width :992px){
+    .kb-help-wrapper.kb-desktop .help-section{
+      text-align:center;
+    }
+    .kb-help-wrapper.kb-desktop .sp-helpful-percent{
+      padding-left: 0px;
+      display: block;
+    }
+    .kb-help-wrapper.kb-desktop .rating-section{
+      text-align:center;
+    }
+    .kb-help-wrapper.kb-desktop .kb-help-label {
+      margin:0px;
+      font-size: 20px;
+      display: block;
+      position: inherit;
+    }
+    .kb-help-wrapper .kb-line{
+      border-color: #ccc;
+      margin-left: -30px;
+      margin-right: -30px;
+    }
+    .kb-help-wrapper.kb-desktop .help-content{
+      padding: 10px;
+    }
+    .kb-help-wrapper.kb-desktop .help-buttons .btn{
+      margin: 15px;
+    }
+    .kb-help-wrapper.kb-desktop .rating-section{
+      margin: 10px 0 15px 0;
+    }
+    .kb-help-wrapper .rating-section .kb-rate-article{
+      padding-bottom: 8px;
+      display: block;
+    }
+    .kb-help-wrapper.kb-desktop .rating-section .kb-rate-star .kb-inline{
+      font-size: 25px !important;
+    }
+    .kb-help-wrapper .rating-section .kb-rate-star .kb-inline .glyphicon{
+      padding:6px;
+    }
+  }
+
+  @media only screen and (min-width:768px) and (max-width: 992px) {
+    .kb-help-wrapper .kb-no-bottom, .kb-help-wrapper .kb-line{
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .kb-help-wrapper .rating-section .kb-rate-article{
+      padding-bottom: 15px;
+      display: block;
+    }
+  }
+</style>]]></template>
+    </sp_widget>
+</record_update>

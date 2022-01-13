@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="u_gdep_image_links">
+    <u_gdep_image_links action="INSERT_OR_UPDATE">
+        <sys_class_name>u_gdep_image_links</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-05-05 04:34:53</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>c95f4492dbac1850bb5a4a28139619c4</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>u_gdep_image_links_c95f4492dbac1850bb5a4a28139619c4</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-21 05:03:59</sys_updated_on>
+        <u_identifier>GDEP Knowledge Section</u_identifier>
+        <u_image>93bfcc56dbac1850bb5a4a28139619e9</u_image>
+        <u_kb_article_id/>
+        <u_link_type>1</u_link_type>
+        <u_order>200</u_order>
+        <u_related_document_id/>
+        <u_related_sysid>45ed28dbdbb81050daeb9ed6db9619e9</u_related_sysid>
+        <u_short_description/>
+        <u_title>Learning</u_title>
+        <u_url/>
+    </u_gdep_image_links>
+</record_update>

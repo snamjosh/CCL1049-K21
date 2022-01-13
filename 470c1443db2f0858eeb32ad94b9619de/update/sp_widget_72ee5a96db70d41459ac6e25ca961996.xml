@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($scope, $rootScope, $timeout) {
+	var c = this;
+	
+	//console.log("hello from SC Content");
+//	console.log("show item list:" + c.data.showItemList);
+//	console.log("show item view:" + c.data.showItemView);
+	//console.log(c.data.validCategory);
+	//console.log(c.data.test);
+	
+	function init() {
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gdep_sc_content</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP SC Content</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	var sys_id = $sp.getParameter("sys_id");
+	
+	var gr = new GlideRecord("sc_category");
+	validCategory = gr.get(sys_id);
+	data.validCategory = validCategory;
+	
+	data.showItemList = false;
+	data.showItemView = false;
+	
+	if(validCategory){
+		data.showItemList = true;
+		data.scItemListWidget = $sp.getWidget('gdep_sc_item_list'); 
+		//data.scItemListWidget = $sp.getWidget('sc_item_list'); 
+	}
+	else{
+		data.showItemView = true;
+		data.scItemViewWidget = $sp.getWidget('gdep_sc_item_view'); 
+		//data.scItemViewWidget = $sp.getWidget('sc_item_view'); 
+	}
+	
+	//data.test = "ok";
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-05-18 01:17:21</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>72ee5a96db70d41459ac6e25ca961996</sys_id>
+        <sys_mod_count>31</sys_mod_count>
+        <sys_name>GDEP SC Content</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_72ee5a96db70d41459ac6e25ca961996</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-05-24 05:36:49</sys_updated_on>
+        <template><![CDATA[<div ng-if="c.data.showItemList">
+	<sp-widget widget="c.data.scItemListWidget" />   
+</div>	
+
+<div ng-if="c.data.showItemView">
+	<sp-widget widget="c.data.scItemViewWidget" />   
+</div>	]]></template>
+    </sp_widget>
+</record_update>

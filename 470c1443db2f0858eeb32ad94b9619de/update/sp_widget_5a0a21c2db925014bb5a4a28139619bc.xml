@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($scope) {
+  
+  $scope.$on('sp.sessions', function(name, sessions) {
+    $scope.sessions = sessions;
+  });
+
+  $scope.sessionCount = function() {
+    var num = 0;
+    var keys = Object.keys($scope.sessions);
+    for (var i = 0; i < keys.length; i++) {
+      if ($scope.sessions[keys[i]].status != "")
+        num++;
+    }
+    return num;
+  }
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.no-border {
+  border-width: 0 !important;
+}
+
+.panel-body {
+  padding-bottom: 0;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Sessions</name>
+        <option_schema/>
+        <public>false</public>
+        <roles>snc_external,snc_internal</roles>
+        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-30 16:22:00</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>5a0a21c2db925014bb5a4a28139619bc</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>GDEP Sessions</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_5a0a21c2db925014bb5a4a28139619bc</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-07-30 16:22:08</sys_updated_on>
+        <template><![CDATA[<sp-panel ng-if="sessions && sessionCount()" class="panel b">
+  <div>
+    <ul class="list-group no-bg no-borders pull-in">
+      <li ng-if="s.status" class="list-group-item no-border" ng-repeat="s in sessions">
+        <span class="pull-left thumb-sm avatar m-r">
+          <sn-avatar primary="s.user_id" show-presence="true" enable-context-menu="false"></sn-avatar>
+        </span>
+        <div class="clear">
+          <div><span>{{::s.user_display_name}}</span></div>
+          <small class="text-muted">{{s.status}}</small>
+        </div>
+      </li>
+    </ul>
+  </div>
+</sp-panel>
+]]></template>
+    </sp_widget>
+</record_update>

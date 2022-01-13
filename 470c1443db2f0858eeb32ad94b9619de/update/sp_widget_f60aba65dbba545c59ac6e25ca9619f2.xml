@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>@font-face {
+    font-family: 'Boing';
+    src: url('//img1.wsimg-com.ide/ux/fonts/1.3/eot/Boing-Bold.eot?#iefix') format('embedded-opentype'),
+    url('//img1.wsimg-com.ide/ux/fonts/1.3/woff2/Boing-Bold.woff2') format('woff2'),
+    url('//img1.wsimg-com.ide/ux/fonts/1.3/woff/Boing-Bold.woff') format('woff'),
+    url('//img1.wsimg-com.ide/ux/fonts/1.3/ttf/Boing-Bold.ttf') format('truetype');
+    font-weight: 400 !important;
+    font-style: normal;
+}
+
+
+            .box-container {
+                background-color: #FFF /*rgb(244, 244, 244);*/
+                padding: 0em;
+                text-align: center;
+                height: 100%;
+            }
+
+body {
+  /*
+    color: #2B2B2B;
+    font: 20px Boing-Bold, Arial, sans-seriff;
+    padding-top: 150px;
+    background-color: #F3F3F3 !important;
+  */
+    color: #5e5e5e;
+    font: 13px "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+nav {
+    font: 25px Boing-Bold, Arial, sans-serif;
+}
+
+.jumbotron {
+    background-color: $godaddyBlue !important;
+    color: $godaddyBlue !important;
+    padding: 0 10% 0 10%;
+}
+
+.jumbotron a, .jumbotron a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar {
+    background-color: #2B2B2B;
+}
+
+.jumbotron img {
+    max-width: 100px;
+}
+
+.breadCrumb {
+    color: #2B2B2B;
+}
+
+.ui-notification {
+    width: 400px;
+}
+
+.ui-notification.clickable:hover {
+    opacity: 1.0;
+}
+
+.ui-notification a:hover {
+    color: $godaddyBlue !important;
+}
+
+.ui-notification img {
+    max-width: 100px;
+}
+
+hr {
+    border: none;
+    height: 2px;
+  margin-left:8%;margin-right:8% ;
+    background-color: #000 !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: $godaddyBlue !important;
+    text-decoration: none;
+}
+
+h2 {
+    color: $godaddyBlue !important;
+}
+
+
+    .banner{
+        background-color: #111116; 
+        color: #ffffff; 
+        border: 0px; 
+        margin-bottom: 0px;
+        padding: 50px 40px;
+        margin: 0;
+    }
+
+    .banner-title{
+        font-size: 36pt; 
+        font-family: 'arial black', arial, helvetica, sans-serif; 
+        font-weight: 900; 
+        color: #ffffff; 
+        line-height: 1;
+        padding-bottom: 30px;
+    }
+
+    .banner-caption{
+        font-family: arial, 
+        helvetica, 
+        sans-serif; 
+        font-size: 14px; 
+        line-height: 1.4;
+    }
+
+
+
+/*medium screen*/
+@media (max-width: 991px){
+    .tile{
+        width: 100%;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 30px 10px 10px 10px;    
+    }
+
+    .tile-link{
+        height: 100%;
+        width: 100%;
+        cursor: hand;
+    }
+
+    .tile-button{
+        font-size: 12px;
+        float: right;
+        color: black;
+    }
+
+    .tile-title{
+        font-size: 20px; 
+        padding-bottom: 5px;
+    }
+
+    .tile-image{
+        max-width: 130px !important;
+    }
+    
+    .tile-caption{
+        font-size: 16px; 
+        padding-bottom: 15px;
+    }
+
+    .tile-chevron{
+        float: right;
+        right: 20px;
+        color: black;
+        font-size: 18px;
+    }
+}
+
+/*small screen*/
+@media (max-width: 767px){
+
+    .tile{
+        padding: 30px 10px 10px 10px;    
+    }
+
+    .tile-chevron{
+        right: 20px;
+        font-size: 18px;
+    }
+
+    .row {
+        margin-left: -15px;
+    }
+}
+
+/*x-small screen*/
+@media (max-width: 543px){
+     .tile{     
+        padding: 10px 0px;    
+    }
+
+    .tile-title{
+        font-size: 18px; 
+        padding-bottom: 5px;
+    }
+
+    .tile-image{
+        max-width: 90px !important;
+    }
+    
+    .tile-caption{
+        font-size: 14px; 
+        padding-bottom: 15px;
+    }
+
+    .tile-chevron{
+        right: 5px;
+        font-size: 18px;
+    }
+  
+    .row {
+        margin-left: -20px;
+    }
+}
+
+
+/*large screen*/
+@media (min-width: 992px){
+    .tile{
+        width: 100%; 
+        padding: 20px 50px 20px 50px; 
+        border-right: 1px solid #e8e8e8;
+        margin-bottom: 50px;
+    }
+
+    .tile-button{
+        font-size: 15px;
+        color: black;
+    }
+
+    .tile-title{
+        font-size: 28px; 
+        padding-bottom: 25px;
+        /*height: 120px;*/
+    }
+
+    .tile-image{
+        width: 130px !important; 
+        height: 100px !important; 
+        margin: 30px 0px 10px 0px; 
+        max-width: 130px !important;
+    }
+    
+    .tile-caption{
+        font-size: 16px; 
+        padding-bottom: 25px;
+    }
+}
+    
+    a.tile-link:hover .tile-title {
+        color: #02C54C;
+        text-decoration: none;    
+    }
+
+    .tile{
+        background-color: #ffffff; 
+        color: #000000; 
+    }
+
+    .tile-button{
+        background-color: black; 
+        color: #ffffff; 
+        padding: 10px 20px; 
+        font-family: 'arial black', arial, helvetica, sans-serif; 
+        border-radius: 3px;
+    }
+
+    .tile-button{
+        text-decoration: $godaddyBlue !important;        
+    }
+
+    .tile-button:hover{
+        text-decoration: none !important;
+        color: #ffffff !important;
+        background: $godaddyBlue !important;
+    }
+
+    .tile-title{
+        color: #000000; 
+        font-family: 'arial black', arial, helvetica, sans-serif; 
+        line-height: 1;
+    }
+    
+    .tile-caption{
+        color: #000000; 
+        font-family: Impact, helvetica, sans-serif; 
+        line-height: 1;
+    }
+
+    .green{
+        color: $godaddyBlue !important; 
+    }
+
+
+    a:focus, a:hover {
+        color: $godaddyBlue !important;
+        text-decoration: none !important;
+    }
+
+    .img-responsive{
+        max-width: 140px;
+    }
+
+
+.box-link,
+.box-link:hover,
+.box-link:visited{
+  text-decoration: none;
+  color: black !important;
+}
+
+
+/*
+
+hr { border: none;height: 2px;background-color: #eff;}
+img{ width:0.85in ;height:0.85in ;}
+a {text-decoration: none; }
+a:hover {border-color: $godaddyBlue !important;color: $godaddyBlue !important; text-decoration: none;}
+div:hover{border-color: $godaddyBlue !important; text-decoration: none;}
+div:active{border-color: $godaddyBlue !important; text-decoration: none;}
+
+.itemDescription{font-family: $mediumFont;color: #000000 !important;font-size:$base-font-size*1.2}
+.itemTitle{font-family: $boldFont;font-size: 2.0vf;}
+.column-left {float: left; width: 25%;padding:none;}
+.column-right {float: left;width: 75%;}
+.row-categories { height: 132px}
+.row-categories:after {content: "";display: table;clear: both;}
+.margins { margin-left: 3% !important;margin-right: 2% !important;
+}
+.cta-wrapper{ width: 30% !important;height: 150px;
+      border: 1px solid #d2d2d2;
+ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+border-radius: 2px;
+}*/
+/*
+@media( min-width:768px ){
+.margins {padding-left: 75px !important;padding-right: 75px !important; }
+.cta-wrapper{ width: 490px;height: 150px;padding-left:40px;padding-right:0px;}
+}
+@media(min-width:1024px ){
+.margins {margin-left: 60px !important;margin-right: 0px !important;padding-left: 0px !important;padding-right: 10px !important; }
+.cta-wrapper{ width: 550px;height: 150px;padding-left:0px;padding-right:0px;  }
+}
+@media( min-width: 1366px ){
+.margins {margin-left: 95px !important;margin-right: 0px !important;padding-left: 0px !important;padding-right: 10px !important; }
+.cta-wrapper{ width: 550px;height: 150px;padding-left:0px;padding-right:0px;  }
+}
+@media( min-width: 1920px ){
+.margins {margin-left: 95px !important;margin-right: 0px !important;padding-left: 40px !important;padding-right: 0px !important; }
+.cta-wrapper{ width: 550px;height: 150px;padding-left:0px;padding-right:0px; }
+}
+@media( min-width: 2560px ){
+.margins {margin-left: 95px !important;margin-right: 0px !important;padding-left: 85px !important;padding-right: 0px !important; }
+.cta-wrapper{ width: 550px;height: 150px;padding-left:0px;padding-right:0px;}
+}*/
+</css>
+        <data_table>u_gdep_instance_tiles</data_table>
+        <demo_data/>
+        <description>GDEP Tiles for the user to click on</description>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gdep_bottom_section_tiles</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Bottom Section Tiles</name>
+        <option_schema>[]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function () {
+	// This respects user criteria (doesn't return items user has no access to)
+	var helper = new gdepTilesHelper();
+	data.items = helper.getTilesForInstance($sp.getInstanceRecord().getUniqueValue());
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-23 05:26:00</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>f60aba65dbba545c59ac6e25ca9619f2</sys_id>
+        <sys_mod_count>72</sys_mod_count>
+        <sys_name>GDEP Bottom Section Tiles</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_f60aba65dbba545c59ac6e25ca9619f2</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-10-13 21:06:28</sys_updated_on>
+        <template><![CDATA[<div ng-if="data.items.length>0" class="box-container">
+  <hr>
+    <a ng-repeat="cat in ::data.items" class="box-link" href="{{::cat.url}}">
+       <div class="box">
+           <img class="img-circle"  ng-src="{{::cat.image}}">
+           <div class="title">{{::cat.title}}</div>
+           <div class="description">{{::cat.short_description}}</div>
+       </div>
+    </a>    
+</div>
+<!--
+<div ng-if="data.items.length==0">
+  There are no tiles.
+</div>
+
+<div ng-if="data.items.length>0" class="">
+  <div class="margins">
+     <div ng-repeat="cat in ::data.items" >
+      <a class="cta-wrapper col-xs-10 col-md-10 col-lg-t" href="{{::cat.url}}">
+        <div style="display: table;" style="max-width:100%; max-height:100%;" >
+          <div class="row-categories">
+          	<div class="column-left">
+            	<img ng-src="{{::cat.image}}" class="hidden-sm hidden-xs">
+          </div>
+          
+          <div class="column-right">
+          	<div class="itemTitle">
+            	{{::cat.title}} 
+            </div>
+            <div class="itemDescription">
+            		{{::cat.short_description}}
+          		</div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>-->
+
+
+<!--ORIGINAL HTML
+<div ng-if="data.items.length==0">
+  There are no tiles.
+</div>
+
+<div ng-if="data.items.length>0" class="">
+  <div class="margins">
+     <div ng-repeat="cat in ::data.items" >
+      <a class="cta-wrapper col-xs-10 col-md-10 col-lg-t" href="{{::cat.url}}">
+        <div style="display: table;" style="max-width:100%; max-height:100%;" >
+          <div class="row-categories">
+          	<div class="column-left">
+            	<img ng-src="{{::cat.image}}" class="hidden-sm hidden-xs">
+          </div>
+          
+          <div class="column-right">
+          	<div class="itemTitle">
+            	{{::cat.title}} 
+            </div>
+            <div class="itemDescription">
+            		{{::cat.short_description}}
+          		</div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

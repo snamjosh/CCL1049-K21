@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_related sys_domain="global" table="sp_instance" version="2" view="sp_instance_config">
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Instance - SP Instance Config" name="sp_instance" related_list="NULL" sys_domain="global" view="0ce54027b33232007a6de81816a8dca1">cde66bc3db2898d0bb5a4a2813961907</list_id>
+            <order_by/>
+            <position>0</position>
+            <related_list/>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-08 04:11:34</sys_created_on>
+            <sys_id>01e66bc3db2898d0bb5a4a2813961909</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-08 04:11:34</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list action="INSERT_OR_UPDATE">
+            <calculated_name>Instance - SP Instance Config</calculated_name>
+            <filter/>
+            <name>sp_instance</name>
+            <order_by/>
+            <position/>
+            <related_list/>
+            <sys_class_name>sys_ui_related_list</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-08 04:11:34</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_id>cde66bc3db2898d0bb5a4a2813961907</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Instance - SP Instance Config</sys_name>
+            <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+            <sys_update_name>sys_ui_related_sp_instance_sp_instance_config</sys_update_name>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-08 04:11:34</sys_updated_on>
+            <sys_user/>
+            <view display_value="SP Instance Config" name="sp_instance_config">0ce54027b33232007a6de81816a8dca1</view>
+            <view_name/>
+        </sys_ui_related_list>
+    </sys_ui_related>
+</record_update>

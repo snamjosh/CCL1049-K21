@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>@font-face {&#13;
+    font-family: 'Boing';&#13;
+    src: url('//img1.wsimg-com.ide/ux/fonts/1.3/eot/Boing-Bold.eot?#iefix') format('embedded-opentype'),&#13;
+    url('//img1.wsimg-com.ide/ux/fonts/1.3/woff2/Boing-Bold.woff2') format('woff2'),&#13;
+    url('//img1.wsimg-com.ide/ux/fonts/1.3/woff/Boing-Bold.woff') format('woff'),&#13;
+    url('//img1.wsimg-com.ide/ux/fonts/1.3/ttf/Boing-Bold.ttf') format('truetype');&#13;
+    font-weight: 400 !important;&#13;
+    font-style: normal;&#13;
+}&#13;
+&#13;
+&#13;
+            .box-container {&#13;
+                background-color: #FFF /*rgb(244, 244, 244);*/&#13;
+                padding: 0em;&#13;
+                text-align: center;&#13;
+                height: 70%;&#13;
+            }&#13;
+&#13;
+body {&#13;
+  /*&#13;
+    color: #2B2B2B;&#13;
+    font: 20px Boing-Bold, Arial, sans-seriff;&#13;
+    padding-top: 150px;&#13;
+    background-color: #F3F3F3 !important;&#13;
+  */&#13;
+    color: #5e5e5e;&#13;
+    font: 13px "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;&#13;
+    padding: 0;&#13;
+    margin: 0;&#13;
+}&#13;
+&#13;
+nav {&#13;
+    font: 25px Boing-Bold, Arial, sans-serif;&#13;
+}&#13;
+&#13;
+.jumbotron {&#13;
+    background-color: $godaddyBlue !important;&#13;
+    color: $godaddyBlue !important;&#13;
+    padding: 0 10% 0 10%;&#13;
+}&#13;
+&#13;
+.jumbotron a, .jumbotron a:hover {&#13;
+    color: white;&#13;
+    text-decoration: none;&#13;
+}&#13;
+&#13;
+.navbar {&#13;
+    background-color: #2B2B2B;&#13;
+}&#13;
+&#13;
+.jumbotron img {&#13;
+    max-width: 100px;&#13;
+}&#13;
+&#13;
+.breadCrumb {&#13;
+    color: #2B2B2B;&#13;
+}&#13;
+&#13;
+.ui-notification {&#13;
+    width: 400px;&#13;
+}&#13;
+&#13;
+.ui-notification.clickable:hover {&#13;
+    opacity: 1.0;&#13;
+}&#13;
+&#13;
+.ui-notification a:hover {&#13;
+    color: $godaddyBlue !important;&#13;
+}&#13;
+&#13;
+.ui-notification img {&#13;
+    max-width: 100px;&#13;
+}&#13;
+&#13;
+hr {&#13;
+    border: none;&#13;
+    height: 2px;&#13;
+    background-color: $godaddyBlue !important;&#13;
+}&#13;
+&#13;
+a {&#13;
+    text-decoration: none;&#13;
+}&#13;
+&#13;
+a:hover {&#13;
+    color: $godaddyBlue !important;&#13;
+    text-decoration: none;&#13;
+}&#13;
+&#13;
+h2 {&#13;
+    color: $godaddyBlue !important;&#13;
+}&#13;
+&#13;
+&#13;
+    .banner{&#13;
+        background-color: #111116; &#13;
+        color: #ffffff; &#13;
+        border: 0px; &#13;
+        margin-bottom: 0px;&#13;
+        padding: 50px 40px;&#13;
+        margin: 0;&#13;
+    }&#13;
+&#13;
+    .banner-title{&#13;
+        font-size: 36pt; &#13;
+        font-family: 'arial black', arial, helvetica, sans-serif; &#13;
+        font-weight: 900; &#13;
+        color: #ffffff; &#13;
+        line-height: 1;&#13;
+        padding-bottom: 30px;&#13;
+    }&#13;
+&#13;
+    .banner-caption{&#13;
+        font-family: arial, &#13;
+        helvetica, &#13;
+        sans-serif; &#13;
+        font-size: 14px; &#13;
+        line-height: 1.4;&#13;
+    }&#13;
+&#13;
+&#13;
+&#13;
+/*medium screen*/&#13;
+@media (max-width: 991px){&#13;
+    .tile{&#13;
+        width: 100%;&#13;
+        border-bottom: 1px solid #e8e8e8;&#13;
+        padding: 30px 10px 10px 10px;    &#13;
+    }&#13;
+&#13;
+    .tile-link{&#13;
+        height: 100%;&#13;
+        width: 100%;&#13;
+        cursor: hand;&#13;
+    }&#13;
+&#13;
+    .tile-button{&#13;
+        font-size: 12px;&#13;
+        float: right;&#13;
+        color: black;&#13;
+    }&#13;
+&#13;
+    .tile-title{&#13;
+        font-size: 20px; &#13;
+        padding-bottom: 5px;&#13;
+    }&#13;
+&#13;
+    .tile-image{&#13;
+        max-width: 130px !important;&#13;
+    }&#13;
+    &#13;
+    .tile-caption{&#13;
+        font-size: 16px; &#13;
+        padding-bottom: 15px;&#13;
+    }&#13;
+&#13;
+    .tile-chevron{&#13;
+        float: right;&#13;
+        right: 20px;&#13;
+        color: black;&#13;
+        font-size: 18px;&#13;
+    }&#13;
+}&#13;
+&#13;
+/*small screen*/&#13;
+@media (max-width: 767px){&#13;
+&#13;
+    .tile{&#13;
+        padding: 30px 10px 10px 10px;    &#13;
+    }&#13;
+&#13;
+    .tile-chevron{&#13;
+        right: 20px;&#13;
+        font-size: 18px;&#13;
+    }&#13;
+&#13;
+    .row {&#13;
+        margin-left: -15px;&#13;
+    }&#13;
+}&#13;
+&#13;
+/*x-small screen*/&#13;
+@media (max-width: 543px){&#13;
+     .tile{     &#13;
+        padding: 10px 0px;    &#13;
+    }&#13;
+&#13;
+    .tile-title{&#13;
+        font-size: 18px; &#13;
+        padding-bottom: 5px;&#13;
+    }&#13;
+&#13;
+    .tile-image{&#13;
+        max-width: 90px !important;&#13;
+    }&#13;
+    &#13;
+    .tile-caption{&#13;
+        font-size: 14px; &#13;
+        padding-bottom: 15px;&#13;
+    }&#13;
+&#13;
+    .tile-chevron{&#13;
+        right: 5px;&#13;
+        font-size: 18px;&#13;
+    }&#13;
+  &#13;
+    .row {&#13;
+        margin-left: -20px;&#13;
+    }&#13;
+}&#13;
+&#13;
+&#13;
+/*large screen*/&#13;
+@media (min-width: 992px){&#13;
+    .tile{&#13;
+        width: 100%; &#13;
+        padding: 20px 50px 20px 50px; &#13;
+        border-right: 1px solid #e8e8e8;&#13;
+        margin-bottom: 50px;&#13;
+    }&#13;
+&#13;
+    .tile-button{&#13;
+        font-size: 15px;&#13;
+        color: black;&#13;
+    }&#13;
+&#13;
+    .tile-title{&#13;
+        font-size: 28px; &#13;
+        padding-bottom: 25px;&#13;
+        /*height: 120px;*/&#13;
+    }&#13;
+&#13;
+    .tile-image{&#13;
+        width: 130px !important; &#13;
+        height: 100px !important; &#13;
+        margin: 30px 0px 10px 0px; &#13;
+        max-width: 130px !important;&#13;
+    }&#13;
+    &#13;
+    .tile-caption{&#13;
+        font-size: 16px; &#13;
+        padding-bottom: 25px;&#13;
+    }&#13;
+}&#13;
+    &#13;
+    a.tile-link:hover .tile-title {&#13;
+        color: #02C54C;&#13;
+        text-decoration: none;    &#13;
+    }&#13;
+&#13;
+    .tile{&#13;
+        background-color: #ffffff; &#13;
+        color: #000000; &#13;
+    }&#13;
+&#13;
+    .tile-button{&#13;
+        background-color: black; &#13;
+        color: #ffffff; &#13;
+        padding: 10px 20px; &#13;
+        font-family: 'arial black', arial, helvetica, sans-serif; &#13;
+        border-radius: 3px;&#13;
+    }&#13;
+&#13;
+    .tile-button{&#13;
+        text-decoration: $godaddyBlue !important;        &#13;
+    }&#13;
+&#13;
+    .tile-button:hover{&#13;
+        text-decoration: none !important;&#13;
+        color: #ffffff !important;&#13;
+        background: $godaddyBlue !important;&#13;
+    }&#13;
+&#13;
+    .tile-title{&#13;
+        color: #000000; &#13;
+        font-family: 'arial black', arial, helvetica, sans-serif; &#13;
+        line-height: 1;&#13;
+    }&#13;
+    &#13;
+    .tile-caption{&#13;
+        color: #000000; &#13;
+        font-family: Impact, helvetica, sans-serif; &#13;
+        line-height: 1;&#13;
+    }&#13;
+&#13;
+    .green{&#13;
+        color: $godaddyBlue !important; &#13;
+    }&#13;
+&#13;
+&#13;
+    a:focus, a:hover {&#13;
+        color: $godaddyBlue !important;&#13;
+        text-decoration: none !important;&#13;
+    }&#13;
+&#13;
+    .img-responsive{&#13;
+        max-width: 140px;&#13;
+    }&#13;
+&#13;
+&#13;
+.box-link,&#13;
+.box-link:hover,&#13;
+.box-link:visited{&#13;
+  text-decoration: none;&#13;
+  color: black !important;&#13;
+}&#13;
+&#13;
+&#13;
+/* original css&#13;
+&#13;
+h2 { color: inherit !important;}&#13;
+a { text-decoration: none; }&#13;
+img{ width:1.5in ;height:1in ;}&#13;
+a:hover {border-color: $godaddyBlue !important;color: $godaddyBlue !important;}&#13;
+div:hover{border-color: $godaddyBlue !important; text-decoration: none;}&#13;
+div:active{border-color: $godaddyBlue !important; text-decoration: none;}&#13;
+&#13;
+&#13;
+&#13;
+.wrapper {&#13;
+  display: grid;&#13;
+  grid-template-columns: repeat(4, 1fr);&#13;
+  gap: 1em;&#13;
+}&#13;
+&#13;
+&#13;
+&#13;
+.cta-wrapper{ position: relative; display: grid; width: 500px;height: 150px;padding-left:10px;padding-right:10px;}&#13;
+.tile-column-left {float: left; width: 40%;padding:none;}&#13;
+.tile-column-right {float: left;width: 60%;}&#13;
+.tile-row-categories { height: 132px}&#13;
+.tile-row-categories:after {content: "";display: table;clear: both;}&#13;
+.tile-title{font-family: $boldFont;font-size:$base-font-size*1.4;}&#13;
+.tile-description{font-family: $mediumFont;color: #000000 !important;font-size:$base-font-size*1.2;}&#13;
+&#13;
+&#13;
+*/&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+</css>
+        <data_table>u_gdep_instance_tiles</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gdep_perf_mgmt_tiles</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Perf Mgmt Tiles</name>
+        <option_schema>[]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[	var helper = new gdepTilesHelper();
+	data.items = helper.getTilesForInstance($sp.getInstanceRecord().getUniqueValue());]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-09-08 23:34:26</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>6e9c0107db8f5850bb5a4a28139619a6</sys_id>
+        <sys_mod_count>149</sys_mod_count>
+        <sys_name>GDEP Perf Mgmt Tiles</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_6e9c0107db8f5850bb5a4a28139619a6</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-12-03 20:21:51</sys_updated_on>
+        <template><![CDATA[<div ng-if="data.items.length==0">
+  There are no tiles.
+</div>
+
+
+
+<!-- CARDS -->
+<div ng-if="data.items.length>0" class="box-container">
+  <a ng-repeat="item in ::data.items | orderBy:item.order" class="box-link" href="{{::item.url}}">
+    
+    
+      <div class="box">
+        <img ng-src="{{::item.image}}" class="img-circle"/>
+       <div class="title">{{::item.title}}</div>
+        <div class="description">{{::item.short_description}}</div>
+      </div> <!-- end bubble -->
+    
+    <!-- end area -->
+    </a>
+  </div> <!-- end repeat -->
+
+
+]]></template>
+    </sp_widget>
+</record_update>

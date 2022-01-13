@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_application">
+    <sys_ui_application action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <hint/>
+        <name>GDEP</name>
+        <order/>
+        <roles>gdep_user</roles>
+        <sys_class_name>sys_ui_application</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-03-20 04:38:49</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_id>2a375b93dbaf0898eeb32ad94b961926</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>GDEP</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_ui_application_2a375b93dbaf0898eeb32ad94b961926</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-03-20 04:38:49</sys_updated_on>
+    </sys_ui_application>
+</record_update>

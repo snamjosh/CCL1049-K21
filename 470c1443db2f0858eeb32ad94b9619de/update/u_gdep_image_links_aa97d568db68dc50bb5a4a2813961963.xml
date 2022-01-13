@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="u_gdep_image_links">
+    <u_gdep_image_links action="INSERT_OR_UPDATE">
+        <sys_class_name>u_gdep_image_links</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-04-29 23:22:57</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>aa97d568db68dc50bb5a4a2813961963</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>u_gdep_image_links_aa97d568db68dc50bb5a4a2813961963</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-22 04:42:03</sys_updated_on>
+        <u_identifier>GDEP Homepage Section</u_identifier>
+        <u_image>962855a8db68dc50bb5a4a2813961999</u_image>
+        <u_kb_article_id/>
+        <u_link_type>Quick Links</u_link_type>
+        <u_order>400</u_order>
+        <u_related_document_id/>
+        <u_related_sysid/>
+        <u_short_description>Commonly used systems &amp; vendors</u_short_description>
+        <u_title>Quick Links</u_title>
+        <u_url>?id=gdep_quick_links</u_url>
+    </u_gdep_image_links>
+</record_update>

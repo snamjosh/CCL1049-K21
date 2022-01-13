@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_carousel">
+    <sp_instance_carousel action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <interval>5000</interval>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="2">20067d36dbcd1850bb5a4a28139619af</sp_column>
+        <sp_widget display_value="GDEP Announcements Carousel">0dbf8b27db67081ce670d48a48961924</sp_widget>
+        <sys_class_name>sp_instance_carousel</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-05-31 22:03:37</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>55d8f136db015850bb5a4a28139619e6</sys_id>
+        <sys_mod_count>14</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_instance_carousel_55d8f136db015850bb5a4a28139619e6</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-05-31 22:49:37</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"header": {
+		"value": "",
+		"displayValue": ""
+	},
+	"header_color": {
+		"value": "",
+		"displayValue": ""
+	},
+	"carousel_type": {
+		"value": "",
+		"displayValue": "-- None --"
+	},
+	"slides_to_show": {
+		"value": "1",
+		"displayValue": "1"
+	},
+	"autoplay": {
+		"value": "true",
+		"displayValue": "true"
+	},
+	"display_dots": {
+		"value": "true",
+		"displayValue": "true"
+	},
+	"display_border": {
+		"value": "",
+		"displayValue": ""
+	}
+}]]></widget_parameters>
+    </sp_instance_carousel>
+    <sys_translated_text action="DELETE" query="documentkey=55d8f136db015850bb5a4a28139619e6"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>sp_instance_carousel_55d8f136db015850bb5a4a28139619e6</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_instance_carousel"&gt;&lt;sp_instance_carousel action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;class_name/&gt;&lt;color&gt;default&lt;/color&gt;&lt;css/&gt;&lt;glyph/&gt;&lt;id/&gt;&lt;interval&gt;5000&lt;/interval&gt;&lt;order&gt;1&lt;/order&gt;&lt;roles/&gt;&lt;short_description/&gt;&lt;size&gt;md&lt;/size&gt;&lt;sp_column display_value="2"&gt;20067d36dbcd1850bb5a4a28139619af&lt;/sp_column&gt;&lt;sp_widget display_value="GDEP Announcements Carousel"&gt;0dbf8b27db67081ce670d48a48961924&lt;/sp_widget&gt;&lt;sys_class_name&gt;sp_instance_carousel&lt;/sys_class_name&gt;&lt;sys_created_by&gt;choskins&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2020-05-31 22:03:37&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;55d8f136db015850bb5a4a28139619e6&lt;/sys_id&gt;&lt;sys_mod_count&gt;14&lt;/sys_mod_count&gt;&lt;sys_name/&gt;&lt;sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de"&gt;470c1443db2f0858eeb32ad94b9619de&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="GDEP"&gt;470c1443db2f0858eeb32ad94b9619de&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_instance_carousel_55d8f136db015850bb5a4a28139619e6&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;choskins&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2020-05-31 22:49:37&lt;/sys_updated_on&gt;&lt;title/&gt;&lt;url/&gt;&lt;widget_parameters&gt;&lt;![CDATA[{
+	"header": {
+		"value": "",
+		"displayValue": ""
+	},
+	"header_color": {
+		"value": "",
+		"displayValue": ""
+	},
+	"carousel_type": {
+		"value": "",
+		"displayValue": "-- None --"
+	},
+	"slides_to_show": {
+		"value": "1",
+		"displayValue": "1"
+	},
+	"autoplay": {
+		"value": "true",
+		"displayValue": "true"
+	},
+	"display_dots": {
+		"value": "true",
+		"displayValue": "true"
+	},
+	"display_border": {
+		"value": "",
+		"displayValue": ""
+	}
+}]]&gt;&lt;/widget_parameters&gt;&lt;/sp_instance_carousel&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=55d8f136db015850bb5a4a28139619e6"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1998954249</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>0c6740ecdb7598901093f40c0c9619f6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-06-30 20:50:48</sys_created_on>
+        <sys_id>5fd7c860dbb598901093f40c0c961980</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17306ff1ba90000001</sys_recorded_at>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-06-30 20:50:48</sys_updated_on>
+        <type>Instance of Carousel</type>
+        <update_guid>43534a366dc15850c7b805adb0eda6b1</update_guid>
+        <update_guid_history>43534a366dc15850c7b805adb0eda6b1:1998954249,145a54aa7b299c90b18efb76b8afa6bc:-1141860059,43534a366dc15850c7b805adb0eda6b1:1998954249,65f2c67256c15850e4c666734884e9e5:1564911565,c792c67259c1585045739db78c378ae0:-1977631747,e99cf57625415850077823fd910a7cca:1901137275,638b75fe23015850d9f75bfd8cfe2937:1998954249,8afa353ea7015850fa16168e9d541b72:215867559,80ca353e6f015850cb0fc1937f12836d:1998954249,bbaa717e56015850dfef2a9876f64559:215867559,ecaa317e7e015850be8b1fef64f625cb:-840578485,d59a353e5f01585018b8c7b8bc16ce5e:-244185589,f27af13e50015850ff98f551366afd26:-1442732581,1f0a3d7acd015850e003fd0255fd0053:-840578485,17f9b57acc015850e3216bb19a2c0d74:142458447,61e9f5f6d901585009c23d990f22cae9:-1442732581,d9d8f136be015850288ee4a11022a2e7:-660612384</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">30ffcf8913d2149019ed30128144b074</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-27 21:13:21</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sp_instance_carousel">sp_instance_carousel</sys_db_object>
+        <sys_id>04352da837024ea880194b5e208a2e10</sys_id>
+        <sys_metadata>55d8f136db015850bb5a4a28139619e6</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sp_instance_carousel_55d8f136db015850bb5a4a28139619e6</sys_update_name>
+        <sys_update_version display_value="sp_instance_carousel_55d8f136db015850bb5a4a28139619e6">5fd7c860dbb598901093f40c0c961980</sys_update_version>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-07-27 21:13:21</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="clone_data_preserver">
+    <clone_data_preserver action="DELETE">
+        <condition/>
+        <name>ATF Variables</name>
+        <sys_class_name>clone_data_preserver</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-02-15 19:55:43</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>3ed8542a1b922c14d671c9192a4bcbe7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>ATF Variables</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>clone_data_preserver_3ed8542a1b922c14d671c9192a4bcbe7</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-02-15 19:55:43</sys_updated_on>
+        <table>sys_variable_value</table>
+        <theme>false</theme>
+    </clone_data_preserver>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>clone_data_preserver_3ed8542a1b922c14d671c9192a4bcbe7</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="clone_data_preserver"><clone_data_preserver action="INSERT_OR_UPDATE"><condition/><name>ATF Variables</name><sys_class_name>clone_data_preserver</sys_class_name><sys_created_by>snamjoshi</sys_created_by><sys_created_on>2021-02-15 19:55:43</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>3ed8542a1b922c14d671c9192a4bcbe7</sys_id><sys_mod_count>0</sys_mod_count><sys_name>ATF Variables</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>clone_data_preserver_3ed8542a1b922c14d671c9192a4bcbe7</sys_update_name><sys_updated_by>snamjoshi</sys_updated_by><sys_updated_on>2021-02-15 19:55:43</sys_updated_on><table>sys_variable_value</table><theme>false</theme></clone_data_preserver></record_update>]]></payload>
+        <payload_hash>1485322055</payload_hash>
+        <record_name>ATF Variables</record_name>
+        <reverted_from/>
+        <source>3b97cb9f6fb23100fda99aad5d3ee43a</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-02-15 19:55:43</sys_created_on>
+        <sys_id>f2e8d02a1b922c14d671c9192a4bcb3c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>177a74353a60000001</sys_recorded_at>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-02-15 19:55:43</sys_updated_on>
+        <type>Clone Data Preserver</type>
+        <update_guid>bae8d02ac7922c14734efdf68a86e33b</update_guid>
+        <update_guid_history>bae8d02ac7922c14734efdf68a86e33b:1485322055</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">5f32347adbe72410b8f04a2813961983</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-04-19 19:43:18</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="clone_data_preserver">clone_data_preserver</sys_db_object>
+        <sys_id>0c7fb204429b48ea8f9f8f07ba051121</sys_id>
+        <sys_metadata>3ed8542a1b922c14d671c9192a4bcbe7</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>ATF Variables</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent display_value="Value">e9f64fd32b3e310054a41bc5a8da1558</sys_parent>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>clone_data_preserver_3ed8542a1b922c14d671c9192a4bcbe7</sys_update_name>
+        <sys_update_version display_value="clone_data_preserver_3ed8542a1b922c14d671c9192a4bcbe7">f2e8d02a1b922c14d671c9192a4bcb3c</sys_update_version>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-04-19 19:43:18</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.userCriteriaHelper</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Utilities for validating user criteria</description>
+        <name>userCriteriaHelper</name>
+        <script><![CDATA[var userCriteriaHelper = Class.create();
+userCriteriaHelper.prototype = {
+	initialize: function(allUserCriteria) {
+		
+		this.allUserCriteria = SNC.UserCriteriaLoader.getAllUserCriteria();
+	},
+
+	helloWorld: function(){
+		return("hello world");
+	},
+	
+	userCanReadKBArticle: function (kb){
+		var canReadCriteriaList = kb.can_read_user_criteria.getValue(); // comma delimited
+        var userCanRead = this.canReadCheck(canReadCriteriaList);
+		
+		var cannotReadCriteriaList = kb.cannot_read_user_criteria.getValue(); // comma delimited
+        var userCannotRead = this.cannotReadCheck(cannotReadCriteriaList);
+		
+		return $sp.canReadRecord(kb) && userCanRead && !userCannotRead;
+    },
+	
+	canReadCheck: function(canReadCriteriaList){
+		if(canReadCriteriaList == null) return true;
+		var canReadCriteriaArr = canReadCriteriaList.split(',');
+
+		for(var i = 0; i < canReadCriteriaArr.length; i++){
+			var criteriaSysId = canReadCriteriaArr[i];
+			if(this.allUserCriteria.indexOf(criteriaSysId) > -1) return true;
+		}
+
+		return false;
+	},
+	
+	cannotReadCheck: function(cannotReadCriteriaList){
+		if(cannotReadCriteriaList == null) return false;
+		var cannotReadCriteriaArr = cannotReadCriteriaList.split(',');
+
+		var cannotRead = false;
+		for(var i = 0; i < cannotReadCriteriaArr.length; i++){
+			var criteriaSysId = cannotReadCriteriaArr[i];
+			if(this.allUserCriteria.indexOf(criteriaSysId) > -1){
+				cannotRead = true;
+			}
+		}
+
+		return cannotRead;
+	},
+	
+	userHasAccess: function(sys_id){
+		return this.allUserCriteria.indexOf(sys_id > -1);
+	},
+	
+	checkQuickLinkUserCriteria: function(quickLink) {
+		var grCanRead = new GlideRecord('u_quick_links_can_read');
+		grCanRead.addQuery('u_quick_link', quickLink);
+		grCanRead.query();
+
+		var canRead = null;
+		if (grCanRead.hasNext()) {
+			canRead = false;
+			while (grCanRead.next()) {
+				if (this.allUserCriteria.indexOf(grCanRead.u_can_read.getValue('sys_id')) > -1) {
+					canRead = true;
+					break;
+				}
+			}
+		} else {
+			// no criteria was defined so by default everyone has access to this tile
+			canRead = true;
+		}
+		return canRead;
+	},
+
+	type: 'userCriteriaHelper'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-06 19:33:34</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>33b29c58db00f810bb5a4a28139619ee</sys_id>
+        <sys_mod_count>50</sys_mod_count>
+        <sys_name>userCriteriaHelper</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_script_include_33b29c58db00f810bb5a4a28139619ee</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-25 06:05:43</sys_updated_on>
+    </sys_script_include>
+</record_update>

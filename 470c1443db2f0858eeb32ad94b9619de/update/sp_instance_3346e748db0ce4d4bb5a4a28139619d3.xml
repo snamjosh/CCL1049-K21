@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">987f6bda37e5ae00eb8163d2b3990e22</sp_column>
+        <sp_widget display_value="GD Front Page Tiles">93de2fda37e5ae00eb8163d2b3990eb0</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-10-19 20:07:00</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>3346e748db0ce4d4bb5a4a28139619d3</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_instance_3346e748db0ce4d4bb5a4a28139619d3</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-10-19 20:09:26</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"hide_xs": {
+		"value": "",
+		"displayValue": ""
+	},
+	"omit_badges": {
+		"value": "",
+		"displayValue": ""
+	},
+	"check_can_view": {
+		"value": "false",
+		"displayValue": "false"
+	}
+}]]></widget_parameters>
+    </sp_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=3346e748db0ce4d4bb5a4a28139619d3"/>
+</record_update>

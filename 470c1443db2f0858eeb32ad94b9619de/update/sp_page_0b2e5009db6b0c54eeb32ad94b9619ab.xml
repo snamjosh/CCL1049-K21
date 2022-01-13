@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <css>body {&#13;
+  overflow-x: hidden !important; /* Hide horizontal scrollbar */&#13;
+}&#13;
+&#13;
+main.body { padding-top: 0px;}&#13;
+.scSpacing div.col-md-8 { padding:0 9px 0 50px;margin:0 0 0 0;valign:top;width: 60%;}&#13;
+.scSpacing div.col-md-4 { padding:0 0 0 8px;margin:0 0 0 0;width: 35%;}&#13;
+&#13;
+&#13;
+.myHeight{&#13;
+&#13;
+  height: 350px;&#13;
+&#13;
+}</css>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <id>gdep_index</id>
+        <internal>false</internal>
+        <omit_watcher>false</omit_watcher>
+        <public>false</public>
+        <roles/>
+        <seo_script/>
+        <short_description>GoDaddy Employee Portal</short_description>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-03-12 15:24:21</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>0b2e5009db6b0c54eeb32ad94b9619ab</sys_id>
+        <sys_mod_count>84</sys_mod_count>
+        <sys_name>gdep_index</sys_name>
+        <sys_package display_value="Global" source="global">global</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_page_0b2e5009db6b0c54eeb32ad94b9619ab</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-12-02 18:33:04</sys_updated_on>
+        <title>GoDaddy Employee Portal</title>
+        <use_seo_script>false</use_seo_script>
+    </sp_page>
+    <sys_translated_text action="delete_multiple" query="documentkey=0b2e5009db6b0c54eeb32ad94b9619ab"/>
+</record_update>

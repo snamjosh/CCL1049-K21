@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+	
+  //console.log("top most cat:" + c.data.topMost);
+	
+//	console.log("number of articles:" + c.data.articles.length);
+}
+	
+ ]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.transclude:last-child {
+  padding-bottom: 10px;
+}
+
+.list-group {
+ 	margin-bottom: 0px; 
+}
+
+.list-group-item {
+    padding: 0;
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 0px;
+}
+
+.list-group-item:last-child {
+	margin-bottom: 10px;
+}
+
+.dot {
+  padding:5px;
+}
+
+.secondary-info {
+ 	color:$text_muted !important;
+  padding-top:3px;
+  font-size:9pt !important;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>title,color</field_list>
+        <has_preview>false</has_preview>
+        <id>gdep_kb_most_viewed</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP KB Most Viewed</name>
+        <option_schema>[{"name":"max_number","section":"Presentation","label":"Max number","type":"integer"},{"hint":"The last number of days to include in the search","name":"historical_depth_in_days","section":"Data","default_value":"","label":"Include data from the past number of days (leave blank for all)","type":"integer"},{"name":"name_of_your_kb_page","section":"other","default_value":"kb_article","label":"Name of your KB Page where you display the articles","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[//
+// Most Viewed KB Articles Widget - 'Cloned from Knowledge MostViewed Articles'
+// - Filters results to kb articles within the current kb_category (and child categories of kb_category) 
+// - Adds historical_depth_in_days option so the results can be retrieved from the most recently created articles
+//
+(function() {
+	data.articles = [];
+	options.title = options.title || gs.getMessage("Most Viewed Articles");
+	
+	var z;
+	var knowledge_bases;
+	var sys_id = $sp.getParameter('sys_id');
+	var kb_id = $sp.getParameter('kb_id');
+	var kb_cat_id = $sp.getParameter('kb_category');
+	var gr = new GlideRecord("kb_knowledge");
+	
+	if(!kb_id){
+		kb_id = this.getKbId();
+	}
+	if(!kb_cat_id){
+		kb_cat_id = kb_id;
+	}
+	
+	data.kbId = kb_id;
+
+	
+	var foundArticle = false;
+	if (sys_id) { // sys_id specified, try to find an article by sys_id or number
+		gr.addQuery("sys_id", sys_id).addOrCondition("number", sys_id);
+		gr.query();
+		if (gr.next() && gr.canRead()) {
+			// When sys_id matches a kb_record, get KB of the article
+			knowledge_bases = String(gr.getValue('kb_knowledge_base'));
+			foundArticle = true;
+		}
+	}
+	
+	if (!foundArticle) { /* For all other pages this code will get executed. Used on knowledge home page.*/
+		/*If KB is selected display most viewed articles only from that KB*/
+		if (kb_id != null)
+			knowledge_bases = String(kb_id);
+		else {
+			 /*Get all knowledge bases associated with Portal*/
+			knowledge_bases = String($sp.getKnowledgeBases());
+		}
+	}
+	
+	if (GlideStringUtil.notNil(knowledge_bases)){
+		z = $sp.getAllKBRecords(knowledge_bases);
+	}
+	else //If there are no accessible KBs for logged in user
+		return;
+		
+	if(options.historical_depth_in_days) {
+		z.addQuery('sys_created_on', '>=', gs.daysAgo(options.historical_depth_in_days)); // Most views in the past 30 Days
+	}
+	
+	// Get top-most kb category
+	//var topKbCat = kb_cat_id;
+	var topKbCat = getTopMostCategory(kb_cat_id);
+	data.topMost = topKbCat;
+	
+	// filter by current category
+	var api = new KBPortalServiceImpl();
+	var nestedCats = api.getNestedCategories(topKbCat);
+	nestedCats = JSON.parse(nestedCats);
+	nestedCats.push(topKbCat);
+	
+	z.addQuery('kb_category', nestedCats);
+	z.addQuery("sys_view_count", ">", "0");
+	z.orderByDesc('sys_view_count');
+	z.setLimit(options.max_number || 5);
+	z.query();
+	while (z.next()) {
+		if (!z.canRead())
+			continue;
+		
+		var authorGr = new GlideRecord('sys_user');
+		authorGr.get(z.getValue('author'));
+		var author = authorGr.getValue('name');
+
+		var a = {};
+		$sp.getRecordValues(a, z, 'kb_category,short_description,sys_view_count,sys_id,published,sys_created_on,number');
+		a.author = author;
+		data.articles.push(a);
+	}
+	
+	
+})();
+function getTopMostCategory(kbCatId){
+		var topMost = kbCatId;
+		var currentCatId = kbCatId;
+		do{
+			var cat = new GlideRecord('kb_category');
+			cat.get(topMost);
+			
+			if(cat.getValue('label') ==  null) 
+				topMost = null;
+			else {
+				// the "topMost" parent is the kbId which is a catelog, not a category.
+				// Save a copy of the previous copy of "topMost"
+				currentCatId = topMost; 
+				topMost = cat.getValue('parent_id');
+			}
+		}
+		while(topMost != null);	
+	return currentCatId;
+	}
+
+function getKbId(){
+		var kbase = new GlideRecord('kb_knowledge_base');
+		kbase.addQuery('active', true);	
+		kbase.addQuery('title', 'Human Resources General Knowledge');  
+		kbase.setLimit(1);
+		kbase.query();
+		kbase.next();
+
+		return kbase.getValue('sys_id');
+	}
+
+
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-06-03 04:17:53</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>43a1e927db8114d0bb5a4a2813961962</sys_id>
+        <sys_mod_count>44</sys_mod_count>
+        <sys_name>GDEP KB Most Viewed</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_43a1e927db8114d0bb5a4a2813961962</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-12-28 18:42:32</sys_updated_on>
+        <template><![CDATA[<sp-panel style="width:90%";>
+  <ul class="list-group" style="border:0px;">
+    <div ng-if="c.data.articles.length ==0" class="secondary-info">
+      No content to display.
+    
+    </div>
+    <li class="list-group-item" ng-repeat="a in data.articles" style="border:0px;">
+      <a href="?id={{c.options.name_of_your_kb_page}}&sysparm_article={{::a.number}}&kb_id={{c.data.kbId}}&kb_category={{a.kb_category}}">{{::a.short_description}}</a>
+      <div class="secondary-info">
+        <!--span >
+        	{{::a.author}}
+        </span-->
+        <span ng-if="a.sys_view_count == 1" class="views pad-right dot secondary-info">
+            •
+          ${{{::a.sys_view_count}} View}
+        </span>
+        <span ng-if="a.sys_view_count > 1" class="views pad-right pad-left secondary-info">
+           •
+          ${{{::a.sys_view_count}} Views}
+        </span>
+         •
+        <sn-time-ago timestamp="::a.sys_created_on"  />
+      </div>
+    </li>
+  </ul>
+</sp-panel>
+]]></template>
+    </sp_widget>
+</record_update>

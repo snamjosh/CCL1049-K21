@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="announcement">
+    <announcement action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <click_target/>
+        <details/>
+        <details_link_text/>
+        <details_page/>
+        <details_url/>
+        <dismiss_options>dismissible</dismiss_options>
+        <display_first>false</display_first>
+        <display_style display_value="Danger">53d237b5dbf7e010bb5a4a281396195c</display_style>
+        <from>2021-04-29 17:24:22</from>
+        <glyph>free-code-camp</glyph>
+        <glyph_alt_text/>
+        <name>Example Danger Message</name>
+        <public>true</public>
+        <roles/>
+        <show_for_unauthenticated_users_only>false</show_for_unauthenticated_users_only>
+        <summary/>
+        <sys_class_name>announcement</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-04-29 17:25:39</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>9d81f375db77e010bb5a4a28139619d5</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>Example Danger Message</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>announcement_9d81f375db77e010bb5a4a28139619d5</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-04-29 20:22:35</sys_updated_on>
+        <title>Example Danger Message</title>
+        <to>2021-04-30 17:24:28</to>
+        <type>52fa79f8e763320075c2a117c2f6a991</type>
+    </announcement>
+    <sys_translated_text action="delete_multiple" query="documentkey=9d81f375db77e010bb5a4a28139619d5"/>
+</record_update>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function attachMate($scope, nowAttachmentHandler, $rootScope, spUtil, spModal, $log, spAriaUtil,$document) {
+	$scope.errorMessages = [];
+	$scope.attachmentHandler = new nowAttachmentHandler(setAttachments, appendError);
+	$scope.data.action = "";
+
+	spUtil.recordWatch($scope, "sys_attachment", "table_sys_id=" + $scope.data.sys_id, function(response, data) {
+		$scope.attachmentHandler.getAttachmentList();
+		if (response.data) {
+			var options = {};
+			options.operation = response.data.operation;
+			options.filename = response.data.display_value;
+			options.sys_id = $scope.data.sys_id;
+			options.table = $scope.data.table; 
+			options.state = (response.data.record && response.data.record.state) ? response.data.record.state.value : "";
+			//broadcast only if operation is update...we don't need insert and other record updates for now
+			if (options.operation === "update" && options.state === "not_available")
+			$rootScope.$broadcast("attachment.updated",options);
+		}
+	});
+
+	$scope.$evalAsync(function() {
+		$scope.attachmentHandler.setParams($scope.data.table, $scope.data.sys_id, 1024 * 1024 * $scope.data.maxAttachmentSize);
+		$scope.attachmentHandler.getAttachmentList();
+	});
+
+	$scope.hasAttachments = function() {
+		return $scope.attachments && $scope.attachments.length != 0;
+	};
+
+	$scope.canWrite = function() {
+		return $scope.data.canWrite;
+	};
+
+	$scope.confirmDeleteAttachment = function(attachment) {
+		var appendTo = $scope.data.appendToId ? $document.find('#'+$scope.data.appendToId) : null;
+		spModal.confirm("${Delete Attachment?}",  appendTo).then(function() {
+				$scope.attachmentHandler.deleteAttachment(attachment);
+		});
+	};
+
+	$scope.$on('dialog.upload_too_large.show', function(e){
+		$log.error($scope.data.largeAttachmentMsg);
+		spUtil.addErrorMessage($scope.data.largeAttachmentMsg);
+	});
+
+	$scope.$on('added_attachment', function(evt) {
+		$scope.data.action = "added";
+		spUtil.update($scope);
+	});
+	
+	$scope.$on('sn.attachment.scanned', function(evt) {
+		$scope.attachmentHandler.getAttachmentList("list");
+	});
+	
+	$scope.$on('sp.record.can_write', function(evt, answer) {
+		$scope.data.canWrite = answer;
+	});
+
+	function appendError(error) {
+		$scope.errorMessages.push(error);
+		spUtil.addErrorMessage(error.msg + error.fileName);
+	}
+
+	function setAttachments(attachments, action) {
+		if ($scope.submitting == true)
+			return;
+
+		$scope.attachments = attachments;
+		if (!action)
+			return;
+		
+		if (action === "added") {
+			spAriaUtil.sendLiveMessage($scope.data.attachmentSuccessMsg);
+		}
+
+		$scope.data.action = action;
+		spUtil.update($scope);
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.sp-drop-area {
+  display: block;
+  padding: 30px;
+  width: 100%;
+  border: 1px dashed $panel-default-border;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gdep_ticket_attachments</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Ticket Attachments</name>
+        <option_schema>[{"hint":"ID of referenced record","name":"record_id","section":"Data","label":"Record ID","type":"string"},{"hint":"Table name of referenced record","name":"record_table","section":"Data","label":"Record Table","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	data.sys_id = input.sys_id || options.record_id;
+	data.table = input.table || options.record_table;
+	data.appendToId = options.appendToId;
+	data.table = _getActualTable(data.table, data.sys_id);
+	data.maxAttachmentSize = parseInt(gs.getProperty("com.glide.attachment.max_size", 1024));
+	if (isNaN(data.maxAttachmentSize))
+		data.maxAttachmentSize = 24;
+	data.largeAttachmentMsg = gs.getMessage("Attached files must be smaller than {0} - please try again", "" + data.maxAttachmentSize + "MB");
+	data.attachmentSuccessMsg = gs.getMessage("Attachment successfully uploaded");
+	
+	if (!data.table || !data.sys_id)
+		return;
+
+	var gr = new GlideRecord(data.table);
+	if (!gr.isValid())
+		return;
+
+	if (input && input.action == "deleted") {
+		gr.comments = input.action + " an attachment";
+		gr.update();
+	}
+
+	data.canWrite = gr.canWrite();
+	data.canAttach = gs.hasRole(gs.getProperty("glide.attachment.role")) && GlideTableDescriptor.get(data.table).getED().getAttribute("no_attachment") != "true";
+	data.canRead = gr.canRead();
+
+	//Debug
+	data.canWrite = true;
+	data.canAttach = true;
+	data.canRead = true;
+	
+	function _getActualTable(table, id) {
+		if (!table)
+			return table;
+		
+		var rec = new GlideRecord(table);
+		if (!rec.isValid())
+			return table;
+		
+		if (rec.get(id) && rec.getValue('sys_class_name')) {
+			return rec.getValue('sys_class_name');
+		}
+		return table;
+	}
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>iremigio</sys_created_by>
+        <sys_created_on>2020-07-02 22:46:12</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>c175728ddb3190d059ac6e25ca9619f2</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>GDEP Ticket Attachments</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_c175728ddb3190d059ac6e25ca9619f2</sys_update_name>
+        <sys_updated_by>iremigio</sys_updated_by>
+        <sys_updated_on>2020-07-07 02:19:35</sys_updated_on>
+        <template><![CDATA[<div ng-if="data.canRead" class="panel panel-{{options.color}} b">
+  <div class="panel-heading padder-b-none">
+    <h2 class="h4 sp-attachments-header panel-title pull-left">
+      ${Attachments}
+    </h2>
+    <div ng-if="::(data.canWrite && data.canAttach)">
+      <sp-attachment-button></sp-attachment-button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+  <!-- small device - hide body unless there are attachments -->
+  <div class="panel-body" ng-class="{'hidden-xs': !hasAttachments()}">
+    <div ng-if="data.canWrite && data.canAttach" ng-file-drop="attachmentHandler.onFileSelect($files)" ng-multiple="true" class="sp-attachments">
+      <div class="sp-no-attachments text-center text-italic text-muted" ng-show="!hasAttachments()">
+        <em class="sp-drop-area">${Drop files here}</em>
+      </div>
+      <now-attachments-list template="sp_attachment" />
+    </div>
+
+    <div ng-if="!data.canWrite || !data.canAttach" class="sp-attachments">
+      <div class="sp-no-attachments text-center text-muted" ng-show="!hasAttachments()">
+        <em>${There are no attachments}</em>
+      </div>
+      <now-attachments-list template="sp_attachment" />
+    </div>
+  </div>
+
+  <!-- no attachments msg at phone size when can't write -->
+  <div class="panel-body visible-xs-block" ng-if="!hasAttachments() && (!data.canWrite || !data.canAttach)">
+    <div class="sp-no-attachments text-center text-muted">
+      <em>${There are no attachments}</em>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

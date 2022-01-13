@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, spKBCategoryService, $timeout, $location, $rootScope, urlTools, spAriaFocusManager, spAriaUtil) {
+	var c = this;
+	$scope.hideCategoryWidgetInXS = (c.data.categoryId) ? true : false;
+	spKBCategoryService.addDefaultListener(function(catId){
+		$location.search({id: 'kb_category', kb_category: catId, kb_id: c.data.kb_id, spa:1});
+	});
+	
+	c.setCategory = function(evt, catId) {
+		evt.preventDefault();
+		var searchParms = $location.search();
+		searchParms.kb_category = catId;
+		searchParms.spa = 1;
+		$location.search(searchParms);
+		spKBCategoryService.setCategoryId(catId);
+	};
+	
+	// Location change handler for back/forward buttons
+	var removeLw = $rootScope.$on('$locationChangeSuccess', function(e, newUrl) {
+		spAriaFocusManager.focusOnPageTitle();
+		var urlParts = urlTools.parseQueryString(newUrl)
+		if (urlParts.id === 'kb_category' && spKBCategoryService.getCategoryId() !== urlParts.kb_category)
+			spKBCategoryService.setCategoryId(urlParts.kb_category);
+	});
+	
+	$scope.$on('$destroy', function(){
+		removeLw();
+	});
+	
+	// Category is selected. Display articles in this category.
+	$scope.categorySelected = function(category) {
+			$timeout(function() {
+				var searchParms = $location.search();
+				searchParms.id = c.data.page_id;
+				searchParms.kb_category = category.value;
+				searchParms.spa = 1;
+				$location.search(searchParms);
+				spKBCategoryService.setCategoryId(category.value);
+			});
+	};
+	
+	//To support Show more functionality
+	$scope.loadMore = function() {
+		c.data.getMore = true;
+		c.data.loadAllMsg = c.data.pleaseWait;
+		c.data.categoriesCount = c.data.categoriesCount;
+		c.server.update();
+	}; 
+	
+	//On expanding the node, reset + to - 
+	$scope.displayChildren = function($event, category) {
+		$event.stopPropagation();
+		category.showChildren = !category.showChildren;
+
+		if (category.showChildren) {
+			spAriaUtil.sendLiveMessage(category.title + ' '+ c.data.messages.expanded);
+		} else {
+			spAriaUtil.sendLiveMessage(category.title + ' ' +c.data.messages.collapsed);
+		}
+	};
+	var listenerForBrowseCategories = $scope.$on("$sp.kb.show.categories_widget", function() {
+		$scope.hideCategoryWidgetInXS = false;
+	});
+	$scope.$on("$destroy", function() {
+		listenerForBrowseCategories();
+	});
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.category-widget {
+	border: 1px solid $panel-inner-border;
+  
+  .category-list {
+    .fa {
+      margin-right: 5px;
+    }
+    .l-h-1_6x {
+      line-height: 1.6em;
+    }
+    a {
+			width: 88%;
+	    display: inline-block;
+    }
+    .list-group {
+      margin-bottom: 0;
+    }
+    .list-group-item {
+      padding: 0;
+      border: 0;
+    }
+    .group-item {
+      padding: 10px 15px;
+    }
+    .group-item-default {
+      &amp;:hover, &amp;:focus {
+        background-color: darken($panel-default-heading-bg, 2%);
+      }
+    }
+    .group-item-primary {
+      &amp;:hover, &amp;:focus {
+        background-color: lighten($panel-primary-heading-bg, 40%);
+      }
+    }
+    .group-item-success {
+      &amp;:hover {
+        background-color: lighten($panel-success-heading-bg, 3%)
+      }
+    }
+    .group-item-info {
+      &amp;:hover, &amp;:focus {
+        background-color: lighten($panel-info-heading-bg, 3%)
+      }
+    }
+    .group-item-warning {
+      &amp;:hover, &amp;:focus {
+        background-color: $panel-warning-heading-bg
+      }
+    }
+    .group-item-danger {
+      &amp;:hover, &amp;:focus {
+        background-color: lighten($panel-danger-heading-bg, 3%)
+      }
+    }
+    
+    .sub-category-list {
+      .list-group-item {
+        background-color: inherit;
+      }
+    }
+    
+    .list-bg-default {
+        border-left: 15px solid $panel-default-heading-bg;
+      }
+      .list-bg-primary {
+        border-left: 15px solid lighten($panel-primary-heading-bg, 43%);
+      }
+      .list-bg-success {
+        border-left: 15px solid lighten($panel-success-heading-bg, 6%);
+      }
+      .list-bg-info {
+        border-left: 15px solid lighten($panel-info-heading-bg, 6%);
+      }
+      .list-bg-warning {
+        border-left: 15px solid lighten($panel-warning-heading-bg, 3%);
+      }
+      .list-bg-danger {
+        border-left: 15px solid lighten($panel-danger-heading-bg, 6%);
+      }
+    
+    .list-bg-default {
+      background-color: $panel-default-heading-bg;
+    }
+    .list-bg-primary {
+      background-color: lighten($panel-primary-heading-bg, 43%);
+    }
+    .list-bg-success {
+      background-color: lighten($panel-success-heading-bg, 6%);
+    }
+    .list-bg-info {
+      background-color: lighten($panel-info-heading-bg, 6%);
+    }
+    .list-bg-warning {
+      background-color: lighten($panel-warning-heading-bg, 3%);
+    }
+    .list-bg-danger {
+      background-color: lighten($panel-danger-heading-bg, 6%);
+    }
+  }
+}
+.panel-primary .badge {
+  background-color: $panel-primary-heading-bg;
+  color: white;
+}
+.panel-default .badge {
+  background-color: $panel-default-text;
+  color: white
+}
+.panel-success .badge {
+  background-color:  $panel-success-text;
+  color: white;
+}
+.panel-info .badge {
+  background-color: $panel-info-text;
+  color: white;
+}
+.panel-warning .badge {
+  background-color: $panel-warning-text;
+  color: white;
+}
+.panel-danger .badge {
+  background-color: $panel-danger-text;
+  color: white;
+}
+.category-list .badge {
+  text-align: right;
+}
+.text-default {
+  color: $text-muted;
+}
+.label-as-badge {
+	padding: .35em .6em .3em;
+}
+
+.panel {
+  color: $inherit;
+}
+
+.category-list {
+  span.badge {
+    background-color: $primary;
+    color: $color-lightest;
+  }
+  span.list-group-item {
+    border: inherit;
+  }
+  span.list-group-item:hover {
+	background: $body-bg;
+  }
+} 
+
+.text-default {
+  color: $primary;
+}
+
+@media screen and (max-width: 843px) {
+  .panel-heading i.fa{
+     display: none;
+  }
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>color,title</field_list>
+        <has_preview>false</has_preview>
+        <id>gdep_kb_categories_-_kbv3</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP KB Categories - KBv3</name>
+        <option_schema>[{"hint":"Number of categories to load on page load","name":"number_of_categories_to_load","section":"Data","default_value":"15","label":"Number of top-level categories to load (default 15). Higher values can impact performance.","type":"integer"},{"name":"omit_badges","section":"Behavior","label":"Omit badge counts (can improve performance for large categories)","type":"boolean"},{"name":"check_access_per_category","section":"Data","default_value":"0","label":"Max number of articles evaluated per category to determine visibility. Zero means all categories are visible if user has access to the Knowledge Base. Higher values can impact performance.","type":"string"},{"name":"max_article_limit_for_counts","section":"Data","default_value":"500","label":"Max article limit to allow category counts - if number of articles in configured Knowledge Bases exceeds this limit, category counts are not calculated. Higher values can impact performance.","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function () {
+
+    //Get Knowledge Base Id. If knowledge base is not selected, get knowledge bases associated with portal.
+    data.kb = "";
+    data.page_id = options.page_id || "gdep_policy_center";
+    data.kb_id = $sp.getParameter("kb_id") || "a9644643df101200dca6a5f59bf263b6"; //Policy
+    data.show = false;
+    if (data.kb_id) {
+        var kbArr = [];
+        var kbGR = new GlideRecord("kb_knowledge_base");
+        kbGR.addQuery("sys_id", "IN", data.kb_id);
+        kbGR.query();
+        while (kbGR.next()) {
+            if (kbGR.canRead())
+                kbArr.push(kbGR.getUniqueValue());
+        }
+        data.kb = String(kbArr);
+    } else
+        data.kb = String($sp.getKnowledgeBases());
+
+    //To support Show more functionality
+    var loadCategories = options.number_of_categories_to_load || 15;
+    data.showMoreMsg = gs.getMessage("Show More");
+    data.pleaseWait = gs.getMessage("Please wait... fetching categories");
+
+    var maxArticleLimitForCounts = parseInt(options.max_article_limit_for_counts) || 500;
+    var articles = new GlideRecord("kb_knowledge");
+    articles.addQuery("kb_knowledge_base", "IN", data.kb);
+    articles.addQuery("workflow_state", "published");
+    articles.addQuery("valid_to", ">=", new GlideDate().getValue());
+    articles.addActiveQuery();
+    articles.setLimit(maxArticleLimitForCounts);
+    articles.query();
+
+    var kbCount = articles.getRowCount();
+
+    // Get all top-level categories in selected knowledge bases
+    var cats = new GlideRecord("kb_category");
+    cats.addActiveQuery();
+    cats.addQuery("parent_id", 'IN', data.kb);
+    // cats.addQuery("parent_id", "2d5d5f53df101200dca6a5f59bf263a2");
+    cats.orderBy('label');
+    cats.query();
+
+    var categoryId = $sp.getParameter('kb_category');
+    var msg = data.messages = {};
+    msg.expanded = gs.getMessage("Expanded");
+    msg.collapsed = gs.getMessage("Collapsed");
+
+    data.category = {};
+    data.categories = [];
+
+    //To support Show more functionality
+    if (input && input.getMore)
+        loadCategories = loadCategories + parseInt(input.categoriesCount);
+
+    var categoriesCount = 0;
+
+    // Get Subcategories and build tree structure
+    while (cats.next()) {
+        var categoryDetails = getCategory(cats, 0);
+        data.categories.push(categoryDetails);
+
+        //To support Show more functionality
+        if (categoryDetails.count != 0)
+            categoriesCount++;
+        if (categoriesCount >= loadCategories)
+            break;
+    }
+
+    data.showMore = cats.hasNext();
+    data.categoriesCount = categoriesCount;
+    data.loadAllMsg = gs.getMessage("Showing {0} categories", [categoriesCount + ""]);
+    data.categoryId = categoryId;
+
+    options.check_access_per_category = parseInt(options.check_access_per_category);
+
+    function getCategory(cats, level) {
+        var categoryDetails = {};
+        var articleCount = -1;
+        var arts;
+
+        if (kbCount < maxArticleLimitForCounts) {
+            // small KB, get full canRead counts for each category
+            arts = $sp.getKBCategoryArticleSummary(cats.getUniqueValue(), 0, 0);
+            articleCount = arts.length;
+            if (articleCount > 0)
+                data.show = true;
+        } else if (options.check_access_per_category > 0) {
+            // large KB, don't get counts but check first N articles for read access to category
+            arts = $sp.getKBCategoryArticleSummary(cats.getUniqueValue(), options.check_access_per_category, 0);
+            if (arts.length > 0)
+                data.show = true;
+            else
+                articleCount = 0;
+        } else {
+            // large KB, not checking article access before showing category, preserves legacy behavior
+            data.show = true;
+        }
+
+        categoryDetails.label = cats.getDisplayValue("label");
+        categoryDetails.value = cats.getUniqueValue();
+        categoryDetails.count = articleCount;
+        //categoryDetails.showChildren = (cats.sys_id == categoryId);
+		categoryDetails.showChildren = (cats.sys_id == categoryId || cats.sys_id == '6312d797dbc0a45059ac6e25ca961998');
+        categoryDetails.level = level;
+
+        var subcategories = new GlideRecord("kb_category");
+        subcategories = $sp.getSubCategories(cats.getUniqueValue());
+        categoryDetails.subcategories = [];
+        while (subcategories.next()) {
+            var category = getCategory(subcategories, level + 1);
+            if (category.count != 0) {
+                categoryDetails.subcategories.push(category);
+                categoryDetails.count += category.count;
+            }
+            categoryDetails.showChildren = categoryDetails.showChildren || category.showChildren;
+        }
+        return categoryDetails;
+    }
+})()]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>iremigio</sys_created_by>
+        <sys_created_on>2020-07-31 20:27:14</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>90cbe75adb5ad814bb5a4a2813961951</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>GDEP KB Categories - KBv3</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_90cbe75adb5ad814bb5a4a2813961951</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-11-03 05:03:35</sys_updated_on>
+        <template><![CDATA[<div>
+  <div ng-if="::(data.show != true)">
+    ${No categories available}
+  </div>
+  <div ng-show="data.kb" ng-class="{'hidden-xs' : hideCategoryWidgetInXS}" class="panel panel-{{::c.options.color}} category-widget no-border" ng-if="::(data.show == true)">
+    <div class="panel-heading">
+      <h1 class="h4 panel-title" ng-bind="::c.options.title"></h1>
+    </div>
+    <ul class="list-group category-list" role="list" aria-label="${Categories}">
+      <li role="listitem" 
+          class="list-group-item text-overflow-ellipsis" 
+          ng-include="'category-template.html'" 
+          ng-repeat="category in c.data.categories track by category.value "
+          ng-if="category.count != 0">
+      </li>
+    </ul>
+    <div class="panel-footer text-center" ng-if="data.showMore">
+      <a href="javascript:void(0)" role="button" class="text-center" ng-click="loadMore()" >{{::data.showMoreMsg}}</a>
+      <div class="text-muted text-center">
+        {{data.loadAllMsg}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/ng-template" id="category-template.html">
+  	<div ng-click="categorySelected(category)"
+         sn-focus="category.value == c.data.categoryId"
+		     ng-enabled="category.count != 0" 
+         tabindex="0" 
+         class="group-item group-item-{{::options.color}}">
+      <i ng-if="::category.subcategories.length > 0" 
+      	  class="l-h-1_6x pull-left fa" 
+          ng-class="{true: 'fa-minus-square-o', false: 'fa-plus-square-o'}[category.showChildren]" 
+          aria-label="{{category.showChildren? '${collapse category} ' + category.label : '${expand category} ' + category.label}}"
+          ng-click="displayChildren($event, category)"/></i>
+      <span  ng-if="category.count > 0 && options.omit_badges != 'true'"  class="badge pull-right pointer">{{::category.count}}</span>
+      <span class="block text-overflow-ellipsis category" 
+          ng-class="{true: 'text-{{::options.color}}', false: ''}[category.value == c.data.categoryId]" id="{{::category.value}}"
+          title="{{::category.label}}">
+          {{::category.label}}
+          <span class="sr-only">${items}</span>
+      </span>
+    </div>
+  	<ul class="list-group sub-category-list list-bg-{{::options.color}}" 
+    		role="list" aria-label="{{category.label}} ${subcategories}" 
+    		ng-if="category.showChildren && category.subcategories.length >0"  
+        ng-class="{true: 'no-indent', false: ''}[category.level > 2]"> 
+      <li role="listitem" 
+      		class="list-group-item text-overflow-ellipsis" 
+          ng-include="'category-template.html'" 
+          ng-repeat="category in category.subcategories | orderBy: 'label' track by category.value " 
+          ng-if="category.count != 0">
+      </li>
+  	</ul>
+</script>]]></template>
+    </sp_widget>
+</record_update>

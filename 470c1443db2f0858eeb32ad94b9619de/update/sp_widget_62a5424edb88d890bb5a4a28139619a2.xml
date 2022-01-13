@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $rootScope, $timeout, spKBCategoryService) {
+	var c = this;
+	
+	var removeListener = spKBCategoryService.addListener(function(catId) {
+		c.data.kb_category = catId;
+		c.server.update();
+	});
+	
+	$scope.$on('$destroy', function(){
+		removeListener();
+	});
+}
+
+
+
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>button.btn.btn-default {
+  background-color: #000;
+  color: white;
+}
+
+.title-text {
+  font-family: $mediumFont !important;
+  color: #000000;
+  font-size: 3vw;
+  line-height: normal;
+  // white-space: nowrap;
+}
+
+.title-search-bar {
+  width: 100%;
+}
+
+
+
+.grid-container {
+  display: inline-grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  width: 100%;
+  align-items: center;
+}
+.grid-item {
+  padding: 0em;
+  align-self: center;
+  text-overflow: ellipsis;
+}
+
+.grid-item-title {
+  padding-top: 0rem;
+}
+
+.breadcrumbs {
+
+  i {
+    margin-top: 10px;
+  }
+
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gdep_title_header</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) { 
+
+ }]]></link>
+        <name>GDEP Title Header</name>
+        <option_schema>[{"displayValue":"Catalog","name":"test_hr_sc_cat","display_value_list":[],"section":"other","label":"test hr sc cat","type":"glide_list","value":"sc_catalog","ed":{"reference":"sc_catalog"}},{"name":"field_list","section":"other","label":"field list","type":"field_list"},{"displayValue":"Catalog","name":"sc_catalog","display_value_list":[],"section":"other","label":"sc catalog glide list","type":"glide_list","value":"sc_catalog","ed":{"reference":"sc_catalog"}},{"name":"title","section":"Presentation","label":"Title","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    data.title = options.title || "Get Help";
+    data.breadcrumbsWidget = $sp.getWidget("breadcrumbs");
+
+    // Initialize Type-Ahead Search
+    var typeAheadSearchOpts = {
+        title: gs.getMessage('Search'),
+        size: 'lg',
+        color: 'default'
+    };
+    data.typeAheadSearch = $sp.getWidget('gdep-main-typeahead-search', typeAheadSearchOpts);
+
+    // Initialize Parameters
+    data.parm = {};
+    if (input) {
+        data.parm.kb_category = input.kb_category;
+    } else {
+        data.parm.kb_category = $sp.getParameter("kb_category");
+    }
+    data.parm.page = $sp.getParameter("id");
+    data.parm.sys_id = $sp.getParameter("sys_id");
+
+    data.parm.sc_category = $sp.getParameter("sc_category");
+    data.parm.sysparm_article = $sp.getParameter("sysparm_article");
+    data.parm.sysparm_category = $sp.getParameter("sysparm_category");
+    data.parm.table = $sp.getParameter("table");
+
+    var kbSpecialPages = [];
+    kbSpecialPages.push({
+        label: "Performance Management",
+        page: "gdep_performance_mgmt"
+    });
+	kbSpecialPages.push({
+        label: "Leveling Guides",
+        page: "career_leveling_guides"
+    });
+	kbSpecialPages.push({
+        label: "Compensation",
+        page: "gdep_pay_compensation"
+    });
+	
+
+    setBreadcrumbs();
+
+    function setBreadcrumbs() {
+        //--------------------------------------------------
+        // [x] Catalog Layer 1,2,3
+        //--------------------------------------------------
+        if ((data.parm.sysparm_category || data.parm.page == "gdep_sc_category" || data.parm.page == "sc_cat_item") && data.parm.sys_id) {
+            getScCategoryTree(data.parm.sys_id);
+        }
+        //--------------------------------------------------
+        // [x] Knowledge Layer 1,2				
+        //--------------------------------------------------
+        else if (data.parm.page == "gdep_kb_home" || data.parm.page == "gdep_policy_center" || data.parm.page == "gdep_kb_category" || data.parm.page == "career_leveling_guides" || data.parm.page == "gdep_pay_compensation" ) {
+            var grKbCat = new GlideRecord("kb_category");
+            if (grKbCat.get(data.parm.kb_category)) {
+                var kbCatCrumbs = getKbCategoryTree(data.parm.kb_category);
+                data.kbCatCrumbs = kbCatCrumbs;
+
+                if (kbCatCrumbs && kbCatCrumbs[0].label.contains("Polic")) {
+                    fixCrumbsIfPolicyCenter(data.kbCatCrumbs);
+                }
+            }
+					
+					  //gs.info("Breadcrumb is " + JSON.Stringify(data.kbCatCrumbs));
+            data.breadcrumbs = data.kbCatCrumbs;
+        }
+			
+			 /*if (data.parm.page == "gdep_pay_compensation"){
+				 
+				 
+				  data.breadcrumbs = [{
+                "label": gs.getMessage("Compensation"),
+                "url": "?id=gdep_pay_compensation&kb_category=bb7e605fdbb81050daeb9ed6db96196c"
+            }];
+				 
+				 
+			 }*/
+        //--------------------------------------------------
+        // [x] Knowledge Layer 3				
+        //--------------------------------------------------
+        else if (data.parm.page == "gdep_kb_article" | data.parm.page == "kb_article") {
+            var gr = new GlideRecord("kb_knowledge");
+            if (data.parm.sys_id) gr.addQuery('sys_id', data.parm.sys_id);
+            if (data.parm.sysparm_article) {
+                gr.addQuery('number', data.parm.sysparm_article);
+                gr.addQuery('workflow_state','published');
+            }
+            gr.query();
+            gr.next();
+
+            var bcs = getKbCategoryTree(gr.kb_category.getValue('sys_id'));
+            //console.log("bcs: " + JSON.stringify(bcs));
+            data.bcs = bcs;
+
+          //  if (data.parm.page == "gdep_kb_article") {
+                var label = gr.getValue('short_description');
+                var page = getKbPage(gr.getValue('short_description'));
+                //'console'.log("url suffix: " + $sp.getValue("url_suffix"));
+
+                var url = "#";
+                var articleBc = {
+                    label: label,
+                    url: url
+                };
+
+                bcs.push(articleBc);
+          //  }
+
+            if (bcs && bcs[0].label.contains("Polic")) {
+                fixCrumbsIfPolicyCenter(bcs);
+            }
+
+
+
+            data.breadcrumbs = bcs;
+            //		data.breadcrumbsReady = true;
+        } else if (data.parm.page == "gdep_sc_home") {
+            data.breadcrumbs = [{
+                "label": gs.getMessage("Service Requests"),
+                "url": "#"
+            }];
+            //		data.breadcrumbsReady = true;
+        }
+
+        //--------------------------------------------
+        // [x] Quick Links Layer 3				gdep_ql_perks
+        //--------------------------------------------
+        else if (data.parm.page == "gdep_ql_perks") {
+            data.breadcrumbs = [{
+                "label": gs.getMessage("Quick Links"),
+                "url": "?id=gdep_quick_links&title=Quick%20Links"
+            }, {
+                "label": gs.getMessage("Employee Perks"),
+                "url": "#"
+            }];
+        }
+        //------------------------------------------------
+        // [x] Quick Links Layer 3				gdep_ql_financial
+        //------------------------------------------------
+        else if (data.parm.page == "gdep_ql_financial") {
+            data.breadcrumbs = [{
+                "label": gs.getMessage("Quick Links"),
+                "url": "?id=gdep_quick_links&title=Quick%20Links"
+            }, {
+                "label": gs.getMessage("Financial"),
+                "url": "#"
+            }];
+        }
+        //--------------------------------------------
+        // [x] Quick Links Layer 3				gdep_ql_health
+        //--------------------------------------------
+        else if (data.parm.page == "gdep_ql_health") {
+            data.breadcrumbs = [{
+                "label": gs.getMessage("Quick Links"),
+                "url": "?id=gdep_quick_links&title=Quick%20Links"
+            }, {
+                "label": gs.getMessage("Health & Wellness"),
+                "url": "#"
+            }];
+        }
+        //--------------------------------------------
+        // [x] Quick Links Layer 3				gdep_ql_workday
+        //--------------------------------------------
+        else if (data.parm.page == "gdep_ql_workday") {
+            data.breadcrumbs = [{
+                "label": gs.getMessage("Quick Links"),
+                "url": "?id=gdep_quick_links&title=Quick%20Links"
+            }, {
+                "label": gs.getMessage("Workday"),
+                "url": "#"
+            }];
+        }
+        //--------------------------------------------
+        // [x] Quick Links Layer 3				gdep_ql_greenhouse
+        //--------------------------------------------
+        else if (data.parm.page == "gdep_ql_greenhouse") {
+            data.breadcrumbs = [{
+                "label": gs.getMessage("Quick Links"),
+                "url": "?id=gdep_quick_links&title=Quick%20Links"
+            }, {
+                "label": gs.getMessage("Greenhouse"),
+                "url": "#"
+            }];
+        }
+
+
+        //
+        else if (data.parm.page == "gdep_hrm_ticket_page") {
+            var grTicket = new GlideRecord(data.parm.table);
+            grTicket.get(data.parm.sys_id);
+
+            data.breadcrumbs = [{
+                "label": gs.getMessage("My Requests"),
+                "url": "?id=gdep_requests",
+                "override": true
+            }, {
+                "label": grTicket.getDisplayValue("number"),
+                "url": "#"
+            }];
+            data.theRealBreadcrumbs = data.breadcrumbs;
+        } else if (data.parm.page == "gdep_ticket" || data.parm.page == 'gdep_order_status') {
+            var grTicket = new GlideRecord(data.parm.table);
+            grTicket.get(data.parm.sys_id);
+
+            //console.log("breadcrumbs for gdep_ticket");
+
+            data.breadcrumbs = [{
+                "label": gs.getMessage("My Requests"),
+                "url": "?id=gdep_requests"
+            }, {
+                "label": grTicket.getDisplayValue("number"),
+                "url": "#"
+            }];
+        } else if (data.parm.page == "gdep_approval") {
+            var grTicket = new GlideRecord("sysapproval_approver");
+            grTicket.get(data.parm.sys_id);
+
+            data.breadcrumbs = [{
+                "label": gs.getMessage("My Approvals"),
+                "url": "?id=gdep_approvals",
+                "override": true
+            }, {
+                "label": grTicket.getDisplayValue("document_id"),
+                "url": "#"
+            }];
+
+        }
+    }
+
+    function getKnowledgeBase(kb_category) {
+        var kb = null;
+        var parent = kb_category;
+
+        do {
+            var kbGR = new GlideRecord("kb_category");
+            kbGR.get(parent);
+            if (kbGR.parent_table == "kb_knowledge_base") {
+                kb = kbGR.parent_id;
+                parent = null;
+            } else {
+                parent = kbGR.getDisplayValue('parent_id');
+            }
+        }
+        while (parent != null);
+
+        return kb;
+
+    }
+
+    function getKbCategoryFromUrl(url) {
+        var kb_category = null;
+
+        if (url) {
+            var kbCatUrlSplit = url.split("kb_category=");
+            if (kbCatUrlSplit.length > 0) {
+                kbCatSysIdSplit = kbCatUrlSplit[1].split('&');
+                if (kbCatSysIdSplit.length > 0) {
+                    kb_category = kbCatSysIdSplit[0];
+                }
+            }
+        }
+
+        return kb_category;
+    }
+
+    function fixCrumbsIfPolicyCenter(crumbs) {
+        var grc = new GlideRecord("kb_knowledge_base");
+        grc.addActiveQuery();
+        grc.addQuery("title", "Governance, Risk, and Compliance");
+        grc.query();
+        grc.next();
+
+        var kb_category = getKbCategoryFromUrl(crumbs[0].url);
+        var knowledge_base = getKnowledgeBase(kb_category);
+
+        // If the first breadcrumb is in the GRC KB then we know
+        // this is a set of Policy Center breadcrumbs.
+        //console.log(knowledge_base + " != " + grc.sys_id + " = " + knowledge_base != grc.getDisplayValue('sys_id'));
+        if (knowledge_base != grc.getDisplayValue('sys_id')) return;
+
+        if (crumbs.length > 0) {
+            for (var index = 0; index < crumbs.length; index++) {
+                if (crumbs[index].url.startsWith('?id=gdep_kb_category')) {
+                    crumbs[index].url = crumbs[index].url.replace('?id=gdep_kb_category', '?id=gdep_policy_center');
+                } else if (crumbs[index].url.startsWith('?id=gdep_kb_home')) {
+                    crumbs[index].url = crumbs[index].url.replace('?id=gdep_kb_home', '?id=gdep_policy_center');
+                }
+            }
+        }
+    }
+	
+		function fixCrumbsForCareerLeveling(crumbs){
+			
+		}
+
+    function getScCategoryTree(sc_category) {
+        // sc_cat_item
+        var grSC = new GlideRecord("sc_cat_item");
+        grSC.get(data.parm.sys_id);
+
+        data.breadcrumbs = [{
+            "label": 'Service Requests',
+            "url": "?id=gdep_sc_category"
+        }];
+
+        if (grSC.category) {
+            data.breadcrumbs.push({
+                label: grSC.getDisplayValue('category'),
+                url: '?id=gdep_sc_category&sys_id=' + data.parm.sysparm_category
+            });
+
+            data.breadcrumbs.push({
+                "label": grSC.getDisplayValue('name'),
+                "url": '#'
+            });
+        } else {
+            var grScCat = new GlideRecord("sc_category");
+            grScCat.get(data.parm.sys_id);
+
+            data.breadcrumbs.push({
+                label: grScCat.getDisplayValue("title"),
+                url: '?id=gdep_sc_category&sys_id=' + data.parm.sys_id
+            });
+
+        }
+    }
+
+
+
+
+
+    function getKbCategoryTree(kb_category) {
+        var models = [];
+        var kb = $sp.getKnowledgeBases();
+        //	console.log("kb:" + JSON.stringify(kb));
+        var c = kb_category;
+
+        do {
+            var cat = new GlideRecord('kb_category');
+            cat.get(c);
+            if (cat.getValue('label') == null) c = null;
+            else {
+                var m = {};
+
+                var page = getKbPage(cat.getValue('label'), cat.getValue('sys_id'));
+							
+							  gs.info("Page value is " + page);
+
+                m.label = cat.getValue('label');
+
+                //	m.url = $sp.getValue("url_suffix") +  '/?id=' + page + '&kb_category=' + cat.getValue('sys_id');
+                m.url = '?id=' + page + '&kb_category=' + cat.getValue('sys_id');
+                m.sys_id = cat.getValue('sys_id');
+                models.push(m);
+
+                c = cat.getValue('parent_id');
+							  gs.info("gdep_pay_compensation " + c);
+            }
+        }
+        while (c != null);
+
+        return models.reverse();
+    }
+
+    function getKbPage(categoryLabel, kb_category) {
+
+        if (data.parm.kb_category === kb_category) {
+            return data.parm.page;
+        }
+
+        //	console.log(kbSpecialPages);
+
+        for (var i = 0; i < kbSpecialPages.length; i++) {
+            if (kbSpecialPages[i].label == categoryLabel) {
+                return kbSpecialPages[i].page;
+            }
+        }
+
+        return $sp.getDisplayValue("kb_knowledge_page");
+    }
+
+
+})();
+
+
+/*
+	location = {};
+	location.id = $sp.getParameter("id");
+	location.kb_category = $sp.getParameter("kb_category");
+	location.sys_id = $sp.getParameter("sys_id");
+	location.sysparm_article = $sp.getParameter("sysparm_article");
+	location.sc_category = $sp.getParameter("sc_category");*/
+
+
+
+//	data.breadcrumbs = [];
+
+// KB Category -- has kb_category parm
+// SC Category -- has sc_category parm
+
+
+
+
+
+
+
+/*
+	var kbNum = $sp.getParameter('sysparm_article');
+	var scCatId = $sp.getParameter('sc_category');
+	var kbCatId = $sp.getParameter('kb_category');
+	var title = $sp.getParameter('title');
+
+	if (kbNum) {
+		var grKB = new GlideRecord('kb_knowledge');
+		grKB.addQuery('number', kbNum);
+		grKB.addQuery('latest', true);
+		grKB.query();
+
+		while (grKB.next()) {
+			kbCatId = grKB.kb_category.sys_id.toString();
+			title = grKB.short_description.toString();
+		}
+	}*/]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-04-09 22:01:27</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>62a5424edb88d890bb5a4a28139619a2</sys_id>
+        <sys_mod_count>1053</sys_mod_count>
+        <sys_name>GDEP Title Header</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_62a5424edb88d890bb5a4a28139619a2</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-11 04:49:24</sys_updated_on>
+        <template><![CDATA[<div  style="padding-bottom:10px;">
+  <div class=" title-container-gradient">
+
+    <div class="container-xl grid-container ">
+      <div class="grid-item title-text" >
+        {{data.title}}
+      </div>
+
+      <div class="grid-item hidden-xs breadcrumbs">
+        <ul class="nav nav-pills nav-sm">
+          <li><a ng-href="?id={{portal.homepage_dv}}">${Home}</a></li>
+          <li><i class="fa fa-chevron-right"></i></li>
+          <li ng-if="!c.data.breadcrumbs"><a href>{{page.title}}</a></li>
+          <li ng-repeat-start="item in c.data.breadcrumbs">
+            <a ng-href="{{item.url}}">{{item.label}}</a>
+          </li>
+          <li ng-if="!$last" ng-repeat-end>
+            <i class="fa fa-chevron-right"></i>
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="grid-item">
+        <div class="title-search-bar ">
+          <sp-widget widget="data.typeAheadSearch" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!--
+<pre>DEBUG INFO:{{ c.data.breadcrumbs   | json}}</pre>
+-->
+<!-- /*c.data.breadcrumbs*/ -->]]></template>
+    </sp_widget>
+</record_update>

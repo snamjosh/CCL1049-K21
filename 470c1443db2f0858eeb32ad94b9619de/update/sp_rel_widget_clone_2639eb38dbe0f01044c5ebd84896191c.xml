@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="GD Employee Documents List">ea39eb38dbe0f01044c5ebd848961917</child>
+        <cloned>2021-06-02 20:57:44</cloned>
+        <last_validated>2021-06-02 20:57:44</last_validated>
+        <parent display_value="Employee Documents List">6f86d215531013003585c3c606dc3411</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;standard&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function employeeDocumentsListController($scope, spUtil, $location, $http, spAriaFocusManager, snAttachmentHandler, $window) {
+	var c = this;
+	var MOBILE_DEVICE_SCREEN_WIDTH = 1024;
+	$scope.mobileDevice = c.data.mobileDevice || ($window.innerWidth &lt;= MOBILE_DEVICE_SCREEN_WIDTH);
+	
+	//view OR download employee document
+	$scope.$on('data_table.click', function(e, parms) {
+		
+		var employeeDocumentID = parms.sys_id;
+		var win = ($scope.mobileDevice) ? $window.open() : $window;
+		
+		$http.get('/api/now/table/sys_attachment?sysparm_query=table_sys_id=' + employeeDocumentID + '&amp;sysparm_limit=1').then(function(response) {
+			
+			if (response.data.result.length &gt; 0) {	
+				var empDocument = response.data.result[0];
+				var attachmentID = empDocument.sys_id;
+				var docFileType = empDocument.content_type;
+				var isEncrypted = empDocument.encryption_context;
+				var link = '';
+				
+				//view document in doc viewer
+				if (docFileType == 'application/pdf' &amp;&amp; !isEncrypted &amp;&amp; c.data.canViewDocuments &amp;&amp; !$scope.mobileDevice) {
+					
+					link = "$viewer.do?sysparm_stack=no&amp;sysparm_sys_id=" + attachmentID;
+					$window.open(link, '_blank', 'width=' + $window.innerWidth + ',height=' + $window.innerHeight);
+					
+					//create view document audit
+					createViewDocumentAudit('document_viewed', employeeDocumentID);
+				}
+				//downlaod document
+				else {
+					link = snAttachmentHandler.getViewUrl(attachmentID);
+					win.location = link;
+					
+					//create download document audit
+					createViewDocumentAudit('document_downloaded', employeeDocumentID);
+				}
+			}
+		});
+	});
+	
+	//create employee document audit on server-side
+	function createViewDocumentAudit(action, documentID){
+
+		c.server.get({
+			action: 'createDocumentAudit',
+			audit: action,
+			document: documentID
+		});
+	}
+	
+	var interval = $window.setInterval(override, 1000);
+	
+	function override() {
+		// stop interval if employee document list is not shown
+		if (!c.data.displayWidget) {
+			clearInterval(interval);
+			return;
+		}
+		
+		var el = $("#document_list .breadcrumbs span a");
+		if (el) {
+			el.unbind("click");
+			el.bind("click", function() {
+				$scope.$broadcast('data_table.setFilter', $scope.data.filter);
+			});
+			clearInterval(interval);
+		}
+		var parentEle = $("#document_list .input-group");
+		document.getElementsByName('datatable-search')[0].placeholder='${Find documents}';
+		
+		el = "&lt;i class='fa fa-file-text'&gt;&lt;/i&gt;";
+		parentEle = $("#document_list .dropdown");
+		if (parentEle)
+			parentEle.append(el);
+	}
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;#document_list {
+  #optionsMenu {
+    display: none;
+  }
+
+  .fa-file-text {
+    padding-left: 7px;
+    font-size: initial;;
+    color: $color-lightest;
+  }
+
+  .panel-heading &amp;gt; .panel-title, .dropdown-toggle {
+    color: $color-lightest;
+  }
+
+  .input-group-btn {
+    vertical-align: top;
+  }
+
+  button[name='search'] {
+    margin-left: -1px;
+    border-radius: 0px 4px 4px 0px;
+  }
+
+  .pull-right.ng-scope {
+    height: 34px;
+  }
+
+  .panel-title.ng-binding, .dropdown.m-r-xs {
+    vertical-align: -9px;
+  }
+
+  .breadcrumbs {
+    padding: 5px 0 5px;
+    .icon-filter, span:nth-child(3), span:nth-child(4), span:nth-child(5) {
+      display: none;
+    }
+  }
+
+  td.selected {
+    background-color: inherit;
+    color: inherit;
+  }
+
+  td {
+    vertical-align: middle; 
+  }
+
+  .table.table-striped td {
+    vertical-align: middle;
+  }
+
+  .panel-heading {
+    color: #fff;
+    background-color: #1F8476 !important;
+    border-color: #1F8476;
+  }
+
+  .panel-body .panel- {
+    margin-bottom: 0; 
+  }
+
+  /* FA File Icons */
+
+  td[data-field='name'] {
+    color:$primary;
+  }
+
+  td[data-field='name']:before
+  {
+    content: "\f016";
+    font-family: fontAwesome;
+    font-size: 1.2em;
+    color: $color-dark;
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  td[data-field='name'][aria-label$=".png"]:before,
+  td[data-field='name'][aria-label$=".jpg"]:before,
+  td[data-field='name'][aria-label$=".gif"]:before, 
+  td[data-field='name'][aria-label$=".tif"]:before {
+    content: "\f1c5";
+  }
+
+  td[data-field='name'][aria-label$=".pdf"]:before {
+    content: "\f1c1";
+  }
+
+  td[data-field='name'][aria-label*=".doc"]:before,
+  td[data-field='name'][aria-label*=".docx"]:before { 
+    content: "\f1c2";
+  }
+
+  td[data-field='name'][aria-label*=".xls"]:before,
+  td[data-field='name'][aria-label*=".xlsx"]:before { 
+    content: "\f1c3";
+  }
+
+  td[data-field='name'][aria-label$=".zip"]:before {
+    content: "\f1c6";
+  }
+
+  td[data-field='name'][aria-label$=".txt"]:before {
+    content: "\f0f6";
+  }
+
+  td[data-field='name'][aria-label*=".ppt"]:before,
+  td[data-field='name'][aria-label*=".pptx"]:before {
+    content: "\f1c4";
+  }
+
+  @media (max-width:990px) {
+    td[data-field='name'] {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      max-width: 245px;
+    }
+  }
+
+  @media (max-width:767px){
+    .panel-heading {
+      padding:10px 15px;
+      .dropdown.m-r-xs {
+        vertical-align:0px;
+        .fa-file-text {
+          padding-left:0;
+        }
+      }
+      .panel-title.ng-binding {
+        display:inline-block;
+        vertical-align:0;
+        padding-bottom:10px;
+      }
+    }
+  }
+}
+
+&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;employee-document-list&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;Employee Documents List&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+	
+	var userId = $sp.getParameter("sys_id") || gs.getUserID();
+
+	if(input &amp;&amp; input.action === 'createDocumentAudit' &amp;&amp; input.document &amp;&amp; input.audit)
+		new sn_hr_ef.ef_Utils().createEmployeeDocumentAudit(input.audit, input.document, null, false, null, null, null);
+	
+	data.title = options.title || gs.getMessage('My Documents'); 
+	data.table = 'sn_hr_ef_employee_document';
+	data.filter = 'active=true^document_type.employee_access=true^employee=' + userId + '^EQ';
+	data.field_list = 'name,sys_created_on';
+	data.o = 'name';
+	data.d = 'asc';
+	data.window_size = options.window_size || 5;
+	data.mobileDevice = gs.isMobile();
+	
+	data.displayWidget = false;
+	var pm = new GlidePluginManager();
+	if (!pm.isActive('com.sn_employee_document_management'))
+		return;
+	
+	data.canViewDocuments = new sn_hr_ef.ef_Utils().canViewDocuments();
+	
+	var agg = new GlideAggregate(data.table);
+	agg.addEncodedQuery(data.filter);
+	agg.addAggregate('COUNT');
+	agg.query();
+	agg.next();
+	
+	var recordCount = Number(agg.getAggregate('COUNT'));
+		
+	if (recordCount != 0 &amp;&amp; gs.getUserID() == userId)
+		data.displayWidget = true;
+	else
+		return;
+
+	var widgetParams = {
+		show_breadcrumbs : true,
+		show_keywords : true,
+		title: data.title,
+		enable_filter : true,
+		table : data.table,
+		filter : data.filter,
+		fields : data.field_list,
+		o : data.o,
+		d : data.d,
+		window_size : data.window_size,
+		hide_footer : data.window_size &gt;= recordCount
+	};
+	
+	data.dataTableWidget = $sp.getWidget('widget-data-table', widgetParams);
+	
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2018-02-14 16:50:53&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;6f86d215531013003585c3c606dc3411&lt;/sys_id&gt;&lt;sys_mod_count&gt;350&lt;/sys_mod_count&gt;&lt;sys_name&gt;Employee Documents List&lt;/sys_name&gt;&lt;sys_package display_value="Human Resources: Service Portal" source="sn_hr_sp"&gt;3d1da2705b021200a4656ede91f91ab6&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Human Resources: Service Portal"&gt;3d1da2705b021200a4656ede91f91ab6&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_6f86d215531013003585c3c606dc3411&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2018-10-31 13:57:19&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div id="document_list"&gt;
+	&lt;sp-widget ng-if="data.displayWidget" widget="data.dataTableWidget" /&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-06-02 20:57:44</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>2639eb38dbe0f01044c5ebd84896191c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>ea39eb38dbe0f01044c5ebd848961917</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_2639eb38dbe0f01044c5ebd84896191c</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-06-02 20:57:44</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

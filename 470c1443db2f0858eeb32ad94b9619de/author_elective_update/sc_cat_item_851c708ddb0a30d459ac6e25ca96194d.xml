@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_cat_item">
+    <sc_cat_item action="DELETE">
+        <access_type>restricted</access_type>
+        <active>true</active>
+        <availability>on_desktop</availability>
+        <billable>false</billable>
+        <category/>
+        <checked_out/>
+        <cost>0</cost>
+        <custom_cart/>
+        <delivery_plan/>
+        <delivery_plan_script/>
+        <delivery_time>1970-01-03 00:00:00</delivery_time>
+        <description/>
+        <display_price_property>never</display_price_property>
+        <entitlement_script/>
+        <flow_designer_flow/>
+        <group/>
+        <hide_sp>false</hide_sp>
+        <icon/>
+        <ignore_price>true</ignore_price>
+        <image/>
+        <location/>
+        <mandatory_attachment>false</mandatory_attachment>
+        <meta/>
+        <mobile_hide_price>false</mobile_hide_price>
+        <mobile_picture/>
+        <mobile_picture_type>use_desktop_picture</mobile_picture_type>
+        <model/>
+        <name>Update My Notification Groups</name>
+        <no_attachment_v2>false</no_attachment_v2>
+        <no_cart>false</no_cart>
+        <no_cart_v2>false</no_cart_v2>
+        <no_delivery_time_v2>false</no_delivery_time_v2>
+        <no_order>false</no_order>
+        <no_order_now>false</no_order_now>
+        <no_proceed_checkout>false</no_proceed_checkout>
+        <no_quantity>false</no_quantity>
+        <no_quantity_v2>false</no_quantity_v2>
+        <no_search>false</no_search>
+        <no_wishlist_v2>false</no_wishlist_v2>
+        <omit_price>false</omit_price>
+        <order>0</order>
+        <ordered_item_link/>
+        <owner display_value="Patrick Smith">0ddf1bb82b88460054a41bc5a8da152b</owner>
+        <picture/>
+        <preview>JavaScript: popupOpenStandard("com.glideapp.servicecatalog_cat_item_view.do?v=1&amp;sysparm_id=851c708ddb0a30d459ac6e25ca96194d&amp;sysparm_preview=true", "summary");</preview>
+        <price>0</price>
+        <published_ref/>
+        <recurring_frequency/>
+        <request_method/>
+        <roles/>
+        <sc_catalogs/>
+        <sc_ic_item_staging/>
+        <sc_ic_version/>
+        <sc_template/>
+        <short_description>Update My Notification Groups</short_description>
+        <show_variable_help_on_load>false</show_variable_help_on_load>
+        <start_closed>false</start_closed>
+        <state/>
+        <sys_class_name>sc_cat_item</sys_class_name>
+        <sys_created_by>psmith</sys_created_by>
+        <sys_created_on>2021-08-16 16:34:09</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>851c708ddb0a30d459ac6e25ca96194d</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Update My Notification Groups</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sc_cat_item_851c708ddb0a30d459ac6e25ca96194d</sys_update_name>
+        <sys_updated_by>psmith</sys_updated_by>
+        <sys_updated_on>2021-08-16 16:35:13</sys_updated_on>
+        <template/>
+        <template_manager_roles/>
+        <type>item</type>
+        <u_allowattachments>false</u_allowattachments>
+        <u_apply_desktop_info>false</u_apply_desktop_info>
+        <u_choice_1>30</u_choice_1>
+        <u_launchtourl>false</u_launchtourl>
+        <u_reference_4/>
+        <u_reference_5/>
+        <u_require_manager_approval>false</u_require_manager_approval>
+        <u_sensitive>false</u_sensitive>
+        <u_show_submit>true</u_show_submit>
+        <u_sla/>
+        <u_url/>
+        <use_sc_layout>true</use_sc_layout>
+        <vendor/>
+        <visible_bundle>true</visible_bundle>
+        <visible_guide>true</visible_guide>
+        <visible_standalone>true</visible_standalone>
+        <workflow/>
+    </sc_cat_item>
+    <sys_translated_text action="DELETE" query="documentkey=851c708ddb0a30d459ac6e25ca96194d"/>
+    <fx_price action="DELETE" query="id=851c708ddb0a30d459ac6e25ca96194d"/>
+    <fx_price action="DELETE">
+        <amount>0</amount>
+        <currency display_value="USD">USD</currency>
+        <field>price</field>
+        <id>851c708ddb0a30d459ac6e25ca96194d</id>
+        <parent/>
+        <reference_amount>0</reference_amount>
+        <reference_currency display_value="USD">USD</reference_currency>
+        <sys_created_by>psmith</sys_created_by>
+        <sys_created_on>2021-08-16 16:34:10</sys_created_on>
+        <sys_id>f02cf0cddb0a30d459ac6e25ca96192f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>psmith</sys_updated_by>
+        <sys_updated_on>2021-08-16 16:34:10</sys_updated_on>
+        <table>sc_cat_item</table>
+        <type>calculated</type>
+    </fx_price>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>901500ac6f06314023b2a9cc5d3ee4b5</instance_id>
+        <instance_name>godaddydev</instance_name>
+        <name>sc_cat_item_851c708ddb0a30d459ac6e25ca96194d</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_cat_item"><sc_cat_item action="INSERT_OR_UPDATE"><access_type>restricted</access_type><active>true</active><availability>on_desktop</availability><billable>false</billable><category/><checked_out/><cost>0</cost><custom_cart/><delivery_plan/><delivery_plan_script/><delivery_time>1970-01-03 00:00:00</delivery_time><description/><display_price_property>never</display_price_property><entitlement_script/><flow_designer_flow/><group/><hide_sp>false</hide_sp><icon/><ignore_price>true</ignore_price><image/><location/><mandatory_attachment>false</mandatory_attachment><meta/><mobile_hide_price>false</mobile_hide_price><mobile_picture/><mobile_picture_type>use_desktop_picture</mobile_picture_type><model/><name>Update My Notification Groups</name><no_attachment_v2>false</no_attachment_v2><no_cart>false</no_cart><no_cart_v2>false</no_cart_v2><no_delivery_time_v2>false</no_delivery_time_v2><no_order>false</no_order><no_order_now>false</no_order_now><no_proceed_checkout>false</no_proceed_checkout><no_quantity>false</no_quantity><no_quantity_v2>false</no_quantity_v2><no_search>false</no_search><no_wishlist_v2>false</no_wishlist_v2><omit_price>false</omit_price><order>0</order><ordered_item_link/><owner display_value="Patrick Smith">0ddf1bb82b88460054a41bc5a8da152b</owner><picture/><preview>JavaScript: popupOpenStandard("com.glideapp.servicecatalog_cat_item_view.do?v=1&amp;sysparm_id=851c708ddb0a30d459ac6e25ca96194d&amp;sysparm_preview=true", "summary");</preview><price>0</price><published_ref/><recurring_frequency/><request_method/><roles/><sc_catalogs/><sc_ic_item_staging/><sc_ic_version/><sc_template/><short_description>Update My Notification Groups</short_description><show_variable_help_on_load>false</show_variable_help_on_load><start_closed>false</start_closed><state/><sys_class_name>sc_cat_item</sys_class_name><sys_created_by>psmith</sys_created_by><sys_created_on>2021-08-16 16:34:09</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>851c708ddb0a30d459ac6e25ca96194d</sys_id><sys_mod_count>2</sys_mod_count><sys_name>Update My Notification Groups</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>sc_cat_item_851c708ddb0a30d459ac6e25ca96194d</sys_update_name><sys_updated_by>psmith</sys_updated_by><sys_updated_on>2021-08-16 16:35:13</sys_updated_on><template/><template_manager_roles/><type>item</type><u_allowattachments>false</u_allowattachments><u_apply_desktop_info>false</u_apply_desktop_info><u_choice_1>30</u_choice_1><u_launchtourl>false</u_launchtourl><u_reference_4/><u_reference_5/><u_require_manager_approval>false</u_require_manager_approval><u_sensitive>false</u_sensitive><u_show_submit>true</u_show_submit><u_sla/><u_url/><use_sc_layout>true</use_sc_layout><vendor/><visible_bundle>true</visible_bundle><visible_guide>true</visible_guide><visible_standalone>true</visible_standalone><workflow/></sc_cat_item><sys_translated_text action="delete_multiple" query="documentkey=851c708ddb0a30d459ac6e25ca96194d"/><fx_price action="delete_multiple" query="id=851c708ddb0a30d459ac6e25ca96194d"/><fx_price action="INSERT_OR_UPDATE"><amount>0</amount><currency display_value="USD">USD</currency><field>price</field><id>851c708ddb0a30d459ac6e25ca96194d</id><parent/><reference_amount>0</reference_amount><reference_currency display_value="USD">USD</reference_currency><sys_created_by>psmith</sys_created_by><sys_created_on>2021-08-16 16:34:10</sys_created_on><sys_id>f02cf0cddb0a30d459ac6e25ca96192f</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>psmith</sys_updated_by><sys_updated_on>2021-08-16 16:34:10</sys_updated_on><table>sc_cat_item</table><type>calculated</type></fx_price></record_update>]]></payload>
+        <payload_hash>-183255548</payload_hash>
+        <record_name>Update My Notification Groups</record_name>
+        <reverted_from/>
+        <source>3b97cb9f6fb23100fda99aad5d3ee43a</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>guest</sys_created_by>
+        <sys_created_on>2021-08-16 16:35:13</sys_created_on>
+        <sys_id>d06cbc81db4a30d459ac6e25ca9619e1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17b4fd12c670000001</sys_recorded_at>
+        <sys_updated_by>guest</sys_updated_by>
+        <sys_updated_on>2021-08-16 16:35:13</sys_updated_on>
+        <type>Catalog Item</type>
+        <update_guid>586cbc81394a30d454e0ada9ea8539e0</update_guid>
+        <update_guid_history>586cbc81394a30d454e0ada9ea8539e0:-183255548,3f2c7ccdb00a30d45dcee88998453db7:1663567959,b82cf0cdd00a30d4e9160e951ad4cc32:-623564160</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Record deleted 2021-08-16 09:51:48">1720cd0ddb0e30d459ac6e25ca9619ea</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>psmith</sys_created_by>
+        <sys_created_on>2021-08-16 16:51:48</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sc_cat_item">sc_cat_item</sys_db_object>
+        <sys_id>03ccacc1446946e88ebd5bdd641ce310</sys_id>
+        <sys_metadata>851c708ddb0a30d459ac6e25ca96194d</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Update My Notification Groups</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sc_cat_item_851c708ddb0a30d459ac6e25ca96194d</sys_update_name>
+        <sys_update_version display_value="sc_cat_item_851c708ddb0a30d459ac6e25ca96194d">d06cbc81db4a30d459ac6e25ca9619e1</sys_update_version>
+        <sys_updated_by>psmith</sys_updated_by>
+        <sys_updated_on>2021-08-16 16:51:48</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

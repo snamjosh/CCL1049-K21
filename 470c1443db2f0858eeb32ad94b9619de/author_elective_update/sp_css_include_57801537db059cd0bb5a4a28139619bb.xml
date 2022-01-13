@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_css_include">
+    <sp_css_include action="DELETE">
+        <name>Card Component</name>
+        <source>local</source>
+        <sp_css display_value="Card Component">a730d9b3db059cd0bb5a4a28139619a7</sp_css>
+        <sys_class_name>sp_css_include</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-06-03 21:41:33</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>57801537db059cd0bb5a4a28139619bb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Card Component</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_css_include_57801537db059cd0bb5a4a28139619bb</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-06-03 21:41:33</sys_updated_on>
+        <url/>
+    </sp_css_include>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>sp_css_include_57801537db059cd0bb5a4a28139619bb</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_css_include"><sp_css_include action="INSERT_OR_UPDATE"><name>Card Component</name><source>local</source><sp_css display_value="Card Component">a730d9b3db059cd0bb5a4a28139619a7</sp_css><sys_class_name>sp_css_include</sys_class_name><sys_created_by>choskins</sys_created_by><sys_created_on>2020-06-03 21:41:33</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>57801537db059cd0bb5a4a28139619bb</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Card Component</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>sp_css_include_57801537db059cd0bb5a4a28139619bb</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2020-06-03 21:41:33</sys_updated_on><url/></sp_css_include></record_update>]]></payload>
+        <payload_hash>-1593427367</payload_hash>
+        <record_name>Card Component</record_name>
+        <reverted_from/>
+        <source>0c6740ecdb7598901093f40c0c9619f6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-06-30 20:50:45</sys_created_on>
+        <sys_id>e6d74860dbb598901093f40c0c96195c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17306ff0ff90000001</sys_recorded_at>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-06-30 20:50:45</sys_updated_on>
+        <type>CSS Include</type>
+        <update_guid>5380d537b5059cd0de8eac77cbec1a5d</update_guid>
+        <update_guid_history>5380d537b5059cd0de8eac77cbec1a5d:-1593427367,355ad8aa5d299c908abcbdf71ad1e957:-1963533214,5380d537b5059cd0de8eac77cbec1a5d:-1593427367</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">c60d111213ea14d02729b53a6144b0ab</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-08-12 20:19:22</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sp_css_include">sp_css_include</sys_db_object>
+        <sys_id>0e5aff54c3f94520b5da3e543682e400</sys_id>
+        <sys_metadata>57801537db059cd0bb5a4a28139619bb</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Card Component</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sp_css_include_57801537db059cd0bb5a4a28139619bb</sys_update_name>
+        <sys_update_version display_value="sp_css_include_57801537db059cd0bb5a4a28139619bb">e6d74860dbb598901093f40c0c96195c</sys_update_version>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-08-12 20:19:22</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

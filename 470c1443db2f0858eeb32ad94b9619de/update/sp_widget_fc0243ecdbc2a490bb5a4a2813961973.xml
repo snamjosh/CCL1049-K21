@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($uibModal, $scope, spUtil,cabrillo, $window) { 
+
+	var c = this;
+	c.listOfShoppers = [];
+	c.doneLoading = false;
+	c.loadingMsg = "Loading...";
+	c.showErrorMessage = false;
+	c.errorMessage = "";
+
+	c.server.get({type: "getShoppers"}).then(function(resp) {    
+		var response = resp.data.responseObj;
+
+		if(response.error){
+			c.handleError(response.error);
+		}
+		else if(response.list == null){
+			c.listOfShoppers = [];
+		}
+		else{
+			c.listOfShoppers = response.list;
+		}
+
+		c.finishLoading();
+
+	});
+
+	c.addShopper = function(shopper){
+		c.beginLoading();
+
+		c.server.get({type: "addShopper", shopper: shopper}).then(function(resp) {    
+			var response = resp.data.responseObj;
+
+			if(response.error != null){
+				c.handleError(response.error);
+			}
+			else{
+				c.listOfShoppers.push(shopper);
+			}
+			c.finishLoading();
+
+		});
+	}
+
+	c.trashCanClick = function(shopper){
+		if($window.confirm("Are you sure you want to delete " + shopper + "?")){
+			c.removeShopper(shopper);
+		}
+	}
+
+	c.removeShopper = function(shopper){
+		c.beginLoading();
+
+		c.server.get({type: "removeShopper", shopper: shopper}).then(function(resp) {    
+			var response = resp.data.responseObj;
+			
+			if(response.error != null){
+				c.handleError(response.error);
+			}
+			else{
+				var index = c.listOfShoppers.indexOf(shopper);
+				if (index > -1) {
+					c.listOfShoppers.splice(index, 1);
+				}
+			}
+
+			c.finishLoading();
+		});
+	}
+
+	c.handleError = function(errorMsg){
+		c.errorMessage= errorMsg;
+		c.showErrorMessage = true;
+	}
+
+	c.beginLoading = function(){
+		jQuery('#loadingMsg').removeClass('hidden');
+		c.showErrorMessage = false;
+		c.errorMessage = "";
+		doneLoading = true;
+	}
+
+	c.finishLoading = function(){
+		jQuery('#loadingMsg').addClass('hidden');
+		c.doneLoading = true;
+		c.shopperId = "";
+	}
+
+	$scope.$on('sp_loading_indicator', function(e, value) {
+
+		$scope.loadingIndicator = value;
+
+	});
+
+	c.openModal = function() {
+		c.modalInstance = $uibModal.open({
+			templateUrl: 'modalTemplate',
+			scope: $scope,
+			size:'lg'
+		});
+	}
+
+	c.closeModal = function() {
+		c.formErrorMsg = "";
+		c.modalInstance.close();
+	}
+
+	c.submit = function(isValid) {
+		if(!isValid){
+			c.formErrorMsg = "Please enter values for the required fields";
+			return;
+		} 
+
+		if(!c.data.isVipEmployee && c.data.maxShoppers > 0 && c.listOfShoppers.length >= c.data.maxShoppers){
+			c.formErrorMsg = "You have reached the maximum number of shoppers and may not add a new one";
+			return;
+		}
+		
+		if(c.shopperId.length > 10){
+			c.formErrorMsg = "A Shopper ID must be 10 digits or less"
+			return;
+		}
+		
+		var regex = /\w*/;
+		var ok = regex.exec(c.shopperId) == c.shopperId;
+		
+		if(!ok) {
+			c.formErrorMsg = "Please enter a valid Shopper ID";
+			return;
+		}
+		
+		c.modalInstance.close();
+		c.addShopper(c.shopperId);
+	}
+}	
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.jeopardy {
+  background-color : #fff;
+}
+
+.tableStyle {
+ width:100px; 
+  position:relative;
+  left:25%;
+  right:25%
+}
+
+.instructions{
+   padding-top:20px;
+  padding-bottom:20px;
+}
+
+.title {
+  font-family : "Century Gothic",helvitica,arial;
+  font-size : 64pt;
+  color : $godaddyBlue;
+  text-align : center;
+}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.loadingMsg {
+  font-weight: bold; 
+  padding-top:20px;
+  padding-bottom:20px;
+  color:#000
+}
+
+.spinner {
+  content: '';
+ // box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+z-index:1;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #000;
+  animation: spinner .8s linear infinite;
+  
+}
+
+.trashButton {
+  border : 0px;
+  padding: 0px !important;
+  margin-bottom: 1px;
+  background-color : none;
+    
+}
+
+.panel {
+position: relative;
+}
+
+.panel-heading i {
+  cursor: pointer;
+  position: absolute;
+  padding: 10px;
+  top: 0px;
+  right: 0px;  
+  cursor: pointer;
+}
+
+.errorMessage {
+	color:red;
+  font-size : 10pt;
+}
+
+.disabled-filter {
+	color: #A0A0A0;
+}
+
+.list-group-item.ng-enter {
+  transition: all 1s;
+  -webkit-transition: all 1s;
+
+  background-color: #c0dcfa;
+}
+
+.list-group-item.ng-enter-active {
+  background-color: #fff;
+}
+
+.hide-x-overflow {
+  overflow-x: hidden;
+}
+
+.translated-html &gt; p {
+  margin: 0px;
+  padding: 0px;
+}
+
+IMG {
+  max-width: 320px;
+  max-height: 240px;
+}
+
+IMG.img-sm {
+  max-height: 40px;
+  max-width: 40px;
+}
+
+.filter-box {
+  margin-top: 10px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1BDBDB;
+    border-color: #18c4c4;
+}
+
+.btn-primary:hover{
+ 	background-color:#1eebeb !important; 
+}
+
+.btn {
+  border: none;
+}
+
+.formHelp {
+  //display: block;
+  
+  padding: 20px 20px 20px 20;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  background-color:#FFF;
+  text-align : center;
+}
+
+formHelp a, h3 {
+  font-weight: 300;
+  padding: 0;
+  text-align : center;
+  color:#717171;
+}
+
+
+a.color_box {
+  display: block;
+  position: relative;
+  padding: 20px 20px 20px 20;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  background-color:#FFF;
+
+  border-color:#FFF;
+  color:gray;
+  
+   font-weight: 300;
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+
+
+a.color_box h3 {
+  font-weight: 300;
+  padding: 0;
+  margin: 0 0 10px 0;
+  color:#000;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>get-shopper-discount</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) { 
+
+ }]]></link>
+        <name>getShopperDiscount</name>
+        <option_schema>[{"name":"error_no_such_shopper","section":"Presentation","default_value":"The Shopper ID you entered could not be found.","label":"ERROR_NO_SUCH_SHOPPER","type":"string"},{"name":"error_shopper_already_added","section":"Presentation","default_value":"The Shopper ID you entered is already linked to another employee.","label":"ERROR_SHOPPER_ALREADY_ADDED","type":"string"},{"name":"error_unknown","section":"Presentation","default_value":"We are unable to load this shopper ID at this time. Please try again later. If the issue persists, contact #servicenowdev in slack.","label":"ERROR_UNKNOWN","type":"string"},{"name":"enter_your_shopper_id","section":"Presentation","default_value":"Add your Shopper ID / Customer Number","label":"ENTER_YOUR_SHOPPER_ID","type":"string"},{"name":"introduction","section":"Presentation","default_value":"Use the fields below to enter Shopper IDs (aka customer numbers) . Once entered, these customers will receive discounted GoDaddy products and services on future purchases through godaddy.com.","label":"Introduction","type":"string"},{"name":"form_instructions_title","section":"Presentation","default_value":"Shopper Discount Help","label":"Form Instructions Title","type":"string"},{"name":"form_instructions","section":"Presentation","default_value":"Click here for detailed instructions on how to use this form.","label":"Form Instructions","type":"string"},{"name":"help_article_link","section":"Data","default_value":"gdsp?id=gdep_kb_article&amp;sysparm_article=KB0014256","label":"Help Article Link","type":"string"},{"name":"title","section":"Presentation","default_value":"My Shopper Accounts","label":"Title","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	data.maxShoppers = gs.getProperty('shopper_max_accounts');
+	data.isVipEmployee = isVipEmployee(); // isn't restricted on max shoppers
+	var helper = new global.FriendsAndFamilyHelper();
+	helper.initialize(gs.getUserID());
+
+	if(input && input.type == "removeShopper"){
+		data.responseObj =  helper.RemoveShopper(input.shopper);
+		if(data.responseObj.error == "ERROR_UNKNOWN"){
+			data.responseObj.error = options.error_unknown;
+		}
+	}
+	if(input && input.type == "addShopper"){
+		data.responseObj = helper.AddShopper(input.shopper);
+
+		if(data.responseObj.error == "ERROR_NO_SUCH_SHOPPER"){
+			data.responseObj.error = options.error_no_such_shopper;
+		}
+		else if(data.responseObj.error == "ERROR_SHOPPER_ALREADY_ADDED"){
+			data.responseObj.error = options.error_shopper_already_added;
+		}
+		else if(data.responseObj.error == "ERROR_UNKNOWN"){
+			data.responseObj.error = options.error_unknown;
+		}
+
+	}
+	if(input && input.type == "getShoppers"){
+		data.responseObj = helper.GetShoppers();
+		if(data.responseObj.error == "ERROR_UNKNOWN"){
+			data.responseObj.error = options.error_unknown;
+		}
+	}
+	
+	function isVipEmployee(){
+		var shopperVipUsers = gs.getProperty('shopper_vip_users');
+		var usr = new GlideRecord('sys_user');
+		usr.get(gs.getUserID());
+		var userName = usr.user_name;
+		var found = shopperVipUsers.indexOf(userName) > -1;
+		if(found){
+			return true;
+		}
+		return false;
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-01-28 16:53:31</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>fc0243ecdbc2a490bb5a4a2813961973</sys_id>
+        <sys_mod_count>235</sys_mod_count>
+        <sys_name>getShopperDiscount</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_fc0243ecdbc2a490bb5a4a2813961973</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-02-09 17:57:54</sys_updated_on>
+        <template><![CDATA[<div>
+  <div class="title">
+    <h2>{{options.title}}</h2>
+  </div>
+<div class="instructions">
+{{options.introduction}}
+  </div>
+  <div>
+    <h3 ng-if="c.showErrorMessage" class = "errorMessage">
+      {{c.errorMessage}}
+    </h3>
+  </div>
+  
+  <!-- doing this in angular is too slow: <div  ng-if="c.showLoadingSpinner === true" class="loader" id="loadingSpinner">Loading...</div>-->
+  <div id="loadingMsg">
+    <span class="spinner"></span>
+    <span class="loadingMsg">{{c.loadingMsg}}</span>
+  </div>
+
+
+  <div class="panel " name="shoppersPanel">
+    <div class="list-group hide-x-overflow" style="max-height: 'none'; overflow-y: auto;">
+      <div ng-if="c.listOfShoppers.length > 0" ng-repeat="item in c.listOfShoppers" class="list-group-item"><span>{{item}}</span>
+
+        <button type="button" class="trashButton btn btn-default pull-right" ng-click="c.trashCanClick(item)">
+          <div   class="pull-right"> <span class="glyphicon glyphicon-trash"></span></div>
+        </button>
+      </div>
+
+      <div ng-if="c.listOfShoppers.length == 0 && c.doneLoading == true" class="list-group-item">
+        ${No records found}
+      </div>
+    </div>
+  </div>
+
+  <div class="pull-right">
+    <button name="Add Shopper ID" role="link" class="btn btn-primary btn-sm m-l-xs" ng-click="c.openModal()" aria-label="${Add Shopper ID}">${Add Shopper ID}</button>
+  </div> 
+  
+  
+<div>&nbsp;
+</div>
+  
+
+<div class="formHelp"> 
+  <a ng-href="{{options.help_article_link}}">
+  <h3>{{::options.form_instructions_title}}</h3>  
+    <span class="text-muted">{{::options.form_instructions}}</span>
+  </a>
+  
+  </div>
+  
+  
+  <script type="text/ng-template" id="modalTemplate">
+      <div class="panel panel-default" ng-if="c.formErrorMsg">
+      	<div class="alert alert-danger">{{c.formErrorMsg}}</div>
+    </div>
+
+  <form name="createCaseForm" class="form-horizontal" role="form" novalidate>
+    <div class="panel-heading">
+        <h4 class="panel-title">{{options.enter_your_shopper_id}}</h4>
+    </div>
+         <!-- Subject -->
+        <div class="form-group"
+             ng-class="{'has-error' : createCaseForm.txtShopperId.$invalid && createCaseForm.$submitted}">
+           <label class="col-sm-2 control-label"><label ng-show="createCaseForm.txtShopperId.$invalid && createCaseForm.$submitted">*</label>Shopper ID</label>
+            <div class="col-sm-6">
+              <input id="txtShopperId"
+              			 name="txtShopperId"
+                     type="text" 
+                     class="form-control" 
+                     ng-required="true" 
+                     ng-model="c.shopperId" >
+    </div>
+    </div>
+
+         <!-- Submit and Cancel -->
+      <div class="panel-footer text-right">
+        <button style="background-color: #000000; margin-right:10px; color: #ffffff" class="btn btnSubmit" ng-click="c.submit(createCaseForm.$valid)">${Submit}</button>
+        <button class="btn btn-default modalButtons" style="background-color: #000000; color: #ffffff"; ng-click="c.closeModal()">${Cancel}</button>&nbsp;
+    </div>
+  </script>
+</div>
+
+
+
+]]></template>
+    </sp_widget>
+</record_update>

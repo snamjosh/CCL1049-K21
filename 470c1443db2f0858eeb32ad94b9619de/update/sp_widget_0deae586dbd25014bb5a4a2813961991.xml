@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($scope, spUtil) {
+	var c = this;
+	
+  $scope.$on('record.updated', function(name, data) {
+    spUtil.update($scope);
+  }) 
+	
+		c.formatApproverList = function(arrList) {
+		if(!arrList) return "";
+		return('\n' + arrList.join(', '));
+	}
+}
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.panel-body {
+    border: 4px solid #1BDBDB !important;
+}
+.fa-question-circle {
+  color:orange;
+}
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Ticket Fields</name>
+        <option_schema>[&#13;
+   {&#13;
+      "name": "pickup_msg",&#13;
+      "label": "Pickup message",&#13;
+      "type": "string"&#13;
+   }&#13;
+]</option_schema>
+        <public>false</public>
+        <roles>snc_external,snc_internal</roles>
+        <script><![CDATA[(function(){
+	var gr = $sp.getRecord();
+	data.canRead = gr.canRead();
+	if (!data.canRead) 
+		return;
+
+	var agent = "";
+	var a = $sp.getField(gr, 'assigned_to');
+	if (a != null)
+		agent = a.display_value;
+
+	var fields = $sp.getFields(gr, 'number,approval,state,priority,sys_created_on,hr_service');
+	if (gr.getValue("sys_mod_count") > 0)
+		fields.push($sp.getField(gr, 'sys_updated_on'));
+
+	if (gr.getValue('price') > 0)
+		fields.push($sp.getField(gr, 'price'));
+
+	if (gr.getValue('recurring_price') > 0) {
+		var rp = $sp.getField(gr, 'recurring_price');
+		if (gr.isValidField("recurring_price"))
+			rp.display_value = rp.display_value + " " + gr.getDisplayValue("recurring_frequency");
+		fields.push(rp);
+	}
+
+	var sla = new GlideRecord('task_sla');
+	sla.addQuery('task', $sp.getParameter('sys_id'));
+	sla.query();
+
+	data.tableLabel = gr.getLabel();
+	data.fields = fields;
+	data.variables = $sp.getVariablesArray();
+	data.agent = agent;
+	data.agentPossible = gr.isValidField("assigned_to");
+	data.table = gr.getTableName();
+	data.sys_id = gr.getUniqueValue();
+
+	var approvalStatus = $sp.getField(gr, 'approval').value;
+	
+	if(approvalStatus == 'requested'){
+		data.approvalList = getApprovalList(data.sys_id);
+		console.log(data.approvalList);
+	}
+	
+	while(sla.next()){
+		var slaName = sla.getDisplayValue('sla');
+		if(slaName.contains("- Response")) continue;
+		
+		var stage = sla.getDisplayValue('stage');
+		if(stage == "Cancelled") continue;
+		
+		data.slaDue = sla.planned_end_time;
+		data.fields.push($sp.getField(sla, 'planned_end_time'));
+	}
+	
+})()
+
+function getApprovalList(requestSysId) {
+	var approvers = [];              
+	var approverGr = new GlideRecord("sysapproval_approver");
+	approverGr.addQuery("sysapproval", requestSysId);
+	approverGr.query();
+
+	while(approverGr.next())
+		approvers.push($sp.getField(approverGr, 'approver').display_value);
+		
+	return approvers;
+}]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-30 16:25:44</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>0deae586dbd25014bb5a4a2813961991</sys_id>
+        <sys_mod_count>65</sys_mod_count>
+        <sys_name>GDEP Ticket Fields</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_0deae586dbd25014bb5a4a2813961991</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-10-26 23:37:02</sys_updated_on>
+        <template><![CDATA[<div ng-if="data.canRead" class="panel b">
+  <div class="panel-heading bg-primary">
+    <div ng-init="spSearch.targetRequests()">
+      <sp-c-link target="form" table="data.table" id="data.sys_id"/>
+    </div>
+    <span ng-if="data.agent" >
+      ${Agent working on this {{data.tableLabel}}}:
+      <div>{{data.agent}}</div>
+    </span>
+    <span ng-if="!data.agent && data.agentPossible" >${Your request has been submitted}</span>
+    <span ng-if="!data.agentPossible">${{{data.tableLabel}} record details}</span>
+  </div>
+
+  <div class="panel-body">
+    <div ng-if="data.fields.length > 0">
+      <div class="row">
+        <div class="col-md-6 col-sm-12 col-xs-6 m-b break-word" ng-repeat="field in data.fields" 
+             ng-if="field.value && (field.type != 'decimal' || field.type == 'decimal' && field.value != 0)" >
+          <label class="m-n">{{field.label}}</label>
+          <span ng-switch="field.type">
+            <div ng-switch-when="glide_date_time" title="{{field.display_value}}">
+              <span ng-switch="field.label">
+                <span ng-switch-when="Resolution Due By">
+                  <div>{{field.value}}</div>
+                </span>
+                <span ng-switch-default >
+              		<sn-time-ago timestamp="::field.value" />
+                </span>
+              </span>
+            </div>
+            <div ng-switch-default >{{field.display_value}}
+            
+              <button type="button" class="btn btn-info btn-sm"  
+                      ng-if="field.label=='Approval' && field.display_value == 'Requested' && data.approvalList"
+                      uib-tooltip="Pending approval from {{c.formatApproverList(data.approvalList)}}"
+                      >More Info</button>
+              
+              <i ng-if="false && field.label=='Approval' && field.display_value == 'Requested' && data.approvalList" class="fa fa-question-circle" aria-hidden="true" 
+             uib-tooltip="Pending approval from {{c.formatApproverList(data.approvalList)}}"
+                  tooltip-placement="bottom"
+                 ></i>
+            
+            
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="data.variables.length > 0" ng-init="variable_toggle=true">
+      <h4 ng-click="variable_toggle = !variable_toggle" style="cursor: pointer;">
+        <span style="font-size: 12px;" class="glyphicon" 
+              ng-class="{'glyphicon-chevron-down': !variable_toggle, 'glyphicon-chevron-up': variable_toggle}"></span>
+        ${Options}
+      </h4>
+      
+      <div ng-if="variable_toggle">
+        <hr>
+        <div class="m-b break-word" ng-repeat="variable in data.variables">
+          <label class="m-n">{{variable.label}}</label>
+          <div>{{variable.display_value}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="data.agentPossible && !data.agent && options.pickup_msg" class="panel-footer">
+    <div id="ticket_fields_footer" class="text-center text-muted" style="font-style: italic;" ng-bind-html="options.pickup_msg">
+    </div>
+  </div>
+
+</div>
+
+<!-- <pre>{{data.fields | json}}</pre>-->]]></template>
+    </sp_widget>
+</record_update>

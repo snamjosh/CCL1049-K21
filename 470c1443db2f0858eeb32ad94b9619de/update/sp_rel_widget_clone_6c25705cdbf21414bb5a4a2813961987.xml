@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="GDEP Approval Info">2c25705cdbf21414bb5a4a2813961984</child>
+        <cloned>2020-08-18 22:32:54</cloned>
+        <last_validated>2020-08-18 22:32:54</last_validated>
+        <parent display_value="Approval Info">33442352cb30020000f8d856634c9c3f</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;other&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function ($scope, spUIActionsExecuter, spUtil) {
+	var c = this;
+	
+	var ESIGNATURE = {
+		"approved": "cbfe291147220100ba13a5554ee4904d",
+		"rejected": "580f711147220100ba13a5554ee4904b"
+	};
+	
+	spUtil.recordWatch($scope, "sysapproval_approver", "state=requested^sys_id="+ c.data.sys_id);
+
+	c.action = function(state) {
+		if(c.data.esignature.e_sig_required) {
+			var requestParams = {
+				username: c.data.esignature.username,
+				userSysId: c.data.esignature.userSysId
+			};
+			spUIActionsExecuter.executeFormAction(ESIGNATURE[state], "sysapproval_approver" , c.data.sys_id, [] , "", requestParams).then(function(response) {
+				});
+		} else {
+				c.data.op = state;
+				c.server.update().then(function() {
+					if (!c.data.updateID) // update failed
+						spUtil.addErrorMessage(c.data.actionPreventedMsg);
+					else
+						c.data.state = state;
+				});
+		}
+	}	
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.question {
+  text-align: center;
+  margin-top: 1em;
+}
+
+.spacer {
+  display:inline-block;
+  width:5%;
+}
+
+.btn-question {
+	width: 45%;
+}&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data&gt;{
+  "data": {
+    "fields": [
+      {
+        "type": "glide_date_time",
+        "value": "2016-01-31T17:33:54+00:00",
+        "label": "Approval Example Label"
+      }
+    ],
+    "state": "requested",
+    "label": "incident"
+  },
+  "options": {
+    "color": "default"
+  }
+}&lt;/demo_data&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list&gt;color&lt;/field_list&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id/&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;Approval Info&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles&gt;snc_external,snc_internal&lt;/roles&gt;&lt;script&gt;&lt;![CDATA[(function() {
+	data.actionPreventedMsg = gs.getMessage("Update failed");
+	var gr = $sp.getRecord();
+	if (gr == null || !gr.isValid()) {
+		data.isValid = false;
+		return;
+	}
+	
+	data.isValid = true;
+	data.isMine = isApprovalMine(gr);
+	
+	var approverDisplay = gr.approver.getDisplayValue();
+	if (!data.isMine &amp;&amp; approverDisplay)
+		data.approverDisplay = approverDisplay;
+	
+	if (approverDisplay) {
+		data.approvedMsg = gs.getMessage("Approved by {0}", approverDisplay);
+		data.rejectedMsg = gs.getMessage("Rejected by {0}", approverDisplay);
+	} else {
+		data.approvedMsg = gs.getMessage("Approved");
+		data.rejectedMsg = gs.getMessage("Rejected");
+	}
+	if (input &amp;&amp; input.op &amp;&amp; data.isMine) {
+		gr.state = input.op;
+		data.updateID = gr.update();
+		if (GlideStringUtil.nil(data.updateID)) {
+			// update failed so fetch again for correct values
+			gr = $sp.getRecord();
+		}
+		data.op = "";
+	}
+
+	var fields = $sp.getFields(gr, 'state,sys_created_on');
+
+	if (gr.sys_mod_count &gt; 0)
+		fields.push($sp.getField(gr, 'sys_updated_on'));
+
+	data.fields = fields;
+	data.state = gr.state.toString();
+	data.sys_updated_on = gr.sys_updated_on.toString();
+	data.sys_id = gr.getUniqueValue();
+	data.table = gr.getTableName();
+	data.label = getRecordBeingApproved(gr).getLabel();
+	data.esignature = {
+		username:  gs.getUserName(),
+		userSysId: gs.getUserID(),
+		e_sig_required: checkESig(gr)
+};
+	function checkESig(approvalGR) {
+		var esigRegistryGR = new GlideRecord("e_signature_registry");
+		if (!esigRegistryGR.isValid())
+			return false;
+		
+		var table = approvalGR.getValue("source_table");
+		if (!table)
+			table = approvalGR.sysapproval.sys_class_name;
+		if (!table)
+			return false;
+		
+		esigRegistryGR.addQuery("enabled", "true");
+		esigRegistryGR.addQuery("table_name", table);
+		esigRegistryGR.query();
+		return esigRegistryGR.hasNext();
+	}
+	
+	function getRecordBeingApproved(gr) {
+		if (!gr.sysapproval.nil())
+			return gr.sysapproval.getRefRecord();
+
+		return gr.document_id.getRefRecord();
+	}
+})();
+]]&gt;&lt;/script&gt;&lt;servicenow&gt;true&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2015-06-24 16:43:31&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;33442352cb30020000f8d856634c9c3f&lt;/sys_id&gt;&lt;sys_mod_count&gt;123&lt;/sys_mod_count&gt;&lt;sys_name&gt;Approval Info&lt;/sys_name&gt;&lt;sys_package display_value="Service Portal - Core" source="com.glide.service-portal"&gt;4408d1906f78620068de792f8e3ee4ee&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_33442352cb30020000f8d856634c9c3f&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2019-03-06 00:30:01&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div ng-if="c.data.isValid" class="panel panel-{{::c.options.color}} b"&gt;
+  &lt;div class="panel-heading"&gt;
+    &lt;h4 class="panel-title" ng-if="c.data.isMine &amp;&amp; (c.data.state == 'requested')"&gt;${This {{c.data.label}} requires your approval}&lt;/h4&gt;
+    &lt;h4 class="panel-title" ng-if="!c.data.isMine &amp;&amp; (c.data.state == 'requested')"&gt;${This {{c.data.label}} requires approval &lt;span ng-if="c.data.approverDisplay"&gt; by {{c.data.approverDisplay}}}&lt;/span&gt;&lt;/h4&gt;
+    &lt;h4 class="panel-title" ng-if="c.data.state == 'approved'"&gt;{{data.approvedMsg}}&lt;/h4&gt;
+    &lt;h4 class="panel-title" ng-if="c.data.state == 'rejected'"&gt;{{data.rejectedMsg}}&lt;/h4&gt;
+  &lt;/div&gt;  
+  &lt;div class="panel-body"&gt;
+    &lt;form ng-submit="$event.preventDefault()" class="form-horizontal"&gt;
+      &lt;div ng-if="c.data.fields.length &gt; 0"&gt;
+        &lt;div ng-repeat="field in c.data.fields" class="m-b-xs" ng-if="field.value"&gt;
+          &lt;label class="m-n"&gt;{{field.label}}&lt;/label&gt;
+          &lt;span ng-switch="field.type"&gt;
+            &lt;div ng-switch-when="glide_date_time" title="{{field.display_value}}"&gt;&lt;sn-time-ago timestamp="::field.value" /&gt;&lt;/div&gt;
+            &lt;div ng-switch-default &gt;{{field.display_value}}&lt;/div&gt;
+          &lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div ng-if="c.data.isMine &amp;&amp; (c.data.state == 'requested')" class="question"&gt;
+        &lt;button type="button" name="approve" class="btn btn-success btn-question" ng-click="c.action('approved')"&gt;${Approve}&lt;/button&gt;
+        &lt;div class="spacer"&gt;&lt;/div&gt;
+        &lt;button type="button" name="reject" class="btn btn-default btn-question" ng-click="c.action('rejected')"&gt;${Reject}&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;  
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-18 22:32:54</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>6c25705cdbf21414bb5a4a2813961987</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>2c25705cdbf21414bb5a4a2813961984</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_6c25705cdbf21414bb5a4a2813961987</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-18 22:32:54</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

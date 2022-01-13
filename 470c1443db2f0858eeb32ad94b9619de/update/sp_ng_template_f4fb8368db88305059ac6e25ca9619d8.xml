@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_ng_template">
+    <sp_ng_template action="INSERT_OR_UPDATE">
+        <id>quebec-sp-typeahead.html</id>
+        <sp_widget display_value="Quebec Typeahead Search">55f8090cdb00f010bb5a4a2813961965</sp_widget>
+        <sys_class_name>sp_ng_template</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-08 03:41:02</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>f4fb8368db88305059ac6e25ca9619d8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>quebec-sp-typeahead.html</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_ng_template_f4fb8368db88305059ac6e25ca9619d8</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-08 03:41:02</sys_updated_on>
+        <template><![CDATA[<ul class="typeahead-popup dropdown-menu" ng-show="isOpen() && !moveInProgress" ng-style="{top: position().top+'px', left: position().left+'px'}" role="listbox" aria-hidden="{{!isOpen()}}">
+    <li role='option' aria-hidden='true' style='display: none'></li>    
+  	<li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" 
+        ng-mouseenter="selectActive($index)" 
+        ng-click="selectMatch($index, $event)" 
+        role="option" id="{{::match.id}}"
+        data-index="{{$index}}"}>
+        <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+    </li>
+</ul>]]></template>
+    </sp_ng_template>
+</record_update>

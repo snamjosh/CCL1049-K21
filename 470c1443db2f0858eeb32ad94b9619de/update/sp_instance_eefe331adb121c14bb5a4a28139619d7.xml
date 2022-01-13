@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">6d4ffb5edb121c14bb5a4a2813961983</sp_column>
+        <sp_widget display_value="GDEP Title Header">62a5424edb88d890bb5a4a28139619a2</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>iremigio</sys_created_by>
+        <sys_created_on>2020-07-31 21:51:13</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>eefe331adb121c14bb5a4a28139619d7</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Policy Center</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_instance_eefe331adb121c14bb5a4a28139619d7</sys_update_name>
+        <sys_updated_by>iremigio</sys_updated_by>
+        <sys_updated_on>2020-07-31 21:52:39</sys_updated_on>
+        <title>Policy Center</title>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"test_hr_sc_cat": {
+		"value": "",
+		"displayValue": ""
+	},
+	"field_list": {
+		"value": "",
+		"displayValue": ""
+	},
+	"sc_catalog": {
+		"value": "",
+		"displayValue": ""
+	},
+	"title": {
+		"value": "Policy Center",
+		"displayValue": "Policy Center"
+	}
+}]]></widget_parameters>
+    </sp_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=eefe331adb121c14bb5a4a28139619d7"/>
+</record_update>

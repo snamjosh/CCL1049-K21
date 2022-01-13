@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="GDEP HRM Catalog Item">29e7f841dbbb2010bb5a4a2813961991</child>
+        <cloned>2021-04-26 19:54:22</cloned>
+        <last_validated>2021-04-26 19:54:22</last_validated>
+        <parent display_value="HRM Catalog Item">9e0a0e9373a75300c629e1e54cf6a7cd</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category/&gt;&lt;client_script&gt;&lt;![CDATA[function() {
+  /* widget controller */
+  var c = this;
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css/&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list&gt;color&lt;/field_list&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;hrm-catalog-item&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;HRM Catalog Item&lt;/name&gt;&lt;option_schema&gt;[{"name":"show_add_cart_button","section":"other","label":"Show Add Cart Button","type":"boolean"},{"hint":"If you turn on this, you will be able to see field validation messages on right side","name":"show_field_validation_messages","default_value":"true","section":"other","label":"Show field validation messages","type":"boolean"},{"hint":"Show Add/Update Wish List buttons","name":"show_add_to_wishlist_button","default_value":"true","section":"other","label":"Show Add/Update Wish List buttons","type":"boolean"},{"hint":"Order item section on top. If you uncheck this, order section will be displayed at bottom of screen","name":"display_cart_on_right","default_value":"true","section":"other","label":"Order Item Section On Top","type":"boolean"},{"hint":"Show item description in few words with an option to read more","name":"show_less_description","default_value":"true","section":"other","label":"Enable Show More/Less for Item description on Mobile","type":"boolean"},{"hint":"Hide the Delivery Time in the widget","name":"hide_delivery_time","section":"other","default_value":"false","label":"Hide Delivery Time","type":"boolean"}]&lt;/option_schema&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+	var p = {};
+	p=options;
+	var sys_id= $sp.getParameter('sys_id');
+  sys_id = gs.nil(sys_id) ? "" : sys_id;
+	
+	var isPluginActive = new GlidePluginManager().isActive('com.sn_hr_core');
+	
+	if (isPluginActive &amp;&amp; isHRCatalogItem(sys_id)) // redirect to HR ticket page if catalog item is of HR
+			p.page = options.hr_page;
+	
+	data.catalogItem = $sp.getWidget("widget-sc-cat-item-v2",p);
+
+	function isHRCatalogItem(catalogItemId){
+		var table_extensions = sn_hr_core.hr.TABLE_CASE_EXTENSIONS;
+		var gr = new GlideRecord('sc_cat_item_producer');
+		if (catalogItemId != "" &amp;&amp; gr.get('sys_id', catalogItemId)) {
+			var tableName = gr.getValue('table_name');
+			if (table_extensions.indexOf(tableName) != -1)
+           return true;
+		}
+		return false;
+	}
+})();
+]]&gt;&lt;/script&gt;&lt;servicenow&gt;true&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2018-08-01 10:28:05&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;9e0a0e9373a75300c629e1e54cf6a7cd&lt;/sys_id&gt;&lt;sys_mod_count&gt;75&lt;/sys_mod_count&gt;&lt;sys_name&gt;HRM Catalog Item&lt;/sys_name&gt;&lt;sys_package display_value="Human Resources: Service Portal" source="sn_hr_sp"&gt;3d1da2705b021200a4656ede91f91ab6&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Human Resources: Service Portal"&gt;3d1da2705b021200a4656ede91f91ab6&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_9e0a0e9373a75300c629e1e54cf6a7cd&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2018-10-03 07:41:31&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div&gt;
+	&lt;sp-widget widget="data.catalogItem"&gt;&lt;/sp-widget&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-04-26 19:54:22</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>ede73445dbbb2010bb5a4a281396197a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>29e7f841dbbb2010bb5a4a2813961991</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_ede73445dbbb2010bb5a4a281396197a</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-04-26 19:54:22</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

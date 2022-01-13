@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="2">8a339144db84f010bb5a4a28139619e0</sp_column>
+        <sp_widget display_value="GDEP Main Typeahead Search">1955b53cdb35509059ac6e25ca9619b9</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-06 05:47:38</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>eff5d944db08f010bb5a4a2813961926</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_instance_eff5d944db08f010bb5a4a2813961926</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-06 05:47:38</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="DELETE" query="documentkey=eff5d944db08f010bb5a4a2813961926"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>901500ac6f06314023b2a9cc5d3ee4b5</instance_id>
+        <instance_name>godaddydev</instance_name>
+        <name>sp_instance_eff5d944db08f010bb5a4a2813961926</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance"><sp_instance action="INSERT_OR_UPDATE"><active>true</active><class_name/><color>default</color><css/><glyph/><id/><order>1</order><roles/><short_description/><size>md</size><sp_column display_value="2">8a339144db84f010bb5a4a28139619e0</sp_column><sp_widget display_value="GDEP Main Typeahead Search">1955b53cdb35509059ac6e25ca9619b9</sp_widget><sys_class_name>sp_instance</sys_class_name><sys_created_by>choskins</sys_created_by><sys_created_on>2021-05-06 05:47:38</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>eff5d944db08f010bb5a4a2813961926</sys_id><sys_mod_count>0</sys_mod_count><sys_name/><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>sp_instance_eff5d944db08f010bb5a4a2813961926</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2021-05-06 05:47:38</sys_updated_on><title/><url/><widget_parameters/></sp_instance><sys_translated_text action="delete_multiple" query="documentkey=eff5d944db08f010bb5a4a2813961926"/></record_update>]]></payload>
+        <payload_hash>1865378290</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>d71645ccdb8cb010bb5a4a28139619a6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-06 05:47:38</sys_created_on>
+        <sys_id>63f51108db08f010bb5a4a28139619c4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1794037a1e90000001</sys_recorded_at>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-06 05:47:38</sys_updated_on>
+        <type>Instance</type>
+        <update_guid>6bf511087908f010d5c4dc7ca8ea8ac3</update_guid>
+        <update_guid_history>6bf511087908f010d5c4dc7ca8ea8ac3:1865378290</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Record deleted 2021-05-06 14:09:21">d1f86450db8cf810bb5a4a28139619d6</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-06 21:09:21</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sp_instance">sp_instance</sys_db_object>
+        <sys_id>09d88148ef91452d9ee38a747d020e31</sys_id>
+        <sys_metadata>eff5d944db08f010bb5a4a2813961926</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sp_instance_eff5d944db08f010bb5a4a2813961926</sys_update_name>
+        <sys_update_version display_value="sp_instance_eff5d944db08f010bb5a4a2813961926">63f51108db08f010bb5a4a28139619c4</sys_update_version>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-06 21:09:21</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

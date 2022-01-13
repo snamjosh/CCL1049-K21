@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.GdepKbApi</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Server-side script that contains functions that return data related to KB Articles.  In the MVC model this is used by the model to get data.</description>
+        <name>GdepKbApi</name>
+        <script><![CDATA[var GdepKbApi = Class.create();
+GdepKbApi.prototype = {
+    initialize: function() {
+    },
+
+	getKbId: function(){
+		var kbase = new GlideRecord('kb_knowledge_base');
+		kbase.addQuery('active', true);	
+		kbase.addQuery('title', 'Human Resources General Knowledge');  
+		kbase.setLimit(1);
+		kbase.query();
+		kbase.next();
+
+		return kbase.getValue('sys_id');
+	},
+	getKbCategoryName: function(kbCatId){	
+		var cat = new GlideRecord('kb_category');
+		cat.get(kbCatId);
+		return cat.getValue('label');
+	},
+	getKbCategoryModel: function(kbCatId){	
+		var cat = new GlideRecord('kb_category');
+		cat.get(kbCatId);
+		var model = {};
+		model.label = cat.getValue('label');
+		model.sys_id = cat.getValue('sys_id');
+		
+		return model;
+	},
+	getKbCategoryTree: function(kbId, kbCatId){
+		var models = [];
+		
+		var c = kbCatId;
+		
+		do{
+			var cat = new GlideRecord('kb_category');
+			cat.get(c);
+			if(cat.getValue('label') == null) c = null;
+			else{
+				var m = {};
+				m.label = cat.getValue('label');
+				m.url = "&kb_id=" + kbId + "&kb_category=" + cat.getValue('sys_id');
+				m.sys_id = cat.getValue('sys_id');
+				models.push(m);
+
+				c = cat.getValue('parent_id');
+			}
+		}
+		while(c != null);
+		
+		return models.reverse();
+	},
+/*	getHrCategories: function() {
+		var kbId = this.getKbId();
+		
+		var models = [];
+		var cat = new GlideRecord('kb_category');
+		cat.addQuery('parent_id', kbId);
+		cat.orderBy('label');
+		cat.query();
+
+		while(cat.next()){
+			var catItem = {};
+			catItem.label = cat.getValue('label');
+			catItem.url = '&kb_id=' + kbId + '&kb_category=' + cat.getValue('sys_id');
+
+			models.push(catItem);
+		}
+		return models;
+	},*/
+	
+	getSubCategoryModels: function(kbId, kbCatId){
+		if(!kbId){
+			kbId = this.getKbId();
+		}
+		if(!kbCatId) {
+			kbCatId = kbId;
+		}
+		
+		var models = [];
+		var cat = new GlideRecord('kb_category');
+		cat.addQuery('parent_id', kbCatId);
+		cat.orderBy('label');
+		cat.query();
+
+		while(cat.next()){
+			var catItem = {};
+			catItem.label = cat.getValue('label');
+			catItem.url = '&kb_id=' + kbId + '&kb_category=' + cat.getValue('sys_id');
+
+			models.push(catItem);
+		}
+		return models;
+	},
+	getTopMostCategory: function(kbCatId){
+		var topMost = kbCatId;
+		var currentCatId = kbCatId;
+		do{
+			var cat = new GlideRecord('kb_category');
+			cat.get(topMost);
+			
+			if(cat.getValue('label') ==  null) 
+				topMost = null;
+			else {
+				// the "topMost" parent is the kbId which is a catelog, not a category.
+				// Save a copy of the previous copy of "topMost"
+				currentCatId = topMost; 
+				topMost = cat.getValue('parent_id');
+			}
+		}
+		while(topMost != null);	
+		return currentCatId;
+	},
+    type: 'GdepKbApi'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-04-21 21:00:28</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>9bd92339dbd490d8bb5a4a281396193d</sys_id>
+        <sys_mod_count>34</sys_mod_count>
+        <sys_name>GdepKbApi</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_script_include_9bd92339dbd490d8bb5a4a281396193d</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-22 04:11:34</sys_updated_on>
+    </sys_script_include>
+</record_update>

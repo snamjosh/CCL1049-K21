@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="announcement">
+    <announcement action="DELETE">
+        <active>true</active>
+        <click_target/>
+        <details/>
+        <details_link_text/>
+        <details_page/>
+        <details_url/>
+        <dismiss_options>dismissible</dismiss_options>
+        <display_first>true</display_first>
+        <display_style display_value="Normal">704dedd6e7d4030075c2a117c2f6a91b</display_style>
+        <from>2021-04-27 20:43:46</from>
+        <glyph/>
+        <glyph_alt_text/>
+        <name>goals</name>
+        <public>true</public>
+        <roles/>
+        <show_for_unauthenticated_users_only>false</show_for_unauthenticated_users_only>
+        <summary/>
+        <sys_class_name>announcement</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-03-18 20:44:11</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>79c064cfdb6f0858eeb32ad94b961950</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>goals</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>announcement_79c064cfdb6f0858eeb32ad94b961950</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-04-28 22:29:11</sys_updated_on>
+        <title>Have you washed your hands recently?</title>
+        <to>2021-05-01 20:43:49</to>
+        <type>67eaf134e7a3320075c2a117c2f6a9d2</type>
+    </announcement>
+    <sys_translated_text action="DELETE" query="documentkey=79c064cfdb6f0858eeb32ad94b961950"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>901500ac6f06314023b2a9cc5d3ee4b5</instance_id>
+        <instance_name>godaddydev</instance_name>
+        <name>announcement_79c064cfdb6f0858eeb32ad94b961950</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="announcement"><announcement action="INSERT_OR_UPDATE"><active>true</active><click_target/><details/><details_link_text/><details_page/><details_url/><dismiss_options>dismissible</dismiss_options><display_first>true</display_first><display_style display_value="Normal">704dedd6e7d4030075c2a117c2f6a91b</display_style><from>2021-04-27 20:43:46</from><glyph/><glyph_alt_text/><name>goals</name><public>true</public><roles/><show_for_unauthenticated_users_only>false</show_for_unauthenticated_users_only><summary/><sys_class_name>announcement</sys_class_name><sys_created_by>jbenedetti</sys_created_by><sys_created_on>2020-03-18 20:44:11</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>79c064cfdb6f0858eeb32ad94b961950</sys_id><sys_mod_count>9</sys_mod_count><sys_name>goals</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>announcement_79c064cfdb6f0858eeb32ad94b961950</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2021-04-28 22:29:11</sys_updated_on><title>Have you washed your hands recently?</title><to>2021-05-01 20:43:49</to><type>67eaf134e7a3320075c2a117c2f6a9d2</type></announcement><sys_translated_text action="delete_multiple" query="documentkey=79c064cfdb6f0858eeb32ad94b961950"/></record_update>]]></payload>
+        <payload_hash>736755147</payload_hash>
+        <record_name>goals</record_name>
+        <reverted_from/>
+        <source>273a6325dbf3e05059ac6e25ca9619e7</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-04-28 22:29:11</sys_created_on>
+        <sys_id>f48e6f65db3be05059ac6e25ca961918</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1791a99b4cd0000001</sys_recorded_at>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-04-28 22:29:11</sys_updated_on>
+        <type>Announcement</type>
+        <update_guid>3c8e6f65a63be0504b18d4cf104d6717</update_guid>
+        <update_guid_history>3c8e6f65a63be0504b18d4cf104d6717:736755147,9e8d23a138f7e0504fa74859b7ed9c6a:531028358,316de3e9c5b7e050accc264dba5c9abc:736755147,555de3e9f0b7e05002dd1338524f7f1b:531028358,36acab697e77e0500e591bb4cce94497:-767873362,df559693e6a38098c339b509f2e8b701:1792434567,783ad86a36299c909d73b686f9bca9d3:1105636163,df559693e6a38098c339b509f2e8b701:1792434567,b3ff24478ae348585d76427892be8ed4:-124439541,adef68077be34858ca416cb6a6418bff:1792434567,ae1fe8cf17a34858714b2d42868b3c83:-124439541,980124cfa66f08589b2d7009a14b9083:235717690</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Record deleted 2021-04-29 11:02:30">8c1b77b9dbb32410bb5a4a28139619d3</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-04-29 18:02:30</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="Announcement" name="announcement">announcement</sys_db_object>
+        <sys_id>7ab88407eca14b91add2483dd8cb2a51</sys_id>
+        <sys_metadata>79c064cfdb6f0858eeb32ad94b961950</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>goals</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>announcement_79c064cfdb6f0858eeb32ad94b961950</sys_update_name>
+        <sys_update_version display_value="announcement_79c064cfdb6f0858eeb32ad94b961950">f48e6f65db3be05059ac6e25ca961918</sys_update_version>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-04-29 18:02:30</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

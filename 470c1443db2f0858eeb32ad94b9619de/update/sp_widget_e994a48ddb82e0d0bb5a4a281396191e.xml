@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($uibModal, $scope, spUtil,cabrillo) { 
+
+	var c = this;
+
+	// Initialize form fields
+	
+	//------------------------------------------
+	// OnClick for opening the popup
+	//------------------------------------------
+	c.openModal = function() {
+		c.modalInstance = $uibModal.open({
+			templateUrl: 'modalTemplate',
+			scope: $scope,
+			size:'lg'
+		});
+	}
+
+		c.RemoveRecord = function() {
+		c.modalInstance = $uibModal.open({
+			templateUrl: 'modalTemplate_remove',
+			scope: $scope,
+			size:'lg'
+		});
+	}
+	//------------------------------------------
+	// OnClick for closing the popup
+	//------------------------------------------
+	c.closeModal = function() {
+		c.modalInstance.close();
+	}
+
+
+	//------------------------------------------
+	// OnClick for submitting form
+	//------------------------------------------
+	c.submit = function(isValid) {
+
+		//	console.log("c.submit");
+		if(!isValid){
+			c.errorMsg = "Please enter values for the required fields.";
+			//	c.subjectInvalid = true;
+			return;
+		} 
+		c.errorMsg = "";
+
+		// update the server values
+		c.data.form = {};
+		c.data.form.submit = true;
+		c.data.form.subject = c.subject;
+		c.data.form.detailed_description = c.detailed_description;
+		c.data.form.desc = c.desc;
+		c.modalInstance.close();
+		c.server.update().then(function(response) {
+			if(response.success === true){
+
+
+				// clear form
+				c.detailed_description = "";
+		
+				spUtil.addInfoMessage(c.data.responseMsg);
+				
+				c.modalInstance.close();
+				
+				window.location.href=response.urlToCase;
+			
+			}
+			else{
+				c.errorMsg = response.errorMsg;
+			}
+		});
+
+	}
+}	
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.jeopardy {&#13;
+  background-color : #fff;&#13;
+}&#13;
+&#13;
+.title {&#13;
+  font-family : "Century Gothic",helvitica,arial;&#13;
+  font-size : 64pt;&#13;
+  color : #81B5A1;&#13;
+  text-align : center;&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) { 
+
+ }]]></link>
+        <name>Copy of getShopperDiscount</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+	
+	var list = [];
+	var usr = new GlideRecord('sys_user');
+	usr.addQuery('sys_id',gs.getUserID());
+	usr.query();
+	if(usr.next()){
+		
+		obj = {};
+		var uid = usr.u_uid_number - 100000;
+		//gs.info("UUID is " + uid);
+		var pb = new PowershellProbe("p3dwsnowff01-mid-dev", "127.0.0.1");
+    var script ="";
+    script = "import-module c:\\scripts\\FriendsNFamily\\employeePricing.psm1\n"+"GetByEmployeeID dev" + " " + uid + "\n";
+    pb.setScript(script);
+    pb.setMaxWait(300);
+    var response = pb.execute(true);
+		obj.name = response.output;
+		//gs.print("response is " + response.output);
+    if (response.error != "null" && typeof response.error != "undefined")
+    {
+      return "ERROR: "+response.error;
+    }
+    //return  response.output;
+		list.push(obj);
+		
+		
+	}
+	data.list = list;
+	
+	gs.info("Shopper Subject value is " + input.form.subject);
+	gs.info("Shopper des value is " + input.form.desc);
+	
+	if(input.form.submit === true && input.form.subject){
+		
+	var us = new GlideRecord('sys_user');
+	us.addQuery('sys_id',gs.getUserID());
+	us.query();
+		if(us.next()){
+		
+		var uuid = us.u_uid_number - 100000;
+		var pb = new PowershellProbe("p3dwsnowff01-mid-dev", "127.0.0.1");
+    var script = "";
+    script = "import-module c:\\scripts\\FriendsNFamily\\employeePricing.psm1\n"+"AddShopper dev" + " " + uuid + " " + input.form.subject + "\n";
+    pb.setScript(script);
+    pb.setMaxWait(300);
+    var response = pb.execute(true);
+ 		gs.info("Shopper response is " + response.output);
+    if (response.error != "null" && typeof response.error != "undefined")
+    {
+      return "ERROR: "+response.error;
+    }
+    //return  response.output;
+		if(response.output == 'SUCCESS'){
+			
+		data.urlToCase = '?id=gd_my_shopper_accounts';
+		data.success = true;
+		
+		}
+	}
+	}
+	
+	if(input.form.submit === true && input.form.desc){
+		
+	var user = new GlideRecord('sys_user');
+	user.addQuery('sys_id',gs.getUserID());
+	user.query();
+		if(user.next()){
+		
+		var uuid_rem = user.u_uid_number - 100000;
+		var pb = new PowershellProbe("p3dwsnowff01-mid-dev", "127.0.0.1");
+    var script ="";
+    script = "import-module c:\\scripts\\FriendsNFamily\\employeePricing.psm1\n"+"RemoveShopper dev" + " " + uuid_rem + " " + input.form.desc+ "\n";
+    pb.setScript(script);
+    pb.setMaxWait(300);
+    var response = pb.execute(true);
+		//gs.print("response is " + response.output);
+    if (response.error != "null" && typeof response.error != "undefined")
+    {
+      return "ERROR: "+response.error;
+    }
+    //return  response.output;
+		gs.info("REmove shopper response " + response.output);
+		if(response.output == 'SUCCESS'){
+			
+		data.urlToCase = '?id=gd_my_shopper_accounts';
+		data.success = true;
+		
+		}
+	}
+	}
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-01-29 18:40:06</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>e994a48ddb82e0d0bb5a4a281396191e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Copy of getShopperDiscount</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_e994a48ddb82e0d0bb5a4a281396191e</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-01-29 18:40:06</sys_updated_on>
+        <template><![CDATA[<div>
+  <div class="title">
+    <h2>My Shopper Accounts</h2>
+  </div>
+  <table class="table table-hover jeopardy">
+    <th>My Accounts</th>
+
+    <tr ng-repeat="game in data.list">
+      <td>{{game.name}}</td>
+      <td>{{game.date}}</td>
+  
+    </tr>
+  </table>
+   <div class="pull-right">
+
+
+           <button name="Add Shopper ID" role="link" class="btn btn-primary btn-sm m-l-xs" ng-click="c.openModal()" aria-label="${Add Shopper ID}">${Add Shopper ID}</button>
+           <button name="Remove Shopper ID" role="link" class="btn btn-primary btn-sm m-l-xs" ng-click="c.RemoveRecord()"   aria-label="${Remove Shopper ID}">${Remove Shopper ID}</button>
+            
+              
+                    
+           </div> 
+  
+    <script type="text/ng-template" id="modalTemplate">
+    
+      <div class="panel panel-default" ng-if="c.errorMsg">
+      	<div class="alert alert-danger">{{c.errorMsg}}</div>
+			</div>
+  
+  <form name="createCaseForm" class="form-horizontal" role="form" novalidate>
+  
+  
+
+    <div class="panel-heading">
+    
+      
+        <h4 class="panel-title">Enter Your Shopper ID</h4>
+      </div>
+      
+         <!-- Subject -->
+        <div class="form-group"
+             ng-class="{'has-error' : createCaseForm.txtSubject.$invalid && createCaseForm.$submitted}">
+    
+           
+           <label class="col-sm-2 control-label"><label ng-show="createCaseForm.txtSubject.$invalid && createCaseForm.$submitted">*</label>Shopper ID</label>
+            <div class="col-sm-6">
+              <input id="txtSubject"
+              			 name="txtSubject"
+                     type="text" 
+                     class="form-control" 
+                     ng-required="true" 
+                     ng-model="c.subject" >
+              
+              
+              
+        
+          </div>
+        </div>
+        
+         <!-- Submit and Cancel -->
+      <div class="panel-footer text-right">
+        <button style="background-color: #000000; margin-right:10px; color: #ffffff" class="btn btnSubmit" ng-click="c.submit(createCaseForm.$valid)">${Submit}</button>
+        <button class="btn btn-default modalButtons" style="background-color: #000000; color: #ffffff"; ng-click="c.closeModal()">${Cancel}</button>&nbsp;
+      </div>
+    
+    </script>
+  
+      <script type="text/ng-template" id="modalTemplate_remove">
+    
+      <div class="panel panel-default" ng-if="c.errorMsg">
+      	<div class="alert alert-danger">{{c.errorMsg}}</div>
+			</div>
+  
+  <form name="createCaseForm" class="form-horizontal" role="form" novalidate>
+  
+  
+
+    <div class="panel-heading">
+    
+      
+        <h4 class="panel-title">Enter Your Shopper ID</h4>
+      </div>
+      
+         <!-- Desc -->
+        <div class="form-group"
+             ng-class="{'has-error' : createCaseForm.txtSubject.$invalid && createCaseForm.$submitted}">
+    
+           
+           <label class="col-sm-2 control-label"><label ng-show="createCaseForm.txtDesc.$invalid && createCaseForm.$submitted">*</label>Shopper ID</label>
+            <div class="col-sm-6">
+              <input id="txtDesc"
+              			 name="txtDesc"
+                     type="text" 
+                     class="form-control" 
+                     ng-required="true" 
+                     ng-model="c.desc" >
+              
+              
+              
+        
+          </div>
+        </div>
+        
+         <!-- Submit and Cancel -->
+      <div class="panel-footer text-right">
+        <button style="background-color: #000000; margin-right:10px; color: #ffffff" class="btn btnSubmit" ng-click="c.submit(createCaseForm.$valid)">${Submit}</button>
+        <button class="btn btn-default modalButtons" style="background-color: #000000; color: #ffffff"; ng-click="c.closeModal()">${Cancel}</button>&nbsp;
+      </div>
+    
+    </script>
+  
+</div>]]></template>
+    </sp_widget>
+</record_update>

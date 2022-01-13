@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_list parent="" relationship="" sys_domain="global" table="u_gdep_image" version="2" view="tile">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_image</element>
+            <list_id display_value="u_gdep_image" element="NULL" name="u_gdep_image" parent="NULL" relationship="NULL" sys_domain="global" view="ea910cefdb751c50bb5a4a281396195c">269180a3dbb51c50bb5a4a2813961952</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-07-10 04:05:13</sys_created_on>
+            <sys_id>6e9180a3dbb51c50bb5a4a2813961952</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-07-10 04:05:13</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_title</element>
+            <list_id display_value="u_gdep_image" element="NULL" name="u_gdep_image" parent="NULL" relationship="NULL" sys_domain="global" view="ea910cefdb751c50bb5a4a281396195c">269180a3dbb51c50bb5a4a2813961952</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-07-10 04:05:13</sys_created_on>
+            <sys_id>ee9180a3dbb51c50bb5a4a2813961952</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-07-10 04:05:13</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_order</element>
+            <list_id display_value="u_gdep_image" element="NULL" name="u_gdep_image" parent="NULL" relationship="NULL" sys_domain="global" view="ea910cefdb751c50bb5a4a281396195c">269180a3dbb51c50bb5a4a2813961952</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-07-10 04:05:13</sys_created_on>
+            <sys_id>629180a3dbb51c50bb5a4a2813961953</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-07-10 04:05:13</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>u_gdep_image</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-07-10 04:05:13</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_id>269180a3dbb51c50bb5a4a2813961952</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_gdep_image</sys_name>
+            <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+            <sys_update_name>sys_ui_list_u_gdep_image_tile</sys_update_name>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-07-10 04:05:13</sys_updated_on>
+            <sys_user/>
+            <view display_value="Tile" name="tile">ea910cefdb751c50bb5a4a281396195c</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+</record_update>

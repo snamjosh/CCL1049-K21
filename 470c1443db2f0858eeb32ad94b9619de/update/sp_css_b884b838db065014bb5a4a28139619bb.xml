@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_css">
+    <sp_css action="INSERT_OR_UPDATE">
+        <css>.categoryBtnArea { &#13;
+  background-color:#F5F7F8; /*light silver*/&#13;
+  &#13;
+  border: 2px solid #000 !important;&#13;
+  border-radius: 10px;&#13;
+&#13;
+  height: 5em;&#13;
+  padding: 1rem;&#13;
+  text-align: center;&#13;
+  font-family: $regularFont !important;&#13;
+  color:#000000;&#13;
+&#13;
+  font-size: 1.5em !Important;&#13;
+  overflow: hidden;&#13;
+&#13;
+  display: grid;&#13;
+  justify-content: center;&#13;
+  align-content: center;&#13;
+  max-width: 400px;&#13;
+}&#13;
+&#13;
+.categoryBtnText a:hover {&#13;
+  border-color: $godaddyBlue !important;&#13;
+  color: $godaddyBlue !important; &#13;
+  text-decoration: none;&#13;
+}&#13;
+&#13;
+.categoryBtnText div:active{&#13;
+  border-color: $godaddyBlue !important; &#13;
+  text-decoration: none;&#13;
+}&#13;
+&#13;
+.categoryBtnArea :hover{border-color: $godaddyBlue !important; text-decoration: none;}&#13;
+</css>
+        <name>GdepCategoryButtonCSS</name>
+        <sys_class_name>sp_css</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-07-14 05:00:28</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>b884b838db065014bb5a4a28139619bb</sys_id>
+        <sys_mod_count>107</sys_mod_count>
+        <sys_name>GdepCategoryButtonCSS</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_css_b884b838db065014bb5a4a28139619bb</sys_update_name>
+        <sys_updated_by>iremigio</sys_updated_by>
+        <sys_updated_on>2020-07-21 22:41:36</sys_updated_on>
+    </sp_css>
+</record_update>

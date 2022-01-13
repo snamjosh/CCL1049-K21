@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($uibModal, $scope, spUtil,cabrillo) { 
+
+	var c = this;
+	c.listOfShoppers = [];
+	c.doneLoading = false;
+	c.loadingMsg = "Loading...";
+	c.showErrorMessage = false;
+	c.errorMessage = "";
+
+	c.server.get({type: "getShoppers"}).then(function(resp) {    
+		var response = resp.data.responseObj;
+
+		if(response.error){
+			c.handleError(response.error);
+		}
+		else if(response.list == null){
+			c.listOfShoppers = [];
+		}
+		else{
+			c.listOfShoppers = response.list;
+		}
+
+		c.finishLoading();
+
+	});
+
+	c.addShopper = function(shopper){
+		c.beginLoading();
+
+		c.server.get({type: "addShopper", shopper: shopper}).then(function(resp) {    
+			var response = resp.data.responseObj;
+
+			if(response.error != null){
+				c.handleError(response.error);
+			}
+			else{
+				c.listOfShoppers.push(shopper);
+			}
+			c.finishLoading();
+
+		});
+	}
+
+	c.trashCanClick = function(shopper){
+		if(confirm("Are you sure you want to delete " + shopper + "?")){
+			c.removeShopper(shopper);
+		}
+	}
+
+	c.removeShopper = function(shopper){
+		c.beginLoading();
+
+		c.server.get({type: "removeShopper", shopper: shopper}).then(function(resp) {    
+			var response = resp.data.responseObj;
+			
+			if(response.error != null){
+				c.handleError(response.error);
+			}
+			else{
+				var index = c.listOfShoppers.indexOf(shopper);
+				if (index > -1) {
+					c.listOfShoppers.splice(index, 1);
+				}
+			}
+
+			c.finishLoading();
+		});
+	}
+
+	c.handleError = function(errorMsg){
+		c.errorMessage= errorMsg;
+		c.showErrorMessage = true;
+	}
+
+	c.beginLoading = function(){
+		jQuery('#loadingMsg').removeClass('hidden');
+		c.showErrorMessage = false;
+		c.errorMessage = "";
+		doneLoading = true;
+	}
+
+	c.finishLoading = function(){
+		jQuery('#loadingMsg').addClass('hidden');
+		c.doneLoading = true;
+		c.shopperId = "";
+	}
+
+	$scope.$on('sp_loading_indicator', function(e, value) {
+
+		$scope.loadingIndicator = value;
+
+	});
+
+	c.openModal = function() {
+		c.modalInstance = $uibModal.open({
+			templateUrl: 'modalTemplate',
+			scope: $scope,
+			size:'lg'
+		});
+	}
+
+	c.closeModal = function() {
+		c.formErrorMsg = "";
+		c.modalInstance.close();
+	}
+
+	c.submit = function(isValid) {
+		if(!isValid){
+			c.formErrorMsg = "Please enter values for the required fields.";
+			return;
+		} 
+
+		c.modalInstance.close();
+		c.addShopper(c.shopperId);
+	}
+}	
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.jeopardy {
+  background-color : #fff;
+}
+
+.tableStyle {
+ width:100px; 
+  position:relative;
+  left:25%;
+  right:25%
+}
+
+.title {
+  font-family : "Century Gothic",helvitica,arial;
+  font-size : 64pt;
+  color : #81B5A1;
+  text-align : center;
+}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.spinner {
+  content: '';
+ // box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+z-index:1;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #000;
+  animation: spinner .8s linear infinite;
+}
+
+.trashButton {
+  border : none;
+  background-color : none;
+    
+}
+
+.panel {
+position: relative;
+}
+
+.panel-heading i {
+  cursor: pointer;
+  position: absolute;
+  padding: 10px;
+  top: 0px;
+  right: 0px;  
+  cursor: pointer;
+}
+
+.errorMessage {
+	color:red;
+  font-size : 10pt;
+}
+
+.disabled-filter {
+	color: #A0A0A0;
+}
+
+.list-group-item.ng-enter {
+  transition: all 1s;
+  -webkit-transition: all 1s;
+
+  background-color: #c0dcfa;
+}
+
+.list-group-item.ng-enter-active {
+  background-color: #fff;
+}
+
+.hide-x-overflow {
+  overflow-x: hidden;
+}
+
+.translated-html &gt; p {
+  margin: 0px;
+  padding: 0px;
+}
+
+IMG {
+  max-width: 320px;
+  max-height: 240px;
+}
+
+IMG.img-sm {
+  max-height: 40px;
+  max-width: 40px;
+}
+
+.filter-box {
+  margin-top: 10px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1BDBDB;
+    border-color: #18c4c4;
+}
+
+.btn {
+  
+  border: none;
+
+
+}
+
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) { 
+
+ }]]></link>
+        <name>Sachins - getShopperDiscount</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	var _env = getEnvironment();
+	var _mgrUserId = getMgrUserId();
+	var _mid = getMidServer();
+	var _path = 'c:\\scripts\\FriendsNFamily\\employeePricing.psm1';
+	var ERROR_NO_SUCH_SHOPPER = "Shopper does not exist";
+	var ERROR_SHOPPER_ALREADY_ADDED = "Shopper already added to your account";
+	var ERROR_UNKNOWN = "An unknown error has occured."
+
+	var responseObj = {};
+	if(input && input.type == "removeShopper"){
+		data.responseObj = RemoveShopper(input.shopper);
+	}
+	if(input && input.type == "addShopper"){
+		data.responseObj = AddShopper(input.shopper);
+	}
+	if(input && input.type == "getShoppers"){
+		data.responseObj = GetShoppers();
+
+		if(data.responseObj.output == "null") {
+			data.responseObj.list = [];
+		}
+		else{
+			data.responseObj.list = data.responseObj.output.split(',');
+		}
+	}
+
+	function GetShoppers(){
+		var functionToCall = "GetByEmployeeID";
+		var parms = _env + " " + _mgrUserId;
+		return CallPowershell(functionToCall, parms);
+	}
+	
+	function RemoveShopper(shopperId){
+		var functionToCall = "RemoveShopper";
+		var parms = _env + " " + _mgrUserId + " "  + shopperId;
+
+		return CallPowershell(functionToCall, parms);
+	}
+
+	function AddShopper(shopperId){
+		var functionToCall = "AddShopper";
+		var parms = _env + " " + _mgrUserId + " "  + shopperId;
+		return CallPowershell(functionToCall, parms);
+	}
+
+	function CallPowershell(functionToCall, parms){
+		var returnObj = {};
+		var pb = new PowershellProbe(_mid, "127.0.0.1");
+		script = "import-module " + _path + "\n"+ functionToCall + " " + parms + "\n";
+		pb.setScript(script);
+		pb.setMaxWait(300);
+		var response = pb.execute(true);
+		
+		if (response.error != "null" && typeof response.error != "undefined")
+		{
+			// this is an error from the Powershell probe, not from the eComm response
+			returnObj.error = "ERROR: "+response.error;
+		}
+		
+		if(response.output.startsWith("ERROR")){
+			if(response.output == "ERROR_NO_SUCH_SHOPPER"){
+				returnObj.error = ERROR_NO_SUCH_SHOPPER;
+			}
+			else if(response.output == "ERROR_SHOPPER_ALREADY_ADDED"){
+				returnObj.error = ERROR_SHOPPER_ALREADY_ADDED;
+			}
+			else if(response.output == "ERROR_UNKNOWN"){
+				returnObj.error = ERROR_UNKNOWN;
+			}
+		}
+		else{
+			returnObj.output = response.output.toString();	
+		}
+
+		return  returnObj;
+	}
+
+	function getMidServer(){
+		var mid = "";
+		if(_env == 'dev'){
+			mid = 'p3dwsnowff01-mid-dev';
+		}
+		else if(_env == 'test'){
+			mid = 'p3dwsnowff01-mid-test';
+		}
+		else{
+			//todo update this value
+			mid = 'p3dwsnowff01-mid-dev';
+		}
+		return mid;
+	}
+
+	function getMgrUserId(){
+		var usr = new GlideRecord('sys_user');
+		usr.get(gs.getUserID());
+		return usr.u_uid_number - 100000;
+	}
+
+	function getEnvironment(){
+		var env = "";
+		if(gs.getProperty('instance_name').contains('dev')){
+			env = 'dev';
+		}
+		else if(gs.getProperty('instance_name').contains('test')){
+			env = 'test';
+		}
+		else{
+			env = 'prod';
+		}
+		return env;
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-02-03 17:52:16</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>2d994626db02ac94bb5a4a281396192e</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Sachins - getShopperDiscount</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_2d994626db02ac94bb5a4a281396192e</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-02-03 17:52:30</sys_updated_on>
+        <template><![CDATA[<div>
+  <div class="title">
+    <h2>My Shopper Accounts</h2>
+  </div>
+
+  <div>
+    <h3 ng-if="c.showErrorMessage" class = "errorMessage">
+      {{c.errorMessage}}
+    </h3>
+  </div>
+  
+  <!-- doing this in angular is too slow: <div  ng-if="c.showLoadingSpinner === true" class="loader" id="loadingSpinner">Loading...</div>-->
+  <div id="loadingMsg">
+    <span class="spinner"></span><span>{{c.loadingMsg}}</span>
+  </div>
+
+
+  <div class="panel " name="shoppersPanel">
+    <div class="list-group hide-x-overflow" style="max-height: 'none'; overflow-y: auto;">
+      <div ng-if="c.listOfShoppers.length > 0" ng-repeat="item in c.listOfShoppers" class="list-group-item"><span>{{item}}</span>
+
+        <button type="button" class="btn btn-default pull-right" ng-click="c.trashCanClick(item)">
+          <div   class="pull-right"> <span class="glyphicon glyphicon-trash"></span></div>
+        </button>
+      </div>
+
+      <div ng-if="c.listOfShoppers.length == 0 && c.doneLoading == true" class="list-group-item">
+        ${No records found}
+      </div>
+    </div>
+  </div>
+
+  <div class="pull-right">
+    <button name="Add Shopper ID" role="link" class="btn btn-primary btn-sm m-l-xs" ng-click="c.openModal()" aria-label="${Add Shopper ID}">${Add Shopper ID}</button>
+    <!--<button name="Remove Shopper ID" role="link" class="btn btn-primary btn-sm m-l-xs" ng-click="c.RemoveRecord()"   aria-label="${Remove Shopper ID}">${Remove Shopper ID}</button>-->
+  </div> 
+  <script type="text/ng-template" id="modalTemplate">
+      <div class="panel panel-default" ng-if="c.formErrorMsg">
+      	<div class="alert alert-danger">{{c.formErrorMsg}}</div>
+    </div>
+
+  <form name="createCaseForm" class="form-horizontal" role="form" novalidate>
+    <div class="panel-heading">
+        <h4 class="panel-title">Enter Your Shopper ID</h4>
+    </div>
+         <!-- Subject -->
+        <div class="form-group"
+             ng-class="{'has-error' : createCaseForm.txtShopperId.$invalid && createCaseForm.$submitted}">
+           <label class="col-sm-2 control-label"><label ng-show="createCaseForm.txtShopperId.$invalid && createCaseForm.$submitted">*</label>Shopper ID</label>
+            <div class="col-sm-6">
+              <input id="txtShopperId"
+              			 name="txtShopperId"
+                     type="text" 
+                     class="form-control" 
+                     ng-required="true" 
+                     ng-model="c.shopperId" >
+    </div>
+    </div>
+
+         <!-- Submit and Cancel -->
+      <div class="panel-footer text-right">
+        <button style="background-color: #000000; margin-right:10px; color: #ffffff" class="btn btnSubmit" ng-click="c.submit(createCaseForm.$valid)">${Submit}</button>
+        <button class="btn btn-default modalButtons" style="background-color: #000000; color: #ffffff"; ng-click="c.closeModal()">${Cancel}</button>&nbsp;
+    </div>
+  </script>
+</div>]]></template>
+    </sp_widget>
+</record_update>

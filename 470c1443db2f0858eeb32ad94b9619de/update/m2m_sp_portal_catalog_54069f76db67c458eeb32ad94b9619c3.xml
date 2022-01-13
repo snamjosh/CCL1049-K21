@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_catalog">
+    <m2m_sp_portal_catalog action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <order>100</order>
+        <sc_catalog display_value="GDEP Catalog">4bc59f36db67c458eeb32ad94b961998</sc_catalog>
+        <sp_portal display_value="Get Help">680c18c9db2b0c54eeb32ad94b9619d7</sp_portal>
+        <sys_class_name>m2m_sp_portal_catalog</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-03-18 15:16:31</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>54069f76db67c458eeb32ad94b9619c3</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>GDEP Catalog.GoDaddy Employee Portal</sys_name>
+        <sys_package display_value="Global" source="global">global</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>m2m_sp_portal_catalog_54069f76db67c458eeb32ad94b9619c3</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-05-18 04:20:49</sys_updated_on>
+    </m2m_sp_portal_catalog>
+</record_update>

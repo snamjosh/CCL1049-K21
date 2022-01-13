@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.sp-tagline-color {&#13;
+	color: $sp-tagline-color;&#13;
+}&#13;
+button.btn.btn-default{&#13;
+  	background-color: black; /* GoDaddy Blue */&#13;
+	color: white;&#13;
+}&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>title,short_description</field_list>
+        <has_preview>false</has_preview>
+        <id>gdep-homepage-search</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Homepage Search</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[var typeAheadSearchOpts = {title: gs.getMessage('Type what you are looking for here'), size: 'lg', color: 'default'};
+data.typeAheadSearch = $sp.getWidget('gdep-main-typeahead-search', typeAheadSearchOpts);]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-03-12 21:52:07</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>b807b9c5db63cc54eeb32ad94b961961</sys_id>
+        <sys_mod_count>20</sys_mod_count>
+        <sys_name>GDEP Homepage Search</sys_name>
+        <sys_package display_value="Global" source="global">global</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_b807b9c5db63cc54eeb32ad94b961961</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-10-09 20:59:26</sys_updated_on>
+        <template><![CDATA[<div id="homepage-search" class="hidden-xs wrapper-xl">
+  <div class="wrapper-xl">
+  	<h1 class="text-center text-4x m-b-lg sp-tagline-color" ng-bind="options.title"></h1>
+  	<h4 ng-if="options.short_description" class="text-center m-b-lg sp-tagline-color" ng-bind="options.short_description"></h4>
+  	<sp-widget widget="data.typeAheadSearch" />
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

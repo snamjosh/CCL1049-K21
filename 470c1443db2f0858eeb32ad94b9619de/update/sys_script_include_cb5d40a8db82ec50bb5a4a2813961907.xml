@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>global.familyandFreindsUtil</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>familyandFreindsUtil</name>
+        <script><![CDATA[var familyandFreindsUtil = Class.create();
+familyandFreindsUtil.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+
+
+
+    getDiscount : function() {
+        var pb = new PowershellProbe("p3dwsnowff01-mid-dev", "127.0.0.1");
+        var script = "";
+        script = "import-module c:\\scripts\\FriendsNFamily\\employeePricing.psm1\n" + "GetByEmployeeID dev 14606" + "\n";
+        pb.setScript(script);
+        pb.setMaxWait(300);
+        var response = pb.execute(true);
+        //gs.print("response is " + response.output);
+        if (response.error != "null" && typeof response.error != "undefined") {
+            return "ERROR: " + response.error;
+        }
+        return response.output;
+    },
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-01-28 03:42:04</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>cb5d40a8db82ec50bb5a4a2813961907</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>familyandFreindsUtil</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_script_include_cb5d40a8db82ec50bb5a4a2813961907</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-01-28 03:44:42</sys_updated_on>
+    </sys_script_include>
+</record_update>

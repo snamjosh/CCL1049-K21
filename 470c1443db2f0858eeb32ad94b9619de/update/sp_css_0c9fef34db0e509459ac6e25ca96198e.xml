@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_css">
+    <sp_css action="INSERT_OR_UPDATE">
+        <css>.breadcrumbs-container {&#13;
+  margin-bottom: 1em;&#13;
+  //background: linear-gradient(to right, white, $godaddyBlue);&#13;
+  // background: linear-gradient(to right, $godaddyBlue, white);&#13;
+ // background: linear-gradient(0.25turn, white, $godaddyBlue, white);&#13;
+}&#13;
+&#13;
+.title-container-gradient {&#13;
+ /* background: linear-gradient(to right, #139797, $godaddyBlue);*/&#13;
+  background: linear-gradient(to left, #e0fbfb 0%, $godaddyBlue 100%);&#13;
+  //background: linear-gradient(0.25turn, white, $godaddyBlue, white);&#13;
+  width: 100%;&#13;
+  padding: 0 4em;&#13;
+}&#13;
+&#13;
+.kb-panel-title-header a {&#13;
+	color: white;&#13;
+}&#13;
+&#13;
+/*&#13;
+* From GDEP Ticket Overview Styles &#13;
+* https://godaddydev.service-now.com/m2m_sp_widget_dependency_list.do?sysparm_query=sp_dependency.nameSTARTSWITHGDEP%20Ticket%20Overview%20Styles&amp;sysparm_view=&#13;
+*/&#13;
+.panel-body {&#13;
+    padding: 15px;&#13;
+    border: 4px solid #4d4d4d;&#13;
+    border-top: 0px !important;&#13;
+}&#13;
+&#13;
+.panel-default &gt; .panel-heading {&#13;
+    color: #fff;&#13;
+    background-color: #000000;&#13;
+    border-color: #000000;&#13;
+    opacity: .7;&#13;
+    height: 41px;&#13;
+}&#13;
+&#13;
+</css>
+        <name>gdep-main.css</name>
+        <sys_class_name>sp_css</sys_class_name>
+        <sys_created_by>iremigio</sys_created_by>
+        <sys_created_on>2020-07-14 18:37:29</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>0c9fef34db0e509459ac6e25ca96198e</sys_id>
+        <sys_mod_count>38</sys_mod_count>
+        <sys_name>gdep-main.css</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_css_0c9fef34db0e509459ac6e25ca96198e</sys_update_name>
+        <sys_updated_by>iremigio</sys_updated_by>
+        <sys_updated_on>2020-08-25 21:43:30</sys_updated_on>
+    </sp_css>
+</record_update>

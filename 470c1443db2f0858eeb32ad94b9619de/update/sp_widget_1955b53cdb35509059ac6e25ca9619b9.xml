@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($filter, $location, $scope, $window) {
+    var c = this;
+    c.options.glyph = c.options.glyph || 'search';
+    c.options.title = c.options.title || c.data.searchMsg;
+    
+
+
+
+
+    // Attach event handler to update click rank
+	var attachClickRankHandler = function() {
+        $(".gdepTypeaheadSearch").on('click','li',(function(e){   
+			var index = $(this).index();
+            var resultClicked = e.currentTarget.innerText;
+			c.TextSearchAnalyticsUpdateRank(resultClicked, index+1);
+		}));
+  /*      $(".gdepTypeaheadSearch").on('mouseover','li',(function(e){   
+			var index = $(this).index();
+            var resultClicked = e.currentTarget.innerText;
+//            console.log(c.results);
+            var result = c.results.find(function(e) {
+                return e.label.trim() === resultClicked.trim();
+            });
+
+            console.log(result);
+		//	c.TextSearchAnalyticsUpdateRank(resultClicked, index+1);
+		}));*/
+		attachClickRankHandler = function() {};
+	}
+    
+    c.TextSearchAnalyticsUpdateRank = function(resultClicked, rank) {
+	    var query = c.latestQuery;
+        var result = c.results.find(function(e) {
+            return e.label.trim() === resultClicked.trim();
+        });
+
+            var payloadObject = {
+                action: "GlideSPSearchAnalyticsUpdateRank",
+                payload: {
+                    portal_id: c.data.portalID,
+                    click_rank: rank,
+                    has_results: true,
+                    search_query: query,
+                    application_table: "sp_portal",
+                    ui_source: $scope.page.id,
+                    source_table: result.sourceTable,
+                    label_description: resultClicked
+                }
+            };
+		$window.spSearchAnalytics = {
+			query: query,
+			refinement_occurred: false
+		};
+		this.server.get(payloadObject);
+	}
+
+    c.onSelect = function($item, $model, $label) {
+        if ($item.type == "sc") {
+            if ($item.url) {
+
+                window.open($item.url, "_blank");
+            } else {
+                $location.search({
+                    id: 'gdep_sc_cat_item',
+                    sys_id: $item.sys_id
+                });
+            }
+        }
+        if ($item.type == "sc_content") {
+            if ($item.content_type == 'portal_kb')
+                $location.search({
+                    id: 'kb_article',
+                    sys_id: $item.kb_article
+                });
+            else if ($item.content_type == "external")
+                window.open($item.url, '_blank');
+            else
+                $location.search({
+                    id: 'gdep_sc_cat_item',
+                    sys_id: $item.sys_id
+                });
+        }
+        if ($item.type == "sc_guide")
+            $location.search({
+                id: 'sc_cat_item_guide',
+                sys_id: $item.sys_id
+            });
+        if ($item.type == 'portal_kb') {
+            if ($item.url) {
+
+                window.open($item.url, "_blank");
+            } else {
+                $location.search({
+                    id: 'gdep_kb_article',
+					sysparm_article:$item.number
+                });
+            }
+        }
+        if ($item.type == "qa")
+            $location.search({
+                id: 'kb_social_qa_question',
+                question_id: $item.sys_id
+            });
+        if ($item.type == "rec")
+            $location.search({
+                id: $item.page,
+                sys_id: $item.sys_id,
+                table: $item.table
+            });
+        if ($item.type == "quicklink")
+            window.open($item.url, '_blank');
+    };
+
+    c.getResults = function(query) {
+        c.latestQuery = query;
+        attachClickRankHandler();
+        
+        return c.server.get({
+            q: query
+        }).then(function(response) {
+            var a = $filter('orderBy')(response.data.results, '-score');
+            c.results = $filter('limitTo')(a, c.data.limit);
+            return c.results;
+       });
+    }
+} ]]></client_script>
+        <controller_as>c</controller_as>
+        <css>ul.dropdown-menu {
+    min-width: 100%;
+    border-radius: 0px 0px 4px 4px;
+    margin:0px;
+}
+
+ul.dropdown-menu a.ta-item {
+	line-height: 20px;
+}
+
+ul.dropdown-menu i.ta-icon, i.ta-img {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center center;
+    text-align: center;
+    line-height: 20px;
+    float:left;
+    margin-right: 8px;
+}
+
+input[name="q"] {
+color: black;
+}
+
+.search-title{
+    font-size: 4.8rem !important;
+    line-height: 3.5rem;
+    font-family: "gd-sage","Times New Roman",serif;
+    font-weight: 700!important;
+    padding-bottom: 30px;
+    padding-top: 100px;
+    color: black;
+  }
+
+  .title-text {
+    font-family: $mediumFont !important;
+    color: #000000;
+    font-size: 3vw;
+    line-height: normal;
+    // white-space: nowrap;
+  }
+
+  .btn {
+    transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    /*padding: .625rem 1.5rem;*/
+    padding: .625rem 1.5rem;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    border-width: 0;
+    display: inline-block;
+    min-height: 4.55rem;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 0 solid transparent;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: none;
+    white-space: normal;
+    cursor: pointer;
+    outline: 0;
+    background-color: black;
+    color: white;
+  }
+  input[name="q"] {
+    color: black !important;
+    }
+    
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>color,size,glyph,title</field_list>
+        <has_preview>false</has_preview>
+        <id>gdep-main-typeahead-search</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Main Typeahead Search</name>
+        <option_schema>[{"name":"title","label":"Title","type":"string"},{"name":"color","label":"Color","type":"string"},{"name":"glyph","label":"glyph","type":"string"},{"name":"size","label":"Size","type":"string"},{"hint":"Number of typeahead search results returned (default 15)","name":"limit","label":"Limit","type":"integer"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    var HR_KB = 'bb0370019f22120047a2d126c42e7073';
+    var GRC_KB = 'a9644643df101200dca6a5f59bf263b6';
+    var GetHelp_KB = 'e64ea8cbdba1ab00cc615dd5ce961930';
+
+    if (input && input.action === "GlideSPSearchAnalyticsUpdateRank") {
+        input.action = "";
+        input.payload.user = gs.getUserID();
+        input.payload.browser = gs.getSession().getProperty('user_agent_browser') + " " + gs.getSession().getProperty('user_agent_version');
+        input.payload.session = gs.getSession().getSessionID();
+        var analyticsHelper = new global.AnalyticsHelper();
+        analyticsHelper.logSearchEvent(input.payload);
+        return;
+    }
+    if (options.title) {
+        options.title = gs.getMessage(options.title);
+    }
+
+    data.portalID = $sp.getPortalRecord().getUniqueValue();
+    data.sessionId = gs.getSession().getSessionID();
+    data.searchType = $sp.getParameter("t");
+    data.searchMsg = gs.getMessage("Search");
+    data.limit = options.limit || 15;
+    data.results = [];
+    var textQuery = '123TEXTQUERY321';
+    var allUserCriteria = SNC.UserCriteriaLoader.getAllUserCriteria();
+    var userCriteriaHelper = new global.userCriteriaHelper(allUserCriteria);
+
+    if (!input) return;
+
+    data.q = input.q.replace('*', '');
+
+    getKnowledge();
+    getQuickLinks();
+
+    if (gs.isLoggedIn())
+        getCatalogItems();
+
+    data.sqandaEnabled = gs.getProperty('glide.sp.socialqa.enabled', false) === 'true';
+    if (data.sqandaEnabled)
+        getQuestions();
+
+    // add in additional search tables from sp_search_groups
+    var portalGR = $sp.getPortalRecord();
+    var portalID = portalGR.getDisplayValue('sys_id');
+    var sg = GlideRecord('sp_search_group');
+    sg.addQuery('sp_portal', portalID);
+    sg.addQuery('active', true);
+    sg.orderBy('order');
+    sg.query();
+    while (sg.next())
+        addSearchTable(sg);
+
+    // typeahead search generates multiple "Your text query contained only
+    // common words..." msgs, we don't want them
+    gs.flushMessages();
+
+    function addSearchTable(sg) {
+        var table = sg.getValue('name');
+        var condition = sg.getValue('condition');
+        var gr = GlideRecord(table);
+        if (condition)
+            gr.addEncodedQuery(condition);
+
+        gr.addQuery(textQuery, data.q);
+        gr.query();
+        var searchTableCount = 0;
+        while (gr.next() && searchTableCount < data.limit) {
+            var rec = {};
+            rec.type = "rec";
+            rec.table = table;
+            rec.sys_id = gr.getDisplayValue('sys_id');
+            rec.page = sg.getDisplayValue('sp_page');
+            if (!rec.page)
+                rec.page = "form";
+            rec.label = gr.getDisplayValue();
+            rec.score = parseInt(gr.ir_query_score.getDisplayValue());
+            rec.sourceTable = table;
+            rec.typeDescription = table;
+
+            data.results.push(rec);
+            searchTableCount++;
+        }
+    }
+
+    function getKnowledge() {
+        var kb = new GlideRecord('kb_knowledge');
+        kb.addQuery('workflow_state', 'published');
+        kb.addQuery('valid_to', '>=', (new GlideDate()).getLocalDate().getValue());
+        kb.addQuery(textQuery, data.q);
+        kb.addEncodedQuery('kb_knowledge_base=' + HR_KB + '^ORkb_knowledge_base=' + GetHelp_KB + '^ORkb_knowledge_base=' + GRC_KB);
+
+        kb.query();
+        var kbCount = 0;
+
+        while (kb.next() && kbCount < data.limit) {
+            if (!userCriteriaHelper.userCanReadKBArticle(kb, allUserCriteria)) continue;
+
+            var article = {};
+
+            $sp.getRecordDisplayValues(article, kb, 'sys_id,number,short_description,published,text');
+            if (!article.text)
+                article.text = "";
+            article.text = $sp.stripHTML(article.text);
+            article.text = article.text.substring(0, 200);
+            article.score = parseInt(kb.ir_query_score.getDisplayValue());
+            article.label = article.short_description;
+            article.sourceTable = "kb_knowledge";
+            article.typeDescription = "Knowledge Article";
+
+            article.type = "portal_kb";
+            if (kb.kb_knowledge_base == GetHelp_KB)
+                article.url = "/gdsp/?id=kb_article&sys_id=" + kb.sys_id;
+            else {
+                article.url = "/gdep/?id=kb_article&sysparm_article=" + kb.number;
+            }
+
+            data.results.push(article);
+            kbCount++;
+        }
+    }
+
+    function getCatalogItems() {
+        var sc = new GlideRecord('sc_cat_item');
+        sc.addQuery(textQuery, data.q);
+        sc.addQuery('active', true);
+        sc.addQuery('no_search', '!=', true);
+        sc.addQuery('visible_standalone', true);
+        sc.addQuery('sys_class_name', 'NOT IN', 'sc_cat_item_wizard');
+        sc.query();
+        var catCount = 0;
+        while (sc.next() && catCount < data.limit) {
+            if (!$sp.canReadRecord(sc))
+                continue;
+
+            var item = {};
+            if (sc.sc_catalogs == 'a403ad7237b716c437026bc2b3990e0b') {
+                item.url = "/gdsp?id=gd_sc_cat_item&sys_id=" + sc.sys_id;
+            }
+            // added as part of SERV-5038
+            if (sc.u_launchtourl != 'false' && sc.u_url != '') {
+                var st = sc.u_url;
+                var f = st.match(/"([^"]+)"/);
+                item.url = f != null ? f[1] : "";
+                //console.log("SERV-5038:" + item.url);
+            }
+            if (sc.getRecordClassName() == "sc_cat_item_guide")
+                item.type = "sc_guide";
+            else if (sc.getRecordClassName() == "sc_cat_item_content") {
+                var gr = new GlideRecord('sc_cat_item_content');
+                gr.get(sc.getUniqueValue());
+                $sp.getRecordValues(item, gr, 'url,content_type,kb_article');
+                item.type = "sc_content";
+            } else {
+                item.type = "sc";
+                if (sc.sc_catalogs == '7b0370019f22120047a2d126c42e7075') {
+                    item.url = "/gdep?id=sc_cat_item&sys_id=" + sc.sys_id;
+                }
+            }
+
+            $sp.getRecordDisplayValues(item, sc, 'name,short_description,picture,price,sys_id');
+            item.score = parseInt(sc.ir_query_score.getDisplayValue());
+            item.label = item.name;
+            item.sourceTable = "sc_cat_item";
+            data.results.push(item);
+            catCount++;
+        }
+    }
+
+    function getQuestions() {
+        var questionGR = new GlideRecord("kb_social_qa_question");
+        questionGR.addActiveQuery();
+        questionGR.addQuery(textQuery, data.q);
+        questionGR.query();
+        var qCount = 0;
+        while (questionGR.next() && qCount < data.limit) {
+            if (!$sp.canReadRecord(questionGR))
+                continue;
+
+            var question = {};
+            question.type = "qa";
+            $sp.getRecordDisplayValues(question, questionGR, 'question,question_details,sys_created_on,sys_id');
+            question.text = (question.question_details) ? $sp.stripHTML(question.question_details) : "";
+            question.text = question.text.substring(0, 200);
+            question.label = question.question;
+            question.score = 0;
+            question.sourceTable = "kb_social_qa_question";
+            data.results.push(question);
+            qCount++;
+        }
+    }
+
+    function getQuickLinks() {
+        var grQL = new GlideRecord('u_gdep_tile');
+        grQL.addEncodedQuery('u_urlISNOTEMPTY^u_titleLIKE' + data.q + '^ORu_short_descriptionLIKE' + data.q + '');
+        grQL.query();
+        var linkCount = 0;
+        while (grQL.next() && linkCount < data.limit) {
+            var link = {};
+            link.type = "quicklink";
+            $sp.getRecordDisplayValues(link, grQL, 'u_title,u_short_description,u_image,u_url,sys_id');
+            link.label = link.u_title;
+            link.text = link.u_short_description;
+            link.url = link.u_url;
+            link.model = link.u_image;
+            link.sourceTable = "u_gdep_tile";
+
+            if (userCriteriaHelper.checkQuickLinkUserCriteria(link.sys_id)) {
+                data.results.push(link);
+                linkCount++;
+            }
+        }
+    }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-01 23:27:35</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>1955b53cdb35509059ac6e25ca9619b9</sys_id>
+        <sys_mod_count>274</sys_mod_count>
+        <sys_name>GDEP Main Typeahead Search</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_1955b53cdb35509059ac6e25ca9619b9</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-05-25 23:22:39</sys_updated_on>
+        <template><![CDATA[<form method="get" action="?" name="search-form">
+  <input type="hidden" name="id" value="gdep_search"/>
+  <input type="hidden" name="t" value="{{data.searchType}}"/>
+  <div class="input-group input-group-{{::c.options.size}} gdepTypeaheadSearch">
+    <!-- uses ui.bootstrap.typeahead -->
+    <input name="q" type="text" placeholder="{{::c.options.title}}" ng-model="c.selectedState"
+           ng-model-options="{debounce: 250}" autocomplete="off"
+           uib-typeahead="item as item.label for item in c.getResults($viewValue)"
+           typeahead-wait-ms=10
+           typeahead-focus-first="false"
+           typeahead-on-select="c.onSelect($item, $model, $label)"
+           typeahead-template-url="gdep-main-typeaheadsearch.html"  class="form-control input-typeahead search-input">
+    <span class="input-group-btn">
+      <button name="search" type="submit" class="btn btn-{{::c.options.color}}">
+    	<i ng-if="::c.options.glyph" class="fa fa-{{::c.options.glyph}}"></i>
+      </button>
+    </span>
+  </div>
+</form>
+]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">ebecfbe9db2adc9059ac6e25ca96191b</sp_column>
+        <sp_widget display_value="GDEP Title Header">62a5424edb88d890bb5a4a28139619a2</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-11 00:03:21</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>971d736ddb2adc9059ac6e25ca9619f0</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Request Info</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_instance_971d736ddb2adc9059ac6e25ca9619f0</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-11 00:03:47</sys_updated_on>
+        <title>Request Info</title>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"test_hr_sc_cat": {
+		"value": "",
+		"displayValue": ""
+	},
+	"field_list": {
+		"value": "",
+		"displayValue": ""
+	},
+	"sc_catalog": {
+		"value": "",
+		"displayValue": ""
+	},
+	"title": {
+		"value": "Request Info",
+		"displayValue": "Request Info"
+	}
+}]]></widget_parameters>
+    </sp_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=971d736ddb2adc9059ac6e25ca9619f0"/>
+</record_update>

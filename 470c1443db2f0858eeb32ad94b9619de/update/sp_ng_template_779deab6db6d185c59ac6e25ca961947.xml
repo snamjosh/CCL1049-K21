@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_ng_template">
+    <sp_ng_template action="INSERT_OR_UPDATE">
+        <id>gdep-knowledge-comment-template.html</id>
+        <sp_widget display_value="GDEP KB Article Comments">ef4d6ef2db6d185c59ac6e25ca96193b</sp_widget>
+        <sys_class_name>sp_ng_template</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-06-25 22:27:02</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>779deab6db6d185c59ac6e25ca961947</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>gdep-knowledge-comment-template.html</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_ng_template_779deab6db6d185c59ac6e25ca961947</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-06-25 22:27:02</sys_updated_on>
+        <template><![CDATA[<div class="hello" id="comment_{{feedback.sys_id}}">
+  <div class="content">
+    <div class="avatar-conatiner pull-left image50px">
+      <a ng-if="c.isLoggedInUser " ng-href="{{c.isMobile ? 'javascript:void(0)' : '/'+c.suffix+'?id=user_profile&sys_id='+feedback.user.sys_id}}" title="{{::feedback.user.name}}">
+        <sn-avatar primary="feedback.user" show-presence="false"/>
+      </a>
+      <span ng-if="!c.isLoggedInUser ">
+        <sn-avatar primary="feedback.user" show-presence="false"/>
+      </span>
+    </div>
+    <div class="commentor-info visible-xs">
+      <span class="author pad-right kb-comments-list kb-wrap-text">
+        <a ng-if="c.isLoggedInUser " ng-href="{{c.isMobile ? 'javascript:void(0)' : '/'+c.suffix+'?id=user_profile&sys_id='+feedback.user.sys_id}}" title="{{::feedback.user.name}}">
+          <span ng-bind="::feedback.user.name"></span>
+        </a>
+        <span class="green" ng-if="!c.isLoggedInUser " ng-bind="::feedback.user.name"></span>
+        <span class="published">
+          <span class="pad-sides" ng-if="!c.isMobile"> &#8226; </span>
+          <span class="text-muted" ng-if="feedback.just_now === 'Y'" ng-bind="::$root.messages.JUST_NOW"></span>
+          <sn-time-ago class="text-muted" ng-if="!feedback.just_now" timestamp="feedback.created_on"/>
+        </span>
+      </span>
+      <span data-ng-if="c.getMenuItems(feedback)" class="cm-comment-menu">
+        <a role="button" tabindex="0" href="javascript:void(0);" class="pull-right cm-delete-icon dropdown-toggle"
+           id="deleterec_{{feedback.sys_id}}" uib-tooltip="${Delete}"  aria-label="${Delete Comment}" aria-haspopup="true" aria-expanded="false" tooltip-placement="top"  data-ng-click="c.showDeleteBox(feedback)">
+          <span class="kb-delete-icon"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+        </a>
+        <!--<a role="button" tabindex="0" class="pull-right cm-action-icon dropdown-toggle"
+id="dropdownMenu_{{feedback.sys_id}}" uib-tooltip="${More options}"  aria-label="${Action menu}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tooltip-placement="top" >
+<span class="cm-menu-ellipsis"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+</a>
+<ul class="dropdown-menu" role="menu">
+<li  role="presentation"><a role="menuitem"  class="cm-menu-item deleteComment" tabindex="-1" href="javascript:void(0);" data-ng-click="c.showDeleteBox(feedback)">${Delete}</a></li>
+</ul>-->
+      </span>
+    </div>
+    <div class="comment-conatiner">
+      <div class="hidden-xs">
+        <span class="author pad-right kb-comments-list">
+          <a ng-if="c.isLoggedInUser " ng-href="{{c.isMobile ? 'javascript:void(0)' : '/'+c.suffix+'?id=user_profile&sys_id='+feedback.user.sys_id}}" title="{{::feedback.user.name}}">
+            <span ng-bind="::feedback.user.name"></span>
+          </a>
+          <span class="green" ng-if="!c.isLoggedInUser " ng-bind="::feedback.user.name"></span>
+          <span ng-if="feedback.level>0">
+            <i class="fa fa-arrow-right"></i>
+            <a ng-if="c.isLoggedInUser " ng-href="{{c.isMobile ? 'javascript:void(0)' : '/'+c.suffix+'?id=user_profile&sys_id='+feedback.parent_obj.user.sys_id}}" title="{{::feedback.parent_obj.user.name}}">
+              <span ng-bind="::feedback.parent_obj.user.name"></span>
+            </a>
+            <span class="green"  ng-if="!c.isLoggedInUser " ng-bind="::feedback.parent_obj.user.name"></span>
+          </span>
+          <span class="published">
+            <span class="pad-sides"> &#8226; </span>
+            <span class="text-muted" ng-if="feedback.just_now === 'Y'" ng-bind="::$root.messages.JUST_NOW"></span>
+            <sn-time-ago class="text-muted" ng-if="!feedback.just_now" timestamp="::feedback.created_on"/>
+          </span>
+        </span>
+        <span data-ng-if="c.getMenuItems(feedback)" class="cm-comment-menu">
+          <a role="button" tabindex="0" href="javascript:void(0);" class="pull-right cm-delete-icon dropdown-toggle"
+             id="deleterec_{{feedback.sys_id}}" uib-tooltip="${Delete}"  aria-label="${Delete Comment}" aria-haspopup="true" aria-expanded="false" tooltip-placement="top"  data-ng-click="c.showDeleteBox(feedback)">
+            <span class="kb-delete-icon"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+          </a>
+          <!--<a role="button" uib-tooltip="${More options}" tabindex="0" class="pull-right cm-action-icon dropdown-toggle"
+id="dropdownMenu_{{feedback.sys_id}}"  aria-label="${Action menu}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tooltip-placement="top" >
+<span class="cm-menu-ellipsis"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+</a>
+<ul class="dropdown-menu" role="menu">
+<li  role="presentation"><a role="menuitem"  class="cm-menu-item deleteComment" tabindex="-1" href="javascript:void(0);" data-ng-click="c.showDeleteBox(feedback)">${Delete}</a></li>
+</ul>-->
+        </span>
+      </div>
+      <div class="feedback-content">
+        <hr class="kb-line-temp visible-xs"/>
+        <div class="comment-html">
+          <sp-html-content class="inner-html-content" model="c.renderMentions(feedback.comment_text)"></sp-html-content>
+          <div class="outer-att-display attachment-less" ng-if="feedback.attachments.length > 0 && feedback.attachments.length <= 2 && c.isLoggedInUser" ng-repeat = "file in feedback.attachments">
+            <div class="attachment-box col-sm-6 col-xs-12" ng-class-even="'pad-even-left'">
+              <div class="attachments-title col-xs-10" style="opacity: .6;" ng-if="file.state == 'not_available'">
+                <km-icon class="file-icon" fname="file.err"/>
+                <div class="att-body">
+                  <span class="att-content text-muted">{{file.file_name }} </span> 
+                  <span class="att-content text-muted">${File unavailable}</span>
+                </div>
+              </div>
+              <a target="_blank" ng-href="sys_attachment.do?sys_id={{file.sys_id}}">
+                <div class="attachments-title col-xs-10" ng-if="file.state != 'not_available'">               
+                  <km-icon class="file-icon" fname="{{file.file_name}}"/>
+                  <div class="att-body">
+                    <span class="att-content">{{file.file_name }} </span> 
+                    <span class="att-content text-muted">{{file.size/1024 | number:2}}K</span>
+                  </div>
+                </div>
+                <div class="attach-down-icon col-xs-2">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="outer-att-display attachment-more" ng-if="feedback.attachments.length > 2 && c.isLoggedInUser">
+            <div class="attachment-box col-sm-6 col-xs-12" ng-click="c.openAttachmentsList(feedback.attachments)">
+              <div class="attachments-title col-xs-10">
+                <span class="icon">
+                  <i class="fa fa-paperclip fa-rotate-270 file-icon"></i>
+                </span>
+                <div class="att-body">
+                  <span class="att-content">{{feedback.attachments.length}} {{c.messages.ATTACHMENTS}}</span> 
+                  <span class="att-content text-muted"></span>
+                </div>
+              </div>
+              <div class="attach-down-icon col-xs-2">
+                <i class="fa fa-cloud-download" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="kb-line-temp no-margin"/>
+        <div class="feedback-buttons-group" > 
+          <a role="button" href="javascript:void(0);" ng-if="c.isLoggedInUser" class="feedback-button likes" ng-class="{'liked':feedback.is_liked}" uib-tooltip="{{feedback.is_liked ? '${Click to unlike comment}' : '${Click to like comment}' }}"  ng-click="c.likeComment(feedback)">
+            <i class="fa fa-thumbs-up" aria-hidden="true"></i> ${Like} 
+          </a>
+          <span ng-if="!c.isLoggedInUser" class="feedback-button likes disabled" >
+            <i class="fa fa-thumbs-up" aria-hidden="true"></i> ${Like} 
+          </span>
+
+          <a role="button" href="javascript:void(0);" class="feedback-button reply" ng-if="feedback.sys_id != c.currentEditorId " ng-click="c.showReplyBox(feedback.sys_id)">
+            <i class="fa fa-comment" aria-hidden="true"></i> ${Reply}
+          </a>
+          <a role="button" href="javascript:void(0);" class="feedback-button liked reply" ng-if="feedback.sys_id == c.currentEditorId" ng-click="c.closeAllEditors()">
+            <i class="fa fa-comment" aria-hidden="true"></i> ${Reply}
+          </a>
+
+
+
+
+          <span class="likes-section">
+            <span ng-if="feedback.likes.length > 0 " class="likes-count">
+              <a role="button" href="javascript:void(0);" ng-if="c.isLoggedInUser" ng-click="c.openLikesModal(feedback)">
+                {{feedback.likes.length}} <i class="fa fa-thumbs-o-up"></i>
+              </a>
+              <span ng-if="!c.isLoggedInUser">
+                {{feedback.likes.length}} <i class="fa fa-thumbs-o-up"></i>
+              </span>
+            </span> 
+
+
+            <span class="vr-line" ng-if="(feedback.likes.length > 0) && (feedback.parent == '' && feedback.has_children && !c.isMobile)"></span>
+            <span ng-if="feedback.parent == '' && feedback.has_children && !c.isMobile">
+              <button class="btn expand-button" ng-if="feedback.show_replies " ng-click="c.toggleReply(feedback)">
+                <i class="fa fa-chevron-circle-up" aria-hidden="true"></i> ${Hide Replies}
+              </button>
+              <button class="btn expand-button" ng-if="!feedback.show_replies " ng-click="c.toggleReply(feedback)">
+                <i class="fa fa-chevron-circle-down" aria-hidden="true"></i> ${Show Replies}
+              </button>
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="comment-box" ng-if="c.currentEditorId == feedback.sys_id" ng-class="c.isLoggedInUser ? 'login-user' : 'public-user'">   
+        <sp-tinymce-editor ng-if="!c.isMESP" field="c.commentsField"  attachment-guid="-1" record-table-name="'kb_feedback_tmce'" aria-labelledby="commentLabel" ng-model-options="{}" ng-model="c.commentText" class="kb-comment-input" id="comment"></sp-tinymce-editor>
+        <textarea ng-if="c.isMESP" tabindex="0" aria-labelledby="{{c.commentsPrompt}}" ng-model="c.commentText" class="form-control kb-comment-input textarea" id="comment" rows="3"></textarea>
+        <div class="cm-btns clearfix local">
+          <hr class="kb-line-temp visible-xs" ng-if="!c.isMobile"/>
+          <div class="kb-attachment-btn" ng-if="!c.isMobile">
+            <a ng-if="c.isLoggedInUser && c.maxFiles>0 && !c.isMobile" href="javascript:void(0)" ng-click = "c.openAttachmentsModal()"class="cm-attachments">
+              <i class="fa fa-paperclip fa-rotate-90 "></i>
+              <span ng-if="c.getTotalAttachments(feedback) == 0"> {{c.messages.ADD_ATTACHMENTS}}</span>
+              <span ng-if="c.getTotalAttachments(feedback)  > 0"> {{c.messages.ATTACHMENTS}} ({{c.getTotalAttachments(feedback)}})</span>
+            </a>
+          </div>
+          <hr class="kb-line-temp show-for-mobile"/>
+          <div class="kb-input-button">
+            <div class="comment-buttons">
+              <div class="kb-inline cancel pad-right">
+                <button ng-click="c.closeAllEditors()" class="btn btn-default kb-end-button" ng-bind="::$root.messages.CANCEL"></button>        
+              </div>
+              <div class="kb-inline submit">
+                <button id="submit" ng-click="c.replyToComment(feedback)" ng-disabled="c.isMobile && !c.hasCommentText()" class="btn btn-primary kb-end-button" ng-bind="::$root.messages.SUBMIT"></button>        
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-show="c.showReply(feedback)">
+    <div ng-repeat="feedback in feedback.children"  data-ng-class="c.getClass(feedback,$index,$last)"  data-ng-include='"gdep-knowledge-comment-template.html"' ></div>
+  </div>
+</div>
+<div class="form-group show-reply" ng-if="feedback.parent == '' && feedback.has_children && c.isMobile">
+  <span class="" ng-if="feedback.show_replies " ng-click="c.toggleReply(feedback)">
+    <i class="fa fa-chevron-circle-up" aria-hidden="true"></i> ${Hide Replies}
+  </span>
+  <span class="" ng-if="!feedback.show_replies " ng-click="c.toggleReply(feedback)">
+    <i class="fa fa-chevron-circle-down" aria-hidden="true"></i> ${Show Replies}
+  </span>
+</div>
+
+]]></template>
+    </sp_ng_template>
+</record_update>

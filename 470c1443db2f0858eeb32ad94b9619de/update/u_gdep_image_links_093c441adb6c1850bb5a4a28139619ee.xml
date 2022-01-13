@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="u_gdep_image_links">
+    <u_gdep_image_links action="INSERT_OR_UPDATE">
+        <sys_class_name>u_gdep_image_links</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-05-05 04:22:28</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>093c441adb6c1850bb5a4a28139619ee</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>u_gdep_image_links_093c441adb6c1850bb5a4a28139619ee</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-21 05:03:35</sys_updated_on>
+        <u_identifier>GDEP Knowledge Section</u_identifier>
+        <u_image>b7bc8016db6c1850bb5a4a2813961907</u_image>
+        <u_kb_article_id/>
+        <u_link_type>1</u_link_type>
+        <u_order>100</u_order>
+        <u_related_document_id/>
+        <u_related_sysid>bb0330019f22120047a2d126c42e70e5</u_related_sysid>
+        <u_short_description/>
+        <u_title>Benefits</u_title>
+        <u_url/>
+    </u_gdep_image_links>
+</record_update>

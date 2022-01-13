@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_theme_css_include">
+    <m2m_sp_theme_css_include action="DELETE">
+        <order>1</order>
+        <sp_css_include display_value="GDSherpa-Font CSS">72fa966ddbee6f000d4bae5a4896192b</sp_css_include>
+        <sp_theme display_value="GDEP Theme">8d2671c1db63cc54eeb32ad94b9619d8</sp_theme>
+        <sys_class_name>m2m_sp_theme_css_include</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-20 21:00:36</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>353d2c74db1c7c10bb5a4a2813961906</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>GDSherpa-Font CSS.GDEP Theme</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>m2m_sp_theme_css_include_353d2c74db1c7c10bb5a4a2813961906</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-20 21:01:11</sys_updated_on>
+    </m2m_sp_theme_css_include>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>901500ac6f06314023b2a9cc5d3ee4b5</instance_id>
+        <instance_name>godaddydev</instance_name>
+        <name>m2m_sp_theme_css_include_353d2c74db1c7c10bb5a4a2813961906</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_theme_css_include"><m2m_sp_theme_css_include action="INSERT_OR_UPDATE"><order>1</order><sp_css_include display_value="GDSherpa-Font CSS">72fa966ddbee6f000d4bae5a4896192b</sp_css_include><sp_theme display_value="GDEP Theme">8d2671c1db63cc54eeb32ad94b9619d8</sp_theme><sys_class_name>m2m_sp_theme_css_include</sys_class_name><sys_created_by>choskins</sys_created_by><sys_created_on>2021-05-20 21:00:36</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>353d2c74db1c7c10bb5a4a2813961906</sys_id><sys_mod_count>1</sys_mod_count><sys_name>GDSherpa-Font CSS.GDEP Theme</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>m2m_sp_theme_css_include_353d2c74db1c7c10bb5a4a2813961906</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2021-05-20 21:01:11</sys_updated_on></m2m_sp_theme_css_include></record_update>]]></payload>
+        <payload_hash>-618325837</payload_hash>
+        <record_name>GDSherpa-Font CSS.GDEP Theme</record_name>
+        <reverted_from/>
+        <source>3b97cb9f6fb23100fda99aad5d3ee43a</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-20 21:01:12</sys_created_on>
+        <sys_id>1a5de8b4db5c7c10bb5a4a2813961952</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_recorded_at>1798b950dcc0000001</sys_recorded_at>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-20 21:27:33</sys_updated_on>
+        <type>Stylesheets</type>
+        <update_guid>5e5de8b45f5c7c103ca66257cc280d51</update_guid>
+        <update_guid_history>5e5de8b45f5c7c103ca66257cc280d51:-618325837,bd3d2874875c7c10a7561ed5b31dd060:-2069400006</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Record deleted 2021-05-20 14:11:02">e29fe474db10bc10bb5a4a281396197a</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-20 21:11:02</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="m2m_sp_theme_css_include">m2m_sp_theme_css_include</sys_db_object>
+        <sys_id>16b1fbf54b5c4afc8d1504fddecefb10</sys_id>
+        <sys_metadata>353d2c74db1c7c10bb5a4a2813961906</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>GDSherpa-Font CSS.GDEP Theme</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>m2m_sp_theme_css_include_353d2c74db1c7c10bb5a4a2813961906</sys_update_name>
+        <sys_update_version display_value="m2m_sp_theme_css_include_353d2c74db1c7c10bb5a4a2813961906">1a5de8b4db5c7c10bb5a4a2813961952</sys_update_version>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-20 21:11:02</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

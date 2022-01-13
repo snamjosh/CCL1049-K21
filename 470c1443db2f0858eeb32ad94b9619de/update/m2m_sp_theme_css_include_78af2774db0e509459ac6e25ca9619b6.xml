@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_theme_css_include">
+    <m2m_sp_theme_css_include action="INSERT_OR_UPDATE">
+        <order>100</order>
+        <sp_css_include display_value="gdep-main.css">888f6b34db0e509459ac6e25ca96191a</sp_css_include>
+        <sp_theme display_value="GDEP Theme">8d2671c1db63cc54eeb32ad94b9619d8</sp_theme>
+        <sys_class_name>m2m_sp_theme_css_include</sys_class_name>
+        <sys_created_by>iremigio</sys_created_by>
+        <sys_created_on>2020-07-14 18:37:37</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>78af2774db0e509459ac6e25ca9619b6</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>gdep-main.css.GDEP Theme</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>m2m_sp_theme_css_include_78af2774db0e509459ac6e25ca9619b6</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-19 21:46:13</sys_updated_on>
+    </m2m_sp_theme_css_include>
+</record_update>

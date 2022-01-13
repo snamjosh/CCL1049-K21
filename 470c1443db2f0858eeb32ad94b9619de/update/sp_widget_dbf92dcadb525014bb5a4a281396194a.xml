@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($scope, spUtil, cabrillo, $timeout) {
+  $scope.got = false;
+  $scope.need = false;
+
+  $scope.$on("need_barcode", function() {
+    $scope.need = true;
+  });
+
+  $scope.$on('scan_barcode', function(evt) {
+    $timeout(function() {
+      angular.element('#scan_barcode').trigger('click');
+    }, 100);
+  });
+
+  $scope.getBarcode = function() {
+    cabrillo.camera.getBarcode().then(function(value) {
+      cabrillo.log('Received barcode value: ' + value);
+      $scope.data.barcode = value;
+      $scope.got = true;
+      $scope.need = false;
+      spUtil.update($scope);
+    }, function(err) {
+      $scope.data.barcode = "IT1011717";
+      spUtil.update($scope);
+      $scope.got = true;
+      $scope.need = false;
+    });
+  }
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Barcode</name>
+        <option_schema/>
+        <public>false</public>
+        <roles>snc_external,snc_internal</roles>
+        <script><![CDATA[// populate the 'data' variable
+var gr = $sp.getRecord();
+data.table = gr.getTableName();
+data.sys_id = gr.getUniqueValue();
+
+if (input && input.barcode && gr.comments.canWrite()) {
+  gr.comments = "scanned: " + input.barcode;
+  gr.update();
+}]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-30 16:21:48</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>dbf92dcadb525014bb5a4a281396194a</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>GDEP Barcode</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_dbf92dcadb525014bb5a4a281396194a</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-07-30 16:21:57</sys_updated_on>
+        <template><![CDATA[<div>
+  <div ng-show="false" style="padding-bottom: 16px"><button id="scan_barcode" class="btn btn-primary" style="border-color:#278efc" ng-click="getBarcode()">${Scan Barcode}</button></div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="GDEP My Team">27ae03e8db425cd0bb5a4a2813961985</child>
+        <cloned>2020-07-13 21:35:08</cloned>
+        <last_validated>2020-07-13 21:35:08</last_validated>
+        <parent display_value="My Team">62d700b79f210200f0a91471367fcfe8</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;standard&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function ($scope, $location) {
+	$scope.showFullInfoCollegues = false;
+	$scope.showFullInfoReports = false;
+	$scope.showMyProfile = false;
+
+	$scope.$on('finishedChanged', function(event, data) {
+      $scope.myManager = data.profile.manager;
+      $scope.teamMembers = data.profile.members;
+			$scope.directReports = data.profile.direct_reports;
+			if(data.profile.user &amp;&amp; data.profile.user.sys_id) { //if user exists, then this isn't 'my' profile. It's someone elses.
+				$scope.showMyProfile = true;
+				$scope.userID = data.profile.user.sys_id;
+			}
+	});
+	
+	$scope.openProfile = function(user) {
+		$location.search("id=user_profile&amp;sys_id=" + user.sys_id); 
+	};
+	
+	$scope.showTeamWidget = function() {
+		return ($scope.myManager &amp;&amp; $scope.myManager.sys_id) ||
+			($scope.teamMembers &amp;&amp; $scope.teamMembers.length &gt; 1) ||
+			($scope.directReports &amp;&amp; $scope.directReports.length &gt; 0);
+	};
+	
+	$scope.updateList = function(variable, value) {
+		if (variable == "showFullInfoReports")
+			$scope.showFullInfoReports = value;
+		else if (variable == "showFullInfoCollegues")
+			$scope.showFullInfoCollegues = value;
+	};
+}]]&gt;&lt;/client_script&gt;&lt;controller_as/&gt;&lt;css&gt;.row.info-row:hover {
+	background-color: #f0f0f0;
+}
+
+a.widget-button {
+    float: right;
+    clear: both;
+    margin: 10px 0;
+    border-radius: 3px;
+    background-color: #B9B9B9;
+    color: #fff;
+    padding: 3px 10px;
+    font-weight: 100;
+}
+ 
+a.widget-button:hover {
+	background-color: #428bca;
+}
+
+.row.info-row&amp;gt;div {
+	height: 35px;
+	cursor: pointer;
+    padding-top: 9px;
+}
+
+.team_header {
+	font-size: 15px;
+	margin: 20px 0 5px 0;
+	color: #428BCA;
+}
+
+.more_link {
+	font-size: 90%;
+    padding: 10px;
+}
+
+.hide-element {
+	visibility: hidden;
+}
+
+.fa-2x {
+  font-size: 1.5em;
+  margin-top: -3px;
+}&lt;/css&gt;&lt;data_table&gt;sp_instance_table&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list&gt;table,field_list,maximum_entries,display_field,order_by,order_direction,glyph&lt;/field_list&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;sp-my-team&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;My Team&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[data.limitTo = 5;
+data.user_id = gs.getUserID();]]&gt;&lt;/script&gt;&lt;servicenow&gt;true&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2015-08-04 23:14:56&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;62d700b79f210200f0a91471367fcfe8&lt;/sys_id&gt;&lt;sys_mod_count&gt;414&lt;/sys_mod_count&gt;&lt;sys_name&gt;My Team&lt;/sys_name&gt;&lt;sys_package display_value="Service Portal - Core" source="com.glide.service-portal"&gt;4408d1906f78620068de792f8e3ee4ee&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_62d700b79f210200f0a91471367fcfe8&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2019-12-23 04:26:51&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;sp-panel rect="rect" widget-title="'${Team}'" ng-if="showTeamWidget()"&gt;
+
+	&lt;div id="manager" ng-if="myManager &amp;&amp; myManager.sys_id"&gt;
+		&lt;h5 ng-if="myManager.name &amp;&amp; !showMyProfile" class="team_header m-t-none"&gt;${My Manager}&lt;/h5&gt;
+		&lt;h5 ng-if="myManager.name &amp;&amp; showMyProfile" class="team_header m-t-none"&gt;${Manager}&lt;/h5&gt;
+
+		&lt;div class="row info-row"&gt;
+			&lt;div class="col-xs-2" ng-click="openProfile(myManager)"&gt;
+				&lt;span class="navbar-avatar"&gt;
+					&lt;sn-avatar class="avatar-small-medium" primary="myManager.sys_id" show-presence="false" /&gt;
+				&lt;/span&gt;
+			&lt;/div&gt;
+			&lt;div class="col-xs-7" ng-click="openProfile(myManager)" tabindex="0"&gt;{{myManager.name}}&lt;/div&gt;
+			&lt;div class="col-xs-1" ng-class="{'hide-element': !myManager.phone}"&gt;
+				&lt;a href="tel:{{myManager.phone}}"&gt;
+                  &lt;fa name="phone" size="2"&gt;&lt;/fa&gt;
+				&lt;/a&gt;
+			&lt;/div&gt;
+			&lt;div class="col-xs-1" ng-class="{'hide-element': !myManager.email}"&gt;
+				&lt;a href="mailto:{{myManager.email}}"&gt;
+					&lt;fa name="envelope" size="2"&gt;&lt;/fa&gt;
+				&lt;/a&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+
+	&lt;div id="colleagues" ng-if="teamMembers &amp;&amp; teamMembers.length &gt; 0"&gt;
+		&lt;h5 ng-if="!showMyProfile" class="team_header"&gt;${My Coworkers}&lt;/h5&gt;
+		&lt;h5 ng-if="showMyProfile" class="team_header"&gt;${Coworkers}&lt;/h5&gt;
+
+		&lt;div class="row info-row" ng-repeat="member in teamMembers | filter:{sys_id: '!' + data.user_id} | limitTo: showFullInfoCollegues ? teamMembers.length : data.limitTo"&gt;
+			&lt;div class="col-xs-2" ng-click="openProfile(member)"&gt;
+				&lt;span class="navbar-avatar"&gt;
+					&lt;sn-avatar class="avatar-small-medium" primary="member.sys_id" show-presence="false" /&gt;
+				&lt;/span&gt;
+			&lt;/div&gt;
+			&lt;div class="col-xs-7" ng-click="openProfile(member)" tabindex="0"&gt;{{member['name']}}&lt;/div&gt;
+			&lt;div class="col-xs-1" ng-class="{'hide-element': !member.phone}"&gt;
+				&lt;a href="tel:{{member.phone}}"&gt;
+					&lt;fa name="phone" size="2"&gt;&lt;/fa&gt;
+				&lt;/a&gt;
+			&lt;/div&gt;
+			&lt;div class="col-xs-1" ng-class="{'hide-element': !member.email}" style="text-align: right;"&gt;
+				&lt;a href="mailto:{{member.email}}"&gt;
+					&lt;fa name="envelope" size="2"&gt;&lt;/fa&gt;
+				&lt;/a&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+
+		&lt;div ng-if="teamMembers.length &gt; data.limitTo" class="pull-right"&gt;
+			&lt;a href="javascript:void(0)" class="more_link" ng-if="!showFullInfoCollegues" ng-click="updateList('showFullInfoCollegues',true)"&gt;${show all ({{teamMembers.length}})}
+			&lt;/a&gt;
+			&lt;a href="javascript:void(0)" class="more_link" ng-if="showFullInfoCollegues" ng-click="updateList('showFullInfoCollegues',false)"&gt;${show less}&lt;/a&gt;
+		&lt;/div&gt;
+
+	&lt;/div&gt;
+
+	&lt;div id="direct_reports" ng-if="directReports &amp;&amp; directReports.length &gt; 0"&gt;
+		&lt;h5 ng-if="directReports.length &gt; 0 &amp;&amp; !showMyProfile" class="team_header"&gt;${My Direct Reports}&lt;/h5&gt;
+		&lt;h5 ng-if="directReports.length &gt; 0 &amp;&amp; showMyProfile" class="team_header"&gt;${Direct Reports}&lt;/h5&gt;
+
+		&lt;div class="row info-row" ng-repeat="direct_report in directReports | filter:{sys_id: '!' + data.user_id} | limitTo: showFullInfoReports ? directReports.length : data.limitTo"&gt;
+			&lt;div class="col-xs-2" ng-click="openProfile(direct_report)"&gt;
+				&lt;span class="navbar-avatar"&gt;
+					&lt;sn-avatar class="avatar-small-medium" primary="direct_report.sys_id" show-presence="false" /&gt;
+				&lt;/span&gt;
+			&lt;/div&gt;
+			&lt;div class="col-xs-7" ng-click="openProfile(direct_report)" tabindex="0"&gt;{{direct_report['name']}}&lt;/div&gt;
+			&lt;div class="col-xs-1" ng-class="{'hide-element': !direct_report.phone}"&gt;
+				&lt;a href="tel:{{direct_report.phone}}"&gt;
+					&lt;fa name="phone" size="2"&gt;&lt;/fa&gt;
+				&lt;/a&gt;
+			&lt;/div&gt;
+			&lt;div class="col-xs-1" ng-class="{'hide-element': !direct_report.email}" style="text-align: right;"&gt;
+				&lt;a href="mailto:{{direct_report.email}}"&gt;
+					&lt;fa name="envelope" size="2"&gt;&lt;/fa&gt;
+				&lt;/a&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+
+		&lt;div ng-if="directReports.length &gt; data.limitTo" class="pull-right"&gt;
+			&lt;a href="javascript:void(0)" class="more_link" ng-if="!showFullInfoReports" ng-click="updateList('showFullInfoReports',true)"&gt;${show all ({{directReports.length}})}&lt;/a&gt;
+			&lt;a href="javascript:void(0)" class="more_link" ng-if="showFullInfoReports" ng-click="updateList('showFullInfoReports',false)"&gt;${show less}&lt;/a&gt;
+		&lt;/div&gt;
+
+	&lt;/div&gt;
+
+	&lt;a id="my_org_chart" class="widget-button" ng-if="!showMyProfile" href="?id=my_org_chart"&gt;
+		&lt;i class="fa fa-sitemap"&gt;&lt;/i&gt;
+		${my org chart}
+	&lt;/a&gt;
+	&lt;a id="my_org_chart" class="widget-button" ng-if="showMyProfile" ng-href="?id=my_org_chart&amp;p={{userID}}"&gt;
+		&lt;i class="fa fa-sitemap"&gt;&lt;/i&gt;
+		${org chart}
+	&lt;/a&gt;
+
+&lt;/sp-panel&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-13 21:35:08</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>6bae03e8db425cd0bb5a4a2813961988</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>27ae03e8db425cd0bb5a4a2813961985</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_6bae03e8db425cd0bb5a4a2813961988</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-07-13 21:35:08</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

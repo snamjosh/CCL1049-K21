@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="clone_data_exclude">
+    <clone_data_exclude action="DELETE">
+        <name>sys_variable_value</name>
+        <sys_class_name>clone_data_exclude</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-02-15 20:01:10</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>c12a98aa1b922c14d671c9192a4bcb97</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sys_variable_value</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>clone_data_exclude_c12a98aa1b922c14d671c9192a4bcb97</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-02-15 20:01:10</sys_updated_on>
+    </clone_data_exclude>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>clone_data_exclude_c12a98aa1b922c14d671c9192a4bcb97</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="clone_data_exclude"><clone_data_exclude action="INSERT_OR_UPDATE"><name>sys_variable_value</name><sys_class_name>clone_data_exclude</sys_class_name><sys_created_by>snamjoshi</sys_created_by><sys_created_on>2021-02-15 20:01:10</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>c12a98aa1b922c14d671c9192a4bcb97</sys_id><sys_mod_count>0</sys_mod_count><sys_name>sys_variable_value</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>clone_data_exclude_c12a98aa1b922c14d671c9192a4bcb97</sys_update_name><sys_updated_by>snamjoshi</sys_updated_by><sys_updated_on>2021-02-15 20:01:10</sys_updated_on></clone_data_exclude></record_update>]]></payload>
+        <payload_hash>-1361688116</payload_hash>
+        <record_name>sys_variable_value</record_name>
+        <reverted_from/>
+        <source>3b97cb9f6fb23100fda99aad5d3ee43a</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-02-15 20:01:10</sys_created_on>
+        <sys_id>ea2a50ea1b922c14d671c9192a4bcb05</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>177a74851930000001</sys_recorded_at>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-02-15 20:01:10</sys_updated_on>
+        <type>Clone Exclude Table</type>
+        <update_guid>a22a50ea05922c14b446b627579a6105</update_guid>
+        <update_guid_history>a22a50ea05922c14b446b627579a6105:-1361688116</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">3852f47adbe72410b8f04a28139619b3</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-04-19 19:43:41</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="clone_data_exclude">clone_data_exclude</sys_db_object>
+        <sys_id>4186edc7a6dd4836842c788f0ee07761</sys_id>
+        <sys_metadata>c12a98aa1b922c14d671c9192a4bcb97</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sys_variable_value</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>clone_data_exclude_c12a98aa1b922c14d671c9192a4bcb97</sys_update_name>
+        <sys_update_version display_value="clone_data_exclude_c12a98aa1b922c14d671c9192a4bcb97">ea2a50ea1b922c14d671c9192a4bcb05</sys_update_version>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-04-19 19:43:41</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

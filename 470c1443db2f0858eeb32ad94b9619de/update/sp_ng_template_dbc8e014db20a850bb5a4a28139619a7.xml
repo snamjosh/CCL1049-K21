@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_ng_template">
+    <sp_ng_template action="INSERT_OR_UPDATE">
+        <id>gdep-perf-feedback-task-modal</id>
+        <sp_widget display_value="GDEP Perf Mgmt Article">c56f8a45db07d858bb5a4a281396199e</sp_widget>
+        <sys_class_name>sp_ng_template</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-11-13 21:29:41</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>dbc8e014db20a850bb5a4a28139619a7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>gdep-perf-feedback-task-modal</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_ng_template_dbc8e014db20a850bb5a4a28139619a7</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-11-13 21:29:41</sys_updated_on>
+        <template><![CDATA[<div class="feedback-modal" ng-class="c.isMobile ? 'kb-mobile' : 'panel panel-default kb-desktop'">
+  <div class="modal-header">
+    <h4 id="flagTitle" class="modal-title">{{data.messages.THANKYOU_FEEDBACK}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row row-div row-bottom-padding">
+      <span>{{data.messages.ADDTIONAL_DETAILS}}</span>
+    </div>
+    <div class="row row-div">
+      <label for="radioBtnGrp">{{data.messages.REASON}}</label>
+      <div class="type-multiple_choice">
+        <fieldset class="radio ng-scope" id="radioBtnGrp" role="radiogroup">
+          <legend class="sr-only"></legend>
+          <label tabindex="-1" ng-repeat="res in c.reasons" for="kb_reason_{{$index}}" class="modal-radio">
+            <div class="inline">
+              <input type="radio" ng-checked="res.reason_id == c.data.reason" ng-change="c.reasonChanged()" name="reason" ng-model="::data.reason" id="kb_reason_{{$index}}" value="{{res.reason_id}}"/>
+              <span></span>
+            </div>
+            <div class="inline reason-label">
+              {{res.reason_desc}}
+            </div>
+          </label>
+        </fieldset>
+      </div>
+    </div>
+    <div class="row row-div">
+      <label for="detailsComment" id="detailsCommentLabel" class='alert-danger'>{{data.messages.DETAILS}}</label>
+      <textarea aria-required="true" ng-required="true" ng-change="c.reasonChanged()" aria-label="{{data.messages.ADD_DETAIL}}" ng-model="::data.details" class="form-control resize" rows="3" id="detailsComment"></textarea>
+    </div>
+    <div role="alert" aria-live="assertive" class="alert-danger" ng-shown="!c.flagMessage">{{c.flagMessage}}</div>
+    <div class="row button-div">
+      <button type="button" class="btn btn-default btn-pad" data-dismiss="modal" ng-click="c.noThanks()">{{data.messages.NO_THANKS}}</button>
+      <button type="button" tabindex="0" ng-disabled="!data.reason" class="btn btn-primary " aria-label="{{data.messages.SUBMIT}}" id="feedbackTask_submitBtn" data-dismiss="modal" ng-click="c.submitFeedbackTask()">{{data.messages.SUBMIT}}</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .feedback-modal.kb-mobile .modal-header {
+    padding: 20px 27px !important;
+  }
+  .feedback-modal .modal-radio {
+    display: block;
+    padding-bottom : 5px;
+  }
+  .feedback-modal .modal-radio .reason-label{
+    position: fixed;
+    margin-top: 4px;
+  }
+  .feedback-modal .row-div{
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .feedback-modal .row-bottom-padding{
+    padding-bottom :8px;
+  }
+  .feedback-modal.kb-desktop .button-div{
+    padding-top: 15px;
+    padding-right: 20px;
+    text-align:right;
+  }
+  .feedback-modal.kb-mobile .button-div{
+    padding: 20px 19px 20px 20px;
+  }
+  .feedback-modal.kb-desktop .button-div .btn-pad{
+    margin-right: 6px;
+  }
+  .feedback-modal.kb-desktop .button-div .btn{
+    width:20%;
+  }
+  .feedback-modal.kb-mobile .button-div .btn{
+    width:49%;
+  }
+  .feedback-modal .resize{
+    resize: vertical;
+  }
+  .feedback-modal .type-multiple_choice input[type="radio"]{
+    margin-top: -11px !important; 
+  }
+  .feedback-modal .type-multiple_choice .modal-radio{
+    margin-bottom: 5px !important; 
+  }
+  .feedback-modal .type-multiple_choice span{
+    position: relative !important;
+    padding-top: 0px !important;
+  }
+  .feedback-modal .type-multiple_choice span:after{
+    top:10px !important;
+    left:-21px !important;
+  }
+
+  @media screen and (max-width: 760px){
+    .modal-dialog {
+      margin-top: 0px !important;
+    }
+  }
+</style>]]></template>
+    </sp_ng_template>
+</record_update>

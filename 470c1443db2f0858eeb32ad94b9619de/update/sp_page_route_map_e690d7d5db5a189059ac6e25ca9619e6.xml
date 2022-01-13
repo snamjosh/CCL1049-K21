@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page_route_map">
+    <sp_page_route_map action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <order>5</order>
+        <portals>680c18c9db2b0c54eeb32ad94b9619d7</portals>
+        <route_from_page display_value="kb_article">dea5792147132100ba13a5554ee4902d</route_from_page>
+        <route_to_page display_value="gdep_kb_article">63e2c447dbe51c5c59ac6e25ca96195f</route_to_page>
+        <short_description>Compass - Override kb_article</short_description>
+        <sys_class_name>sp_page_route_map</sys_class_name>
+        <sys_created_by>iremigio</sys_created_by>
+        <sys_created_on>2020-07-28 15:54:41</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>e690d7d5db5a189059ac6e25ca9619e6</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>dea5792147132100ba13a5554ee4902d</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_page_route_map_e690d7d5db5a189059ac6e25ca9619e6</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2022-01-05 17:01:15</sys_updated_on>
+    </sp_page_route_map>
+</record_update>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_js_include">
+    <sp_js_include action="INSERT_OR_UPDATE">
+        <display_name>https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js</display_name>
+        <source>url</source>
+        <sys_class_name>sp_js_include</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-03-20 20:48:15</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>7905b6e7db6fc41ce670d48a48961946</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_ui_script/>
+        <sys_update_name>sp_js_include_7905b6e7db6fc41ce670d48a48961946</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-06-24 19:47:36</sys_updated_on>
+        <url>https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js</url>
+    </sp_js_include>
+</record_update>

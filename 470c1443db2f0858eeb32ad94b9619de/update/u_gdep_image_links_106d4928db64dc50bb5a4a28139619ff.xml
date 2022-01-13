@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="u_gdep_image_links">
+    <u_gdep_image_links action="INSERT_OR_UPDATE">
+        <sys_class_name>u_gdep_image_links</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-04-29 22:37:54</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>106d4928db64dc50bb5a4a28139619ff</sys_id>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>u_gdep_image_links_106d4928db64dc50bb5a4a28139619ff</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-21 23:59:08</sys_updated_on>
+        <u_identifier>GDEP Homepage Section</u_identifier>
+        <u_image>e3dd4568db64dc50bb5a4a28139619e5</u_image>
+        <u_kb_article_id/>
+        <u_link_type>2</u_link_type>
+        <u_order>100</u_order>
+        <u_related_document_id/>
+        <u_related_sysid>e3dd4568db64dc50bb5a4a28139619e5</u_related_sysid>
+        <u_short_description>Employee handbook &amp; company guidelines</u_short_description>
+        <u_title>Policy Center </u_title>
+        <u_url>?id=gdep_policy_center&amp;kb_category=2d5d5f53df101200dca6a5f59bf263a2</u_url>
+    </u_gdep_image_links>
+</record_update>

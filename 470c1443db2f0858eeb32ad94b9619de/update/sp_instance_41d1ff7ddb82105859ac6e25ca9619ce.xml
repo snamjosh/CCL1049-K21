@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">41d1ff7ddb82105859ac6e25ca9619cc</sp_column>
+        <sp_widget display_value="breadcrumbs">0fb269305b3212000d7ec7ad31f91ae2</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-07-17 21:21:07</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>41d1ff7ddb82105859ac6e25ca9619ce</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_instance_41d1ff7ddb82105859ac6e25ca9619ce</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-07-17 21:21:07</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=41d1ff7ddb82105859ac6e25ca9619ce"/>
+</record_update>

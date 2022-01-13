@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {  /* widget controller */  var c = this;
+				
+					 }]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/*@font-face {&#13;
+    font-family: 'Boing-Bold';&#13;
+    src: url('//img1.wsimg-com.ide/ux/fonts/1.3/eot/Boing-Bold.eot?#iefix') format('embedded-opentype'),&#13;
+    url('//img1.wsimg-com.ide/ux/fonts/1.3/woff2/Boing-Bold.woff2') format('woff2'),&#13;
+    url('//img1.wsimg-com.ide/ux/fonts/1.3/woff/Boing-Bold.woff') format('woff'),&#13;
+    url('//img1.wsimg-com.ide/ux/fonts/1.3/ttf/Boing-Bold.ttf') format('truetype');&#13;
+    font-weight: 400 !important;&#13;
+    font-style: normal;&#13;
+}*/&#13;
+&#13;
+/*body {&#13;
+    color: #2B2B2B;&#13;
+    font: 20px Boing-Bold, Arial, sans-seriff;&#13;
+    padding-top: 150px;&#13;
+    background-color: #F3F3F3 !important;&#13;
+}*/&#13;
+&#13;
+.column-left {&#13;
+  float: left;&#13;
+  width: 25%;&#13;
+}&#13;
+&#13;
+.column-right {&#13;
+  float: left;&#13;
+  width: 75%;&#13;
+}&#13;
+&#13;
+.row-categories {&#13;
+  height: 132px&#13;
+}&#13;
+&#13;
+.row-categories:after {&#13;
+  content: "";&#13;
+  display: table;&#13;
+  clear: both;&#13;
+}&#13;
+&#13;
+img{&#13;
+  width:0.778in ;&#13;
+  height:0.889in ;&#13;
+}&#13;
+&#13;
+/*nav {&#13;
+    font: 25px Boing-Bold, Arial, sans-serif;&#13;
+}*/&#13;
+&#13;
+.itemTitle{&#13;
+  font-family: 'GD-Sage-Bold';&#13;
+  font-size: 26px&#13;
+}&#13;
+&#13;
+.itemDescription{&#13;
+	font-family: 'GD-Sage-Medium';&#13;
+    color: #000000 !important;&#13;
+    font-size:18px&#13;
+}&#13;
+&#13;
+.cta-wrapper{&#13;
+    width: 30%;&#13;
+    height: 180px;&#13;
+}&#13;
+&#13;
+.jumbotron {&#13;
+    background-color: #00A63F;&#13;
+    color: #fff;&#13;
+    padding: 0 10% 0 10%;&#13;
+}&#13;
+&#13;
+.jumbotron a, .jumbotron a:hover {&#13;
+    color: white;&#13;
+    text-decoration: none;&#13;
+}&#13;
+&#13;
+.navbar {&#13;
+    background-color: #2B2B2B;&#13;
+}&#13;
+&#13;
+.jumbotron img {&#13;
+    max-width: 100px;&#13;
+}&#13;
+&#13;
+.breadCrumb {&#13;
+    color: #2B2B2B;&#13;
+}&#13;
+&#13;
+.ui-notification {&#13;
+    width: 400px;&#13;
+}&#13;
+&#13;
+.ui-notification.clickable:hover {&#13;
+    opacity: 1.0;&#13;
+}&#13;
+&#13;
+.ui-notification a:hover {&#13;
+    color: #2B2B2B;&#13;
+}&#13;
+&#13;
+.ui-notification img {&#13;
+    max-width: 100px;&#13;
+}&#13;
+&#13;
+hr {&#13;
+    border: none;&#13;
+    height: 2px;&#13;
+    background-color: #F3F3F3;&#13;
+}&#13;
+&#13;
+a {&#13;
+    text-decoration: none;&#13;
+}&#13;
+&#13;
+a:hover {&#13;
+    color: #02C54C;&#13;
+    text-decoration: none;&#13;
+}&#13;
+&#13;
+h2 {&#13;
+    color: inherit !important;&#13;
+}&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data>{"options" :&#13;
+   {&#13;
+      "hide_xs" : false&#13;
+   }&#13;
+}</demo_data>
+        <description/>
+        <docs/>
+        <field_list>color</field_list>
+        <has_preview>true</has_preview>
+        <id>gdep_categories</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Categories</name>
+        <option_schema>[{"name":"hide_xs","default_value":false,"label":"Hide at XS","type":"boolean"},{"name":"omit_badges","label":"Omit badges","type":"boolean"},{"name":"check_can_view","label":"Check canView per item (may impact performance for large catalogs)","type":"boolean"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[// populate the 'data' object
+data.categories = [];
+
+var sc = new GlideRecord('sc_category');
+sc.addQuery('sys_class_name', 'sc_category');
+sc.addActiveQuery();
+sc.orderBy('order');
+sc.orderBy('title');
+data.sc_catalog = $sp.getValue('sc_catalog');
+if (data.sc_catalog)
+{
+	sc.addQuery('sc_catalog', data.sc_catalog);
+}
+sc.addQuery('parent',$sp.getParameter('sys_id'));
+
+
+sc.query();
+
+if (sc.getRowCount() == 0)
+{
+	//getItems();
+}
+while (sc.next()) {
+// 	if (!$sp.canReadRecord("sc_category", sc.getUniqueValue()))
+// 		continue;
+
+// 	if (!options.check_can_view) {
+// 				//crv 6/14/16
+		var cat = {};
+		cat.title = sc.title.getDisplayValue();
+		cat.description = sc.description.getDisplayValue();
+		//cat.sys_id = sc.getUniqueValue();
+		cat.sys_id=sc.sys_id.toString();
+		cat.count = item_count;
+		cat.parent = sc.parent.getDisplayValue();
+		cat.image=sc.homepage_image.getDisplayValue();
+		data.categories.push(cat);
+	
+		//crv 6/14/16
+		
+		
+		// use GlideAggregate by way of GlideRecordCounter, doesn't check canView on each item
+		var count = new GlideRecordCounter('sc_cat_item_category');
+		//prepQuery(count);
+		var item_count = count.getCount();
+// 		if (item_count > 0) {
+// 		/*	var cat = {};
+// 			cat.title = sc.title.getDisplayValue();
+// 			cat.sys_id = sc.getUniqueValue();
+// 			cat.count = item_count;
+// 			cat.parent = sc.parent.getDisplayValue();
+// 			data.categories.push(cat);
+// 			*/
+// 		}
+	}
+	
+	if (options.check_can_view) {
+		// use GlideRecord, checking canView on each item
+		var itemCat = new GlideRecord('sc_cat_item_category');
+		prepQuery(itemCat);
+		itemCat.query();
+		var validatedCount = 0;
+		var checked = 0;
+		while (itemCat.next()) {
+			checked++;
+			if ($sp.canReadRecord("sc_cat_item", itemCat.sc_cat_item))
+				validatedCount++;
+
+			// if user can't see the first 50 items in this category, give up
+			if (validatedCount == 0 && checked == 50)
+				break;
+			
+			// if omitting badges, and if we found one, work is done
+			if (validatedCount > 0 && options.omit_badges)
+				break;
+		}
+		
+		if (validatedCount > 0) {
+			var cat = {};
+			cat.title = sc.title.getDisplayValue();
+			cat.sys_id = sc.getUniqueValue();
+			cat.count = validatedCount;
+			cat.parent = sc.parent.getDisplayValue();
+			data.categories.push(cat);
+		}
+			
+	}
+// }
+
+function getItems()
+{
+	//if (options.check_can_view) {
+		// use GlideRecord, checking canView on each item
+		var itemCat = new GlideRecord('sc_cat_item_category');
+		prepQuery(itemCat);
+	
+	try{
+		itemCat.query();
+
+		}
+	catch (ex){
+		gs.log("GD Categories: "+ex.message);
+		}
+		var validatedCount = 0;
+		var checked = 0;
+		while (itemCat.next()) {
+			checked++;
+			if ($sp.canReadRecord("sc_cat_item", itemCat.sc_cat_item))
+				validatedCount++;
+
+			// if user can't see the first 50 items in this category, give up
+			if (validatedCount == 0 && checked == 50)
+				break;
+			
+			// if omitting badges, and if we found one, work is done
+			//if (validatedCount > 0 && options.omit_badges)
+			//	break;
+		//}
+		
+		if (validatedCount > 0) {
+			var cat = {};
+			cat.title = sc.title.getDisplayValue();
+			cat.sys_id = sc.getUniqueValue();
+			cat.count = validatedCount;
+			cat.parent = sc.parent.getDisplayValue();
+			data.categories.push(cat);
+		}
+			
+	}
+	
+}
+function prepQuery(gr) {
+
+		gr.addQuery('sc_category', 	$sp.getParameter('sys_id'));
+		//gr.addQuery('sc_category', sc.getUniqueValue());
+		gr.addQuery('sc_cat_item.active', true);
+		gr.addQuery('sc_cat_item.visible_standalone', true);
+		gr.addQuery('sc_cat_item.sys_class_name', 'NOT IN', 'sc_cat_item_wizard,sc_cat_item_content');
+}]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-03-17 22:20:25</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>047d6762db6bc818eeb32ad94b9619fb</sys_id>
+        <sys_mod_count>38</sys_mod_count>
+        <sys_name>GDEP Categories</sys_name>
+        <sys_package display_value="Global" source="global">global</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_047d6762db6bc818eeb32ad94b9619fb</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-04-28 04:01:41</sys_updated_on>
+        <template><![CDATA[<div ng-if="data.categories.length>0" class="container">
+  <div class="row">
+    <div ng-repeat="cat in ::data.categories" >
+      <a class="cta-wrapper col-xs-12 col-md-6 col-lg-3" href="?id=gd_sc_category&sys_id={{::cat.sys_id}}">
+        <div style="display: table;" style="max-width:100%; max-height:100%;">
+          <div class="row-categories">
+          <div class="column-left">
+          	<div class="mobile">
+            	<img ng-src="{{::cat.image}}">
+          	</div>
+          	<div class="desktop">
+            	<img ng-src="{{::cat.image}}">
+          	</div> 
+          </div>
+          <div class="column-right">
+          	<div class="itemTitle">
+            	{{::cat.title}} 
+            	<div class="itemDescription hidden-sm hidden-md hidden-lg">{{::cat.description}}</div>
+          		</div>
+          	<div class="itemDescription hidden-xs">
+            	{{::cat.description}}
+          		</div>
+            </div>
+          </div>
+          <!--img class="cta-chevron hidden-sm hidden-md hidden-lg" src="chevron_right.png"/-->
+        </div>
+      </a>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

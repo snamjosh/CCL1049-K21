@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope) {
+	/* widget controller */
+	var c = this;
+	
+	//hide tab based on country
+	$scope.country_data = [];
+	$scope.setCountry = function(country){
+		$scope.isCurrentYear = false;
+		$scope.isNextYear = false;
+		$scope.country_data = []; 
+		$scope.selected_country =  country ;
+		for(var i = 0; i < c.holidayCalendarStore.holidays.length; i++){
+			if(c.holidayCalendarStore.holidays[i].values.u_country && c.holidayCalendarStore.holidays[i].values.u_country == $scope.selected_country.value)
+				$scope.country_data.push(c.holidayCalendarStore.holidays[i]);		
+		}
+
+		for(var j = 0; j < $scope.country_data.length; j++){
+			var year=$scope.country_data[j].values.u_year;
+			if(year== $scope.years[0])
+				$scope.isCurrentYear = true;
+			else if(year == $scope.years[1])
+				$scope.isNextYear = true;
+			else if(year == $scope.years[0] && year == $scope.years[1]){
+				$scope.isCurrentYear = true;
+				$scope.isNextYear = true;
+			}
+		}
+	};
+
+	//hide tabs beased on year and city 
+	$scope.setProvince = function(provinces){
+		if(!$scope.selected_province)
+			return;
+		$scope.isCurrentYear = false; // For year 2018 tab
+		$scope.isNextYear = false; // For year 2019 tab 
+		$scope.selected_province  = provinces;
+		for(var i = 0; i < $scope.country_data.length; i++){
+			var year=$scope.country_data[i].values.u_year;
+			if(year == $scope.years[0] && $scope.country_data[i].values.u_locations.indexOf($scope.selected_province.value)==-1 && $scope.isCurrentYear == false)
+				$scope.isCurrentYear = true; 
+			else if(year == $scope.years[1] && $scope.country_data[i].values.u_locations.indexOf($scope.selected_province.value)==-1 && $scope.isNextYear == false )
+				$scope.isNextYear = true;
+		}
+	};
+
+	$scope.selected_country = {};
+	$scope.selected_province = {};
+
+	$scope.years =[moment().format('YYYY'), moment().add(1, 'year').format('YYYY')];//[moment().format('YYYY'), moment().add(1, 'year').format('YYYY')];//[2018,2019];//c.data.holiday_year;;
+	$scope.selected_year = moment().format('YYYY');
+
+	//START OF CACHE CODE
+
+	c.timeout = 86400000;
+
+	c.storeName = 'holidayCalendarStore_'+c.data.userID;
+	c.holidayCalendarStore = {};
+
+	c.updateStore = function(storeKey,newData){
+		localStorage.setItem(storeKey,JSON.stringify(newData));
+		localStorage.setItem(c.storeName+'LastUpdated', '' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear());
+	};
+
+	c.currentStorage = JSON.parse(localStorage.getItem(c.storeName));
+
+	if(c.currentStorage){
+		var today = '' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear();
+		var lastUpdated = localStorage.getItem(c.storeName+'LastUpdated');
+		if(lastUpdated)	c.holidayCalendarStore = lastUpdated != today ? {} : c.currentStorage;
+	}
+
+	//if(Object.keys(c.holidayCalendarStore).length === 0){
+
+		c.server.get({'action': 'getHolidayCalendar'})
+			.then(function(r){
+
+			c.holidayCalendarStore = r.data;
+			c.updateStore(c.storeName, c.holidayCalendarStore);
+
+			init(r.data.selected_province);
+		});
+	//}else{
+	//	init();
+	//}
+	//END OF CACHE CODE
+
+	function init(sProvince){
+		//default  selected  country
+		$scope.isCurrentYear = true;
+		$scope.isNextYear = true;
+		var selected_country = c.holidayCalendarStore.countries.find(function(country){
+			return country.value == c.holidayCalendarStore.selected_country;
+		});
+
+
+		if(selected_country){
+			$scope.selected_country = selected_country;
+			$scope.setCountry($scope.selected_country);
+
+			if($scope.selected_country.provinces && $scope.selected_country.provinces.length){
+				$scope.selected_province = $scope.selected_country.provinces[0];
+			}
+		}
+		var selected_province;
+		if(sProvince && (sProvince != '' || $scope.selected_year)){			
+			selected_province = $scope.selected_country.provinces.find(function(province){
+				return province.value == sProvince;
+			});
+			if(selected_province){
+				$scope.selected_province =selected_province;
+			}
+		}
+		else{
+			$scope.selected_province = {};
+		}
+
+		//lets setup the holidays for display
+		angular.forEach(c.holidayCalendarStore.holidays, function(obj, index, list){
+			//var m = moment(obj.u_holiday_date);
+			var m = moment(obj.values.u_holiday_date);
+			obj.day = m.format('dddd');
+			obj.date = m.format('D MMM, YYYY');
+			obj.year = m.format('YYYY');	
+			obj.u_holiday_date=obj.values.u_holiday_date;
+			obj.u_country=obj.values.u_country;
+			obj.u_holiday_name=obj.values.u_holiday_name;
+			obj.u_year=obj.values.u_year;
+		});
+	}
+
+
+	$scope.setYear = function(year){
+		$scope.selected_year = year;
+
+	};
+
+
+
+
+	$scope.filterHolidays = function(holiday){
+
+		if($scope.selected_country && $scope.selected_country.value && holiday.u_country != $scope.selected_country.value){
+			return false;
+		}
+		else if($scope.selected_province && $scope.selected_province.value && holiday.values.u_locations.indexOf($scope.selected_province.value)==-1){
+			return false;
+		}
+		else if($scope.selected_province && !$scope.selected_province.value && holiday.values.u_locations){
+			return false;
+		}
+		else if(holiday.year != $scope.selected_year){
+			return false;
+		}
+		return true;
+	};
+
+
+
+	$scope.$watch('selected_country', function(new_value, old_value){
+		if(new_value && old_value && new_value != old_value){
+			if($scope.selected_country.provinces && $scope.selected_country.provinces.length){
+				if(!isEmpty($scope.selected_province)){
+					var checkValue=$scope.selected_country.provinces.find(function(province){
+						return province.value == $scope.selected_province.value;
+					});
+					$scope.selected_province =checkValue ? $scope.selected_province: $scope.selected_country.provinces[0];
+				}else{
+					$scope.selected_province= $scope.selected_country.provinces[0];
+				}
+			}			
+		}
+	});
+
+	function isEmpty(obj) {
+		for(var key in obj) {
+			if(obj.hasOwnProperty(key))
+				return false;
+		}
+		return true;
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.panel{&#13;
+  font-family: Source Sans Pro;&#13;
+  font-size:14px;&#13;
+}&#13;
+&#13;
+.form-inline{&#13;
+  .form-control{&#13;
+    margin-right: 15px;&#13;
+    display: inline-block;&#13;
+    width: auto;&#13;
+    vertical-align: middle;&#13;
+  }&#13;
+}&#13;
+.dayCalendar{&#13;
+	padding-left:0;&#13;
+ }&#13;
+.dateCalendar{&#13;
+	padding-left:0;&#13;
+}&#13;
+@media only screen and (max-width: 640px) {&#13;
+ .nameCalendar{&#13;
+     	padding:0;&#13;
+      	width:43%;&#13;
+	}&#13;
+	.dayCalendar{&#13;
+      padding:0;&#13;
+      width:33%;&#13;
+&#13;
+	}&#13;
+  .dateCalendar{&#13;
+    padding:0;&#13;
+    width:24%;&#13;
+  }&#13;
+}&#13;
+&#13;
+.semi-bold {&#13;
+    font-weight: 600;&#13;
+  	color: #666;&#13;
+    padding-top: 4px;&#13;
+    padding-bottom: 4px;&#13;
+}&#13;
+&#13;
+#calendarTitle {&#13;
+    margin: 0;&#13;
+    color: #1BDBDB !important;&#13;
+    font-size: 16px;&#13;
+    /*font-weight: 500;*/&#13;
+}&#13;
+&#13;
+#holidayCalendar {&#13;
+    font-family: "SourceSansPro", Helvetica, Arial, sans-serif;&#13;
+    font-size: 14px;&#13;
+}&#13;
+&#13;
+.underline-tabs .nav-tabs &gt; li.active &gt; a, .underline-tabs .nav-tabs &gt; li.active &gt; a:focus, .underline-tabs .nav-tabs &gt; li.active &gt; a:hover {&#13;
+    color: #293e40;&#13;
+    background-color: transparent;&#13;
+    border: 0;&#13;
+    border-bottom: 2px solid #ff924e;&#13;
+    cursor: default;&#13;
+}&#13;
+.underline-tabs .nav-tabs &gt; li &gt; a {&#13;
+    padding-left: 0;&#13;
+    padding-right: 0;&#13;
+    margin-right: 20px;&#13;
+    line-height: 1.42857;&#13;
+    border: 0;&#13;
+    border-bottom: 2px solid transparent;&#13;
+    border-radius: 0;&#13;
+    color: #293e40;&#13;
+    padding-bottom: 3px;&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description>Holiday Calendar - Display list of holidays based on selected country and region(if available)</description>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>gdep-holiday-calendar</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Holiday Mgmt Calendar</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+   //gs.info("Portal url is " + $sp.getParameter("id"));
+    //gs.info("Portal CAt is " + $sp.getParameter("kb_category"));
+    if ($sp.getParameter("id") == 'gdep_kb_home' && $sp.getParameter("kb_category") == 'c74549f51b271850ddbe21be6e4bcbe9') {
+		
+		data.isHR = true;
+        data.userID = gs.getUserID();
+
+        data.async = true;
+        data.holidays = [];
+
+        function isEmpty(obj) {
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key))
+                    return false;
+            }
+            return true;
+        }
+
+        data.countries = [];
+
+        data.holiday_year = [];
+        data.yearWithcity = [];
+
+        if (input && input.action == 'getHolidayCalendar') {
+            //get all the holidays for this and next year
+            var grHoliday = new GlideRecord('sys_holiday');
+            //parent_id=2858f3751ba5cc1020f943f6cc4bcb50^
+            grHoliday.addEncodedQuery('dateONThis year@javascript:gs.beginningOfThisYear()@javascript:gs.endOfThisYear()^ORdateONNext year@javascript:gs.beginningOfNextYear()@javascript:gs.endOfNextYear()');
+            grHoliday.orderBy('x_snc_holiday_mgmt_country');
+            grHoliday.query();
+
+            while (grHoliday.next()) {
+                var values = {};
+                var display = {};
+                values.u_holiday_name = grHoliday.name + '';
+                values.u_holiday_date = grHoliday.date + '';
+                values.u_country = grHoliday.x_snc_holiday_mgmt_country + '';
+                values.u_locations = grHoliday.x_snc_holiday_mgmt_locations + '';
+                values.u_year = grHoliday.x_snc_holiday_mgmt_year + '';
+
+                display.u_country = grHoliday.x_snc_holiday_mgmt_country + '';
+
+                data.holidays.push({
+                    'values': values,
+                    'display': display
+                });
+            }
+
+            //create a country and state object out of the data
+            var countries = [];
+            var addedLocation = [];
+            var country = null;
+            //loop through the holidays to isolate the countries and provinces
+            data.holidays.forEach(function(holiday, index) {
+
+                var holidayVal = holiday.values;
+                var holidayDis = holiday.display;
+                var perviousRecVal = index != 0 ? data.holidays[index - 1].values : '';
+
+                if (holidayVal && holidayVal.u_country) {
+
+                    if (index == 0) {
+                        country = {};
+                        country.label = holidayDis.u_country + '';
+                        country.value = holidayVal.u_country + '';
+                        country.provinces = [];
+
+                    } else if (holidayVal.u_country != perviousRecVal.u_country) {
+                        if (country) {
+                            countries.push(JSON.parse(JSON.stringify(country)));
+                        }
+                        country = {};
+                        country.label = holidayDis.u_country + '';
+                        country.value = holidayVal.u_country + '';
+                        country.provinces = [];
+                        addedLocation = [];
+                    }
+
+                    if (holidayVal.u_locations != '') {
+
+                        var location = new GlideRecord('cmn_location');
+                        location.addQuery('sys_id', "IN", holidayVal.u_locations);
+                        location.query();
+                        while (location.next()) {
+                            if (country.value.toString().indexOf(location.name) == -1 && addedLocation.join().indexOf(location.sys_id + '') == -1) {
+                                addedLocation.push(location.sys_id + '');
+                                var locationSysId = location.getUniqueValue();
+                                country.provinces.push({
+                                    value: locationSysId + '',
+                                    label: location.name + ''
+                                });
+
+                            }
+
+                        }
+                    }
+                }
+            });
+
+            countries.push(JSON.parse(JSON.stringify(country)));
+
+            data.countries = countries;
+
+            //get the current country of the logged in user, default to US if no in the data
+            var current_user = new GlideRecord('sys_user');
+            current_user.get(gs.getUserID());
+            var current_user_country = current_user.location.country + '';
+            var current_user_province = current_user.getValue('location');
+
+            //find if the user's country is in the holiday list - if not then use US
+            var selectCoun = '';
+            gs.info("Current user country " + current_user_country);
+            gs.info("Compare user country " + data.countries[index].value);
+            for (var index in data.countries) {
+                if (data.countries[index].value == current_user_country) {
+                    selectCoun = data.countries[index];
+                    break;
+                }
+
+            }
+
+            if (selectCoun) {
+                data.selected_country = current_user_country;
+                if (selectCoun.provinces.some(function(item) {
+                        return item.value == current_user_province;
+                    })) {
+                    data.selected_province = current_user_province;
+                } else {
+                    data.selected_province = '';
+                }
+
+            } else {
+                data.selected_country = 'USA';
+            }
+
+        }
+    }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-02-08 18:31:10</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>807248d8db1e2850bb5a4a281396199e</sys_id>
+        <sys_mod_count>22</sys_mod_count>
+        <sys_name>GDEP Holiday Mgmt Calendar</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_807248d8db1e2850bb5a4a281396199e</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-12-06 19:49:31</sys_updated_on>
+        <template><![CDATA[<div ng-if="data.isHR == true" id="holidayCalendar" class="panel panel-default" style='min-width:380px;padding:10;border-radius: 2%;'>
+  <div ng-if="data.isHR == true" class="panel-heading">
+    <h4 id='calendarTitle' class="panel-title">Company Holiday Calendar</h4>
+  </div>
+  <div class="panel-body" ng-if="!c.holidayCalendarStore.countries">
+    <loading></loading>
+  </div>
+  <div class="panel-body" ng-show="c.holidayCalendarStore.countries && c.holidayCalendarStore.holidays">
+    <div class="form-inline m-b">
+      <select ng-model="selected_country" ng-change="setCountry(selected_country)" ng-options="t.label for t in c.holidayCalendarStore.countries | orderBy: 'label'" class="form-control"></select>
+      <select ng-model="selected_province"  ng-change="setProvince(selected_province)" ng-options="t.label for t in selected_country.provinces" class="form-control" ng-show="selected_country.provinces.length"></select>
+    </div>
+    <!-- Years Tab section --> 
+    <uib-tabset class="underline-tabs">
+      <uib-tab heading="{{years[0]}}" select="setYear(years[0])" ng-if="isCurrentYear"></uib-tab> <!-- For Current year --> 
+      <uib-tab heading="{{years[1]}}" select="setYear(years[1])" ng-if="isNextYear"></uib-tab> <!-- For Next year -->
+    </uib-tabset>
+    <div class="row">
+     <div class="col-xs-6 semi-bold nameCalendar">${HOLIDAY}</div>
+      <div class="col-xs-3 semi-bold dayCalendar">${DAY}</div>
+      <div class="col-xs-3 semi-bold dateCalendar">${DATE}</div>
+    </div>
+    <div class="row" ng-repeat="holiday in c.holidayCalendarStore.holidays | filter : filterHolidays | orderBy : 'u_holiday_date'">
+      <div class="col-xs-6 nameCalendar">{{holiday.u_holiday_name}}</div>
+      <div class="col-xs-3 dayCalendar" style ="overflow-wrap:normal">{{holiday.day}}</div>
+      <div class="col-xs-3 dateCalendar">{{holiday.date}}</div>
+    </div>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

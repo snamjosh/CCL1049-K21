@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope) {
+  /* widget controller */
+  var annC = this;
+	
+	annC.displayMainCarousel = true;
+	if(annC.options.carousel_type === 'lazy-loading' || annC.options.carousel_type === 'slider-nav') {
+		annC.displayMainCarousel = false;
+	}
+	
+	annC.getHeader = function() {
+		if(annC.options.header) {
+			return annC.options.header;
+		} else {
+			return;
+		}
+	};
+	
+	annC.getClass = function() {
+		if(annC.options.carousel_type === 'adaptive-height') {
+			return;
+		}
+		else if(parseInt(annC.options.slides_to_show) < 2) {
+			return 'single-slide';
+		}	
+		else {
+			return 'slide';
+		}
+	};
+	
+}
+]]></client_script>
+        <controller_as>annC</controller_as>
+        <css>.slick-slide img {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.slick-center {
+  transform: scale(1.08);
+}
+
+.slick-slide h3{
+  background: white;
+  color: #3498db;
+  font-size: 30px;
+  line-height: 100px;
+  padding: 2%;
+  position: relative;
+  text-align: center;
+  z-index: 0 !important; 
+}
+
+button.slick-prev.slick-arrow:before
+{
+  color: black !important;
+  left: 40px !important;
+  top: -50px !important;
+  z-index: 3 !important;
+  position: absolute !important;
+  background-color:/*rgba(229,229,229,100)*/ #eff !important;
+  font-size: 48px;
+}
+
+button.click-here {
+  background-color:#000000;
+  color: #FFFFFF;
+  font-family:$regularFont;
+  font-size: $base-font-size*.5;
+  border-radius: 8px;
+  line-height: 0px;
+  z-index: 4 !important;
+  position: relative !important;
+  height: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: auto;
+  font-weight: 100;
+}
+
+button.slick-next.slick-arrow:before
+{
+  color: black !important;
+  left: -70px !important;
+  top: -50px !important;
+  z-index: 3 !important;
+  position: relative !important;
+  background-color:/*rgba(229,229,229,100)*/ #eff !important;
+  font-size: 48px;
+}
+
+.standard .slick-track{
+  position: absolute;
+  z-index: 1;
+}
+
+.slide {
+	height: 175px;
+}
+
+.single-slide {
+	height: 250px;
+    width:500px;
+}
+
+.slick-slide {
+  margin: 10px;
+  padding: 2px;
+  background-color:/*rgba(229,229,229,100);*/ #eff;
+}
+
+.slick-prev .slick-next .slick-active .slick-current{
+  position: relative;
+  z-index: 100 !important;
+  
+}
+
+.slick-dots li 
+button:before{
+  font-size: 20px !important;
+  color: rgb(255, 255, 255) !important;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black !important;
+}
+
+ul.slick-dots{
+   z-index: 3;
+   color: white !important;
+   font-size: 200%;
+   height: 40px;
+   padding-bottom: 120px !important;
+   position: absolute;
+   z-index: 0 !important;
+}
+
+
+h1 {
+  font-family:$boldFont;
+  font-size: $base-font-size*1.4;
+  font-weight: bold;
+  text-align: center;
+  margin: 30px 0px;
+  padding-top: 25px;
+}
+
+div{
+ font-family:$regularFont;
+ font-size: 30px;
+ font-weight: 100;
+/* width: 500px; */
+ text-align: center;
+ background-color:/*rgba(229,229,229,100);*/ #eff;
+ color:black !important;
+ position: relative !important;
+} 
+
+button{
+  position: absolute;
+  z-index: 100 !important;
+}
+
+
+
+.button {
+  color: white;
+  display: block;
+  font-size: 16px;
+  margin: 20px auto;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  width: 48%;
+}
+
+.border {
+	border: 5px solid #FFF;
+}
+
+/* Center Mode Styles */
+.center {
+  transition: all 300ms ease;
+}
+
+
+/* Add and Remove Styles */
+.buttons .button {
+  background: #FFF;
+  color: #3498db;
+  float: left;
+  margin: 5px 5px 30px 14px;
+}
+
+/* Filtering Styles */
+.filter-div .button {
+  background: #fff;
+  color: #3498db;
+  margin-bottom: 40px;
+}
+
+/* Remove Filter and Add/Remove buttons for mobile */
+@media (max-width: 1024px) {
+  .filter-div, .buttons .click-here {
+  	display: none;
+  }
+}
+</css>
+        <data_table>sp_instance_carousel</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>gdep-announcements</id>
+        <internal>false</internal>
+        <link><![CDATA[function(scope) {
+	
+	setTimeout(function() {
+		
+		var slidesToShow = parseInt(scope.options.slides_to_show);
+		var isAutoplay = (scope.options.autoplay === 'true');
+		var displayDots = (scope.options.display_dots === 'true');
+
+		// Standard Carousel
+		$('.standard').slick({
+			infinite: true,
+			dots: displayDots,
+			autoplay: isAutoplay,
+			autoplaySpeed: 5000,
+			slidesToShow: slidesToShow,
+			slidesToScroll: slidesToShow,
+			responsive: [
+				{
+					breakpoint: 1024,
+					settings: {
+						slidesToShow: 3,
+						slidesToScroll: 3,
+						arrows: false
+					}
+				},
+				{
+					breakpoint: 600,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 2,
+						arrows: false
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						arrows: false
+					}
+				}
+				/* 
+					You can unslick at a given breakpoint now by adding:
+					settings: "unslick" 
+					instead of a settings object
+				*/
+			]
+		});
+		
+		
+		// Variable Width
+		$('.variable-width').slick({
+			dots: displayDots,
+			infinite: true,
+			speed: 300,
+			autoplay: isAutoplay,
+			autoplaySpeed: 5000,
+			slidesToShow: 1,
+			centerMode: true,
+			variableWidth: true
+		});
+
+
+		// Adaptive Height
+		$('.adaptive-height').slick({
+			dots: displayDots,
+			infinite: true,
+			speed: 300,
+			autoplay: isAutoplay,
+			autoplaySpeed: 5000,
+			slidesToShow: slidesToShow,
+			adaptiveHeight: true,
+			responsive: [
+				{
+					breakpoint: 768,
+					settings: {
+						slidesToShow: 3,
+						slidesToScroll: 3,
+						arrows: false
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						arrows: false
+					}
+				}
+				/* 
+					You can unslick at a given breakpoint now by adding:
+					settings: "unslick" 
+					instead of a settings object
+				*/
+			]
+		});
+
+
+		// Center Mode
+		$('.center-mode').slick({
+			centerMode: true,
+			centerPadding: '60px',
+			autoplay: isAutoplay,
+			autoplaySpeed: 5000,
+			slidesToShow: slidesToShow,
+			dots: displayDots,
+			responsive: [
+				{
+					breakpoint: 768,
+					settings: {
+						arrows: false,
+						centerMode: true,
+						centerPadding: '40px',
+						slidesToShow: 3
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						arrows: false,
+						centerMode: true,
+						centerPadding: '40px',
+						slidesToShow: 1
+					}
+				}
+			]
+		});
+
+
+		// Lazy Loading
+		/*
+			To use lazy loading, set a data-lazy attribute
+			on your img tags and leave off the src
+			ex.) <img data-lazy="img/lazyimage1.png"/>
+		*/
+		$('.lazy-loading').slick({
+			lazyLoad: 'ondemand',
+			autoplay: isAutoplay,
+			autoplaySpeed: 5000,
+			slidesToShow: slidesToShow,
+			slidesToScroll: 1,
+			dots: displayDots,
+			responsive: [
+				{
+					breakpoint: 1024,
+					settings: {
+						slidesToShow: 3,
+						infinite: true,
+						arrows: false
+					}
+				},
+				{
+					breakpoint: 600,
+					settings: {
+						slidesToShow: 2,
+						arrows: false
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						slidesToShow: 1,
+						arrows: false
+					}
+				}
+				/* 
+					You can unslick at a given breakpoint now by adding:
+					settings: "unslick" 
+					instead of a settings object
+				*/
+			]
+		});
+
+		// Add and Remove**  Desktop Only
+		$('.add-remove').slick({
+			autoplay: isAutoplay,
+			autoplaySpeed: 5000,
+			slidesToShow: slidesToShow,
+			slidesToScroll: 3,
+			dots: displayDots,
+			responsive: [
+				{
+					breakpoint: 1024,
+					settings: {
+						slidesToShow: 3,
+						arrows: false
+					}
+				},
+				{
+					breakpoint: 600,
+					settings: {
+						slidesToShow: 2,
+						arrows: false
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						arrows: false
+					}
+				}
+			]
+		});
+		
+		var slideIndex = scope.data.slides.length; // Initial carousel size
+		
+		$('.js-add-slide').on('click', function() {
+			slideIndex++;
+			$('.add-remove').slick('slickAdd','<div><h3>' + slideIndex + '</h3></div>');	
+		});
+
+		$('.js-remove-slide').on('click', function() {
+			$('.add-remove').slick('slickRemove',slideIndex - 1);
+			if (slideIndex !== 0){
+				slideIndex--;
+			}
+		});
+
+
+		// Filtering**  Desktop Only
+		$('.filtering').slick({
+			dots: displayDots,
+			autoplay: isAutoplay,
+			autoplaySpeed: 5000,
+			slidesToShow: slidesToShow,
+			slidesToScroll: slidesToShow,
+			responsive: [
+				{
+					breakpoint: 1024,
+					settings: {
+						slidesToShow: 3,
+						slidesToScroll: 3,
+						infinite: true,
+						arrows: false
+					}
+				},
+				{
+					breakpoint: 600,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 2,
+						arrows: false
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						arrows: false
+					}
+				}
+			]
+		});
+
+		var filtered = false;
+		
+		/* This filter displays odd slides */
+		$('.js-filter').on('click', function() {
+			if (filtered === false) {
+				$('.filtering').slick('slickFilter',':even');
+				$(this).text('Unfilter Slides');
+				filtered = true;
+			} else {
+				$('.filtering').slick('slickUnfilter');
+				$(this).text('Filter Slides');
+				filtered = false;
+			}
+		});
+
+
+		// Slider Syncing
+		$('.slider-for').slick({
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			arrows: false,
+			fade: true,
+			autoplay: isAutoplay,
+			autoplaySpeed: 5000,
+			asNavFor: '.slider-nav'
+		});
+		
+		$('.slider-nav').slick({
+			slidesToShow: slidesToShow,
+			slidesToScroll: 1,
+			asNavFor: '.slider-for',
+			dots: displayDots,
+			centerMode: true,
+			focusOnSelect: true,
+			responsive: [
+				{
+					breakpoint: 1024,
+					settings: {
+						slidesToShow: 3,
+						slidesToScroll: 3,
+						infinite: true,
+						arrows: false
+					}
+				},
+				{
+					breakpoint: 600,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 2,
+						arrows: false
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						arrows: false
+					}
+				}
+				/* 
+					You can unslick at a given breakpoint now by adding:
+					settings: "unslick" 
+					instead of a settings object
+				*/
+			]
+		});
+
+	}, 1);
+}
+]]></link>
+        <name>GDEP Announcements Carousel</name>
+        <option_schema>[{"hint":"Select a header for your carousel","name":"header","section":"other","default_value":"","label":"Header","type":"string"},{"hint":"Select a font-color for your header ex) white or #FFF","name":"header_color","section":"other","default_value":"black","label":"Header Color","type":"string"},{"hint":"Select a pre-built carousel style or create your own!","name":"carousel_type","section":"other","default_value":"standard","label":"Carousel Type","type":"choice","choices":[{"label":"standard","value":"standard"},{"label":"variable-width","value":"variable-width"},{"label":"adaptive-height","value":"adaptive-height"},{"label":"center-mode","value":"center-mode"},{"label":"lazy-loading","value":"lazy-loading"},{"label":"add-remove","value":"add-remove"},{"label":"filtering","value":"filtering"},{"label":"slider-nav","value":"slider-nav"}]},{"hint":"Select how many slides you want to show at a time","name":"slides_to_show","section":"other","default_value":"1","label":"Slides to Show","type":"choice","choices":[{"label":"1","value":"1"},{"label":"2","value":"2"},{"label":"3","value":"3"},{"label":"4","value":"4"},{"label":"5","value":"5"},{"label":"6","value":"6"}]},{"hint":"Select this checkbox if you want your carousel to continuously scroll","name":"autoplay","section":"other","default_value":"","label":"Autoplay","type":"boolean"},{"hint":"Display navigation indicators on the bottom of the carousel","name":"display_dots","section":"other","label":"Display Dots","type":"boolean"},{"hint":"Display the border around each slide","name":"display_border","section":"other","default_value":"","label":"Display Border","type":"boolean"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	data.slides = $sp.getRelatedList('sp_carousel_slide', 'carousel');
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-03-20 22:44:26</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>0dbf8b27db67081ce670d48a48961924</sys_id>
+        <sys_mod_count>234</sys_mod_count>
+        <sys_name>GDEP Announcements Carousel</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_0dbf8b27db67081ce670d48a48961924</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-10-09 20:46:24</sys_updated_on>
+        <template><![CDATA[<!-- Main Carousel -->
+<div ng-show="annC.displayMainCarousel">
+  <h1 style="color:{{::options.header_color}}">{{annC.getHeader()}}</h1>
+	<div class="{{::options.carousel_type}}">
+    <div class="{{annC.getClass()}}" 
+         ng-repeat="slide in ::data.slides">
+      <div>{{slide.name}}</div>
+      <a href="{{slide.url}}" target="_blank">
+      	<button class="button click-here">Click Here</button>
+      </a>
+    </div>
+	</div>
+</div>
+
+<!-- Add & Remove Buttons -->
+<div class="buttons" ng-show="::options.carousel_type==='add-remove'">
+  <a href="javascript:void(0)" class="button js-add-slide">Add Slide</a>
+  <a href="javascript:void(0)" class="button js-remove-slide">Remove Slide</a>
+</div>
+
+<!-- Filtering button -->
+<div class="filter-div" ng-show="::options.carousel_type==='filtering'">
+	<a href="javascript:void(0)" class="button js-filter">Filter Slides</a>
+</div>
+
+
+<!-- Lazy Loading -->
+<div ng-show="::options.carousel_type==='lazy-loading'">
+  <h1 style="color:{{::options.header_color}}">{{annC.getHeader()}}</h1>
+  <div class="{{::options.carousel_type}}">	
+    <div class="{{annC.getClass()}}" ng-repeat="slide in ::data.slides">
+      <img data-lazy="{{slide.background}}"
+           ng-class="{'border': annC.options.display_border==='true'}"/>
+    </div>
+  </div>
+</div>
+
+
+<!-- Slider Syncing -->
+<div ng-show="::options.carousel_type==='slider-nav'">
+  <h1 style="color:{{::options.header_color}}">{{annC.getHeader()}}</h1>
+	<div class="slider-for"> 
+  	<div class="slide single-slide" ng-repeat="slide in ::data.slides">
+      <img ng-src="{{slide.background}}"
+           ng-class="{'border': annC.options.display_border==='true'}"/>
+    </div>
+  </div>
+
+  <div class="{{::options.carousel_type}}">
+  	<div class="slide" ng-repeat="slide in ::data.slides">
+      <img ng-src="{{slide.background}}"
+           ng-class="{'border': c.options.display_border==='true'}"/>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

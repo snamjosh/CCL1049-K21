@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>global.gdep_hr_PortalUtil</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>This script include extends the out of the box hr_PortalUtil script. This was originally created to try and fix scoping issues.</description>
+        <name>gdep_hr_PortalUtil</name>
+        <script><![CDATA[var gdep_hr_PortalUtil = Class.create();
+gdep_hr_PortalUtil.prototype = Object.extendsObject(sn_hr_sp.gdep_hr_PortalUtil, {
+  
+    type: 'gdep_hr_PortalUtil'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-13 04:46:59</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>a130df92dba658dcbb5a4a281396195a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>gdep_hr_PortalUtil</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_script_include_a130df92dba658dcbb5a4a281396195a</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-13 04:46:59</sys_updated_on>
+    </sys_script_include>
+</record_update>

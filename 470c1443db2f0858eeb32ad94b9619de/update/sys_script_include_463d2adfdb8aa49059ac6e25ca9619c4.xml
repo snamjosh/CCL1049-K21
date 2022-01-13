@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>global.FriendsAndFamilyHelper</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>FriendsAndFamilyHelper</name>
+        <script><![CDATA[var FriendsAndFamilyHelper = Class.create();
+FriendsAndFamilyHelper.prototype = {
+	initialize: function(userId) {
+		this._userId = userId;
+	},
+
+	GetShoppers: function(){
+		var returnObj = this._callPowershell("GetByEmployeeID", "");
+
+		if(returnObj.output == "null" || returnObj.output == "undefined" ||  !returnObj.output)  {
+			returnObj.list = [];
+		}
+		else{
+			returnObj.list = returnObj.output.split(',');
+		}
+		return returnObj;
+	},
+	RemoveShopper: function(shopperId){
+		return this._callPowershell("RemoveShopper", shopperId);
+	},
+	AddShopper: function(shopperId){
+		var returnObj = this._callPowershell("AddShopper", shopperId);
+
+		if(returnObj.error){
+			if(returnObj.error != "ERROR_SHOPPER_ALREADY_ADDED" && 
+			   returnObj.error != "ERROR_NO_SUCH_SHOPPER"){
+				this._logError(returnObj.error, "AddShopper", returnObj.duration);
+			}
+		}
+		return returnObj;
+	},
+
+	_callPowershell: function(powershellMethod, parms){
+		var returnObj = {};
+		var timeout = 30; // seconds
+		var path = 'c:\\scripts\\FriendsNFamily\\employeePricing.psm1';
+		var pb = new PowershellProbe(this._getMidServer(), "127.0.0.1");
+		script = "import-module "+path+"\n"+powershellMethod+" " + this._getEnvironment() + " " + this._getMgrUserId() +  " " + parms + "\n";
+		pb.setScript(script);
+		pb.setMaxWait(timeout);
+
+		var gdtStart = new GlideDateTime(gs.nowDateTime());
+		var response = pb.execute(true);
+		var gdtEnd = new GlideDateTime(gs.nowDateTime());
+
+		returnObj.duration = GlideDateTime.subtract(gdtStart,gdtEnd);
+
+		if (response.error != "null" && typeof response.error != "undefined")
+		{
+			returnObj.error = "ERROR_UNKNOWN";
+			this._logError(powershellMethod, response.error, returnObj.duration);
+		}
+		else if(response.output.startsWith("ERROR")){
+			returnObj.error = response.output;
+		}
+		else{
+			returnObj.output = response.output.toString();	
+		}
+		this._logInfo(powershellMethod, returnObj.duration);
+
+		return  returnObj;
+	},	
+
+	_getMidServer: function(){
+		var mid = "";
+		var env = this._getEnvironment();
+		if(env == 'dev'){
+			mid = 'p3dwsnowff01-mid-dev';
+		}
+		else if(env == 'test'){
+			mid = 'p3dwsnowff01-mid-test';
+		}
+		else{
+			mid = 'P3PWSNOWFF01-mid';
+		}
+		return mid;
+	},
+
+	_getMgrUserId: function(){
+		var usr = new GlideRecord('sys_user');
+		usr.get(this._userId);
+		return usr.u_uid_number - 100000;
+	},
+
+	_getEnvironment: function(){
+		var env = "";
+		if(gs.getProperty('instance_name').contains('dev')){
+			env = 'dev';
+		}
+		else if(gs.getProperty('instance_name').contains('test')){
+			env = 'test';
+		}
+		else{
+			env = 'prod';
+		}
+		return env;
+	},
+
+	_logInfo: function(powershellCommand, duration){
+		var usr = new GlideRecord('sys_user');
+		usr.get(this._userId);
+		var userName = usr.user_name;
+
+		var logMsg = {user:userName.getDisplayValue(), 
+					  endpoint:powershellCommand, 
+					  duration:duration.getDisplayValue() }
+
+		gs.log(JSON.stringify(logMsg), "FriendsAndFamily");
+	},
+
+	_logError: function(error, powershellCommand, duration) {
+		var usr = new GlideRecord('sys_user');
+		usr.get(this._userId);
+		var userName = usr.user_name;
+
+		var errMsg = {user: userName.getDisplayValue(), 
+					  errorMessage: error, 
+					  powershellCommand:powershellCommand, 
+					  duration:duration.getDisplayValue() }; 
+
+
+		gs.logError(JSON.stringify(errMsg), "FriendsAndFamily");
+	},
+
+	type: 'FriendsAndFamilyHelper'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-02-06 04:29:59</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>463d2adfdb8aa49059ac6e25ca9619c4</sys_id>
+        <sys_mod_count>31</sys_mod_count>
+        <sys_name>FriendsAndFamilyHelper</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_script_include_463d2adfdb8aa49059ac6e25ca9619c4</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-02-09 22:47:32</sys_updated_on>
+    </sys_script_include>
+</record_update>

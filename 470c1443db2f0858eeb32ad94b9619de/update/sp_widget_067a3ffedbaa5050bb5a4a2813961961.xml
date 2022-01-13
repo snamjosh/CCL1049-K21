@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($scope, spUtil, snRecordWatcher) {
+  $scope.buttonColClass = "col-sm-2";
+  $scope.contentColClass = "col-sm-10";
+  if ($scope.options.portal) {
+    $scope.buttonColClass = "col-xs-12";
+    $scope.contentColClass = "col-xs-12";
+  }
+  $scope.data.op = "";
+  snRecordWatcher.initList("sysapproval_approver", "state=requested^approver=" + window.NOW.user_id);
+
+  function get() {
+    spUtil.update($scope);
+  }
+
+	$scope.$on('record.updated', function(name, data) {
+		get();
+	})
+
+  $scope.approve = function(id) {
+    $scope.data.op = "approved";
+    $scope.data.target = id;
+    get();
+  }
+
+	$scope.reject = function(id) {
+		$scope.data.op = "rejected";
+		$scope.data.target = id;
+		get();
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.option-text, &#13;
+.option-text:visited{&#13;
+  color: #00a63f !important;&#13;
+}&#13;
+&#13;
+.itemTitle{&#13;
+  color: #2b2b2b !important;&#13;
+  padding-top: 5px;&#13;
+  padding-bottom: 3px;&#13;
+  font-size: 1.2em;&#13;
+}&#13;
+&#13;
+.itemTitle:hover{&#13;
+	color: #00a63f !important;&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>color,glyph</field_list>
+        <has_preview>false</has_preview>
+        <id>gdep_approval_history</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Approval History</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[if (input && input.op) {
+  var app = new GlideRecord("sysapproval_approver");
+  if (app.get(input.target)) {
+    app.state = input.op;
+    app.update();
+  }
+}
+
+var gr = new GlideRecord('sysapproval_approver');
+gr.setLimit(50);
+var qc1 = gr.addQuery("state", "requested");
+if (input)
+  qc1.addOrCondition("sys_id", "IN", input.ids);
+
+gr.addQuery("approver", gs.getUserID());
+gr.orderBy("sys_created_on");
+gr.query();
+
+var approvals = [];
+var ids = [];
+while (gr.next()) {
+  var task = getRecordBeingApproved(gr);
+	if (!task.isValidRecord())
+		continue;
+
+  ids.push(gr.getUniqueValue());
+  var t = {};
+  t.number = task.getDisplayValue();
+  t.short_description = task.short_description.toString();
+  if (task.isValidField("opened_by") && !task.opened_by.nil())
+	  t.opened_by = task.opened_by.getDisplayValue();
+
+  // requestor >> opener
+  if (task.isValidField("requested_by") && !task.requested_by.nil())
+	  t.opened_by = task.requested_by.getDisplayValue();
+
+  t.start_date = task.start_date.toString();
+  t.end_date = task.end_date.toString();
+  t.table = task.getLabel();
+  if (task.getValue("price") > 0)
+	  t.price = task.getDisplayValue("price");
+
+  if (task.getValue("recurring_price") > 0)
+	  t.recurring_price = task.getDisplayValue("recurring_price");
+
+  t.recurring_frequency = task.getDisplayValue("recurring_frequency");
+
+  var items = [];
+  var idx = 0;
+  var itemsGR = new GlideRecord("sc_req_item");
+  itemsGR.addQuery("request", task.sys_id);
+  itemsGR.query();
+  if (itemsGR.getRowCount() > 1)
+    t.short_description = itemsGR.getRowCount() + " requested items";
+
+  while (itemsGR.next()) {
+    var item = {};
+    item.short_description = itemsGR.short_description.toString();
+    if (itemsGR.getValue("price") > 0)
+      item.price = itemsGR.getDisplayValue("price");
+    if (itemsGR.getValue("recurring_price") > 0) {
+      item.recurring_price = itemsGR.getDisplayValue("recurring_price");
+      item.recurring_frequency = itemsGR.getDisplayValue("recurring_frequency");
+    }
+    if (itemsGR.getRowCount() == 1) {
+      item.variables = $sp.getRecordVariablesArray(itemsGR);
+      t.short_description = itemsGR.short_description.toString();
+    }
+
+    items[idx] = item;
+    idx++;
+  }
+
+  var j = {};
+  j.sys_id = gr.getUniqueValue();
+  j.table = gr.getRecordClassName();
+  j.task = t;
+  if (task)
+    j.variables = $sp.getRecordVariablesArray(task);
+
+  j.items = items;
+  j.state = gr.getValue("state");
+  j.stateLabel = gr.state.getDisplayValue();
+  approvals.push(j);
+}
+data.ids = ids;
+data.approvals = approvals;
+
+function getRecordBeingApproved(gr) {
+  if (!gr.sysapproval.nil())
+    return gr.sysapproval.getRefRecord();
+
+  return gr.document_id.getRefRecord();
+}]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-14 21:04:11</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>067a3ffedbaa5050bb5a4a2813961961</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>GDEP Approval History</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_067a3ffedbaa5050bb5a4a2813961961</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-14 21:04:11</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-{{::options.color}} b">
+  <div class="panel-heading">
+    <h4 class="panel-title"><fa ng-if="::options.glyph.length" name="{{::options.glyph}}" class="m-r-sm" />${My Approvals}</h4>
+  </div>
+  <div class="panel-body">
+    <div ng-if="data.approvals.length == 0">
+      ${You have no pending approvals}
+    </div>
+    <div ng-repeat="approval in data.approvals" class="sp-approval m-b">
+      <div class="row">
+        <div ng-class="contentColClass">
+          <div ng-if="approval.task.number || approval.task.short_description">
+            <a  class="itemTitle" ng-href="?id=gd_approval&table=sysapproval_approver&sys_id={{::approval.sys_id}}" title="View approval page">
+              <span ng-if="approval.task.number">{{::approval.task.number}}</span>
+              <span ng-if="approval.task.number &amp;&amp; approval.task.short_description"> - </span>
+              <span ng-if="approval.task.short_description">{{::approval.task.short_description}}</span>
+            </a>
+          </div>
+          <div ng-if="approval.task.opened_by"><label>${Requestor}</label> {{::approval.task.opened_by}}</div>
+          <div ng-if="approval.task.start_date"><label>${Start}</label> {{::approval.task.start_date}}</div>
+          <div ng-if="approval.task.end_date"><label>${End}</label> {{::approval.task.end_date}}</div>
+          <div ng-if="approval.task.price"><label>${Price}</label> {{::approval.task.price}}
+            <span ng-if="approval.task.recurring_price"><label>${Recurring price}</label> {{::approval.task.recurring_price}} {{::approval.task.recurring_frequency}}</span>
+          </div>
+          <div ng-if="approval.items.length == 1">
+            <div ng-repeat="item in approval.items">
+              <div ng-if="item.variables.length > 0" ng-init="variable_toggle=false">
+                <a href="javascript:void(0)" class="option-text" ng-click="variable_toggle = !variable_toggle">
+                  <span class="glyphicon"
+                        ng-class="{'glyphicon-chevron-down': !variable_toggle, 'glyphicon-chevron-up': variable_toggle}">
+                  </span>
+                  ${Options}
+                </a>
+                <div ng-repeat="variable in item.variables" ng-if="variable_toggle">
+                  <label class="text-muted">{{::variable.label}}</label>
+                  <div>{{::variable.display_value}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div ng-if="approval.variables.length > 0" ng-init="variable_toggle=false">
+            <a href="javascript:void(0)" class="option-text" ng-click="variable_toggle = !variable_toggle">
+              <span class="glyphicon"
+                    ng-class="{'glyphicon-chevron-down': !variable_toggle, 'glyphicon-chevron-up': variable_toggle}">
+              </span>
+              ${Options}
+            </a>
+            <div ng-repeat="variable in approval.variables" ng-if="variable_toggle">
+              <label>{{::variable.label}}</label>
+              <div>{{::variable.display_value}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div ng-if="!options.portal" class="col-sm-2">
+          <button name="approve" ng-if="approval.state == 'requested'" class="btn btn-primary btn-block" style="border-width:1px;" ng-click="approve(approval.sys_id);">${Approve}</button>
+          <button name="reject" ng-if="approval.state == 'requested'" class="btn btn-default btn-block" ng-click="reject(approval.sys_id);">${Reject}</button>
+          <button ng-if="approval.state == 'approved'" class="btn btn-success btn-block">{{approval.stateLabel}}</button>
+          <button ng-if="approval.state == 'rejected'" class="btn btn-danger btn-block">{{approval.stateLabel}}</button>
+          <button ng-if="approval.state != 'requested'" class="btn btn-default btn-block" style="visibility:hidden">{{approval.stateLabel}}</button>
+        </div>
+        <div ng-if="options.portal && approval.state == 'requested'" class="col-xs-6">
+          <button name="reject" class="btn btn-default btn-block" ng-click="reject(approval.sys_id);">${Reject}</button>
+        </div>
+        <div ng-if="options.portal && approval.state == 'requested'" class="col-xs-6">
+          <button name="approve" class="btn btn-primary btn-block" ng-click="approve(approval.sys_id);">${Approve}</button>
+        </div>
+        <div ng-if="options.portal && approval.state != 'requested'" class="col-xs-12">
+          <button ng-if="approval.state == 'approved'" class="btn btn-success btn-block">{{approval.stateLabel}}</button>
+          <button ng-if="approval.state == 'rejected'" class="btn btn-danger btn-block">{{approval.stateLabel}}</button>
+        </div>
+      </div>
+    </div>
+  </div>]]></template>
+    </sp_widget>
+</record_update>

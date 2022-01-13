@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="GDEP Category Page">e03dab57db5a9c94bb5a4a281396194e</child>
+        <cloned>2020-08-03 23:07:27</cloned>
+        <last_validated>2020-08-03 23:07:27</last_validated>
+        <parent display_value="KB Category Page">fb5d068cd7610200a9ad1e173e24d400</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;kb&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function ($scope, $rootScope, $timeout, spKBCategoryService) {
+	var accessWordCountMax = 15;
+	var c = this;
+	init();
+	
+	c.getShortenText = function getShortenText(text) {
+		var wordsArray = text.split(" ");
+		if (wordsArray.length &gt; accessWordCountMax)
+			wordsArray = wordsArray.slice(0, accessWordCountMax);
+		return wordsArray.join(" ");
+	}
+	
+	var removeListener = spKBCategoryService.addListener(function(catId) {
+		c.data.category = catId;
+		c.data.items = null;
+		c.server.update().then(function(){
+			init();
+		});
+	});
+	
+	function init() {
+		$timeout(function() {
+			$rootScope.$broadcast('sp.update.breadcrumbs', c.data.breadcrumbs);
+		});
+	}
+	$scope.hideItemWidget = !$scope.data.category;
+	$scope.showCategories =  function() {
+		$scope.hideItemWidget = true;
+		$rootScope.$broadcast("$sp.kb.show.categories_widget");
+	}
+	$scope.$on('$destroy', function(){
+		removeListener();
+	});
+	
+	$scope.loadMore = function () {
+		c.data.new_limit = c.data.limit + (parseInt(c.options.limit_article) || 10);
+		c.server.update();
+	}
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.btn-loadmore {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      margin-bottom: 20px;
+    }
+    
+    .kb-star-on {
+      color: $fav-star-color !important;
+      text-shadow: $fav-star-outline;
+    }
+
+    .kb-star-off {
+      color: $fav-star-color-off !important;
+      text-shadow: $fav-star-outline;
+    }&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list&gt;color&lt;/field_list&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id/&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;KB Category Page&lt;/name&gt;&lt;option_schema&gt;[{"name":"show_star_rating","default_value":"Use system properties","section":"Presentation","label":"Show star rating","type":"choice","choices":[{"label":"Yes","value":"Yes"},{"label":"No","value":"No"},{"label":"Use system properties","value":"Use system properties"}]},{"hint":"Number of articles to display per page","name":"limit_article","section":"other","default_value":"10","label":"Number of articles to display per page","type":"integer"}]&lt;/option_schema&gt;&lt;public&gt;true&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[// populate the 'data' variable
+if (input)
+	data.category = input.category;
+else
+	data.category = $sp.getParameter("kb_category");
+
+var kbIds = $sp.getKnowledgeBases();
+var kbs = kbIds.split(',');
+
+data.limit = parseInt(options.limit_article) || 10;
+
+if (input &amp;&amp; input.new_limit)
+    data.limit = input.new_limit;
+
+var kb_cat = new GlideRecord("kb_category");
+data.categoryDisplay = gs.getMessage("Select a category");
+data.items = [];
+data.categoryExists = false;
+if (kb_cat.get(data.category)) {
+  data.categoryExists = true;
+  data.categoryDisplay = kb_cat.getDisplayValue();
+  data.items = $sp.getKBCategoryArticleSummaries(data.category, data.limit + 1 , 250);
+}
+
+var diff = data.items.length - data.limit;
+if (diff &lt;= 0)
+    data.showMore = false; 
+else {
+	data.items.splice(data.limit);
+	data.showMore = true;
+}
+data.show_msg = gs.getMessage("Showing {0} items", data.limit + "");
+
+var kbId = $sp.getParameter('kb_id');
+
+data.kbId=kbId;
+
+if (kbId) {
+	var gr = new GlideRecord("kb_knowledge_base");
+	if (gr.get(kbId))
+		data.kbName = gr.getDisplayValue("title");
+}
+
+data.kb_knowledge_page = $sp.getDisplayValue("kb_knowledge_page") || "kb_view";
+
+data.breadcrumbs = [{label: data.categoryDisplay, url: '#'}];
+var rec = kb_cat.parent_id.getRefRecord();
+while (rec.getRecordClassName() == "kb_category") {
+	if (kbId) 
+		data.breadcrumbs.unshift({label: rec.getDisplayValue(), url: '?id=kb_category&amp;kb_category=' + rec.getUniqueValue() + '&amp;kb_id='+ kbId});
+	else
+		data.breadcrumbs.unshift({label: rec.getDisplayValue(), url: '?id=kb_category&amp;kb_category=' + rec.getUniqueValue()});
+  rec = rec.parent_id.getRefRecord();
+}
+
+if (kbs &amp;&amp; kbs.length &gt; 1){
+	if (kbId)
+		data.breadcrumbs.unshift({label: data.kbName, url: '?id=' + data.kb_knowledge_page + '&amp;kb_id='+ kbId});
+
+	data.breadcrumbs.unshift({label: gs.getMessage("All Knowledge Bases"), url: '?id=' + data.kb_knowledge_page});
+}
+else
+	data.breadcrumbs.unshift({label: gs.getMessage("Knowledge Base"), url: '?id=' + data.kb_knowledge_page});
+
+
+data.showStarRating = showStarRating();
+
+function showStarRating() {
+	if (options.show_star_rating == "Yes")
+		return true;
+
+	if (options.show_star_rating == "No")
+		return false;
+
+	// check gating property for all rating options
+	if (gs.getProperty("glide.knowman.show_rating_options", "true") != "true")
+		return false;
+
+	// does user have the right role?
+	if (!gs.hasRole(gs.getProperty("glide.knowman.show_rating_options.roles")))
+		return false;
+
+	// check specific property for stars
+	if (gs.getProperty("glide.knowman.show_star_rating", "true") != "true")
+		return false;
+		
+	// does user have the right role?
+	return gs.hasRole(gs.getProperty("glide.knowman.show_star_rating.roles"));
+}]]&gt;&lt;/script&gt;&lt;servicenow&gt;true&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2015-07-24 17:21:04&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;fb5d068cd7610200a9ad1e173e24d400&lt;/sys_id&gt;&lt;sys_mod_count&gt;162&lt;/sys_mod_count&gt;&lt;sys_name&gt;KB Category Page&lt;/sys_name&gt;&lt;sys_package display_value="Service Portal - Knowledge Base" source="com.glide.service-portal.knowledge-base"&gt;59259714dbfa030092795096dc961938&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_fb5d068cd7610200a9ad1e173e24d400&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2018-10-24 17:52:16&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div ng-class="{'hidden-xs' : hideItemWidget}"&gt;
+  &lt;a ng-click="showCategories()" class="visible-xs m-b-sm pointer" aria-label="${All Categories}"&gt;
+     &lt;i class="fa fa-chevron-left m-r-xs"&gt;&lt;/i&gt; ${All Categories}
+  &lt;/a&gt;
+  &lt;div ng-if="data.categoryExists" class="panel panel-{{::options.color}} b"&gt;
+    &lt;div class="panel-heading"&gt;
+      &lt;h2 class="panel-title"&gt;{{data.categoryDisplay}}&lt;/h2&gt;
+    &lt;/div&gt;
+
+    &lt;div role="list" class="panel-body"&gt;
+      &lt;div ng-if="data.items.length == 0"&gt;
+        (${No articles})
+      &lt;/div&gt;
+      &lt;div role="listitem" ng-repeat="kb_article in data.items" class="sp-kb-topic-article m-b-lg"&gt;
+          &lt;a ng-href="?id=kb_article&amp;sys_id={{::kb_article.sys_id}}"&gt;{{::kb_article.title}}&lt;/a&gt;
+        &lt;div style="max-height: 3em; overflow: hidden; padding-top:4px;" aria-label="{{::c.getShortenText(kb_article.text)}}"&gt;{{::kb_article.text}}&lt;/div&gt;
+        &lt;div class="kb-about" style="padding-top:4px;"&gt;
+          &lt;span class="about-outer-span"&gt;
+            &lt;span class="author pad-right" ng-if="kb_article.author"&gt;
+              &lt;glyph sn-char="user" class="pad-right" aria-hidden="true"/&gt;
+              ${Authored by {{::kb_article.author}}}
+            &lt;/span&gt;
+            &lt;span ng-if="kb_article.sys_view_count == 1" class="views pad-right"&gt;
+              &lt;span class="pad-right"&gt;&amp;#8226;&lt;/span&gt; &lt;glyph sn-char="eye-open" class="pad-right" /&gt;
+              ${{{::kb_article.sys_view_count}} View}
+            &lt;/span&gt;
+            &lt;span ng-if="kb_article.sys_view_count &gt; 1" class="views pad-right"&gt;
+              &lt;span class="pad-right"&gt;&amp;#8226;&lt;/span&gt; &lt;glyph sn-char="eye-open" class="pad-right" /&gt;
+              ${{{::kb_article.sys_view_count}} Views}
+            &lt;/span&gt;
+            &lt;span class="published pad-right"&gt;
+              &lt;span class="pad-right" aria-hidden="true"&gt;&amp;#8226;&lt;/span&gt; &lt;glyph sn-char="calendar" class="pad-right" aria-hidden="true" /&gt;
+              &lt;sn-day-ago date="kb_article.published"/&gt;
+            &lt;/span&gt;
+            &lt;span ng-if="data.showStarRating &amp;&amp; kb_article.rating"&gt;
+              &lt;span class="pad-right"&gt;&amp;#8226;&lt;/span&gt;
+              &lt;span class="sr-only"&gt;Article rating - {{::kb_article.rating}}&lt;/span&gt;
+              &lt;uib-rating sp-rating ng-model="::kb_article.rating" max="5" readonly="true" aria-hidden="true" state-on="'fa fa-star kb-star-on'" state-off="'fa fa-star kb-star-off'" /&gt;
+            &lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+  &lt;div ng-if="data.showMore"&gt;
+    &lt;div class="text-a-c"&gt;
+       {{data.show_msg}}
+    &lt;/div&gt;
+    &lt;button class="m-t-xs btn btn-default btn-loadmore" ng-click="loadMore()"&gt;
+        ${Show More}
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-03 23:07:27</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>ec3d6397db5a9c94bb5a4a281396196b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>e03dab57db5a9c94bb5a4a281396194e</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_ec3d6397db5a9c94bb5a4a281396196b</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-03 23:07:27</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_ais">
+    <sp_instance_ais action="DELETE">
+        <active>true</active>
+        <ai_search_source_filter/>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <disable_all_suggestions>false</disable_all_suggestions>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <placeholder/>
+        <roles/>
+        <search_application/>
+        <search_results_configuration/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">4d1680bfdbb76410bb5a4a2813961965</sp_column>
+        <sp_widget display_value="Faceted Search">12fbe2d287330300a785940307cb0b1b</sp_widget>
+        <sys_class_name>sp_instance_ais</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-05 05:22:01</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>2686c037dbf76410bb5a4a2813961946</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_instance_ais_2686c037dbf76410bb5a4a2813961946</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-05 05:22:28</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance_ais>
+    <sys_translated_text action="DELETE" query="documentkey=2686c037dbf76410bb5a4a2813961946"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>901500ac6f06314023b2a9cc5d3ee4b5</instance_id>
+        <instance_name>godaddydev</instance_name>
+        <name>sp_instance_ais_2686c037dbf76410bb5a4a2813961946</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_ais"><sp_instance_ais action="INSERT_OR_UPDATE"><active>true</active><ai_search_source_filter/><class_name/><color>default</color><css/><disable_all_suggestions>false</disable_all_suggestions><glyph/><id/><order>1</order><placeholder/><roles/><search_application/><search_results_configuration/><short_description/><size>md</size><sp_column display_value="1">4d1680bfdbb76410bb5a4a2813961965</sp_column><sp_widget display_value="Faceted Search">12fbe2d287330300a785940307cb0b1b</sp_widget><sys_class_name>sp_instance_ais</sys_class_name><sys_created_by>choskins</sys_created_by><sys_created_on>2021-05-05 05:22:01</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>2686c037dbf76410bb5a4a2813961946</sys_id><sys_mod_count>3</sys_mod_count><sys_name/><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>sp_instance_ais_2686c037dbf76410bb5a4a2813961946</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2021-05-05 05:22:28</sys_updated_on><title/><url/><widget_parameters/></sp_instance_ais><sys_translated_text action="delete_multiple" query="documentkey=2686c037dbf76410bb5a4a2813961946"/></record_update>]]></payload>
+        <payload_hash>194928097</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>211af56bdbb32c10bb5a4a28139619d1</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-05 05:22:28</sys_created_on>
+        <sys_id>a1a60877dbf76410bb5a4a2813961944</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1793afa3d710000001</sys_recorded_at>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-05 05:22:28</sys_updated_on>
+        <type>Instance with Search</type>
+        <update_guid>69a6087735f7641046753e2dcdafe143</update_guid>
+        <update_guid_history>69a6087735f7641046753e2dcdafe143:194928097,a79680775bf764104e6791534a58a360:1484971426,1a968c37c4f7641007585705aafd0983:-1519952541,7a86c03742f764101981893135614648:-229909212</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Record deleted 2021-05-07 20:11:48">948583acdbc4305059ac6e25ca961955</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-08 03:11:48</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sp_instance_ais">sp_instance_ais</sys_db_object>
+        <sys_id>2f783362085e4c6daf19ec1b382e7e91</sys_id>
+        <sys_metadata>2686c037dbf76410bb5a4a2813961946</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sp_instance_ais_2686c037dbf76410bb5a4a2813961946</sys_update_name>
+        <sys_update_version display_value="sp_instance_ais_2686c037dbf76410bb5a4a2813961946">a1a60877dbf76410bb5a4a2813961944</sys_update_version>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-08 03:11:48</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="GDEP Task Parent">94a0eccadb22d09cbb5a4a2813961940</child>
+        <cloned>2020-08-11 21:16:59</cloned>
+        <last_validated>2020-08-11 21:16:59</last_validated>
+        <parent display_value="HRM Task Parent">6155d8cb5b1313003bbcefe5f0f91ac8</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function hrmTaskParentController($scope, $rootScope, spUtil, $window) {
+	var c = this;
+	var MOBILE_DEVICE_SCREEN_WIDTH = 767;
+	$scope.mobileDevice = c.data.isMobile || ($window.innerWidth &lt; MOBILE_DEVICE_SCREEN_WIDTH);
+	c.showLeft = true;
+
+	$scope.$on('activitySetSelected', function(name, options) {
+		if (options == null || !options.clickActivitySetFromMobile || options.uncheckViewAllToDosFromMobile)
+			return;
+
+		$scope.toggleShowLeft();
+	});
+		
+	$scope.showActivitySetList = function() {
+		$scope.toggleShowLeft();
+		$rootScope.$broadcast("sn_hr_sp.navigateToActivitySetList");
+	};
+	
+	$scope.toggleShowLeft = function() {
+		c.showLeft = !c.showLeft;
+	};
+	
+	$scope.$on('sn_hr_sp.todoSummaryDetail', function(event, data) {
+		c.data.showSummary = !c.data.showSummary;
+	});
+	
+	$scope.$on('sn_hr_sp.summaryCountUpdate', function(event, summaryCounts) {
+		if(summaryCounts) {
+			summaryCounts.hideTodoSummary = !c.data.showSummary;
+			c.data.summaryCounts = summaryCounts;
+			var widget = {};
+			spUtil.get("hrm-todos-summary", summaryCounts).then(function(response) {
+				c.data.summaryWidgets = [];
+				widget.currentWidget = response;
+				widget.name = "hrm-todos-summary";
+				c.data.summaryWidgets.push(widget);
+			 });		
+		}
+	});	
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;$height: calc(100vh - 260px);
+
+.no-bullets.nav {
+	padding: 10px 0px 10px 15px;
+  	a {
+     	cursor: pointer;
+   	}
+}
+
+sp-row-content.min-height {
+     min-height: $height;
+  	 padding: 0px;
+}
+
+.content-wrap.b.row-eq-height {
+    border-radius: 4px !important;
+    border-bottom: none;
+    min-height: $height;
+}
+
+.hr-slider {
+    width: 100%;
+    padding: 0px;
+    display: inline-block; 
+    vertical-align: middle; 
+    position: relative;
+  	.mobile-todo-summary {
+    	margin-top: 10px;
+    }
+} 
+
+#isLE{
+ $base-color: $color-darkest;
+ background-color:$body-bg;
+ border-top-left-radius: 4px;
+ border-bottom-left-radius: 4px;
+}
+ .container {
+     padding-left: 0px;
+     padding-right: 0px;
+     margin-right: auto;
+     margin-left: auto;
+}
+
+ ul, ol {
+     margin-top: 0;
+     margin-bottom: 10px;
+     padding 0px;
+}
+ .no-bullets {
+     list-style-type: none;
+     padding: 0px;
+}
+ element.style {
+     min-height: $height;
+}
+ .row-eq-height {
+     display: flex;
+     flex-wrap: wrap;
+}
+ .content-wrap {
+     background: $color-lightest;
+     min-height: $height;
+     
+}
+ .b {
+     border: 1px solid $border;
+     border-color: $color-lighter;
+     box-shadow: 0 1px 1px lighten($color-dark, 30%);
+}
+ .no-padder {
+     padding: 0 !important;
+     position: relative;
+}
+
+.back-padder {
+	padding-left: 0px;
+  	padding-right: 0px;
+}
+
+/* Animation sliding left and sliding right */
+
+@keyframes slideFromRight {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideFromLeft {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@-webkit-keyframes slideFromRight {
+    0% {
+        -webkit-transform: translateX(100%);
+    }
+
+    100% {
+        -webkit-transform: translateX(0);
+    }
+}
+
+@-webkit-keyframes slideFromLeft {
+    0% {
+        -webkit-transform: translateX(-100%);
+    }
+
+    100% {
+        -webkit-transform: translateX(0);
+    }
+}
+
+/*.animate-left.ng-show {
+  animation: 0.3s slideFromLeft;
+}*/
+.animate-left.ng-hide{
+  animation: 0.3s slideFromRight;
+}
+
+/*.animate-right.ng-show {
+  animation: 0.3s slideFromRight;
+}*/
+
+.animate-right.ng-hide {
+  animation: 0.3s slideFromLeft;
+}
+
+.add-scroll {
+  overflow: auto;
+  min-height: $height;
+}
+&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description&gt;This widget is used as an container to hold the hrm-task-filter widget, hrm-activity-set-progress, and the hrm-task-list widget.&lt;/description&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;hrm-task-parent&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;HRM Task Parent&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;true&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+	data.isMobile = gs.isMobile();
+    data.parentCaseId = options.sys_id || hr_PortalUtil.getParentFromUrl($sp.getParameter("sys_id"), $sp.getParameter("table"));
+    data.onTicketPage = !gs.nil(options.onTicketPage) ? options.onTicketPage : true;
+    var grCase = new GlideRecord('sn_hr_core_case');
+    grCase.get(data.parentCaseId);
+    var util = new hr_PortalUtil(grCase);
+    var isOpenedForView = util.isOpenedForView();
+    data.taskFilterPanel = $sp.getWidget("hrm-task-filter-panel", {
+        sys_id: grCase.getUniqueValue(),
+        onTicketPage: data.onTicketPage
+    });
+    data.taskListwidget = $sp.getWidget("hrm-task-list", {
+        sys_id: grCase.getUniqueValue(),
+        onTicketPage: data.onTicketPage
+    });
+    data.isLECase = false;
+	
+    if (data.onTicketPage &amp;&amp; (isOpenedForView || util.allowDisplayActivitySetToSubjectPerson()) &amp;&amp; util.hasLifecycleEvents()) {
+        data.isLECase = true;
+        data.lifecycleWidget = $sp.getWidget("hrm-activity-set-progress", {
+            sys_id: grCase.getUniqueValue(),
+            isOpenedForView: isOpenedForView,
+            onTicketPage: data.onTicketPage
+        });
+    }
+
+})();
+]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2018-07-18 21:12:27&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;6155d8cb5b1313003bbcefe5f0f91ac8&lt;/sys_id&gt;&lt;sys_mod_count&gt;81&lt;/sys_mod_count&gt;&lt;sys_name&gt;HRM Task Parent&lt;/sys_name&gt;&lt;sys_package display_value="Human Resources: Service Portal" source="sn_hr_sp"&gt;3d1da2705b021200a4656ede91f91ab6&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Human Resources: Service Portal"&gt;3d1da2705b021200a4656ede91f91ab6&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_6155d8cb5b1313003bbcefe5f0f91ac8&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2019-05-02 00:09:47&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="sp-row-content min-height"&gt;
+  &lt;div ng-show="data.onTicketPage"&gt;
+    &lt;div ng-show="(mobileDevice &amp;&amp; !c.showLeft &amp;&amp; data.isLECase &amp;&amp; !data.showSummary)" class="col-xs-12 no-padder"&gt;
+          &lt;div class="nav panel-body back-padder" aria-label="${Back Button}" role="navigation"&gt;
+             &lt;a href="javascript:void(0)" ng-click="showActivitySetList()"&gt;
+                &lt;span class="fa fa-chevron-left"&gt;&lt;/span&gt;            
+                &lt;span&gt;${Back}&lt;/span&gt;
+              &lt;/a&gt;
+           &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="hr-slider"&gt; 
+         &lt;ul class="no-bullets"&gt;
+            &lt;li ng-show="!data.showSummary" id="case-todos" ng-class="{'lifecycle': data.isLECase, 'task-view':!data.isLECase}"&gt;
+               &lt;div class="content-wrap b row-eq-height"&gt;
+                  &lt;div ng-show="data.isLECase &amp;&amp; c.showLeft" class="col-md-3 col-sm-3 col-xs-12 b-r no-padder" id="isLE"&gt;
+                     &lt;sp-widget widget="data.lifecycleWidget"&gt;&lt;/sp-widget&gt;
+                  &lt;/div&gt;
+                  &lt;div ng-show="!mobileDevice || (mobileDevice &amp;&amp; !c.showLeft) || (mobileDevice &amp;&amp; !data.isLECase)"  ng-class="{'col-md-9 col-sm-9': data.isLECase, 'col-md-12 col-sm-12': !data.isLECase}" class="col-xs-12 task-display no-padder"&gt;
+                     &lt;sp-widget widget="data.taskFilterPanel" &gt;&lt;/sp-widget&gt;
+                     &lt;sp-widget widget="data.taskListwidget"&gt;&lt;/sp-widget&gt;
+                  &lt;/div&gt;
+               &lt;/div&gt;
+            &lt;/li&gt;
+            &lt;li ng-show="data.showSummary" ng-class="{'mobile-todo-summary': mobileDevice}"&gt;
+                &lt;div id="summary-widget" ng-repeat="todoSummary in data.summaryWidgets"&gt;
+                    &lt;sp-widget widget="todoSummary.currentWidget"&gt;&lt;/sp-widget&gt;
+                &lt;/div&gt;
+            &lt;/li&gt; 
+         &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-11 21:16:59</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>94a0e802db62d09cbb5a4a2813961933</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>94a0eccadb22d09cbb5a4a2813961940</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_94a0e802db62d09cbb5a4a2813961933</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-11 21:16:59</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_css">
+    <sp_css action="INSERT_OR_UPDATE">
+        <css>.panel-body {&#13;
+    padding: 15px;&#13;
+    border: 4px solid #4d4d4d;&#13;
+    border-top: 0px !important;&#13;
+}&#13;
+&#13;
+.panel-default &gt; .panel-heading {&#13;
+    color: #fff;&#13;
+    background-color: #000000;&#13;
+    border-color: #000000;&#13;
+    opacity: .7;&#13;
+    height: 41px;&#13;
+}&#13;
+</css>
+        <name>gdep-ticket-overview.css</name>
+        <sys_class_name>sp_css</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-30 17:56:03</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>809f7906db1e9014bb5a4a2813961921</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_name>gdep-ticket-overview.css</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_css_809f7906db1e9014bb5a4a2813961921</sys_update_name>
+        <sys_updated_by>iremigio</sys_updated_by>
+        <sys_updated_on>2020-08-25 17:31:52</sys_updated_on>
+    </sp_css>
+</record_update>

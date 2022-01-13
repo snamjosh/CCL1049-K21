@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_theme_css_include">
+    <m2m_sp_theme_css_include action="DELETE">
+        <order>1</order>
+        <sp_css_include display_value="GD Fonts">f0ce3a9ddb2f4494eeb32ad94b9619c4</sp_css_include>
+        <sp_theme display_value="GD Theme">78150aee373c6ac0eb8163d2b3990e34</sp_theme>
+        <sys_class_name>m2m_sp_theme_css_include</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2020-08-17 19:12:23</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>21adf233dbaad01859ac6e25ca961904</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>GD Fonts.GD Theme</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>m2m_sp_theme_css_include_21adf233dbaad01859ac6e25ca961904</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-10-12 20:04:14</sys_updated_on>
+    </m2m_sp_theme_css_include>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>m2m_sp_theme_css_include_21adf233dbaad01859ac6e25ca961904</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_theme_css_include"><m2m_sp_theme_css_include action="INSERT_OR_UPDATE"><order>1</order><sp_css_include display_value="GD Fonts">f0ce3a9ddb2f4494eeb32ad94b9619c4</sp_css_include><sp_theme display_value="GD Theme">78150aee373c6ac0eb8163d2b3990e34</sp_theme><sys_class_name>m2m_sp_theme_css_include</sys_class_name><sys_created_by>snamjoshi</sys_created_by><sys_created_on>2020-08-17 19:12:23</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>21adf233dbaad01859ac6e25ca961904</sys_id><sys_mod_count>2</sys_mod_count><sys_name>GD Fonts.GD Theme</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>m2m_sp_theme_css_include_21adf233dbaad01859ac6e25ca961904</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2020-10-12 20:04:14</sys_updated_on></m2m_sp_theme_css_include></record_update>]]></payload>
+        <payload_hash>-1283010184</payload_hash>
+        <record_name>GD Fonts.GD Theme</record_name>
+        <reverted_from/>
+        <source>b191ed321b046cd045fea82f6e4bcbaf</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-10-27 23:30:27</sys_created_on>
+        <sys_id>ca91ed321b046cd045fea82f6e4bcbe0</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1756c6608a10000001</sys_recorded_at>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-10-27 23:30:27</sys_updated_on>
+        <type>Stylesheets</type>
+        <update_guid>8f82a735e3739814a22ceb42b23166a6</update_guid>
+        <update_guid_history>8f82a735e3739814a22ceb42b23166a6:-1283010184,8aa71f8086ba1458b18c730761c00959:-1184323495,25adf23386aad0188561dee085a72c06:2102398527</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Record deleted 2021-05-19 13:55:14">6162ab10db547c1059ac6e25ca9619f1</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-19 20:55:14</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="m2m_sp_theme_css_include">m2m_sp_theme_css_include</sys_db_object>
+        <sys_id>6921c65678e94807ab5fc300bc8691b9</sys_id>
+        <sys_metadata>21adf233dbaad01859ac6e25ca961904</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>GD Fonts.GD Theme</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>m2m_sp_theme_css_include_21adf233dbaad01859ac6e25ca961904</sys_update_name>
+        <sys_update_version display_value="m2m_sp_theme_css_include_21adf233dbaad01859ac6e25ca961904">ca91ed321b046cd045fea82f6e4bcbe0</sys_update_version>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-19 20:55:14</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

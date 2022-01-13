@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties">
+    <sys_properties action="DELETE">
+        <choices/>
+        <description/>
+        <ignore_cache>true</ignore_cache>
+        <is_private>false</is_private>
+        <name>glide.entry.first.page.script</name>
+        <read_roles/>
+        <suffix/>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-18 20:53:51</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>24689a00db503c1059ac6e25ca9619c3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>glide.entry.first.page.script</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_properties_24689a00db503c1059ac6e25ca9619c3</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-18 20:53:51</sys_updated_on>
+        <type>string</type>
+        <value>new SPEntryPage().getFirstPageURL()</value>
+        <write_roles/>
+    </sys_properties>
+    <sys_translated_text action="DELETE" query="documentkey=24689a00db503c1059ac6e25ca9619c3"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>901500ac6f06314023b2a9cc5d3ee4b5</instance_id>
+        <instance_name>godaddydev</instance_name>
+        <name>sys_properties_24689a00db503c1059ac6e25ca9619c3</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties"><sys_properties action="INSERT_OR_UPDATE"><choices/><description/><ignore_cache>true</ignore_cache><is_private>false</is_private><name>glide.entry.first.page.script</name><read_roles/><suffix/><sys_class_name>sys_properties</sys_class_name><sys_created_by>choskins</sys_created_by><sys_created_on>2021-05-18 20:53:51</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>24689a00db503c1059ac6e25ca9619c3</sys_id><sys_mod_count>0</sys_mod_count><sys_name>glide.entry.first.page.script</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>sys_properties_24689a00db503c1059ac6e25ca9619c3</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2021-05-18 20:53:51</sys_updated_on><type>string</type><value>new SPEntryPage().getFirstPageURL()</value><write_roles/></sys_properties><sys_translated_text action="delete_multiple" query="documentkey=24689a00db503c1059ac6e25ca9619c3"/></record_update>]]></payload>
+        <payload_hash>707921121</payload_hash>
+        <record_name>glide.entry.first.page.script</record_name>
+        <reverted_from/>
+        <source>f6613519db3f2c10bb5a4a281396195f</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-18 20:53:51</sys_created_on>
+        <sys_id>6b78d640db503c1059ac6e25ca96199b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17981419e8b0000001</sys_recorded_at>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-18 20:53:51</sys_updated_on>
+        <type>System Property</type>
+        <update_guid>6378d6403e503c109a79a6ea3bbdc49b</update_guid>
+        <update_guid_history>6378d6403e503c109a79a6ea3bbdc49b:707921121</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-18 20:54:35</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sys_properties">sys_properties</sys_db_object>
+        <sys_id>97b7e25a865b4d53bf94c4ac5fa6f3b1</sys_id>
+        <sys_metadata>24689a00db503c1059ac6e25ca9619c3</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>glide.entry.first.page.script</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sys_properties_24689a00db503c1059ac6e25ca9619c3</sys_update_name>
+        <sys_update_version display_value="sys_properties_24689a00db503c1059ac6e25ca9619c3">6b78d640db503c1059ac6e25ca96199b</sys_update_version>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-18 20:54:35</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

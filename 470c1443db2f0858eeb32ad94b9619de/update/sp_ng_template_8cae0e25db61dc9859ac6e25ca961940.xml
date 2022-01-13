@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_ng_template">
+    <sp_ng_template action="INSERT_OR_UPDATE">
+        <id>menuTemplateBB</id>
+        <sp_widget display_value="GDEP Brand Bar">2cca8629dbed9c9859ac6e25ca961920</sp_widget>
+        <sys_class_name>sp_ng_template</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-06-21 22:57:49</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>8cae0e25db61dc9859ac6e25ca961940</sys_id>
+        <sys_mod_count>33</sys_mod_count>
+        <sys_name>menuTemplateBB</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_ng_template_8cae0e25db61dc9859ac6e25ca961940</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-08 06:41:17</sys_updated_on>
+        <template><![CDATA[
+<a role="menuitem" ng-if="item.items.length == 0 && !item.scriptedItems" class="align-left" ng-href="{{::item.href}}" ng-click="collapse()" target="{{::item.url_target}}" title="{{::item.hint}}">
+  <fa ng-if="::item.glyph" name="{{::item.glyph}}" class="fa-icon-size-24"></fa>
+  <span ng-bind-html="::item.label"></span>
+</a>
+<a role="menuitem" aria-haspopup="true"  ng-if="item.items.length > 0" href class="dropdown-toggle sp-menu-has-items" 
+   data-toggle="dropdown" aria-controls="{{::item.label.split(' ').join('')}}" aria-haspopup="true" title="{{::item.hint}}">
+  <fa ng-if="::item.glyph" name="{{::item.glyph}}" class="fa-icon-size-24"></fa>
+  <span ng-bind-html="::item.label"></span> <span class="caret"></span>
+</a>
+<ul ng-if="item.items.length > 0" class="dropdown-menu" role="menu" id="{{::item.label.split(' ').join('')}}">
+  <li ng-repeat="item in item.items" ng-include="'menuTemplateBB'" role="presentation" />
+</ul>
+
+<!-- Scripted items (like "My Requests") -->
+
+<a role="menuitem" aria-haspopup="true" ng-if="item.scriptedItems.count > 0" href data-toggle="dropdown" aria-label="{{::item.label}} : {{item.scriptedItems.count}}" title="{{::item.hint}}">
+  <fa ng-if="::item.glyph" name="{{::item.glyph}}" class="fa-icon-size-24"></fa>
+  <span ng-bind-html="::item.label"></span>
+    <span ng-if="::!item.scriptedItems.omitBadge" class="label label-as-badge label-primary sp-navbar-badge-count">{{item.scriptedItems.count}}</span>
+
+</a>
+
+<a role="menuitem" aria-haspopup="true" ng-if="item.scriptedItems.count == 0" href="{{item.scriptedItems.items[0].href}}" aria-label="{{::item.label}} : {{item.scriptedItems.count}}" title="{{::item.hint}}">
+  <fa ng-if="::item.glyph" name="{{::item.glyph}}" class="fa-icon-size-24"></fa>
+  <span ng-bind-html="::item.label"></span>
+</a>
+
+<!--ng-if="item.scriptedItems.count > 0"    items="item.scriptedItems.items-->
+<sp-dropdown-tree-template-b-b role="menu" aria-label="{{::item.label}}" ng-if="item.scriptedItems.count > 0" items="item.scriptedItems.items" />
+]]></template>
+    </sp_ng_template>
+</record_update>

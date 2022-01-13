@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_portal">
+    <sp_portal action="INSERT_OR_UPDATE">
+        <css_variables>$brand-primary:#1BDBDB;&#13;
+$body-bg:#ffffff;&#13;
+$state-success-text:#5cb85c;&#13;
+$sp-homepage-bg:#fff;&#13;
+$sp-navbar-divider-color:#455464;&#13;
+$text-color:#717171;&#13;
+$sp-logo-margin-y:.5rem;&#13;
+$navbar-inverse-link-hover-color:#1BDBDB;&#13;
+$panel-bg:#fff;&#13;
+$brand-success:#5cb85c;&#13;
+$navbar-inverse-bg:#ffffff;&#13;
+$brand-warning:#f0ad4e;&#13;
+$brand-danger:#d9534f;&#13;
+$sp-tagline-color:#717171;&#13;
+$navbar-inverse-link-color:#000000;&#13;
+$brand-info:#5bc0de;&#13;
+$link-color:#000000;&#13;
+$sp-logo-margin-x:2px;&#13;
+$btn-default-bg:#fff;&#13;
+$text-muted:#979797;&#13;
+$grid-gutter-width: 15px !default;&#13;
+&#13;
+.sub-avatar{&#13;
+	color: black;&#13;
+  	background-color: white !important;&#13;
+    float: right;&#13;
+}&#13;
+&#13;
+&#13;
+/* removes horizontal scroll-bar but it doesn't work&#13;
+.container-fluid {&#13;
+    padding-right: 15px !important;&#13;
+    padding-left: 15px !important;&#13;
+    margin-right: auto !important;&#13;
+    margin-left: auto !important;&#13;
+}&#13;
+*/&#13;
+&#13;
+$regularFont: 'GD-Sherpa-Regular';&#13;
+$mediumFont: 'GD-Sage-Medium';&#13;
+$boldFont:'GD-Sage-Bold';&#13;
+&#13;
+&#13;
+// Breakpoints&#13;
+$bp-small: 48em; // 768px&#13;
+$bp-medium: 64em; // 1024px&#13;
+$bp-large: 85.375em; // 1366px&#13;
+$bp-xlarge: 120em; // 1920px&#13;
+$bp-xxlarge: 160em; // 2560px&#13;
+&#13;
+// Media Queries&#13;
+$mq-small: "(min-width: #{$bp-small})";&#13;
+$mq-medium: "(min-width: #{$bp-medium})";&#13;
+$mq-large: "(min-width: #{$bp-large})";&#13;
+$mq-xlarge: "(min-width: #{$bp-xlarge})";&#13;
+$mq-xxlarge: "(min-width: #{$bp-xxlarge})";&#13;
+$mq-retina: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";&#13;
+&#13;
+&#13;
+// Font-Size&#13;
+$base-font-size: 1em;&#13;
+&#13;
+// Line-Height&#13;
+$base-line-height: 1.5;&#13;
+$header-line-height: 1.25;&#13;
+&#13;
+body {&#13;
+/*&#13;
+font-size: $base-font-size;&#13;
+  line-height: $base-line-height;&#13;
+&#13;
+  @media #{$mq-medium} {&#13;
+    font-size: $base-font-size*1.2;&#13;
+    line-height: $base-line-height*1.2;&#13;
+  }&#13;
+&#13;
+  @media #{$mq-large} {&#13;
+    font-size: $base-font-size*1.4;&#13;
+  }&#13;
+&#13;
+  @media #{$mq-xlarge} {&#13;
+    font-size: $base-font-size*1.5;&#13;
+  }&#13;
+&#13;
+  @media #{$mq-xxlarge} {&#13;
+    font-size: $base-font-size*1.6;&#13;
+  }&#13;
+  */&#13;
+}&#13;
+&#13;
+&#13;
+.container {&#13;
+  /*margin: 0 4%;*/&#13;
+&#13;
+ /* @media #{$mq-medium} {&#13;
+    margin: 0 8%;&#13;
+    &#13;
+  }&#13;
+&#13;
+  @media #{$mq-large} {&#13;
+    margin: 0 12%;&#13;
+  }&#13;
+&#13;
+  @media #{$mq-xlarge} {&#13;
+    margin: 0 16%;&#13;
+    width: 1900px;&#13;
+  }*/&#13;
+}&#13;
+</css_variables>
+        <default>false</default>
+        <enable_ais>false</enable_ais>
+        <hide_portal_name>false</hide_portal_name>
+        <homepage display_value="gdep_index">0b2e5009db6b0c54eeb32ad94b9619ab</homepage>
+        <icon/>
+        <kb_knowledge_base/>
+        <kb_knowledge_page display_value="gdep_kb_home">8b6a66d9db70545059ac6e25ca96193f</kb_knowledge_page>
+        <login_page display_value="landing">36c61807cb31120000f8d856634c9ca9</login_page>
+        <logo/>
+        <notfound_page display_value="404">3c2c9063cb11020000f8d856634c9c1f</notfound_page>
+        <quick_start_config/>
+        <sc_catalog/>
+        <sc_catalog_page/>
+        <sc_category_page/>
+        <search_application/>
+        <search_results_configuration/>
+        <sp_chat_queue/>
+        <sp_rectangle_menu/>
+        <sqanda_knowledge_base/>
+        <sys_class_name>sp_portal</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-19 19:29:07</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>864e8f58db183c1059ac6e25ca9619a2</sys_id>
+        <sys_mod_count>14</sys_mod_count>
+        <sys_name>Experimental Portal</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_portal_864e8f58db183c1059ac6e25ca9619a2</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-19 20:13:53</sys_updated_on>
+        <theme display_value="Experimental Theme">50365354db1c3c1059ac6e25ca961985</theme>
+        <title>Experimental Portal</title>
+        <ts_index_group/>
+        <url_suffix>gdhr</url_suffix>
+    </sp_portal>
+    <sys_translated_text action="delete_multiple" query="documentkey=864e8f58db183c1059ac6e25ca9619a2"/>
+</record_update>

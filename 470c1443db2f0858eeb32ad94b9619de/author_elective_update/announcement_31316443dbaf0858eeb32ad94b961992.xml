@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="announcement">
+    <announcement action="DELETE">
+        <active>true</active>
+        <click_target/>
+        <details/>
+        <details_link_text/>
+        <details_page/>
+        <details_url/>
+        <dismiss_options>dismissible</dismiss_options>
+        <display_first>true</display_first>
+        <display_style display_value="Normal">704dedd6e7d4030075c2a117c2f6a91b</display_style>
+        <from>2020-03-17 20:43:46</from>
+        <glyph/>
+        <glyph_alt_text/>
+        <name>goals2</name>
+        <public>true</public>
+        <roles/>
+        <summary/>
+        <sys_class_name>announcement</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-03-18 20:45:07</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>31316443dbaf0858eeb32ad94b961992</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>goals2</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>announcement_31316443dbaf0858eeb32ad94b961992</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-03-18 20:45:07</sys_updated_on>
+        <title>What else should go here?</title>
+        <to>2020-03-25 20:43:49</to>
+        <type>67eaf134e7a3320075c2a117c2f6a9d2</type>
+    </announcement>
+    <sys_translated_text action="DELETE" query="documentkey=31316443dbaf0858eeb32ad94b961992"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>announcement_31316443dbaf0858eeb32ad94b961992</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="announcement"><announcement action="INSERT_OR_UPDATE"><active>true</active><click_target/><details/><details_link_text/><details_page/><details_url/><dismiss_options>dismissible</dismiss_options><display_first>true</display_first><display_style display_value="Normal">704dedd6e7d4030075c2a117c2f6a91b</display_style><from>2020-03-17 20:43:46</from><glyph/><glyph_alt_text/><name>goals2</name><public>true</public><roles/><summary/><sys_class_name>announcement</sys_class_name><sys_created_by>jbenedetti</sys_created_by><sys_created_on>2020-03-18 20:45:07</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>31316443dbaf0858eeb32ad94b961992</sys_id><sys_mod_count>0</sys_mod_count><sys_name>goals2</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>announcement_31316443dbaf0858eeb32ad94b961992</sys_update_name><sys_updated_by>jbenedetti</sys_updated_by><sys_updated_on>2020-03-18 20:45:07</sys_updated_on><title>What else should go here?</title><to>2020-03-25 20:43:49</to><type>67eaf134e7a3320075c2a117c2f6a9d2</type></announcement><sys_translated_text action="delete_multiple" query="documentkey=31316443dbaf0858eeb32ad94b961992"/></record_update>]]></payload>
+        <payload_hash>1468712977</payload_hash>
+        <record_name>goals2</record_name>
+        <reverted_from/>
+        <source>0c6740ecdb7598901093f40c0c9619f6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-06-30 20:49:28</sys_created_on>
+        <sys_id>2b878420dbb598901093f40c0c96190a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17306fde1990000001</sys_recorded_at>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-06-30 20:49:28</sys_updated_on>
+        <type>Announcement</type>
+        <update_guid>713164435baf08584a50038c2b67e193</update_guid>
+        <update_guid_history>713164435baf08584a50038c2b67e193:1468712977,f03ad86a83299c908bff1c38e65db9cd:1160178645,713164435baf08584a50038c2b67e193:1468712977</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Record deleted 2021-04-29 11:02:29">441b73b9dbb32410bb5a4a281396193c</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-04-29 18:02:29</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="Announcement" name="announcement">announcement</sys_db_object>
+        <sys_id>be0c70d25ea14ad294b28e705382cf24</sys_id>
+        <sys_metadata>31316443dbaf0858eeb32ad94b961992</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>goals2</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>announcement_31316443dbaf0858eeb32ad94b961992</sys_update_name>
+        <sys_update_version display_value="announcement_31316443dbaf0858eeb32ad94b961992">2b878420dbb598901093f40c0c96190a</sys_update_version>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-04-29 18:02:29</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

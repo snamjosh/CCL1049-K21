@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[// https://godaddydev.service-now.com/gdep?id=gdep_create_case_popup
+function($uibModal, $scope, spUtil,cabrillo) { 
+
+	var c = this;
+
+	// Initialize form fields
+	c.opened_by = c.data.loggedInUser;  
+	c.subject_person = c.data.loggedInUser;
+	c.hr_service =  c.data.hr.hr_service ? c.data.hr.hr_service : {value:"", displayValue:"", name:"hr_service"} 
+	c.topic_detail = c.data.hr.topic_detail ? c.data.hr.topic_detail : "";
+	c.topic_category = c.data.hr.topic_category ? c.data.hr.topic_category : "";
+	c.task_type = c.data.hr.task_type ? c.data.hr.task_type : "";
+	c.errorMsg = c.data.errorMsg ? c.data.errorMsg : null;
+
+	//------------------------------------------
+	// OnClick for opening the popup
+	//------------------------------------------
+	c.openModal = function() {
+		c.modalInstance = $uibModal.open({
+			templateUrl: 'modalTemplate',
+			scope: $scope,
+			size:'lg'
+		});
+	}
+
+	//------------------------------------------
+	// OnClick for closing the popup
+	//------------------------------------------
+	c.closeModal = function() {
+		c.modalInstance.close();
+	}
+
+	//------------------------------------------
+	// Selected hr service changed
+	//------------------------------------------
+	$scope.$on("field.change", function(evt, parms) {
+		if (parms.field.name == 'hr_service') {
+			c.data.hrServiceChanged = parms.newValue;
+
+			c.server.update().then(function(resp) {
+				if(resp.errorMsg){
+					c.errorMsg = resp.errorMsg;
+				}
+
+				c.hr_service = resp.hr.hr_service;
+				c.topic_detail = resp.hr.topic_detail;
+				c.topic_category = resp.hr.topic_category;
+				c.task_type = resp.hr.task_type;
+
+			})
+		}
+	});
+	
+	
+
+	//------------------------------------------
+	// OnClick for submitting form
+	//------------------------------------------
+	c.submit = function(isValid) {
+
+		//	console.log("c.submit");
+		if(!isValid){
+			c.errorMsg = "Please enter values for the required fields.";
+			//	c.subjectInvalid = true;
+			return;
+		} 
+		c.errorMsg = "";
+
+		// update the server values
+		c.data.form = {};
+		c.data.hrServiceChanged = false;
+		c.data.form.submit = true;
+		c.data.form.subject = c.subject;
+		c.data.form.detailed_description = c.detailed_description;
+		c.data.form.subject_person = c.subject_person.value;
+		c.data.form.opened_by = c.opened_by.value;
+		c.data.form.hr_service = c.hr_service.value;
+	  c.modalInstance.close();
+		c.server.update().then(function(response) {
+			if(response.success === true){
+
+
+				// clear form
+				c.subject_person = c.data.loggedInUser;
+				//	c.hr_service = {value:"", displayValue:"", name:"hr_service"} 
+				//	c.topic_detail = "";
+				//	c.topic_category = "";
+				//	c.task_type = "";
+				c.detailed_description = "";
+				c.subject = "";
+
+	
+				spUtil.addInfoMessage(c.data.responseMsg);
+				
+				c.modalInstance.close();
+				
+				window.location.href=response.urlToCase;
+			
+			}
+			else{
+				c.errorMsg = response.errorMsg;
+			}
+		});
+
+	}
+}	
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.btnSubmit {
+	margin-left:10px;
+  margin-right:10px;
+  border:solid;
+  padding:10px;
+  background:$godaddyBlue;
+}
+
+btn, button	 {
+ /* background:$godaddyBlue !important; */
+  background:#000000 !important; 
+  color:#ffffff !important; 
+}
+
+button:hover:hover,btn:hover	 {
+    background:#000000 !important; 
+  color:#ffffff !important; 
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gdep_create_case_popup</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Create Case Popup</name>
+        <option_schema>[]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function () {
+
+	data.errorMsg = null;
+
+	if (!data.attachmentOptions) {
+		data.attachmentOptions = {};
+	}
+
+	//Parse route params for Article ID
+
+	//var kb_article = $sp.getParameter("sys_id");
+	
+	
+	var kbNum = $sp.getParameter("sysparm_article");
+	var cat = $sp.getParameter("kb_category");
+	if(cat == '19dde4dbdbb81050daeb9ed6db96195a' && $sp.getParameter('id') == 'gdep_performance_mgmt')
+		kbNum = 'KB0013624';
+	else if(cat == '6a0ba34bdbbf9818fe6ec170ba96192e' && $sp.getParameter('id') == 'career_leveling_guides')
+		kbNum = 'KB0013700';
+	else if(cat == 'bb7e605fdbb81050daeb9ed6db96196c' && $sp.getParameter('id') == 'gdep_pay_compensation')
+		kbNum = 'KB0014045';
+	
+	var k = new GlideRecord('kb_knowledge');
+	k.addQuery('number',kbNum);
+	k.addQuery('workflow_state','published');
+	k.query();
+	if(k.next()){
+		var kb_article = k.sys_id;
+		
+
+	//Test for HR Service before displaying Create Case Modal
+	data.isHR = false;
+	var grKB = new GlideRecord('kb_knowledge');
+
+	if (kb_article) {
+		grKB.get(kb_article);
+		data.isHR = (grKB.u_hr_service.toString().length > 0);
+	}
+	
+		// this won't work if they publish a new version of the article.  you need to query
+		// to find the kb_article from the latest version of the kbNum
+	if (kb_article == 'dfa94829dbab14d0bb5a4a2813961970' || cat == '19dde4dbdbb81050daeb9ed6db96195a'){
+		data.isHR = true;
+	}
+
+	if (kbNum) {
+		grKB.addQuery('number', kbNum);
+		grKB.addQuery('latest', true);
+		grKB.query();
+
+		while (grKB.next()) {
+			data.isHR = (grKB.u_hr_service.toString().length > 0);
+		}
+	}
+
+	data.readonlyHrService = kb_article != null && kb_article != "" || cat != '';
+
+	data.loggedInUser = {
+		value: gs.getUserID(),
+		displayValue: gs.getUserDisplayName()
+	}
+
+	data.hr = {};
+	if(cat == '19dde4dbdbb81050daeb9ed6db96195a'){
+		
+		kb_article = 'd1f360bf1b08ec14ddbe21be6e4bcbae';
+		
+	}
+	if (!input && kb_article) {
+		getDataForKbArticle(kb_article, data.hr);
+
+		if (!data.hr.topic_detail || !data.hr.task_type || !data.hr.topic_category) {
+			data.errorMsg = "There was a problem with the HR service.  Please choose a different one.";
+		} else {
+			data.attachmentOptions.record_id = gs.generateGUID();
+			data.attachmentWidget = $sp.getWidget("gdep_ticket_attachments", data.attachmentOptions);
+		}
+	}
+
+	//----------------------------
+	// Submitted from client
+	//----------------------------
+	if (input.hrServiceChanged) {
+		data.hr = {};
+
+		initHrDisplayFields(input.hrServiceChanged, data.hr);
+		if (!data.hr.topic_detail || !data.hr.task_type || !data.hr.topic_category) {
+			data.errorMsg = "There was a problem with the HR service.  Please choose a different one.";
+		}
+
+	} else if (input.form.submit === true) {
+		var hr_values = getHrValueFields(input.form.hr_service);
+		var grCase = new GlideRecord(hr_values.task_type);
+		grCase.initialize();
+		grCase.setValue("hr_service", input.form.hr_service);
+		grCase.setValue("topic_category", hr_values.topic_category);
+		grCase.setValue("topic_detail", hr_values.topic_detail);
+		grCase.setValue("description", input.form.detailed_description);
+		grCase.setValue("short_description", input.form.subject);
+		grCase.setValue("opened_by", gs.getUserID());
+		grCase.setValue("opened_for", gs.getUserID());
+		grCase.setValue("subject_person", input.form.subject_person);
+		grCase.setValue("state", 10); //Set State to Ready
+		grCase.setValue("state", 10); //Set State to Ready
+		grCase.setValue("contact_type", 'portal'); //Set Contact Type to Portal
+		
+		grCase.insert();
+		var sys_id = grCase.sys_id;
+		var attachmentSysID = updateAttachment(input.attachmentOptions.record_id, sys_id, input.attachmentOptions.record_table);
+
+		//Relate case to the current article
+		var articleM2MSysID = attachCurrentArticle(sys_id, kb_article);
+
+		//reference the current article in the case comments
+		if (sys_id && articleM2MSysID) {
+			addArticleLinkComment(sys_id, kb_article, hr_values.task_type);
+		}
+
+		data.urlToCase = "?id=gdep_ticket&table=" + hr_values.task_type + "&sys_id=" + sys_id;
+		
+		// validate that it got created and everything
+		
+		data.success = true;
+		
+		var portalName = $sp.getPortalRecord().getDisplayValue("title");
+		data.responseMsg = gs.getMessage("Case '" + grCase.number + "' created!  For all case updates, reference My Requests on the " + portalName + " portal <a href='" + data.urlToCase + "'>or click here to open</a>");
+	}
+	}
+})();
+
+//Comment case with article link
+function addArticleLinkComment(caseID, articleID, tableName) {
+	var grHrCase = new GlideRecord(tableName);
+	grHrCase.addQuery("sys_id", caseID);
+	grHrCase.query();
+	if (grHrCase.next()) {
+		var grArticle = getKBArticle(articleID);
+		if (grArticle) {
+			//grHrCase.comments = '[code]Created from article <a title="' + grArticle.number + '" href="kb_view.do?sys_kb_id=' + articleID + '" target="_blank">' + grArticle.number + ": " + grArticle.short_description + '</a>[/code]';
+			grHrCase.comments = '[code]Created from article <a title="' + grArticle.number + '" href="gdep?id=gdep_kb_article&sys_id=' + articleID + '" target="_blank">' + grArticle.number + ": " + grArticle.short_description + '</a>[/code]';
+			grHrCase.update();
+		}
+	}
+}
+
+//Add related knowledge to case
+function attachCurrentArticle(caseID, articleID) {
+	var grKbArticle = new GlideRecord("m2m_kb_task");
+	grKbArticle.initialize();
+	grKbArticle.kb_knowledge = articleID;
+	grKbArticle.task = caseID;
+	var sysID = grKbArticle.insert();
+	return sysID;
+}
+
+function updateAttachment(oldTableID, newTableID, newTableName) {
+	var idList = [];
+	var grAttachment = new GlideRecord("sys_attachment");
+	grAttachment.addQuery("table_sys_id", oldTableID);
+	grAttachment.query();
+	while (grAttachment.next()) {
+		grAttachment.table_name = newTableName;
+		grAttachment.table_sys_id = newTableID;
+		var sysID = grAttachment.update();
+		idList.push(sysID);
+	}
+	return idList;
+}
+
+function getHrValueFields(service_id) {
+	if (!service_id) return;
+
+	var hrGR = GlideRecord('sn_hr_core_service');
+	hrGR.get(service_id);
+
+	var hr_values = {};
+	hr_values.topic_detail = hrGR.topic_detail.getValue();
+	hr_values.topic_category = hrGR.topic_detail.topic_category.getValue();
+	hr_values.task_type = hrGR.topic_detail.topic_category.coe.getDisplayValue();
+
+	return (hr_values);
+}
+
+function initHrDisplayFields(service_id, hr) {
+	if (!service_id) return;
+
+	try {
+		var hrGR = GlideRecord('sn_hr_core_service');
+		hrGR.get(service_id);
+		hr.hr_service = {
+			value: service_id,
+			displayValue: hrGR.getDisplayValue(),
+			name: 'hr_service'
+		}
+		hr.topic_detail = hrGR.topic_detail.getDisplayValue();
+		hr.topic_category = hrGR.topic_detail.topic_category.getDisplayValue();
+
+		var coeGR = new GlideRecord(hrGR.topic_detail.topic_category.coe);
+		hr.task_type = coeGR.getLabel();
+
+		if (input.attachmentOptions.record_id) {
+			data.attachmentOptions.record_id = input.attachmentOptions.record_id;
+		} else if (!data.attachmentOptions.record_id) {
+			data.attachmentOptions.record_id = gs.generateGUID();
+		}
+		data.attachmentOptions.record_table = hrGR.topic_detail.topic_category.coe + "";
+		data.attachmentWidget = $sp.getWidget("gdep_ticket_attachments", data.attachmentOptions);
+
+
+	} catch (errorMsg) {
+		hr.hr_service = {
+			value: null,
+			displayValue: null,
+			name: 'hr_service'
+		}
+		hr.topic_detail = "";
+		hr.topic_category = "";
+		hr.task_type = "";
+	}
+}
+
+//Coming from a KB article
+function getDataForKbArticle(articleId, hr) {
+	var kbKnowledge = new GlideRecord("kb_knowledge");
+	kbKnowledge.addQuery("sys_id", articleId);
+	//kbKnowledge.addQuery("latest", "true");
+	kbKnowledge.setLimit(1);
+	kbKnowledge.query();
+	while(kbKnowledge.next()){
+	
+  if(kbKnowledge.latest == 'true'){
+	initHrDisplayFields(kbKnowledge.getValue("u_hr_service"), hr);
+	data.attachmentOptions.record_table = kbKnowledge.u_hr_service.topic_detail.topic_category.coe + "";
+	}
+		else
+			{
+				
+				var kb1 = new GlideRecord('kb_knowledge');
+				kb1.addQuery('number',kbKnowledge.number);
+				kb1.addQuery("latest", "true");
+				kb1.query();
+				while(kb1.next()){
+					
+					initHrDisplayFields(kb1.getValue("u_hr_service"), hr);
+	data.attachmentOptions.record_table = kb1.u_hr_service.topic_detail.topic_category.coe + "";
+					
+				}
+				
+				
+				
+			}
+	}
+}
+
+//Returns the article gliderecord
+function getKBArticle(sysID) {
+	var grArticle = new GlideRecord("kb_knowledge");
+	grArticle.addQuery("sys_id", sysID);
+	grArticle.query();
+	if (grArticle.next()) {
+		return grArticle;
+	}
+	return;
+}]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-06-11 20:52:55</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>0d22d61adb1dd4d0bb5a4a28139619ee</sys_id>
+        <sys_mod_count>1141</sys_mod_count>
+        <sys_name>GDEP Create Case Popup</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_0d22d61adb1dd4d0bb5a4a28139619ee</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-04-02 21:17:14</sys_updated_on>
+        <template><![CDATA[
+  <div style="text-align:center" >
+    <button ng-if="data.isHR == true" class="btn btn-default" ng-click="c.openModal()">${Do you still have questions?}</button>
+  </div>
+<div>
+  &nbsp;
+</div>
+
+  <script type="text/ng-template" id="modalTemplate">
+  
+  <div class="panel panel-default" ng-if="c.errorMsg">
+      	<div class="alert alert-danger">{{c.errorMsg}}</div>
+			</div>
+  
+  <form name="createCaseForm" class="form-horizontal" role="form" novalidate>
+  
+  
+
+    <div class="panel-heading">
+    
+      
+        <h4 class="panel-title">Create a Case</h4>
+      </div>
+
+      <!-- Opened By -->
+      <div class="panel-body wrapper-md">
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2 control-label">Opened By</label>
+            <div class="col-sm-10">
+              <sn-record-picker 
+                                id="pickerOpenedBy" 
+                                sn-disabled="true" 
+                                options="{allowClear: false}" 
+                                table="'sys_user'" 
+                                default-query="'active=true^nameISNOTEMPTY'" 
+                                display-field="'name'" 
+                                display-fields="'name,sys_id'" value-field="'sys_id'"  
+                                field="c.opened_by" 
+                                search-fields="'name,user_name'" 
+                                page-size="100">
+              </sn-record-picker> <p/>
+            </div>
+          </div>
+        </div>
+
+        <!-- On Behalf of -->
+       <div class="form-group">
+          <div class="row">
+             
+            <label class="col-sm-2 control-label">Subject Person</label>
+            <div class="col-sm-10">
+              <sn-record-picker id="pickerOnBehalfOf"
+              									options="{allowClear: false}" 
+              									name="pickerOnBehalfOf"
+                                sn-disabled = "c.widgetOpts" 
+                                table="'sys_user'" 
+                                default-query="'active=true^u_worker_idISNOTEMPTY^nameNOT LIKE02d^nameNOT LIKE02c^nameNOT LIKE025b^nameNOT LIKE03d^nameNOT LIKE2kwn^nameNOT LIKE0365'" 
+                                display-field="'name'" 
+                                value-field="'sys_id'" 
+                                field="c.subject_person"
+                                search-fields="'name,user_name'" 
+                                page-size="100">
+              </sn-record-picker><p/>
+              
+            </div>
+          </div>
+        </div>
+
+        <!-- HR Service -->
+        <div class="form-group"
+             ng-class="{'has-error' : !c.data.hr.hr_service.value && createCaseForm.$submitted } ">
+          <div class="row">
+          <label class="col-sm-2 control-label"><label ng-show="!c.data.hr.hr_service.value && createCaseForm.$submitted">*</label> HR Service:</label>
+            <div class="col-sm-10">
+              <sn-record-picker name ="pickerHrService" 
+                                id="pickerHrService" 
+                                sn-disabled = "c.data.readonlyHrService" 
+                                ng-required="true" 
+                                table="'sn_hr_core_service'" 
+                                default-query="'active=true'" 
+                                display-field="'name'" 
+                                value-field="'sys_id'" 
+                                field="c.hr_service" 
+                                options="{allowClear: false}" 
+                                search-fields="'name'" 
+                                page-size="100" >
+              </sn-record-picker><p/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Topic Detail -->
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2 control-label">Topic Detail:</label>
+            <div class="col-sm-10">
+              <input type="text" ng-model="c.topic_detail" class="form-control" readonly><p/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Topic Category -->
+        <div class="form-group">
+          <div class="row">
+            <label class="col-sm-2 control-label">Topic Category:</label>
+            <div class="col-sm-10">
+              <input type="text" ng-model="c.topic_category" class="form-control" readonly><p/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task Type -->
+        <div class="form-group"
+        ng-class="{'has-error' : createCaseForm.txtTaskType.$invalid && createCaseForm.$submitted}">
+          <div class="row">
+            <label class="col-sm-2 control-label"><label ng-show="createCaseForm.txtTaskType.$invalid && createCaseForm.$submitted">*</label>Task Type:</label>
+            <div class="col-sm-10">
+              <input name="txtTaskType" type="text" ng-model="c.task_type" ng-required="true" class="form-control" readonly><p/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subject -->
+        <div class="form-group"
+             ng-class="{'has-error' : createCaseForm.txtSubject.$invalid && createCaseForm.$submitted}">
+          <div class="row">
+           
+           <label class="col-sm-2 control-label"><label ng-show="createCaseForm.txtSubject.$invalid && createCaseForm.$submitted">*</label> Subject:</label>
+            <div class="col-sm-10">
+              <input id="txtSubject"
+              			 name="txtSubject"
+                     type="text" 
+                     class="form-control" 
+                     ng-required="true" 
+                     ng-model="c.subject" >
+              
+              
+              <p/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detailed Description -->
+        <div class="form-group"
+             ng-class="{'has-error' : createCaseForm.txtDetailedDesc.$invalid && createCaseForm.$submitted}">
+          <div class="row">
+          
+            <label class="col-sm-2 control-label"><label ng-show="createCaseForm.txtDetailedDesc.$invalid && createCaseForm.$submitted">*</label> Description:</label>
+            <div class="col-sm-10">
+              <textarea id="txtDetailedDesc"
+              					name="txtDetailedDesc"
+                        class="form-control" 
+                        ng-required="true"
+                        rows="4" cols="50" 
+                        ng-model="c.detailed_description">
+              </textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attachments -->
+        <div class="form-group mt-10" ng-if="c.data.attachmentOptions.record_table">
+          <div class="row">
+            <label class="col-sm-2 control-label">Attachments:</label>
+            <div class="col-sm-10">
+              <sp-widget widget="c.data.attachmentWidget"></sp-widget>
+            </div>
+          </div>
+        </div> 
+      </div>
+
+      <!-- Submit and Cancel -->
+      <div class="panel-footer text-right">
+        <button style="background-color: #000000; margin-right:10px; color: #ffffff" class="btn btnSubmit" ng-click="c.submit(createCaseForm.$valid)">${Submit}</button>
+        <button class="btn btn-default modalButtons" style="background-color: #000000; color: #ffffff"; ng-click="c.closeModal()">${Cancel}</button>&nbsp;
+      </div>
+  <p>
+    </div><!--panel end-->
+    
+      
+    
+    
+    </form><!--form end-->
+      <style>
+        .form-group{
+          margin-bottom: 0;
+        }
+        .mt-10{
+          margin-top: 10px;
+        }
+        .panel-body{
+          border: 1px;
+        }
+      </style>
+      
+      </script>
+
+
+
+]]></template>
+    </sp_widget>
+</record_update>

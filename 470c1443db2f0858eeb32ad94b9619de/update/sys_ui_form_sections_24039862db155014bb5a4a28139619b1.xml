@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_form_sections form_id="24039862db155014bb5a4a28139619b1" sys_domain="global" table="sn_hr_core_case_compensation" version="3">
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>0</position>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-06-12 06:15:58</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>24039862db155014bb5a4a28139619f6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="sn_hr_core_case_compensation" name="sn_hr_core_case_compensation" sys_domain="global" view="Default view">24039862db155014bb5a4a28139619b1</sys_ui_form>
+            <sys_ui_section display_value="">60039862db155014bb5a4a28139619b3</sys_ui_section>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-06-12 06:15:58</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>1</position>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-06-12 06:15:58</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>e0039862db155014bb5a4a28139619fa</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="sn_hr_core_case_compensation" name="sn_hr_core_case_compensation" sys_domain="global" view="Default view">24039862db155014bb5a4a28139619b1</sys_ui_form>
+            <sys_ui_section display_value="">2c039862db155014bb5a4a28139619f6</sys_ui_section>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-06-12 06:15:58</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>2</position>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-06-12 06:15:58</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>78039862db155014bb5a4a28139619fe</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="sn_hr_core_case_compensation" name="sn_hr_core_case_compensation" sys_domain="global" view="Default view">24039862db155014bb5a4a28139619b1</sys_ui_form>
+            <sys_ui_section display_value="">e8039862db155014bb5a4a28139619fa</sys_ui_section>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-06-12 06:15:58</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>3</position>
+            <sys_created_by>system</sys_created_by>
+            <sys_created_on>2021-04-22 07:07:36</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>ba0225efdb6f20106ab1255c8a96198b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="sn_hr_core_case_compensation" name="sn_hr_core_case_compensation" sys_domain="global" view="Default view">24039862db155014bb5a4a28139619b1</sys_ui_form>
+            <sys_ui_section caption="NULL" display_value="" name="sn_hr_core_case_compensation" sys_domain="global" view="Default view">6315044ac32610102e123a7ea940ddd6</sys_ui_section>
+            <sys_updated_by>system</sys_updated_by>
+            <sys_updated_on>2021-04-22 07:07:36</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form action="INSERT_OR_UPDATE">
+            <name>sn_hr_core_case_compensation</name>
+            <roles/>
+            <sys_class_name>sys_ui_form</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-06-12 06:15:58</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_id>24039862db155014bb5a4a28139619b1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>sn_hr_core_case_compensation</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+            <sys_update_name>sys_ui_form_sections_24039862db155014bb5a4a28139619b1</sys_update_name>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-06-12 06:15:58</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_form>
+    </sys_ui_form_sections>
+</record_update>

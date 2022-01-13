@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="ref_ac_columns_search=true,ref_auto_completer=AJAXTableCompleter,ref_ac_columns=full_category" label="Knowledge Category" max_length="40" name="kb_category" sizeclass="1208" type="collection">
+        <element label="Description" max_length="4000" name="u_description" type="string"/>
+        <element attributes="edge_encryption_enabled=true,pdf_cell_type=image" label="Image" max_length="40" name="u_image" type="user_image"/>
+    </element>
+</database>

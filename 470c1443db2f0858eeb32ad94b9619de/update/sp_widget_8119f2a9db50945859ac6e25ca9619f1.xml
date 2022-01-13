@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.gdepImageDisplay {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  //padding-top: 2em;
+  //padding-bottom: 2em;
+  //min-height: 200px;
+}
+
+.gdepImageSize {
+  width: 100%;
+  height: auto;
+  max-width: 10em;
+  /* margin-right: auto;
+  display: block; */
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gdep_kb_cat_image</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP KB Cat Image</name>
+        <option_schema>[{"name":"page_type","section":"other","default_value":"Knowledge","label":"Page Type","type":"choice","choices":[{"label":"Knowledge","value":"Knowledge"},{"label":"Service Requests","value":"Service Requests"},{"label":"Quick Links","value":"Quick Links"},{"label":"Performance Management","value":"Performance Management"}]}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	// Get the image from the GDEP Image Links table. Build the query 
+	// based on the page_type setting (from options)
+/*
+	
+	var grTile = new GlideRecord("u_gdep_tile");
+	var pageId = $sp.getParameter('id');
+
+	console.log("pageid == " + pageId );
+	console.log("pageid == gdep_forms == " + pageId=='gdep_forms' );
+	
+	if(pageId == 'gdep_forms' || options.page_type == "Service Requests" || true){
+		grTile.addQuery('u_title', 'Service Requests');
+		
+	}
+	else{
+		var kbCat = $sp.getParameter("kb_category");
+
+
+		
+		grTile.addQuery('u_kb_category', kbCat.getValue('sys_id'));
+		console.log(grTile);
+		grTile.query(kbCat.getValue('sys_id'));
+
+		
+	}
+	
+	if(grTile.next()){
+		
+		
+			console.log("hey");
+
+			//console.log("kb cat: " + grTile.getValue('sys_id');
+		}
+*/
+	
+
+	var grImageLinks = new GlideRecord("u_gdep_image_links");
+
+	if(options.page_type == "Service Requests"){
+		// Service Requests (Forms)
+		grImageLinks.addQuery("u_title","Service Requests");
+	} 
+	else if(options.page_type == "Quick Links"){
+		// Quick Links
+		grImageLinks.addQuery("u_title","Quick Links");
+	}
+
+	else{
+		var categoryId = $sp.getParameter("kb_category");
+
+		// Knowledge
+		if($sp.getParameter("id") != "gdep_performance_mgmt"){
+			var api = new GdepKbApi();
+			var topCategory = api.getTopMostCategory(categoryId);
+			grImageLinks.addQuery("u_related_sysid", topCategory);
+		}
+		// Performance Management
+		else{
+			grImageLinks.addQuery("u_related_sysid", categoryId);
+		}
+	}
+
+	// Run the query that has (hopefully) been built
+	grImageLinks.query();
+	if(grImageLinks.next()){
+		data.image = grImageLinks.getDisplayValue('u_image');  
+	}
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-04-20 22:44:49</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>8119f2a9db50945859ac6e25ca9619f1</sys_id>
+        <sys_mod_count>154</sys_mod_count>
+        <sys_name>GDEP KB Cat Image</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_8119f2a9db50945859ac6e25ca9619f1</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-09-08 19:06:56</sys_updated_on>
+        <template><![CDATA[<div class="gdepImageDisplay">
+  <img class="gdepImageSize" ng-src="{{::c.data.image}}">
+</div>
+
+]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($uibModal, $scope, spUtil,cabrillo) { 
+
+	var c = this;
+	c.listOfShoppers = [];
+	c.doneLoading = false;
+	c.loadingMsg = "Loading...";
+
+	c.server.get({type: "getShoppers"}).then(function(r) {    
+
+		if(r.data.list == null){
+			c.listOfShoppers = [];
+		}
+		else{
+			c.listOfShoppers = r.data.list;
+		}
+
+		c.disableSpinner();
+
+		c.doneLoading = true;
+	});
+
+	c.trashCanClick = function(shopper){
+		if(confirm("Are you sure you want to delete " + shopper + "?")){
+			c.removeShopper(shopper);
+		}
+	}
+
+	c.addShopper = function(shopper){
+		
+		console.log("VAlue of data is " + c.listOfShoppers.length);
+		
+		c.enableSpinner();
+
+		c.server.get({type: "addShopper", shopper: shopper}).then(function(r) {    
+			console.log(r.result);
+
+			c.listOfShoppers.push(shopper);
+			c.shopperId = "";
+
+			c.disableSpinner();
+
+			doneloading = true;
+		});
+	}
+
+	c.removeShopper = function(shopper){
+		c.enableSpinner();
+
+		c.server.get({type: "removeShopper", shopper: shopper}).then(function(r) {    
+			console.log(r.result);
+
+			var index = c.listOfShoppers.indexOf(shopper);
+			if (index > -1) {
+				c.listOfShoppers.splice(index, 1);
+			}
+
+			c.disableSpinner();
+			doneloading = true;
+		});
+
+	}
+
+	c.enableSpinner = function(){
+		// it's ugly but it works
+		jQuery('#loadingMsg').removeClass('hidden');
+		jQuery('#shoppersPanel').addClass('hidden');
+	}
+	c.disableSpinner = function(){
+		// it's ugly but it works
+		jQuery('#loadingMsg').addClass('hidden');
+		jQuery('#shoppersPanel').removeClass('hidden');
+	}
+
+	$scope.$on('sp_loading_indicator', function(e, value) {
+
+		$scope.loadingIndicator = value;
+
+	});
+
+
+	c.openModal = function() {
+		//console.log("VAlue of data is " + r.data.list.length);
+		c.modalInstance = $uibModal.open({
+			templateUrl: 'modalTemplate',
+			scope: $scope,
+			size:'lg'
+		});
+	}
+
+	c.closeModal = function() {
+		c.modalInstance.close();
+	}
+
+	c.submit = function(isValid) {
+		if(!isValid){
+			c.errorMsg = "Please enter values for the required fields.";
+			return;
+		} 
+		
+		c.modalInstance.close();
+		c.addShopper(c.shopperId);
+		
+		
+		/*
+		
+		c.errorMsg = "";
+
+		// update the server values
+		c.data.form = {};
+		c.data.form.submit = true;
+		c.data.form.subject = c.subject;
+		c.data.form.detailed_description = c.detailed_description;
+		c.data.form.desc = c.desc;
+		c.modalInstance.close();
+		c.server.update().then(function(response) {
+			if(response.success === true){
+
+
+				// clear form
+				c.detailed_description = "";
+
+				spUtil.addInfoMessage(c.data.responseMsg);
+
+				c.modalInstance.close();
+
+				window.location.href=response.urlToCase;
+
+			}
+			else{
+				c.errorMsg = response.errorMsg;
+			}
+		});*/
+
+	}
+}	
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.jeopardy {&#13;
+  background-color : #fff;&#13;
+}&#13;
+&#13;
+.tableStyle {&#13;
+ width:100px; &#13;
+  position:relative;&#13;
+  left:25%;&#13;
+  right:25%&#13;
+}&#13;
+&#13;
+.title {&#13;
+  font-family : "Century Gothic",helvitica,arial;&#13;
+  font-size : 64pt;&#13;
+  color : #81B5A1;&#13;
+  text-align : center;&#13;
+}&#13;
+&#13;
+@keyframes spinner {&#13;
+  to {transform: rotate(360deg);}&#13;
+}&#13;
+ &#13;
+.spinner {&#13;
+  content: '';&#13;
+ // box-sizing: border-box;&#13;
+  position: absolute;&#13;
+  top: 50%;&#13;
+  left: 50%;&#13;
+  width: 20px;&#13;
+  height: 20px;&#13;
+  margin-top: -10px;&#13;
+  margin-left: -10px;&#13;
+z-index:1;&#13;
+  border-radius: 50%;&#13;
+  border: 2px solid #ccc;&#13;
+  border-top-color: #000;&#13;
+  animation: spinner .8s linear infinite;&#13;
+}&#13;
+&#13;
+.trashButton {&#13;
+  border : none;&#13;
+  background-color : none;&#13;
+    &#13;
+}&#13;
+&#13;
+.panel {&#13;
+position: relative;&#13;
+}&#13;
+&#13;
+.panel-heading i {&#13;
+  cursor: pointer;&#13;
+  position: absolute;&#13;
+  padding: 10px;&#13;
+  top: 0px;&#13;
+  right: 0px;  &#13;
+  cursor: pointer;&#13;
+}&#13;
+&#13;
+.disabled-filter {&#13;
+	color: #A0A0A0;&#13;
+}&#13;
+&#13;
+.list-group-item.ng-enter {&#13;
+  transition: all 1s;&#13;
+  -webkit-transition: all 1s;&#13;
+&#13;
+  background-color: #c0dcfa;&#13;
+}&#13;
+&#13;
+.list-group-item.ng-enter-active {&#13;
+  background-color: #fff;&#13;
+}&#13;
+&#13;
+.hide-x-overflow {&#13;
+  overflow-x: hidden;&#13;
+}&#13;
+&#13;
+.translated-html &gt; p {&#13;
+  margin: 0px;&#13;
+  padding: 0px;&#13;
+}&#13;
+&#13;
+IMG {&#13;
+  max-width: 320px;&#13;
+  max-height: 240px;&#13;
+}&#13;
+&#13;
+IMG.img-sm {&#13;
+  max-height: 40px;&#13;
+  max-width: 40px;&#13;
+}&#13;
+&#13;
+.filter-box {&#13;
+  margin-top: 10px;&#13;
+}&#13;
+&#13;
+.btn-primary {&#13;
+    color: #fff;&#13;
+    background-color: #1BDBDB;&#13;
+    border-color: #18c4c4;&#13;
+}&#13;
+&#13;
+.btn {&#13;
+  &#13;
+  border: none;&#13;
+&#13;
+&#13;
+}&#13;
+&#13;
+&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) { 
+
+ }]]></link>
+        <name>Sachin - getShopperDiscount</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	var _env = getEnvironment();
+	var _mgrUserId = getMgrUserId();
+	var _mid = getMidServer();
+	var _path = 'c:\\scripts\\FriendsNFamily\\employeePricing.psm1';
+
+	
+	data.list = [];
+
+	if(input && input.type == "removeShopper"){
+		console.log("shopper to remove is " + input.shopper);
+		data.result = RemoveShopper(input.shopper);
+	}
+	if(input && input.type == "addShopper"){
+		var tempList1 = GetShoppers();
+		if(tempList1 == "null") {
+			data.list = [];
+		}
+		else{
+			data.list = tempList1.split(',');
+			console.log("add result from server is : " + data.list.length);
+			console.log("SYSTEM prope value is " + gs.getProperty('shopper_max_accounts'));
+			if(data.list.length >= gs.getProperty('shopper_max_accounts')){
+				
+				gs.addErrorMessage("Exceeded max accounts");
+				return;
+				
+			}
+		}
+			
+		console.log("shopper to add is " + input.shopper);
+		data.result = AddShopper(input.shopper);
+	}
+	if(input && input.type == "getShoppers"){
+		var tempList = GetShoppers();
+		if(tempList == "null") {
+			data.list = [];
+		}
+		else{
+			data.list = tempList.split(',');
+			console.log("result from server is : " + data.result);
+		}
+		
+	} 
+	
+	if(input.form.submit === true && input.form.subject){
+
+		var us = new GlideRecord('sys_user');
+		us.addQuery('sys_id',gs.getUserID());
+		us.query();
+		if(us.next()){
+
+			var uuid = us.u_uid_number - 100000;
+			var pb = new PowershellProbe("p3dwsnowff01-mid-dev", "127.0.0.1");
+			var script = "";
+			script = "import-module c:\\scripts\\FriendsNFamily\\employeePricing.psm1\n"+"AddShopper dev" + " " + uuid + " " + input.form.subject + "\n";
+			pb.setScript(script);
+			pb.setMaxWait(300);
+			var response = pb.execute(true);
+			gs.info("Shopper response is " + response.output);
+			if (response.error != "null" && typeof response.error != "undefined")
+			{
+				return "ERROR: "+response.error;
+			}
+			//return  response.output;
+			if(response.output == 'SUCCESS'){
+
+				data.urlToCase = '?id=gd_my_shopper_accounts';
+				data.success = true;
+
+			}
+		}
+	}
+
+	if(input.form.submit === true && input.form.desc){
+
+		var user = new GlideRecord('sys_user');
+		user.addQuery('sys_id',gs.getUserID());
+		user.query();
+		if(user.next()){
+
+			var uuid_rem = user.u_uid_number - 100000;
+			var pb = new PowershellProbe("p3dwsnowff01-mid-dev", "127.0.0.1");
+			var script ="";
+			script = "import-module c:\\scripts\\FriendsNFamily\\employeePricing.psm1\n"+"RemoveShopper dev" + " " + uuid_rem + " " + input.form.desc+ "\n";
+			pb.setScript(script);
+			pb.setMaxWait(300);
+			var response = pb.execute(true);
+			//gs.print("response is " + response.output);
+			if (response.error != "null" && typeof response.error != "undefined")
+			{
+				return "ERROR: "+response.error;
+			}
+			//return  response.output;
+			gs.info("REmove shopper response " + response.output);
+			if(response.output == 'SUCCESS'){
+
+				data.urlToCase = '?id=gd_my_shopper_accounts';
+				data.success = true;
+
+			}
+		}
+	}
+
+		function RemoveShopper(shopperId){
+			console.log("server-side remove " + shopperId);
+		var functionToCall = "RemoveShopper";
+		var parms = _env + " " + _mgrUserId + " "  + shopperId;
+		
+			
+			
+		return CallPowershell(functionToCall, parms);
+	}
+	
+	function AddShopper(shopperId){
+		var functionToCall = "AddShopper";
+		var parms = _env + " " + _mgrUserId + " "  + shopperId;
+		return CallPowershell(functionToCall, parms);
+	}
+	
+	function GetShoppers(){
+		var functionToCall = "GetByEmployeeID";
+		var parms = _env + " " + _mgrUserId;
+		return CallPowershell(functionToCall, parms);
+	}
+	
+	function CallPowershell(functionToCall, parms){
+		//var list = [];
+		var pb = new PowershellProbe(_mid, "127.0.0.1");
+		script = "import-module " + _path + "\n"+ functionToCall + " " + parms + "\n";
+		pb.setScript(script);
+		pb.setMaxWait(300);
+		var response = pb.execute(true);
+		console.log("got a response from server " + response.error);
+		if (response.error != "null" && typeof response.error != "undefined")
+		{
+			return "ERROR: "+response.error;
+		}
+		//list =  response.output.toString();
+		//return list;
+		
+		console.log("response is " + response.output.toString());
+		
+		return  response.output.toString();
+	}
+
+	function getMidServer(){
+		var mid = "";
+		if(_env == 'dev'){
+			mid = 'p3dwsnowff01-mid-dev';
+		}
+		else if(_env == 'test'){
+			mid = 'p3dwsnowff01-mid-dev';
+		}
+		else{
+			//todo update this value
+			mid = 'p3dwsnowff01-mid-dev';
+		}
+		return mid;
+	}
+
+	function getMgrUserId(){
+		var usr = new GlideRecord('sys_user');
+		usr.get(gs.getUserID());
+		return usr.u_uid_number - 100000;
+	}
+
+	function getEnvironment(){
+		var env = "";
+		if(gs.getProperty('instance_name').contains('dev')){
+			env = 'dev';
+		}
+		else if(gs.getProperty('instance_name').contains('test')){
+			env = 'test';
+		}
+		else{
+			env = 'prod';
+		}
+		return env;
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-02-02 19:42:17</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>9729151adb4ea094bb5a4a28139619f7</sys_id>
+        <sys_mod_count>18</sys_mod_count>
+        <sys_name>Sachin - getShopperDiscount</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_9729151adb4ea094bb5a4a28139619f7</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-02-02 21:43:01</sys_updated_on>
+        <template><![CDATA[<div>
+  <div class="title">
+    <h2>My Shopper Accounts</h2>
+  </div>
+
+  <!-- doing this in angular is too slow: <div  ng-if="c.showLoadingSpinner === true" class="loader" id="loadingSpinner">Loading...</div>-->
+  <div id="loadingMsg">
+    <span class="spinner"></span><span>{{c.loadingMsg}}</span>
+  </div>
+
+
+  <div class="panel " name="shoppersPanel">
+    <div class="list-group hide-x-overflow" style="max-height: 'none'; overflow-y: auto;">
+      <div ng-if="c.listOfShoppers.length > 0" ng-repeat="item in c.listOfShoppers" class="list-group-item"><span>{{item}}</span>
+
+        <button type="button" class="btn btn-default pull-right" ng-click="c.trashCanClick(item)">
+          <div   class="pull-right"> <span class="glyphicon glyphicon-trash"></span></div>
+        </button>
+      </div>
+
+      <div ng-if="c.listOfShoppers.length == 0 && c.doneLoading == true" class="list-group-item">
+        ${No records found}
+      </div>
+    </div>
+  </div>
+
+  <div class="pull-right">
+    <button name="Add Shopper ID" role="link" class="btn btn-primary btn-sm m-l-xs" ng-click="c.openModal()" aria-label="${Add Shopper ID}">${Add Shopper ID}</button>
+    <!--<button name="Remove Shopper ID" role="link" class="btn btn-primary btn-sm m-l-xs" ng-click="c.RemoveRecord()"   aria-label="${Remove Shopper ID}">${Remove Shopper ID}</button>-->
+  </div> 
+  <script type="text/ng-template" id="modalTemplate">
+      <div class="panel panel-default" ng-if="c.errorMsg">
+      	<div class="alert alert-danger">{{c.errorMsg}}</div>
+    </div>
+
+  <form name="createCaseForm" class="form-horizontal" role="form" novalidate>
+    <div class="panel-heading">
+        <h4 class="panel-title">Enter Your Shopper ID</h4>
+    </div>
+         <!-- Subject -->
+        <div class="form-group"
+             ng-class="{'has-error' : createCaseForm.txtShopperId.$invalid && createCaseForm.$submitted}">
+           <label class="col-sm-2 control-label"><label ng-show="createCaseForm.txtShopperId.$invalid && createCaseForm.$submitted">*</label>Shopper ID</label>
+            <div class="col-sm-6">
+              <input id="txtShopperId"
+              			 name="txtShopperId"
+                     type="text" 
+                     class="form-control" 
+                     ng-required="true" 
+                     ng-model="c.shopperId" >
+    </div>
+    </div>
+
+         <!-- Submit and Cancel -->
+      <div class="panel-footer text-right">
+        <button style="background-color: #000000; margin-right:10px; color: #ffffff" class="btn btnSubmit" ng-click="c.submit(createCaseForm.$valid)">${Submit}</button>
+        <button class="btn btn-default modalButtons" style="background-color: #000000; color: #ffffff"; ng-click="c.closeModal()">${Cancel}</button>&nbsp;
+    </div>
+  </script>
+</div>]]></template>
+    </sp_widget>
+</record_update>

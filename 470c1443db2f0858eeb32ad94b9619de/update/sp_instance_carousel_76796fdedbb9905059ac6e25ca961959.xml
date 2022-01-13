@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_carousel">
+    <sp_instance_carousel action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <interval>5000</interval>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">5669afdadbb9905059ac6e25ca961923</sp_column>
+        <sp_widget display_value="GDEP Random Carousel">8c379f91db591850bb5a4a28139619aa</sp_widget>
+        <sys_class_name>sp_instance_carousel</sys_class_name>
+        <sys_created_by>iremigio</sys_created_by>
+        <sys_created_on>2020-07-06 23:45:54</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>76796fdedbb9905059ac6e25ca961959</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_instance_carousel_76796fdedbb9905059ac6e25ca961959</sys_update_name>
+        <sys_updated_by>iremigio</sys_updated_by>
+        <sys_updated_on>2020-07-06 23:45:54</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance_carousel>
+    <sys_translated_text action="delete_multiple" query="documentkey=76796fdedbb9905059ac6e25ca961959"/>
+</record_update>

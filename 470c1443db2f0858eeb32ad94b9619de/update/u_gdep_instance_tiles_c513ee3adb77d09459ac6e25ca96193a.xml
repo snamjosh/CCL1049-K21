@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="u_gdep_instance_tiles">
+    <u_gdep_instance_tiles action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">f413ee3adb77d09459ac6e25ca961938</sp_column>
+        <sp_widget display_value="GDEP Quick Links">eeccff00db5e141059ac6e25ca961996</sp_widget>
+        <sys_class_name>u_gdep_instance_tiles</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-10-15 18:00:51</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>c513ee3adb77d09459ac6e25ca96193a</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Greenhouse</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>u_gdep_instance_tiles_c513ee3adb77d09459ac6e25ca96193a</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-10-15 18:04:54</sys_updated_on>
+        <title>Greenhouse</title>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"template": {
+		"value": "Tiles",
+		"displayValue": "Tiles"
+	}
+}]]></widget_parameters>
+    </u_gdep_instance_tiles>
+    <sys_translated_text action="delete_multiple" query="documentkey=c513ee3adb77d09459ac6e25ca96193a"/>
+</record_update>

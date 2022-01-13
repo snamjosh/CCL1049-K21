@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_catalog">
+    <m2m_sp_portal_catalog action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <order>100</order>
+        <sc_catalog display_value="GD Service Catalog">a403ad7237b716c437026bc2b3990e0b</sc_catalog>
+        <sp_portal display_value="Get Help">680c18c9db2b0c54eeb32ad94b9619d7</sp_portal>
+        <sys_class_name>m2m_sp_portal_catalog</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2020-09-24 22:30:00</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>76479300dbe7949c59ac6e25ca9619ee</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>GD Service Catalog.Get Help</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>m2m_sp_portal_catalog_76479300dbe7949c59ac6e25ca9619ee</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-11-17 00:10:12</sys_updated_on>
+    </m2m_sp_portal_catalog>
+</record_update>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {
+/* widget controller */
+var c = this;
+c.add = function(){
+c.data.action = "add";
+c.server.update().then(function(){
+c.data.action=undefined;
+//Clear the Boxes.
+c.data.address = "";
+c.data.date= "";
+
+});
+}
+
+c.remove = function(indexToRemove){
+c.data.index=indexToRemove;
+c.data.action ="remove";
+c.server.update().then(function(){
+c.data.action=undefined;
+
+})
+}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>gdsp-friends-discounts</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>gdsp-friends-discounts</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+data.dataFromFields = []
+if(input!="" && input.action=="add"){
+data.dataFromFields = input.dataFromFields;
+var dataArray={};
+dataArray.address = input.address;
+dataArray.date = input.date;
+data.dataFromFields.push(dataArray)
+gs.addInfoMessage(input.address)
+gs.addInfoMessage(input.date)
+
+}
+
+if(input.action=="remove"){
+data.dataFromFields.splice(input.index,1)
+}
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-01-25 23:44:42</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>18f3c9fbdb7d6410bb5a4a2813961900</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>gdsp-friends-discounts</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_18f3c9fbdb7d6410bb5a4a2813961900</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-01-25 23:48:39</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default">
+<div class= "panel-body m-b-m">
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>My Shopper Accounts</th>
+<!--th>Date</th-->
+</tr>
+</thead>
+<tbody>
+<tr >
+
+<td><input type='text' ng-model="c.data.address"></td>
+<!--td><input type='date' ng-model="c.data.date"></td-->
+
+</tr>
+<tr ng-repeat="m in c.data.dataFromFields track by $index">
+<td>{{m.address}}</td>
+<td>{{m.date}}</td>
+
+</tr>
+
+</tbody>
+</table>
+<div class="input-gorup-btn">
+<button type="button" ng-click="c.add()" class="btn btn-warning">Add</button>
+<button type="button" ng-click="c.remove($index)" class="btn btn-warning">Remove</button>
+</div>
+</div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

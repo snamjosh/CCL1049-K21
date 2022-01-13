@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="" label="GDEP Instance Tiles" language="en" table="u_gdep_instance_tiles">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element/>
+            <help/>
+            <hint/>
+            <label>GDEP Instance Tiles</label>
+            <language>en</language>
+            <name>u_gdep_instance_tiles</name>
+            <plural>GDEP Instance Tiles</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-11 23:41:21</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>796fcb9cdbb450d459ac6e25ca961939</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>GDEP Instance Tiles</sys_name>
+            <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+            <sys_update_name>sys_documentation_u_gdep_instance_tiles__en</sys_update_name>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-11 23:41:21</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

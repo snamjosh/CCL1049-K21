@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_theme_css_include">
+    <m2m_sp_theme_css_include action="INSERT_OR_UPDATE">
+        <order>300</order>
+        <sp_css_include display_value="GdepCategoryButtonCSS">8b94fc78db465014bb5a4a2813961957</sp_css_include>
+        <sp_theme display_value="GDEP Theme">8d2671c1db63cc54eeb32ad94b9619d8</sp_theme>
+        <sys_class_name>m2m_sp_theme_css_include</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-07-14 05:04:15</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>5275f478db865014bb5a4a28139619b4</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>GdepCategoryButtonCSS.GDEP Theme</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>m2m_sp_theme_css_include_5275f478db865014bb5a4a28139619b4</sys_update_name>
+        <sys_updated_by>iremigio</sys_updated_by>
+        <sys_updated_on>2020-07-14 18:49:00</sys_updated_on>
+    </m2m_sp_theme_css_include>
+</record_update>

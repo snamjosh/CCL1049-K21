@@ -1,0 +1,2283 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="GDEP KB Article Comments">ef4d6ef2db6d185c59ac6e25ca96193b</child>
+        <cloned>2020-06-25 22:24:16</cloned>
+        <last_validated>2020-06-25 22:24:16</last_validated>
+        <parent display_value="Knowledge Article Comments">077810090be432004ce28ffe15673adb</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category/&gt;&lt;client_script&gt;&lt;![CDATA[function ($rootScope, $scope, spUtil,$http, $timeout,spModal,$uibModal,cabrillo,$sanitize) {
+	var c = this;
+	var newCommentParent={};
+	c.isMobile = spUtil.isMobile() || cabrillo.isNative();
+	c.isMESP = $rootScope.portal ? ($rootScope.portal.sys_id == "26f2fffb77322300454792718a1061e5") : false;
+	c.isNative = cabrillo.isNative();
+	c.isValid = $rootScope.isValid;
+	c.showComments = false;
+	c.currentEditorId = '';
+	c.maxFiles = c.data.maxFiles;
+	c.showAllComments = false;
+	c.selectedFiles = [];
+	c.showMainCommentBox = c.isMobile;
+	c.showMobCommentBox = true;
+	c.isLoggedInUser = c.data.isLoggedInUser;
+	c.user = c.data.user;
+	c.isLoading = true;
+	
+	c.showComments = c.options.show_user_comments === 'Use system properties' ? ($rootScope.properties &amp;&amp; $rootScope.properties.showFeedBack) : c.options.show_user_comments === 'Yes';
+	c.commentsPrompt = c.options.add_comment_prompt ? c.options.add_comment_prompt : $rootScope.messages.ADD_COMMENT;
+	c.rateStyle = (c.showComments) ? 'pull-right' : 'kb-rate-mobile';
+	c.commentsImage = '';
+	c.minImageHeight = 100;
+	c.minImageWidth =  185;
+	c.validExtensions = ("PPT,PPTX,XLS,XLSX,DOC,DOCX,TXT,PDF,PNG,BMP,JPG,JPEG,GIF,ZIP").toUpperCase().split(',');
+	c.maxFileSize = c.data.maxFileSize;
+	c.maxLevel = c.isMobile ? 3 : 7;
+	c.latestComment = "";
+	c.commentText = "";
+	c.instance = '';
+	c.data.response = "";
+	c.suffix = c.data.suffix;
+	c.messages = c.data.messages;
+	c.commentsField = {"sys_mandatory":false,"visible":true,"color":"transparent","dbType":-1,"label":"Comments","sys_readonly":false,"type":"string","mandatory":false,"displayValue":"","readonly":false,"hint":"","name":"comments","attributes":{"edge_encryption_enabled":"true"},"choice":0,"value":"","max_length":4000,"ed":{"name":"comments"},"originalValue":""};
+	c.comments = [];
+	c.maxCommentsToDisplay = isNaN(c.data.maxCommentsToDisplay) ? 0 : parseInt(c.data.maxCommentsToDisplay);
+	c.commentsToDisplay = 0;
+	c.hasMoreComments = false;
+	c.justNow = false;
+
+	if(c.showComments &amp;&amp; c.isLoggedInUser){
+
+		spUtil.recordWatch($scope, "kb_feedback", "commentsISNOTEMPTY^flagged=false^ratingISEMPTY^useful=^article="+$rootScope.article_sys_id+"^user!="+c.user.sys_id, function(name, data) {
+
+			if( name.ext.from_user != c.user.user_name){
+
+				var record = name.data.record;
+				if(name.data.operation == "insert"){
+					var commentRecord = {
+						children:[],
+						created_on : record.sys_created_on.value,
+						comment_text : record.comments.value,
+						just_now : 'Y',
+						attachments : [],
+						sys_id : name.data.sys_id,
+						likes:[],
+						is_liked:false,
+						has_children: false,
+						user:{
+							name: record.user.display_value,
+							sys_id: record.user.value
+						}
+					};
+
+					c.server.get({action : 'get_user_details', sys_id: record.user.value}).then(function(r){
+						if(r.data.response){
+							commentRecord.user = r.data.response;
+						}
+					});
+
+					if(record.hasOwnProperty("parent_comment"))
+						commentRecord.parent = record.parent_comment.value;
+					else
+						commentRecord.parent = "";
+
+					if(commentRecord.parent){ //nested Comment
+						if(getParentComment(c.comments,commentRecord.parent)){
+							commentRecord.parent_obj = newCommentParent;
+							commentRecord.level = newCommentParent.level + 1;
+							newCommentParent.children.unshift(commentRecord);
+							commentRecord.root = newCommentParent.root;
+							commentRecord.root.show_replies = true;
+							newCommentParent.has_children = true;
+							c.latestComment = commentRecord;
+						}
+					}
+					else{
+						commentRecord.level = 0;
+						commentRecord.show_replies = true;
+						commentRecord.parent_obj = {};
+						commentRecord.root = commentRecord;
+						c.latestComment = commentRecord;
+						c.comments.unshift(commentRecord);
+						c.commentsToDisplay++;
+					}
+					c.justNow = true;
+					$timeout(function(){
+						c.justNow = false;
+					},30000);
+
+				}
+
+
+				if(name.data.operation == "delete"){
+
+					var index,sys_id = name.data.sys_id;
+					if(getParentComment(c.comments,sys_id )){
+
+						if(newCommentParent.parent == ""){
+							index = c.findIndex(c.comments,"sys_id",sys_id);
+							if(index != -1)
+							c.comments.splice(index,1);
+						}else{
+							if(getParentComment(c.comments,newCommentParent.parent)){
+							index = c.findIndex(newCommentParent.children,"sys_id",sys_id);
+								if(index != -1){
+							newCommentParent.children.splice(index,1);
+							if(newCommentParent.root.children.length == 0){
+								newCommentParent.root.has_children = false;
+								newCommentParent.root.show_replies = false;
+							}
+						}
+							}
+						}
+					}
+				}
+			}
+
+		});
+	}
+
+	c.hasCommentText = function(){
+		if(!c.isLoading &amp;&amp; ((!c.isMESP &amp;&amp; tinyMCE.activeEditor.getContent().toString())) || (c.isMESP &amp;&amp; c.commentText)){
+			return true;
+		}
+		return false;
+	}
+
+	function getParentComment(cmArray, parentId){
+		newCommentParent = {};
+		for(var i=0; i &lt; cmArray.length; i++){
+			if(cmArray[i] &amp;&amp; cmArray[i].sys_id == parentId ){
+				newCommentParent =  cmArray[i];
+				return true;
+			}
+			else {
+				if(cmArray[i].children.length)
+					getParentComment(cmArray[i].children, parentId);
+				if(newCommentParent.hasOwnProperty("sys_id"))
+					return true;
+			}
+		}
+
+		return false;
+	}
+
+	$scope.$watch("c.data.response", function(){
+		if(c.data.response != ''){
+			if(cabrillo.isNative())
+				cabrillo.message.showMessage(c.type != 'error' ? cabrillo.message.SUCCESS_MESSAGE_STYLE : cabrillo.message.ERROR_MESSAGE_STYLE, c.data.response);
+				else
+					$scope.$emit('$$uiNotification', {
+						"message": c.data.response,
+						"type": c.type});
+		}
+		c.clearMessage();
+	});
+
+	c.clearMessage = function(){
+		$timeout(function() {
+			c.data.response = "";
+		}, 500);
+	};
+
+	c.hasChildren = function(){
+		for(var i=0;i&lt;c.comments.length;i++){
+			if(c.comments[i].has_children) return true;
+		}
+		return false;
+	}
+
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.show-comments{
+  padding-bottom:10px;
+}
+.kb-inline{
+  display:inline;
+}
+.pad-right{
+  padding-right:10px !important;
+}
+.feedback-button{
+  margin-top: 20px;
+  color:#666666;
+  .fa{
+    font-size:18px;
+  }
+}
+.kb-wrap-text{
+  max-width: 90%;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.kb-comments-header{
+  display : block;
+  margin : 0px;
+  padding:10px 0;
+  font-size:18px;
+}
+.kb-comment-input{
+  margin-top : 20px;
+  width:99.99%;
+  iframe{
+    width:99% !important;
+  }
+}
+.kb-comments-list{
+  margin : 0px;
+}
+.kb-line{
+  border-color : #ccc;
+}
+.kb-rate-mobile{
+  padding-bottom:10px;
+  margin-top : -15px;
+}
+.kb-end-button{
+  text-align : center;
+}
+.comment-text{
+  margin-left: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  color: #737373;
+  font-size: 18px;
+}
+
+.parent{
+  border: 1px solid #ddd;
+  margin-bottom : 10px;
+  background : white;
+  border-radius:4px;
+}
+
+.feedback-buttons-group{
+  padding-bottom : 15px;
+  padding-top : 15px;
+  border-top: 1px solid $grey;
+}
+
+.content{
+  padding-right:20px;
+}
+
+.oddChild{
+  border: 1px solid #ddd;
+  background : #fafafa !important;
+  padding: 20px 0 0px 20px;
+  border-right:none;
+  border-bottom:none;
+}
+
+.evenChild{
+  border: 1px solid #ddd;
+  background : white !important;
+  padding: 20px 0 0px 20px;
+  border-right:none;
+  border-bottom:none;
+}
+
+.maxChild{
+  border: 1px solid #ddd;
+  background : #fafafa !important;
+  padding: 20px 0 0px 20px;
+  border-right:none;
+  border-bottom:none;
+
+  .content{
+    //  padding-left:20px;
+  }
+}
+
+.noPaddingChild{
+  border-top: 3px solid #ddd;
+  background : #fafafa  !important;
+}
+
+.addBorderBottom{
+  border-bottom: 1px solid #ddd !important;
+}
+
+.removeBorderTop{
+  border-top:none;
+}
+
+.expand-button{
+  float:right;
+  padding:0;
+  color:#1F8476;
+  border:none;
+  background:none;
+}
+
+.dropdown-toggle{
+  font-size:18px;
+  color:#666666;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 24px;
+
+  right: 0;
+  left: auto;
+  min-width: inherit;
+  background-color: $panel-bg;
+  li:nth-child(n+2) {margin-top: 5px !important;}
+  li a {
+    padding: 3px 20px;
+  }
+  li &amp;gt; div {
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857;
+    color: #3a3f51;
+    white-space: nowrap;
+  }
+}
+
+.open &amp;gt; .dropdown-menu {
+  display: block;
+}
+
+.cm-comment-menu {
+  float: right;
+  width: 0px;
+}
+.cm-comment-menu.open{
+  .tooltip{
+    display: none !important;
+  }
+}
+
+.comment-box{
+  padding-bottom:15px;
+}
+
+.likes{
+  padding-right:10px;
+}
+
+.fa-arrow-right{
+  margin:0 10px;
+}
+
+.liked, .green{
+  color: #1F8476;
+}
+
+.default-cursor{
+  cursor:default;
+}
+
+.image50px .avatar-container {
+  cursor:default;
+  .sub-avatar{
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+    span {
+      font-size:16px;
+    }
+  }
+}
+
+.comment-html{
+  display: inline-block;
+  width: 100%;
+  img{
+    cursor:pointer;
+    max-width: 100%;
+    max-height: 480px;
+  }
+
+}
+
+.inner-html-content{
+  margin:0px 0px 10px;
+  p{
+    margin:0px;
+  }
+  word-break: break-word;
+  line-height: initial;
+}
+
+.show-more-btn{
+  text-align:center;
+  padding:20px 0;
+}
+
+.avatar-container{
+  //margin-right: 10px;
+  margin-top: -6px;
+}
+
+.cm-attachments{
+  display: inline;
+  font-size: 15px;
+}
+
+.kb-head{
+  line-height: 18px;
+  display: inline-block;
+}
+.attachment-box{
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 3px;
+  display:inline-block;
+  margin-bottom: 10px;
+  cursor:pointer;
+}
+.attachments-title{
+  border-right: 1px solid #ddd;
+  background-color: #fff;
+  display:inline-block;
+}
+.attach-down-icon{
+  display: inline-block;
+  font-size: 20px;
+  i{
+    position: absolute;
+    top: calc(50% - -.7em);
+    color:#000;
+  }
+}
+.file-icon{
+  width:40px;
+  height:40px;
+}
+
+.att-body{
+  padding-left: 5px;
+  line-height: 20px;
+  max-width: 100%;
+  display: inline-block;
+  width: calc(100% - 50px);
+}
+
+.att-content{
+  display:block;
+  overflow:hidden;
+  white-space: nowrap;
+  color:#2e2e2e;
+  text-overflow:ellipsis;
+}
+
+.text-muted {
+  color: #666666 !important;
+}
+
+.parent &amp;gt; .hello{
+  padding: 20px 0 0px 20px;
+}
+
+.show-reply{
+  padding: 10px 15px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  text-align:center;
+  margin:0px;
+  font-size: 15px;
+  color:$link-color;
+  .fa{
+    padding-right: 5px;
+  }
+}
+
+.attachment-more{
+
+  display: inline-block;
+  padding-top: 5px;
+
+  .file-icon{
+    font-size: 50px;
+    color: #f1f1f1;
+  }
+
+  .attachments-title{
+    height:63px;
+  }
+}
+
+.vr-line{
+  margin: 4px 10px;
+  border-left: 1px solid #a6a9ae;
+}
+
+.likes-count{
+  font-weight:600;
+}
+
+.likes-section{
+  float:right;
+  display:flex;
+  .fa{
+    font-size: 18px;
+  }
+}
+
+.disabled{
+  text-decoration:none;
+  color: #828890;
+}
+
+.comment-buttons{
+  margin: 0px;
+  display:inline;
+}
+
+.kb-desktop{
+  .kb-comment-wrapper{
+    padding : 0px;
+  }
+  .kb-comments-header{
+    padding:15px 0;
+  }
+  .cm-comment-menu {
+    position: relative;
+    top: -2px;
+  }
+  .create-comment{
+    border: 1px solid #ddd;
+    background : white;
+    padding: 20px;
+    border-radius:4px;
+  }
+  .public-user{
+    .mce-toolbar-grp{
+      display:none;
+    }
+  }
+  .no-margin{
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }
+  .show-all-btn{
+    position:relative;
+    top:-4px;
+  }
+  .pad-sides{
+    padding:0 5px !important;
+  }
+  .noPaddingChild{
+    padding: 20px 0 0px 20px;
+    margin-left:-20px;
+  }
+  .attach-down-icon{
+    i{
+      left: calc(50% - 0.1em);
+    }
+  }
+  .comment-html{
+    padding:10px 0;
+  }
+}
+
+.kb-mobile{
+  letter-spacing: 1px;
+  &amp;amp;.kb-comment-wrapper{
+    padding: 20px 15px 15px 15px;
+  }
+  &amp;amp;.grey-back{
+    background-color: $pre-bg; 
+  }
+  .mce-toolbar-grp{
+    display:none;
+  }
+  .feedback-buttons-group{
+    padding-bottom : 15px;
+    padding-top : 0px;
+    padding-left: 10px;
+    border-top: none;
+    a{
+      font-size: 17px !important;
+    }
+    .likes{
+      padding-right:20px;
+    }
+
+  }
+  .comment-info{
+    text-align:left;
+    .comment-count{
+      line-height: 18px;
+      display: inline-block;
+      font-size: 20px;
+      font-weight: 600;
+
+      .badge{
+        margin-left:10px;
+        background-color:$gray-light;
+        margin-top: -4px;
+        font-size:15px;
+      }
+    }
+  }
+  .cm-comment-menu {
+    position: relative;
+    top: 1px;
+  }
+  .create-comment{
+    text-align:center;
+    margin-bottom: 10px;
+    padding: 0 5px 10px 5px;
+
+    textarea#comment:focus,textarea#comment:active {
+      box-shadow: 0 0 8px 2px $primary !important;
+      outline: 0 !important;
+      border: 1px solid $primary !important;
+      resize:vertical;
+    }
+  }
+
+  .comment-conatiner{
+    width: 100%;
+    display:block;
+
+  }
+  .kb-delete-icon{
+    i{
+      font-size:22px;
+      font-weight:100px;
+    }
+  }
+  .evenChild, .oddChild, .maxChild{
+    padding-left:11px;
+    border-left: 5px solid #ddd;
+  }
+
+  .textarea{
+    height:140px;
+  }
+
+  .parent{
+    margin: 5px 5px 16px 5px;
+    box-shadow: 0 0px 15px -3px rgba(0,0,0,0.2);
+  }
+  .parent &amp;gt; .hello{
+    padding: 20px 0 0px 11px;
+  }
+
+  .avatar-container{
+    margin-right:10px;
+    margin-left:7px;
+  }
+  .comment-html{
+    padding:10px 0px 0px 7px;
+  }
+  .comment-box{
+    padding-left: 7px;
+    .kb-comment-input,.cm-btns{
+      margin-top : 0px;
+    }
+  }
+  .cm-btns{
+    .kb-input-button{
+      height: 40px;
+    }
+    &amp;amp;.global{
+
+    }
+    &amp;amp;.local {
+      margin-left: -8px;
+      .kb-input-button{
+        padding-left: 7px;
+      }
+    }
+    .comment-buttons{
+      margin: 0px !important;
+      display:inline;
+    }
+  }
+  .attach-down-icon{
+    i{
+      left: calc(50% - 0.3em);
+    }
+  }
+  .cm-attachments{
+    font-size:18px;
+  }
+  .cm-delete-icon:focus {
+    outline: none;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .author{
+    a{
+      font-size:17px !important;
+    }
+    a,a:active,a:visited,a:focus,a:hover{
+      color:#333e3f;
+    }
+  }
+
+  .show-reply{
+    font-size: 18px !important;
+    min-height: 30px !important;
+  }
+  .noPaddingChild{
+    padding: 20px 0 0px 10px;
+    margin-left:-10px;
+  }
+  .likes-count{
+    a,a:active,a:visited,a:focus,a:hover{
+      color:$link-color;
+    }
+  }
+}
+
+
+
+
+&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list&gt;color,css&lt;/field_list&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;knowledge-comments&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function(scope) {
+	var c = scope.c,
+			$uibModal = $injector.get('$uibModal'),
+			$timeout = $injector.get('$timeout'),
+			$rootScope = $injector.get("$rootScope"),
+			$http = $injector.get("$http"),
+			$sanitize = $injector.get("$sanitize");
+
+	$timeout(function(){
+
+		$(".inner-html-content").find("img").attr("tabindex","0");
+		var timer = 0;
+		var prevent = false;
+		var element;
+
+
+		$(".kb-comment-wrapper").on("click keypress",".inner-html-content img", function() {
+			element = this;
+			timer = $timeout(function() {
+				if (!prevent)
+					openModal(element);
+				prevent=false;
+			}, 200);
+		});
+
+		$(".kb-comment-wrapper").on("dblclick",".inner-html-content img", function() {
+			element = this;
+			prevent = true;
+			clearTimeout(timer);
+			openModal(element);
+		});
+
+
+
+	});
+
+	function openModal(element){
+
+		var options = {
+			scope: scope,
+			keyboard: true,
+			templateUrl: 'kmImageModal',
+			windowClass: 'image-modal-dialog'
+		};
+		if( c.commentsImage == '' ||  c.commentsImage.closed.$$state.status == 1 ){
+			var src= element.src;
+			c.instance = $uibModal.open(options);
+			var orignalWidth = $(element).prop('naturalWidth');
+			var orignalHeight = $(element).prop('naturalHeight');
+			$timeout(function(){
+				var modal = document.getElementById('knowledgeImageModal'),
+						modalImg = $('#modalImage')[0];
+				modal.style.display = "block";
+				modalImg.src = src;
+				c.imagesrc = src;
+				modalImg.width = orignalWidth &gt; c.minImageWidth ? orignalWidth : c.minImageWidth;
+				modalImg.style.minHeight = orignalHeight &gt; c.minImageHeight ? orignalHeight : c.minImageHeight +"px";
+				$('.modal-dialog').width(modalImg.width);
+				$('#modal-close').focus();
+
+			});
+		}
+	}
+
+
+
+	//temp init
+	c.config = {};
+	c.config.showDialogDnD = true;
+
+
+	c.openModal = function(options){
+		c.instance = $uibModal.open(options);
+	}
+
+	c.runMe = function(){
+		if(c.comments.length &gt; 0) c.latestComment = c.comments[0];
+		for(var i=0;i&lt;c.comments.length;i++){
+			makeCircularJSON(c.comments[i],{},c.comments[i],0);
+		}
+	}
+
+	if($rootScope.hasComments &amp;&amp; c.maxCommentsToDisplay != 0 &amp;&amp; c.showComments &amp;&amp; $rootScope.isValid){
+		c.server.get({action : 'get_root_comments', article_id: $rootScope.article_sys_id}).then(function(r){
+			if(r.data.response.length&gt;0){
+				c.comments = r.data.response;
+				if(c.maxCommentsToDisplay == -1)
+					c.maxCommentsToDisplay = c.comments.length;
+
+				if(c.comments.length &gt; c.maxCommentsToDisplay){
+					c.commentsToDisplay = c.maxCommentsToDisplay;
+					c.hasMoreComments = true;
+				} else{
+					c.commentsToDisplay = c.comments.length;
+					c.hasMoreComments = false;
+				}
+				fetchAllComments();
+			}
+		});
+	}
+
+	function fetchAllComments(){
+		c.server.get({action : 'get_all_comments', article_id:  $rootScope.article_sys_id}).then(function(r){
+			if(r.data.response.length &gt; 0){
+				for(var i=0;i&lt;r.data.response.length;i++){
+					var index = c.findIndex(c.comments,"sys_id",r.data.response[i].root_id);
+					if(index != -1){
+						c.comments[index].children = r.data.response[i].children;
+						c.comments[index].has_children = true;
+						c.comments[index].show_replies = false;
+					}
+				}
+			}
+			c.runMe();
+		});
+	}
+
+
+
+	function makeCircularJSON(comment,parent,root,level){
+		comment.parent_obj = parent;
+		comment.root = root;
+		comment.level = level;
+		comment.is_liked = c.isLikedByUser(comment.likes);
+		if( c.latestComment.created_on &lt; comment.created_on ) c.latestComment = comment;
+		for(var i=0;i&lt;comment.children.length;i++){
+			makeCircularJSON(comment.children[i],comment,root,level+1);
+		}
+	}
+
+	c.showMoreComments = function(){
+		if(c.commentsToDisplay + c.maxCommentsToDisplay &gt;= c.comments.length){
+			c.commentsToDisplay = c.comments.length;
+		}
+		else{
+			c.commentsToDisplay += c.maxCommentsToDisplay;
+		}
+	}
+
+	c.getTotalAttachments = function(feedback){
+		return c.selectedFiles.length ;
+	}
+
+	function clearAttachments(){
+		c.selectedFiles = [];
+	}
+
+
+	c.showReplyBox = function(sys_id){
+		c.closeAllEditors();
+		c.showMobCommentBox = false;
+		c.currentEditorId = sys_id;
+		clearAttachments();
+		if(!c.isMobile)
+			c.focusEditor();
+	}
+
+
+	c.showDeleteBox = function(feedback){
+
+		c.currentComment = feedback;
+		if(feedback.has_children){
+			c.modalMessage = c.messages.DELETE_COMMENT_MESSAGE + "";
+
+		}else{
+			c.modalMessage = c.messages.SIMPLE_DELETE_COMMENT_MESSAGE + "";
+
+		}
+
+		if(c.isMobile){
+			var usrDelInput = confirm(c.modalMessage);
+			if(usrDelInput)
+				c.deleteComment(c.currentComment);
+		}else{
+			c.modalType = "delete";
+			var options = {
+				scope: scope,
+				backdrop: 'static',
+				keyboard: true,
+				templateUrl: 'kmDeleteModal',
+				windowClass: 'delete-modal-dialog'
+			};
+			c.openModal(options);
+		}
+	}
+
+
+	c.openAttachmentsModal = function(){
+
+
+		c.closeErrorMessage();
+
+		var options = {
+			scope: scope,
+			keyboard: true,
+			templateUrl: 'kmAttachmentsEditor',
+			windowClass: 'attachments-modal-dialog'
+		};
+		c.openModal(options);
+	}
+
+	c.openLikesModal = function(feedback){
+		if(!c.isMobile){
+			var options = {
+				size:"sm",
+				scope: scope,
+				keyboard: true,
+				templateUrl: 'kmLikesModal',
+				windowClass: 'likes-modal-dialog'
+			};
+
+			c.likes = feedback.likes;
+			c.openModal(options);
+		}
+	}
+
+
+
+	c.closeModal = function(){
+
+		if(c.instance){
+			c.instance.close();
+			c.instance = '';
+		}
+
+	}
+
+
+	c.showMainCommentBoxFn = function(){
+		c.closeAllEditors();
+		clearAttachments();
+		c.showMainCommentBox = true;
+		if(!c.isMobile)
+			c.focusEditor();
+	}
+
+
+
+	c.openAttachmentsList = function(attachments){
+		var options = {
+			size:"md",
+			scope: scope,
+			keyboard: true,
+			templateUrl: 'kmAttachmentsList',
+			windowClass: c.isMobile ? 'attachments-list-modal-dialog' : 'attachments-list-modal-dialog kb-desktop'
+		};
+		c.attachmentsList = attachments;
+		c.openModal(options);
+	}
+
+
+
+	c.toggleAllComments = function(){
+
+		c.showAllComments = !c.showAllComments;
+		if(c.showAllComments){
+			c.comments.forEach(function(cm){
+				showReply(cm,true);
+
+			});
+		}else{
+			c.comments.forEach(function(cm){
+				showReply(cm,false);
+			});
+		}
+
+	}
+
+	function showReply(feedback,value){
+		if(feedback.hasOwnProperty("show_replies")){
+			feedback.show_replies = value;
+		}
+	}
+
+	c.toggleReply = function(feedback){
+		feedback.show_replies = !feedback.show_replies;
+	}
+
+
+	c.showReply = function(feedback){
+
+		if(feedback.level == 0){
+			if(feedback.show_replies == true)
+				return true;
+			return false;
+		}
+		return true;
+	}
+
+	c.focusEditor = function(){
+		if(!c.isMESP){
+			$timeout(function(){
+				tinyMCE.activeEditor.focus();
+			},1000);
+		}
+	}
+
+	c.closeAllEditors = function(){
+		c.commentText = "";
+		c.currentEditorId = "";
+		c.showMainCommentBox = c.isMobile;
+		c.showMobCommentBox = true;
+	}
+
+
+	c.getClass = function(feedback,index,last){
+
+		var classes;
+		var level = feedback.level;
+		if(level &gt; c.maxLevel) classes = "noPaddingChild";
+		else if(level == c.maxLevel) classes = "maxChild";
+		else if(level%2 == 0) classes = "evenChild";
+		else classes = "oddChild";
+
+		if(last){
+
+			var parent = feedback.parent_obj;
+			if(parent.parent != "" ){
+				var super_parent = parent.parent_obj;
+				var parent_index = c.findIndex(super_parent.children,"sys_id",parent.sys_id);
+				if(parent_index+1 &lt; super_parent.children.length)
+					classes += " addBorderBottom";
+			}
+		}
+
+		if(index != 0){
+			if(feedback.parent_obj.children[index-1].children.length &gt; 0) classes += " removeBorderTop";
+		}
+
+		return classes;
+	}
+
+	c.getMenuItems = function(feedback){
+		if(c.isLoggedInUser){
+			if((feedback.user.sys_id == c.user.sys_id) || $rootScope.isKBAdmin || $rootScope.isKBOwner) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	c.isLikedByUser = function(likes){
+		for(var i=0;i&lt;likes.length;i++){
+			if(likes[i].user.sys_id == c.user.sys_id) return true;
+		}
+		return false;
+	}
+
+	c.findIndex = function(arr,attr,val){
+		var res = -1;
+		for (var i = 0; i &lt; arr.length ; i++) {
+			if(arr[i][attr] == val) {
+				res = i;
+				break;
+			}
+		}
+		return res;
+	}
+
+	c.submitComment = function(){
+		var cmtText = c.isMESP ? c.commentText : tinyMCE.activeEditor.getContent().toString();
+		if(!cmtText || cmtText.length == 0){
+			c.type = "error";
+			c.data.response = c.messages.FILL_REQ_FIELDS;
+			return ;
+		}
+
+
+		//if textarea is used, convert "\n" to "&lt;br&gt;"
+		if(c.isMESP){
+			cmtText = $sanitize(cmtText.replace(new RegExp('\r?\n','g'), '&lt;br /&gt;'));
+		}
+
+		c.closeAllEditors();
+		c.server.get({action : 'add_comment', comment_text : cmtText, article_id : $rootScope.article_sys_id, level:0}).then(function(r){
+			if(r.data.response.sys_id){
+
+				var newComment = r.data.response;
+				newComment.parent_obj = {};
+				newComment.root = newComment;
+				newComment.level = 0;
+				newComment.is_liked = false;
+				if(!c.isMobile)
+					c.uploadAttachments(c.selectedFiles, newComment);
+				c.comments.unshift(newComment);
+				c.commentsToDisplay++;
+
+				if(c.selectedFiles.length == 0){
+					c.type = true;
+					c.data.response = c.messages.COMMENT_POSTED;
+				}
+				c.latestComment = newComment;
+
+				c.justNow = true;
+				$timeout(function(){
+					c.justNow = false;
+				},30000);
+			}
+			else {
+				c.type = "error";
+				c.data.response = $rootScope.messages.RATE_LIMIT_REACHED;
+			}
+
+			clearAttachments();
+
+		});
+	}
+
+
+
+
+	c.replyToComment = function(feedback){
+
+		var cmtText = c.isMESP ? c.commentText : tinyMCE.activeEditor.getContent();
+
+		if(!cmtText || cmtText.length == 0){
+			c.type = "error";
+			c.data.response = c.messages.FILL_REQ_FIELDS;
+			return ;
+		}
+
+		//if textarea is used, convert "\n" to "&lt;br&gt;"
+		if(c.isMESP){
+			cmtText = $sanitize(cmtText.replace(new RegExp('\r?\n','g'), '&lt;br /&gt;'));
+		}
+
+		c.closeAllEditors();
+		c.server.get({action : 'reply_comment', comment_text : cmtText, article_id : $rootScope.article_sys_id, parent_id : feedback.sys_id}).then(function(r){
+
+			if(r.data.response.sys_id){
+				var newComment = r.data.response;
+				newComment.parent_obj = feedback;
+				newComment.root = feedback.root;
+				newComment.is_liked = false;
+				newComment.level = parseInt(feedback.level)+1;
+				feedback.root.has_children = true;
+				if(!c.isMobile)
+					c.uploadAttachments(c.selectedFiles, newComment);
+				feedback.children.unshift(newComment);
+				newComment.root.show_replies = true;
+				c.commentsToDisplay++;
+				if(c.selectedFiles.length == 0){
+					c.type = true;
+					c.data.response = c.messages.COMMENT_POSTED;
+				}
+				c.latestComment = newComment;
+				c.justNow = true;
+				$timeout(function(){
+					c.justNow = false;
+				},30000);
+			}
+			else {
+				c.type = "error";
+				if(r.data.response == "INVALID_PARENT"){
+					c.data.response = c.messages.INVALID_PARENT;
+				}else{
+					c.data.response = $rootScope.messages.RATE_LIMIT_REACHED;
+				}
+
+			}
+
+
+		});
+	}
+
+
+
+	c.deleteComment = function(feedback){
+		if(!c.isMobile)
+			c.closeModal();
+		c.server.get({action : 'delete_comment', feedback_id : feedback.sys_id, article_id : $rootScope.article_sys_id}).then(function(r){
+			if(r.data.response){
+				c.type = true;
+				c.data.response = c.messages.COMMENT_DELETED;
+				var index;
+				if(feedback.level == 0){
+					index = c.findIndex(c.comments,"sys_id",feedback.sys_id);
+					if(index != -1)
+						c.comments.splice(index,1);
+				}else{
+					index = c.findIndex(feedback.parent_obj.children,"sys_id",feedback.sys_id);
+					if(index != -1){
+						feedback.parent_obj.children.splice(index,1);
+						if(feedback.root.children.length == 0){
+							feedback.root.has_children = false;
+							feedback.show_replies = false;
+						}
+					}
+				}
+			}
+		});
+	}
+
+	c.likeComment = function(feedback){
+		if(c.isLoggedInUser){
+			if(feedback.is_liked){
+				c.server.get({action : 'unlike_comment', feedback_id: feedback.sys_id, article_id: $rootScope.article_sys_id}).then(function(r){
+					if(r.data.response){
+						for(var i=0;i&lt;feedback.likes.length;i++){
+							if(feedback.likes[i].user.sys_id == c.user.sys_id){
+								feedback.likes.splice(i,1);
+								break;
+							}
+						}
+
+						feedback.is_liked = false;
+					}
+				});
+			}
+			else{
+				c.server.get({action : 'like_comment', feedback_id: feedback.sys_id, article_id: $rootScope.article_sys_id}).then(function(r){
+					if(r.data.response.sys_id){
+						feedback.likes.push(r.data.response);
+						feedback.is_liked = true;
+					}
+				});
+			}
+
+		}
+	}
+
+
+
+	//attachments
+
+
+	c.uploadAttachments = function(files,comment){
+
+		if(files.length &gt; 0 ){
+			var options = {
+				scope: scope,
+				keyboard: false,
+				templateUrl: 'kmAttachmentsProgress',
+				windowClass: 'attachments-progress-dialog',
+				backdrop: false
+			};
+			c.openModal(options);
+		}
+
+		var success=0, error=0;
+		for(var i=0;i&lt;files.length;i++){
+
+			var request = {
+				method: 'POST',
+				url: '/api/now/attachment/file?table_name=kb_feedback&amp;table_sys_id='+comment.sys_id+'&amp;file_name='+files[i].name,
+				data: files[i],
+				headers: {
+					'Content-Type': files[i].type,
+					'Accept':'application/json'
+				}
+			};
+
+			// SEND THE FILES.
+			$http(request)
+				.success(function (d) {
+				comment.attachments.push({
+					file_name:d.result.file_name,
+					size:d.result.size_bytes,
+					state:d.result.state,
+					sys_id:d.result.sys_id,
+					type:d.result.content_type
+				})
+				c.uploadCompleted(files.length ,++success, error);
+
+			})
+				.error(function (err) {
+				c.data.response = c.messages.MIME_EXCEPTION;
+				c.type = "error";
+				c.uploadCompleted(files.length,success,++error);
+			});
+		}
+	}
+
+	c.uploadCompleted = function(filesLength, success, error){
+		if(filesLength == success + error){
+			clearAttachments();
+			$timeout(function(){
+				c.closeModal();
+				c.type = true;
+				if(filesLength != error)
+					c.data.response = c.messages.COMMENT_POSTED+" "+c.messages.ATTACHMENTS_SCAN;
+				else
+					c.data.response = c.messages.COMMENT_POSTED;
+			},100);
+		}
+	}
+
+
+
+
+	c.cancelAttachments = function(){
+		c.selectedFiles = [];
+		c.closeModal();
+	}
+
+	c.filesSelected = function(files){
+		var i;
+
+		if(files.length + c.selectedFiles.length &gt; c.maxFiles){
+			c.showErrorMessage(c.messages.MAX_FILES_ALLOWED,"danger");
+		}
+		else{
+			for( i=0;i&lt;files.length;i++)
+				if(c.validateFile(files[i]))
+					c.selectedFiles.push(files[i]);
+		}
+	}
+
+	c.validateFile = function(file){
+
+		var currentFileExtension = file.name.substr((~-file.name.lastIndexOf(".") &gt;&gt;&gt; 0) + 2);// file.name.substr(file.name.lastIndexOf('.') + 1);
+		if(c.validExtensions.indexOf(currentFileExtension.toUpperCase()) == -1){
+			c.showErrorMessage(c.messages.FILE_NOT_SUPPORTED,"danger");
+			return false;
+		}
+
+		if(file.size/1024 &gt; c.maxFileSize*1024){
+			c.showErrorMessage(c.messages.MAX_FILE_SIZE,"danger");
+			return false;
+		}
+
+		return true;
+
+	}
+
+
+	c.moreFilesAllowed = function(){
+		if(c.selectedFiles.length &gt;= c.maxFiles)
+			return false;
+		return true;
+	}
+
+	c.removeFile = function(index){
+		c.selectedFiles.splice(index,1);
+	}
+
+
+	c.openSelector = function(event){
+		jQuery('#fileinput').click();
+	}
+
+	c.showErrorMsg = false;
+	c.errorMessage = '';
+
+	c.closeErrorMessage = function(){
+		c.showErrorMsg = false;
+		c.errorMessage = '';
+	};
+
+	c.showErrorMessage = function(message, notificaionType){
+		c.showErrorMsg = true;
+		c.errorMessage = message;
+		c.messageType = 'danger';
+		if(notificaionType)
+			c.messageType = notificaionType;
+		//$timeout(function(){c.closeErrorMessage();}, 7500);
+		if (c.messageType != 'info')
+			$timeout(function(){
+				$('#error_close').focus();
+			});
+	};
+
+	c.downloadFile = function(file){
+		var url = '/sys_attachment.do?sys_id=' + file.sys_id;
+		// Multi download will fail with window.location.href for slow network connections, so using iframe.
+		var ifrm = document.createElement("iframe");
+		ifrm.setAttribute("src", url);
+		ifrm.style.display = "none";
+		document.body.appendChild(ifrm);
+		$timeout(function(){
+			document.body.removeChild(ifrm);
+		}, 60000);
+	}
+
+	c.downloadAll = function(files){
+		for(var i=0; i&lt;files.length;i++){
+			if(files[i].state != 'not_available')
+				c.downloadFile(files[i]);
+		}
+	}
+
+	c.renderMentions = function(comment_text) {
+		return $sanitize(comment_text.replace(/@\[([a-z0-9]{32}):([^:\[\]]+)\]/g, "@$2"));
+	}
+
+	$timeout(function(){
+		c.isLoading = false;
+	},2000);
+}]]&gt;&lt;/link&gt;&lt;name&gt;Knowledge Article Comments&lt;/name&gt;&lt;option_schema&gt;[{"hint":"Show User Comments","name":"show_user_comments","default_value":"Use system properties","section":"other","label":"Show User Comments","type":"choice","choices":[{"label":"Yes","value":"Yes"},{"label":"No","value":"No"},{"label":"Use system properties","value":"Use system properties"}]},{"hint":"Label for comment input field","name":"add_comment_prompt","section":"other","label":"Add Comment Label","type":"string"},{"hint":"Maximum number of attachments that can be attached to a comment.","name":"max_attachment_no","section":"other","default_value":"3","label":"Maximum number of attachments that can be attached to a comment.","type":"integer"},{"hint":"Maximum attachment file size in MB that can be attached to a comment.","name":"max_attachment_size","section":"other","default_value":"2","label":"Maximum attachment file size in MB that can be attached to a comment.","type":"integer"}]&lt;/option_schema&gt;&lt;public&gt;true&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function($sp, input, options, data) {
+
+	data.tsQueryId = $sp.getParameter("sysparm_tsqueryId") || "";
+
+	var kbPortal = new KBPortalService();
+	if(!input){
+
+		getSystemProperties();
+		data.disabled = false;
+		data.maxFiles = options.max_attachment_no &gt;= 0 ?  options.max_attachment_no: 3;
+		data.maxFileSize = options.max_attachment_size? options.max_attachment_size: 2;
+		data.suffix = $sp.getPortalRecord().getValue('url_suffix');
+		data.isLoggedInUser = gs.getSession().isLoggedIn();
+		data.user = kbPortal.getUserDetails(gs.getUserID());
+		data.user.user_name = gs.getUserName();
+		data.maxCommentsToDisplay = gs.getProperty("glide.knowman.feedback.display_threshold", -1);
+		data.messages={};
+		data.messages.DELETE_COMMENT_MESSAGE = gs.getMessage("Please note that this post has already received some feedback/response. It's not advisable to delete this content now. Are you sure you want to delete?");
+		data.messages.SIMPLE_DELETE_COMMENT_MESSAGE = gs.getMessage("Are you sure you want to delete?");
+		data.messages.ADD_ATTACHMENTS = gs.getMessage("Add attachments");
+		data.messages.ATTACHMENTS = gs.getMessage("Attachments");
+		data.messages.ATTACHMENT_MESSAGE = gs.getMessage("Maximum of {0} files allowed. File Types supported are PPT, PPTX, XLS, XLSX, DOC, DOCX, TXT, PDF, PNG, BMP, JPG, JPEG, GIF, ZIP.",data.maxFiles+'');
+		data.messages.MAX_FILES_ALLOWED = gs.getMessage("Maximum {0} Files Allowed.", data.maxFiles+'');
+		data.messages.FILE_NOT_SUPPORTED = gs.getMessage("File type is not supported.");
+		data.messages.MAX_FILE_SIZE =  gs.getMessage("File exceeds the maximum file size ({0}MB).",data.maxFileSize);
+		data.messages.COMMENT_DELETED = gs.getMessage("Comment deleted.");
+		data.messages.COMMENT_POSTED = gs.getMessage("Comment posted.");
+		data.messages.ATTACHMENTS_SCAN = gs.getMessage("Attachment(s) are currently undergoing security scan.");
+		data.messages.ATT_SECURITY_WARNING = gs.getMessage("Remove security failed attachment(s) before saving.");
+		data.messages.FILL_REQ_FIELDS = gs.getMessage("Error. Please fill all the required fields.");
+		data.messages.MIME_EXCEPTION = gs.getMessage("File type not permitted or mime type does not match the file content.");
+		data.messages.INVALID_PARENT = gs.getMessage("The comment you are replying to is no longer available. Please refresh the page.");
+	}
+
+	if(input){
+
+		var action = input.action;
+		if (action === 'get_root_comments'){
+			data.response = kbPortal.getRootComments(input.article_id);
+		}
+		else if (action === 'get_all_comments'){
+			data.response = kbPortal.getAllComments(input.article_id);
+		}
+		else if (action === 'add_comment'){
+			data.response = kbPortal.addComment(input.comment_text, input.article_id, "");
+		}
+		else if (action === 'submit_rating'){
+			data.response = kbPortal.submitRating(input.rating, input.article_id);
+		}
+		else if (action === 'delete_comment'){
+			data.response =  kbPortal.deleteComment(input.feedback_id, input.article_id);
+		}
+		else if (action === 'reply_comment'){
+			data.response = kbPortal.addComment(input.comment_text, input.article_id, input.parent_id);
+		}
+		else if(action === 'like_comment'){
+			data.response = kbPortal.likeComment(input.feedback_id, input.article_id);
+		}
+		else if(action === 'unlike_comment'){
+			data.response = kbPortal.unLikeComment(input.feedback_id, input.article_id);
+		}
+		else if(action == "get_user_details"){
+			data.response = kbPortal.getUserDetails(input.sys_id);
+		}
+	}
+
+	function getSystemProperties(){
+		data.rating_threshold = gs.getProperty('glide.knowman.feedback.enable_actionable_feedback_for_rating',"");
+	}
+
+
+})($sp, input, options, data);]]&gt;&lt;/script&gt;&lt;servicenow&gt;true&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2017-01-24 06:54:59&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;077810090be432004ce28ffe15673adb&lt;/sys_id&gt;&lt;sys_mod_count&gt;99&lt;/sys_mod_count&gt;&lt;sys_name&gt;Knowledge Article Comments&lt;/sys_name&gt;&lt;sys_package display_value="Knowledge Management - Service Portal" source="sn_km_portal"&gt;bab6dea3db20320099f93691f0b8f590&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Knowledge Management - Service Portal"&gt;bab6dea3db20320099f93691f0b8f590&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_077810090be432004ce28ffe15673adb&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2019-06-10 22:51:13&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="kb-comment-wrapper" ng-if="!$root.hideFeedbackOptions &amp;&amp; $root.isValid &amp;&amp; !$root.readOnly" ng-class="{'grey-back' : c.isMESP, 'kb-mobile' : c.isMobile ,'kb-desktop' : !c.isMobile}"&gt;
+
+  &lt;div class="show-comments" ng-if="c.showComments"&gt;
+    &lt;div class="create-comment"&gt;
+      &lt;span ng-show = "!c.showMainCommentBox" class="image50px"&gt;
+        &lt;a ng-if="c.isLoggedInUser" ng-href="/{{::c.suffix}}?id=user_profile&amp;sys_id={{::c.user.sys_id}}" title="{{::c.user.name}}"&gt;
+          &lt;sn-avatar ng-show = "!c.showMainCommentBox" primary="c.user" show-presence="false"/&gt;
+        &lt;/a&gt;
+        &lt;span ng-if="!c.isLoggedInUser"&gt;
+          &lt;sn-avatar primary="c.user" show-presence="false"/&gt;
+        &lt;/span&gt;
+        &lt;a class="comment-text" role="button" href="javascript:void(0)"  ng-click="c.showMainCommentBoxFn()"&gt;${Click here to comment to this article}...&lt;/a&gt;
+      &lt;/span&gt;
+      &lt;div ng-if = "c.showMainCommentBox &amp;&amp; c.showMobCommentBox" ng-class="c.isLoggedInUser ? 'login-user' : 'public-user'"&gt;
+        &lt;div class="comment-info"&gt;&lt;span ng-if="c.isMobile" class="comment-count"&gt;{{$root.messages.COMMENTS}}&lt;/span&gt;&lt;/div&gt;
+        &lt;sp-tinymce-editor ng-if="!c.isMESP" attachment-guid = "-1" field="c.commentsField"  record-table-name="'kb_feedback_tmce'" aria-labelledby="{{c.commentsPrompt}}" ng-model-options="{}" ng-model="c.commentText" class="kb-comment-input" id="comment"&gt;&lt;/sp-tinymce-editor&gt;
+        &lt;textarea ng-if="c.isMESP" tabindex="0" aria-labelledby="{{c.commentsPrompt}}" ng-model="c.commentText" class="form-control kb-comment-input textarea" id="comment" rows="3"&gt;&lt;/textarea&gt;
+        &lt;div class="cm-btns clearfix global"&gt;
+          &lt;hr class="kb-line visible-xs" ng-if="!c.isMobile"/&gt;
+          &lt;div class="kb-attachment-btn" ng-if="!c.isMobile"&gt;
+            &lt;a ng-if="!c.isMobile &amp;&amp; c.maxFiles&gt;0 &amp;&amp; c.isLoggedInUser" href="javascript:void(0)" ng-click = "c.openAttachmentsModal()"class="cm-attachments"&gt;
+              &lt;i class="fa fa-paperclip fa-rotate-90 "&gt;&lt;/i&gt;
+              &lt;span ng-if="c.selectedFiles.length == 0"&gt; {{::c.messages.ADD_ATTACHMENTS}}&lt;/span&gt;
+              &lt;span ng-if="c.selectedFiles.length  &gt; 0"&gt; {{::c.messages.ATTACHMENTS}} ({{c.selectedFiles.length}})&lt;/span&gt;
+            &lt;/a&gt;
+          &lt;/div&gt;
+          &lt;hr class="kb-line show-for-mobile" ng-if="!c.isMobile"/&gt;
+          &lt;div class="kb-input-button no-pad"&gt;
+            &lt;div class="comment-buttons"&gt;
+              &lt;div class="kb-inline cancel pad-right"&gt;
+                &lt;button id="cancel" ng-click="c.closeAllEditors()" ng-disabled="c.isMobile &amp;&amp; !c.hasCommentText()" class="btn btn-default comments-submit kb-end-button" ng-bind="::$root.messages.CANCEL"&gt;&lt;/button&gt;
+              &lt;/div&gt;
+              &lt;div class="kb-inline submit"&gt;
+                &lt;button id="submit" ng-click="c.submitComment()" ng-disabled="c.isMobile &amp;&amp; !c.hasCommentText()" class="btn btn-primary comments-submit kb-end-button" ng-bind="::$root.messages.SUBMIT"&gt;&lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="kb-comments-header" ng-if="!c.isMobile &amp;&amp; c.comments.length &gt; 0"&gt;
+      &lt;span class="kb-head"&gt;{{$root.messages.COMMENTS}}
+        &lt;span style="font-size:14px" class="hidden-xs" ng-show="c.latestComment"&gt;
+          (${Latest comment}
+          &lt;span class="text-muted" ng-if="!c.latestComment.created_on || c.justNow" ng-bind="::$root.messages.JUST_NOW"&gt;&lt;/span&gt;
+          &lt;sn-time-ago class="text-muted" ng-if="c.latestComment.created_on &amp;&amp; !c.justNow" timestamp = "c.latestComment.created_on"/&gt; ${by}
+          &lt;a  ng-if="c.isLoggedInUser "  ng-href="/{{c.suffix}}?id=user_profile&amp;sys_id={{c.latestComment.user.sys_id}}" title="{{c.latestComment.user.name}}"&gt;
+            {{c.latestComment.user.name}})
+          &lt;/a &gt;
+          &lt;span class="green" ng-if="!c.isLoggedInUser"&gt;{{c.latestComment.user.name}})&lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/span&gt;
+
+      &lt;button class="btn btn-default show-all-btn pull-right ng-scope" ng-if="c.hasChildren()" ng-click="c.toggleAllComments()"&gt;
+        &lt;span ng-if="c.showAllComments"&gt;${Hide All Replies}&lt;/span&gt;
+        &lt;span ng-if="!c.showAllComments"&gt;${Show All Replies}&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class="parent" ng-if="c.comments" ng-repeat="feedback in c.comments | limitTo: c.commentsToDisplay" data-ng-include='"knowledge-comment-template.html"'&gt;&lt;/div&gt;
+    &lt;div class="show-more-btn" id="showmore" ng-if="c.comments.length &gt; c.commentsToDisplay" &gt;
+      &lt;button class="btn btn-default ng-scope" ng-click="c.showMoreComments()"&gt;
+        ${Show More}
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;knowledge-icons /&gt;
+
+&lt;/div&gt;
+
+
+&lt;script type="text/ng-template" id="kmImageModal"&gt;
+  &lt;div id="knowledgeImageModal" class="knowledge-image-modal"&gt;
+    &lt;div class="knowledge-modal-dialog"&gt;
+      &lt;button type="button" id="modal-close" class="close" ng-click="c.closeModal()" aria-label="${Close}"&gt;
+        &lt;i class="fa fa-close"&gt;&lt;/i&gt;
+  &lt;/button&gt;
+      &lt;img class="modal-content-img" id="modalImage" aria-label = "${image}" alt="${image}"/&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/script&gt;
+
+&lt;script type="text/ng-template" id="kmLikesModal"&gt;
+&lt;div class="km-likes-modal" role="dialog" aria-labelledby="${Knowledge Feedback Likes}"&gt;
+  &lt;div class="feedback-modal"&gt;
+    &lt;div class="modal-header"&gt;
+      &lt;h4 class="modal-title"&gt;
+        ${Liked By} ({{c.likes.length}})
+        &lt;i class="btn fa fa-times close pull-right" ng-click="c.closeModal()" aria-label="${Close}" tabindex="0"&gt;&lt;/i&gt;
+  &lt;/h4&gt;
+  &lt;/div&gt;
+    &lt;div class="modal-body"&gt;
+      &lt;div data-ng-repeat="member in c.likes" class="member"&gt;
+        &lt;div class="image50px float-left"&gt;
+          &lt;a ng-if="::c.isLoggedInUser" ng-href="/{{::c.suffix}}?id=user_profile&amp;sys_id={{::member.user.sys_id}}" title="{{::member.user.name}}"&gt;
+            &lt;sn-avatar primary="member.user" show-presence="false"/&gt;
+  &lt;/a&gt;
+          &lt;span ng-if="!c.isLoggedInUser"&gt;
+            &lt;sn-avatar primary="member.user" show-presence="false"/&gt;
+  &lt;/span&gt;
+  &lt;/div&gt;
+        &lt;div class="user-info text-muted"&gt;
+          &lt;span&gt;
+            &lt;a ng-if="c.isLoggedInUser" class="link cm-common-dark-color" ng-href="/{{::c.suffix}}?id=user_profile&amp;sys_id={{::member.user.sys_id}}" title="{{::member.user.name}}"&gt;
+              &lt;span&gt;{{member.user.name}}&lt;/span&gt;
+  &lt;/a&gt;
+            &lt;span class="green" ng-if="!c.isLoggedInUser"&gt;{{member.user.name}}&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/script&gt;
+
+
+&lt;script type="text/ng-template" id="kmDeleteModal"&gt;
+&lt;div class="km-delete-modal" role="dialog" aria-labelledby="${Delete Comment Modal}"&gt;
+  &lt;div class="modal-header"&gt;
+    &lt;h4 class="modal-title"&gt;${Warning}&lt;/h4&gt;
+  &lt;/div&gt;
+  &lt;div class="modal-body"&gt;
+    &lt;div class="warn-msg"&gt;
+      &lt;i class="fa fa-exclamation-triangle" aria-hidden="true"&gt;&lt;/i&gt;
+      &lt;div class="msg-text"&gt;{{c.modalMessage}}&lt;/div&gt;
+  &lt;/div&gt;
+
+    &lt;div class="btn-container"&gt;
+      &lt;div class="action-btn pull-right"&gt;
+        &lt;button type="cancel" class="btn btn-default" data-ng-click="c.closeModal()"&gt;${Cancel}&lt;/button&gt;
+        &lt;button type="submit" class="btn btn-danger" data-ng-click="c.deleteComment(c.currentComment)"&gt;${Delete}&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/script&gt;
+
+&lt;script type="text/ng-template" id="kmAttachmentsList"&gt;
+&lt;div class="attachment-list-modal" role="dialog" aria-label="{{::$root.messages.ATTACHMENTS}}" &gt;
+  &lt;div class="modal-header attachment-modal-header" &gt;
+    &lt;h4 class="modal-title"&gt;
+      {{::$root.messages.ATTACHMENTS}}
+      &lt;i class="btn fa fa-times close pull-right" ng-click="c.closeModal()" tabindex="0"&gt;&lt;/i&gt;
+  &lt;/h4&gt;
+  &lt;/div&gt;
+  &lt;div class="modal-body attachment-modal-body" style="padding:0px"&gt;
+    &lt;div ng-repeat="file in c.attachmentsList" class="att-main-content"&gt;
+
+
+      &lt;span class="att-main" style="opacity: .6;" ng-if="file.state == 'not_available'"&gt;
+        &lt;div class="att-body-div"&gt;
+          &lt;km-icon class="file-icon" fname="file.err"/&gt;
+          &lt;div class="att-body"&gt;
+            &lt;span class="att-content"&gt;{{file.file_name}} &lt;/span&gt;
+            &lt;span class="att-content text-muted"&gt;${File unavailable}&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/span&gt;
+
+      &lt;span class="att-main"  ng-if="file.state != 'not_available'"&gt;
+        &lt;div class="att-body-div"&gt;
+          &lt;km-icon class="file-icon" fname="{{file.file_name}}"/&gt;
+          &lt;div class="att-body"&gt;
+            &lt;span class="att-content"&gt;{{file.file_name}} &lt;/span&gt;
+            &lt;span class="att-content text-muted"&gt;{{file.size/1024 | number:2}}K&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+        &lt;a class="btn btn-default action-btn" target="_blank" ng-href="sys_attachment.do?sys_id={{file.sys_id}}"&gt;${Download}&lt;/a&gt;
+  &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="modal-footer attachment-modal-footer" ng-if="!c.isMobile"&gt;
+    &lt;div class="pull-right"&gt;
+      &lt;button class="btn btn-primary action-btn" data-ng-click="c.downloadAll(c.attachmentsList)" id="downloadAll"&gt;${Download All}&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/script&gt;
+
+&lt;script type="text/ng-template" id="kmAttachmentsEditor"&gt;
+&lt;div class="attachment-edit-modal" role="dialog" aria-label="{{::$root.messages.ATTACHMENTS}}" &gt;
+  &lt;div class="modal-header attachment-modal-header" &gt;
+    &lt;h4 class="modal-title"&gt;
+      {{::$root.messages.ATTACHMENTS}}
+      &lt;i class="btn fa fa-times close pull-right" ng-click="c.cancelAttachments()" tabindex="0"&gt;&lt;/i&gt;
+  &lt;/h4&gt;
+  &lt;/div&gt;
+  &lt;div class="modal-body attachment-modal-body" style="padding:0px"&gt;
+    &lt;div class="alert alert-danger alert-{{c.messageType}} km-alert-inform clearfix err-msg}" data-ng-if="c.showErrorMsg"&gt;
+      &lt;div class="alert-icon pull-left" aria-hidden="true"&gt;
+        &lt;i class="fa {{c.messageType == 'info'? 'fa-info-circle' : 'fa-exclamation-circle'}}"&gt;&lt;/i&gt;
+  &lt;/div&gt;
+      &lt;div class="alert-text pull-left" id="error_msg" role="status" aria-live="polite"&gt;
+        &lt;span&gt;{{c.errorMessage}}&lt;/span&gt;
+  &lt;/div&gt;
+      &lt;span class="alert-close pull-right"&gt;
+        &lt;i class="fa fa-times pull-right" data-ng-click="c.closeErrorMessage()" aria-label="${Close message}" id="error_close" tabindex="0"&gt;&lt;/i&gt;
+  &lt;/span&gt;
+  &lt;/div&gt;
+    &lt;a href="javascript:void(0)" ng-disabled="!c.moreFilesAllowed()" data-ng-click="c.openSelector($event)" data-drop-enabled="c.moreFilesAllowed()" class="files-drop text-muted " ng-file-drop="c.filesSelected($files)" ng-disabled="!c.moreFilesAllowed()" ng-multiple="true"  ondragover="this.classList = ['files-drop files-drop-dragover']"  ondrop="this.classList = ['files-drop']" ondragleave="this.classList = ['files-drop']"&gt;
+      &lt;i class="fa fa-paperclip fa-rotate-270 paper-icon"&gt;&lt;/i&gt;
+      &lt;span class="drop-text" ng-if="c.moreFilesAllowed()"&gt;${Drag File(s) Here or Click to Upload}&lt;/span&gt;
+      &lt;span class="drop-text" ng-if="!c.moreFilesAllowed()"&gt;{{::c.messages.MAX_FILES_ALLOWED}}&lt;/span&gt;
+  &lt;/a&gt;
+    &lt;input ng-disabled="!c.moreFilesAllowed()" id="fileinput"  type="file" multiple="true" aria-hidden="true" aria-label="${Upload Files}" class="fileInput" ng-file-select="c.filesSelected($files)"/&gt;
+    &lt;div class="att-msg"&gt;{{::c.messages.ATTACHMENT_MESSAGE}}&lt;/div&gt;
+    &lt;div ng-if="c.selectedFiles.length &gt; 0" class="att-main-content" ng-repeat="file in c.selectedFiles"&gt;
+      &lt;span class = "att-main"&gt;
+        &lt;div class="att-body-div"&gt;
+          &lt;km-icon class="file-icon" fname="{{file.name}}"/&gt;
+          &lt;div class="att-body"&gt;
+            &lt;span class="att-content"&gt;{{file.name}} &lt;/span&gt;
+            &lt;span class="att-content text-muted"&gt;{{file.size/1024 | number:2}}K&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+        &lt;i class="btn fa fa-times close pull-right" ng-click="c.removeFile($index)" tabindex="0"&gt;&lt;/i&gt;
+  &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="modal-footer attachment-modal-footer"&gt;
+    &lt;div class="pull-right"&gt;
+      &lt;button class="btn btn-default action-btn" data-ng-click="c.cancelAttachments()"  id="attDialogCancel" &gt;${Cancel}&lt;/button&gt;
+      &lt;button type="submit"  class="btn btn-primary action-btn btn-post" data-ng-click="c.closeModal()" id="attDialogAdd" &gt;${Save}&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/script&gt;
+
+&lt;script type="text/ng-template" id="kmAttachmentsProgress"&gt;
+ &lt;div class="attachment-progress-modal" role="dialog"&gt;
+   &lt;div class="modal-body attachment-modal-body"&gt;
+     &lt;div class="attachments-uploading"&gt;
+       &lt;div class="progress-indicator"&gt;
+         &lt;div class="content-main"&gt;
+           &lt;div class="content-help-text"&gt;${Posting Comment}&lt;/div&gt;
+           &lt;p class="upload-spinner"&gt;
+             &lt;i class="fa fa-spinner fa-spin fa-3x fa-fw"&gt;&lt;/i&gt;
+  &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/script&gt;
+
+
+
+&lt;style&gt;
+  .kb-comment-wrapper .kb-line-temp, .kb-comment-wrapper .kb-line{
+    border-color : #ccc;
+  }
+  .kb-comment-wrapper .cm-btns{
+    margin-top:20px;
+    display:flow-root;
+  }
+  .kb-comment-wrapper.kb-desktop .image50px .avatar-container {
+    height: 50px;
+    width: 50px;
+  }
+  .kb-comment-wrapper .comment-conatiner{
+    width: calc(100% - 60px);
+    display:inline-block;
+    margin-left:10px;
+  }
+  .kb-comment-wrapper .comment-buttons{
+    float:right;
+  }
+  .kb-comment-wrapper .kb-input-button .kb-end-button{
+    font-size: .9em;
+  }
+  .kb-comment-wrapper.kb-desktop .kb-attachment-btn{
+    padding-top: 5px;
+    float:left;
+    text-align:left;
+  }
+  .kb-comment-wrapper .show-for-mobile{
+    display:none;
+  }
+  .kb-comment-wrapper .outer-att-display{
+    display:inline;
+  }
+  .kb-comment-wrapper .pad-even-left{
+    margin-left: 14px;
+  }
+  .kb-comment-wrapper .attachment-less .attachments-title{
+    padding: 11px 0px 7px 0px;
+  }
+  .kb-comment-wrapper .attach-down-icon i{
+    top: calc(50% - -1em);
+  }
+  .kb-comment-wrapper .attachment-more .att-body{
+    position: relative;
+    top: -2px;
+  }
+  .kb-comment-wrapper .attachment-more .icon{
+    position: relative;
+    top: -15px;
+  }
+  @media only screen and (max-width :1200px){
+    .kb-comment-wrapper .pad-even-left{
+      margin-left: 11px;
+    }
+  }
+  @media only screen and (max-width :992px){
+    .kb-comment-wrapper .attachments-title{
+      padding: 5px 0px 0px 0px;
+    }
+    .kb-comment-wrapper .attachment-more .att-body{
+      position: relative;
+      top: -8px;
+    }
+    .kb-comment-wrapper .attachment-more .icon{
+      position: relative;
+      top: -20px;
+    }
+  }
+  @media only screen and (max-width :760px){
+
+    .kb-comment-wrapper .kb-container-column{
+      padding-left : 0px;
+      padding-right: 0px;
+      padding-top : 0px;
+    }
+    .kb-comment-wrapper .kb-line-temp, .kb-comment-wrapper .kb-line{
+      border-color: #ccc;
+      margin-left: -20px;
+      margin-right: -20px;
+      margin-bottom: 15px;
+    }
+    .kb-comment-wrapper.kb-mobile .kb-line-temp{
+      margin-left: -10px;
+    }
+    .kb-comment-wrapper .image50px .avatar-container {
+      height: 35px !important;
+      width: 35px !important;
+      cursor: default;
+    }
+    .kb-comment-wrapper .content .image50px .avatar-container {
+      position:absolute;
+    }
+    .kb-comment-wrapper .commentor-info{
+      padding-left:50px;
+      position: relative;
+      top: 1px;
+    }
+    .kb-comment-wrapper .create-comment{
+      text-align: center;
+    }
+    .kb-comment-wrapper .comment-conatiner{
+      width: 100%;
+      display:inline-block;
+      margin-left:0px;
+    }
+    .kb-comment-wrapper .published{
+      font-size: 13px;
+      font-weight: 400;
+      padding-left:10px;
+    }
+    .kb-comment-wrapper .pad-even-left{
+      margin-left: 0px;
+    }
+  }
+  @media only screen and (min-width :760px){
+    .kb-comment-wrapper .attachment-box{
+      width:49%;
+    }
+  }
+  @media only screen and (min-width :550px){
+    .kb-comment-wrapper.kb-mobile .cm-btns.local .kb-input-button{
+      margin-top: 20px;  
+    }
+  }
+  @media only screen and (max-width :550px){
+    .no-pad{
+      padding:0px;
+    }
+    .no-pad-left{
+      padding-left:0px !important;
+    }
+    .no-pad-right{
+      padding-right:0px !important;
+    }
+    .kb-comment-wrapper .comment-buttons{
+      float:none;
+      width:100%
+    }
+    .kb-comment-wrapper .comment-buttons .kb-end-button{
+      width: 100%;
+      height: 40px;
+      text-align: center;
+    }
+    .kb-comment-wrapper .kb-input-button .cancel{
+      float:left;
+      width:50%;
+    }
+    .kb-comment-wrapper .kb-input-button .submit{
+      float:right;
+      width:50%;
+    }
+    .kb-comment-wrapper.kb-mobile{
+      margin: 0px -15px;
+    }
+    .kb-comment-wrapper.kb-mobile.grey-back{
+      margin: -20px -15px 0px -15px;
+    }
+    .kb-comment-wrapper.kb-desktop .kb-attachment-btn{
+      float:none;
+      text-align:center;
+    }
+    .kb-comment-wrapper .show-for-mobile{
+      display:block;
+    }
+    .kb-comment-wrapper  .outer-att-display{
+      display:block;
+    }
+  }
+  /* css for km image modal */
+
+  .image-modal-dialog .knowledge-image-modal{
+    background-color: transparent;
+    padding-top: 10px;
+  }
+
+  .image-modal-dialog .modal-content{
+    background-color:transparent;
+    border: 0px solid rgba(0, 0, 0, 0);
+    box-shadow: none;
+    animation-name: fadeIn;
+    animation-duration: 0.1s;
+  }
+  .image-modal-dialog .modal-dialog {
+    width: 80%;
+    max-width: 80%;
+    min-width: 185px;
+    min-height: 100px;
+    margin: auto;
+  }
+  .image-modal-dialog .modal-content-img {
+    margin: auto;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    background-color: transparent;
+    box-shadow: 0;
+  }
+
+  .image-modal-dialog .close {
+    color: #fff;
+    font-size: 25px;
+    transition: 0.3s;
+    opacity: unset;
+    margin-bottom:5px;
+  }
+  .image-modal-dialog .close:focus{
+    color: #fff;
+    font-size: 25px;
+    transition: 0.3s;
+    opacity: unset;
+    outline: thin dotted;
+    outline: 4px auto -webkit-focus-ring-color !important;
+    outline-offset: -2px !important;
+  }
+
+  .image-modal-dialog .close:hover {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .image-modal-dialog .knowledge-modal-dialog{
+    min-height:100px;
+    min-width:185px;
+  }
+
+  @media only screen and (max-width: 760px){
+    .image-modal-dialog .modal-content {
+      width: 100%;
+    }
+  }
+
+  @keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+  }
+
+  /*css for likes modal */
+
+  .km-likes-modal .member{
+    display: flex;
+    padding: 10px 5px;
+  }
+  .km-likes-modal .modal-header{
+    margin-top:5px;
+  }
+  .km-likes-modal .close{
+    margin: 2px 5px 5px 5px !important;
+    padding:1px;
+  }
+  .km-likes-modal .user-info{
+    padding-top: 5px;
+    display: inline-block;
+    margin-left: 10px;
+  }
+  .km-likes-modal .link{
+    font-weight: 500;
+  }
+
+  .km-likes-modal .modal-body{
+    max-height: 350px;
+    overflow-y: auto;
+    padding: 10px !important;
+  }
+  .km-likes-modal .fa-close{
+    width: 15px;
+    height: 23px;
+    font-size: 18px;
+    line-height: 23px;
+  }
+  .km-likes-modal .image50px .avatar-container {
+    height: 50px !important;
+    width: 50px !important;
+  }
+  .km-likes-modal .sub-avatar{
+    justify-content: center;
+    align-items: center;
+    display: inline-flex !important;
+  }
+  .km-likes-modal .sub-avatar span {
+    font-size:16px;
+  }
+  .km-likes-modal .float-left{
+    float: left;
+  }
+
+
+  /*css for delete modal */
+
+  .km-delete-modal .modal-body, .modal-header {
+    padding: 20px !important;
+  }
+  .km-delete-modal .modal-header .modal-title {
+    line-height: 21px;
+    font-weight: normal;
+  }
+  .km-delete-modal .modal-body .warn-msg .fa {
+    font-size: 40px;
+    margin-right: 20px;
+    margin-top: 5px;
+    float: left;
+  }
+  .km-delete-modal .modal-body .warn-msg .msg-text {
+    display: inline-block;
+    width: calc(100% - 60px);
+    line-height: 23px;
+  }
+  .km-delete-modal .modal-body .btn-container{
+    overflow: hidden;
+    padding-top: 15px;
+  }
+  .km-delete-modal .modal-body .btn-container button:not(:last-of-type){
+    margin-right: 10px;
+  }
+
+
+
+  /*style for attachments list modal*/
+
+  .attachment-list-modal .modal-header{
+    margin-top:5px;
+  }
+  .attachment-list-modal .att-body{
+    padding-left: 5px;
+    width: calc(100% - 50px);
+    line-height: 20px;
+    max-width: 100%;
+  }
+  .attachment-list-modal .att-main{
+    margin-left : 15px;
+    height: 100%;
+    display: flex;
+    padding: 10px 15px 10px 0px;
+    align-items:center;
+  }
+  .attachment-list-modal .att-content{
+    display:block;
+    overflow:hidden;
+    white-space: nowrap;
+    color:#2e2e2e;
+    text-overflow:ellipsis;
+  }
+  .attachments-list-modal-dialog.kb-desktop .modal-dialog{
+    max-height: 600px;
+    max-width: 450px;
+    width: calc(100% - 20px);
+    margin: 30px auto;
+  }
+  .attachment-list-modal .att-main-content{
+    border-bottom: 1px solid #ddd;
+  }
+  .attachment-list-modal .text-muted {
+    color: #666666 !important;
+  }
+  .attachment-list-modal .close{
+    width: 35px;
+    font-size: 20px;
+    margin: 2px 5px 5px 5px !important;
+    padding:1px;
+  }
+  .attachment-list-modal .file-icon{
+    width:40px;
+    height:40px;
+  }
+  .attachment-list-modal .att-body-div{
+    width: 80%;
+    display:flex;
+  }
+  .attachment-list-modal .modal-footer{
+    border-top:none;
+  }
+
+  @media (max-width: 760px){
+    .attachment-list-modal .att-body-div{
+      width: 70%;
+    }
+  }
+
+  /*css for attachments editor modal */
+  .attachment-edit-modal .files-drop{
+    display: block;
+    padding: 20px 0px 15px 0px;
+    margin:15px;
+    height: 10em;
+    border: 2px dashed #ccc;
+    text-align: center;
+    background: #fff;
+  }
+
+  .attachment-edit-modal .modal-header{
+    margin-top:5px;
+  }
+  .attachment-edit-modal .paper-icon{
+    color: #666666;
+    font-size: 50px;
+  }
+  .attachment-edit-modal .drop-text{
+    font-size: 16px;
+    display: block;
+    padding-top: 15px;
+  }
+  .attachment-edit-modal .att-msg{
+    font-size: 12px;
+    margin: 10px 15px;
+  }
+  .attachments-modal-dialog .modal-dialog{
+    max-height: 600px;
+    max-width: 450px;
+    width: calc(100% - 20px);
+    margin: 30px auto;
+  }
+  .attachment-edit-modal .att-body{
+    padding-left: 5px;
+    width: calc(100% - 50px);
+    line-height: 20px;
+    max-width: 100%;
+  }
+  .attachment-edit-modal .close{
+    width: 35px;
+    font-size: 20px;
+    margin: 2px 5px 5px 5px !important;
+    padding:1px;
+  }
+  .attachment-edit-modal .att-main{
+    margin-left : 15px;
+    height: 100%;
+    display: flex;
+    padding: 10px 15px 10px 0px;
+  }
+
+  .attachment-edit-modal .att-content{
+    display:block;
+    overflow:hidden;
+    white-space: nowrap;
+    color:#2e2e2e;
+    text-overflow:ellipsis;
+  }
+  .attachment-edit-modal .att-main-content{
+    border-top: 1px solid #ddd;
+  }
+  .attachment-edit-modal .text-muted {
+    color: #666666 !important;
+  }
+  .attachment-edit-modal .alert-icon {
+    margin-right: 10px;
+  }
+  .attachment-edit-modal .files-drop:hover, .files-drop-dragover {
+    border: 2px dashed #0f3f39;
+  }
+  .attachment-edit-modal .files-drop[disabled]{
+    cursor:not-allowed;
+  }
+  .attachment-edit-modal .files-drop[disabled]:hover, .files-drop-dragover[disabled] {
+    border: 2px dashed #ccc;
+  }
+  .attachment-edit-modal .file-icon{
+    width:40px;
+    height:40px;
+  }
+  .attachment-edit-modal .km-alert-inform{
+    margin:15px;
+  }
+  .attachment-edit-modal .att-body-div{
+    width: calc(100% - 50px);
+    display:flex;
+  }
+  .attachment-edit-modal .fileInput{
+    visibility: hidden;
+    height: 0px;
+  }
+
+  /* knowledge-attachments-progress template CSS */
+
+  .attachments-progress-dialog {
+    display: flex !important;
+    align-items: center;
+    color: #fff;
+    font-style: italic;
+    box-shadow: none !important;
+  }
+
+  .attachments-progress-dialog .attachment-progress-modal .modal-header {
+    padding: 20px;
+  }
+
+  .attachments-progress-dialog .attachment-progress-modal .modal-header h4 {
+    font-weight: normal;
+  }
+
+  .attachments-progress-dialog .modal-dialog .modal-content {
+    background-color: #2e2e2e !important;
+    opacity: 0.9 !important;
+  }
+
+  .attachments-progress-dialog .modal-dialog {
+    max-height: 150px !important;
+    max-width: 200px !important;
+    width: calc(100% - 20px);
+    margin: 0px auto;
+  }
+
+  .attachments-progress-dialog .upload-spinner {
+    justify-content: center;
+    display: flex;
+  }
+
+  .attachments-uploading .progress-indicator,
+  .attachments-uploading .progress-info {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .attachments-uploading .progress-info {
+    margin-top: 15px;
+  }
+
+  .attachments-progress-dialog .content-help-text {
+    margin: 0px 0px 15px 0px;
+  }
+
+&lt;/style&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-06-25 22:24:16</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>6b4d66b6db6d185c59ac6e25ca9619fa</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>ef4d6ef2db6d185c59ac6e25ca96193b</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_6b4d66b6db6d185c59ac6e25ca9619fa</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-06-25 22:24:16</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

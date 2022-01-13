@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="GDEP Tile" max_length="40" name="u_gdep_tile" sizeclass="116" type="collection">
+        <element attributes="edge_encryption_enabled=true,pdf_cell_type=image" label="Image" max_length="40" name="u_image" type="user_image"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="ImageRef" max_length="32" name="u_imageref" reference="u_gdep_image" table_reference="true" type="reference"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Kb Article" max_length="32" name="u_kb_article" reference="kb_knowledge" reference_qual="kb_knowledge_base=bb0370019f22120047a2d126c42e7073^EQ" reference_qual_condition="kb_knowledge_base=bb0370019f22120047a2d126c42e7073^EQ" type="reference"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="KB Category" max_length="32" name="u_kb_category" reference="kb_category" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Order" max_length="40" name="u_order" type="integer"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Page" max_length="32" name="u_page" reference="sp_page" reference_qual="sys_nameSTARTSWITHGD^EQ" reference_qual_condition="sys_nameSTARTSWITHGD^EQ" type="reference"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Catalog Category" max_length="32" name="u_sc_category" reference="sc_category" reference_qual="sc_catalog=7b0370019f22120047a2d126c42e7075^ORsc_catalog=a403ad7237b716c437026bc2b3990e0b^EQ" reference_qual_condition="sc_catalog=7b0370019f22120047a2d126c42e7075^ORsc_catalog=a403ad7237b716c437026bc2b3990e0b^EQ" type="reference"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Catalog Item" max_length="32" name="u_sc_cat_item" reference="sc_cat_item" reference_qual="sys_scope=d4ac3fff5b311200a4656ede91f91af2^EQ" reference_qual_condition="sys_scope=d4ac3fff5b311200a4656ede91f91af2^EQ" type="reference"/>
+        <element label="Short Description" max_length="500" name="u_short_description" type="string"/>
+        <element display="true" label="Title" max_length="200" name="u_title" type="string"/>
+        <element choice="3" default="u_page" label="Type" max_length="40" name="u_type" type="string">
+            <choice>
+                <element inactive_on_update="false" label="Page" sequence="0" value="u_page"/>
+                <element inactive_on_update="false" label="Url" sequence="1" value="u_url"/>
+                <element inactive_on_update="false" label="Catalog Category" sequence="2" value="u_sc_category"/>
+                <element inactive_on_update="false" label="Catalog Item" sequence="3" value="u_sc_cat_item"/>
+                <element inactive_on_update="false" label="KB Article" sequence="4" value="u_kb_article"/>
+                <element inactive_on_update="false" label="KB Category" sequence="5" value="u_kb_category"/>
+            </choice>
+        </element>
+        <element label="HREF / URL" max_length="255" name="u_url" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Widget Instance" max_length="32" name="u_widget_instance" reference="u_gdep_instance_tiles" reference_qual="sp_widget=ffa09b18dbf450d459ac6e25ca961964^EQ" reference_qual_condition="sp_widget=ffa09b18dbf450d459ac6e25ca961964^EQ" type="reference"/>
+        <index name="index">
+            <element name="u_imageref"/>
+        </index>
+        <index name="index2">
+            <element name="u_kb_article"/>
+        </index>
+        <index name="index3">
+            <element name="u_sc_cat_item"/>
+        </index>
+        <index name="index4">
+            <element name="u_kb_category"/>
+        </index>
+        <index name="index5">
+            <element name="u_widget_instance"/>
+        </index>
+        <index name="index6">
+            <element name="u_sc_category"/>
+        </index>
+        <index name="index7">
+            <element name="u_page"/>
+        </index>
+    </element>
+</database>

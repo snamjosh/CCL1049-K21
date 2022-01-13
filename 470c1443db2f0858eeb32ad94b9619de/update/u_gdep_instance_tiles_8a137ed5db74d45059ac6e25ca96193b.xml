@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="u_gdep_instance_tiles">
+    <u_gdep_instance_tiles action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="2">138c6162dbf8dc1459ac6e25ca96197c</sp_column>
+        <sp_widget display_value="GDEP Tiles">ffa09b18dbf450d459ac6e25ca961964</sp_widget>
+        <sys_class_name>u_gdep_instance_tiles</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-05-15 00:11:34</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>8a137ed5db74d45059ac6e25ca96193b</sys_id>
+        <sys_mod_count>88</sys_mod_count>
+        <sys_name>Forms Page</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>u_gdep_instance_tiles_8a137ed5db74d45059ac6e25ca96193b</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-07-24 22:42:19</sys_updated_on>
+        <title>Forms Page</title>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"template": {
+		"value": "Cards",
+		"displayValue": "Cards"
+	}
+}]]></widget_parameters>
+    </u_gdep_instance_tiles>
+    <sys_translated_text action="delete_multiple" query="documentkey=8a137ed5db74d45059ac6e25ca96193b"/>
+</record_update>

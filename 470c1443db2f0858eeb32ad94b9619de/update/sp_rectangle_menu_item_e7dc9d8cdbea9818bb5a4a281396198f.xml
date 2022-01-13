@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rectangle_menu_item">
+    <sp_rectangle_menu_item action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <color>default</color>
+        <condition/>
+        <display_1/>
+        <display_2/>
+        <display_date/>
+        <filter/>
+        <glyph/>
+        <hint/>
+        <kb_article/>
+        <kb_category/>
+        <kb_topic/>
+        <label>My Approvals</label>
+        <order>100</order>
+        <record_script><![CDATA[var t = data;
+t.items = [];
+t.count = 0;
+
+var u = gs.getUser().getID();
+
+// use record watchers to tell header when to update dropdown counts
+t.record_watchers = [];
+t.record_watchers.push({'table':'sysapproval_approver','filter':'approver=' + u + '^state=requested'});
+
+var z = new GlideRecord('sysapproval_approver');
+z.addQuery("approver", gs.getUserID());
+z.addQuery("state", "requested");
+z.orderByDesc('sys_updated_on');
+z.query();
+
+var link = {};
+link.title = gs.getMessage('View all approvals');
+link.type = 'link';
+link.href = '?id=gdep_approvals';
+link.items = [];
+t.items.push(link);
+
+while (z.next()) {
+  var a = {};
+  var rec = getRecordBeingApproved(z);
+	if (!rec.isValidRecord())  // nothing being approved - hmmm
+		continue;
+	
+  a.short_description = rec.short_description + "";
+  if (rec.getRecordClassName() == "sc_request") {
+    var items = new GlideRecord("sc_req_item");
+    items.addQuery("request", rec.getUniqueValue());
+    items.query();
+    if (items.getRowCount() > 1)
+      a.short_description = items.getRowCount() + " requested items";
+    else if (items.getRowCount() == 1) {
+      items.next();
+      a.short_description = items.getValue("short_description");
+    }
+  }else if (rec.getRecordClassName() == 'kb_knowledge') {
+        a.short_description = rec.getDisplayValue("short_description");
+        a.number = rec.getDisplayValue("number");
+        //a.__page = 'csm_approval';
+        a.type = 'record';
+    }
+  $sp.getRecordValues(a, z, 'sys_id,sys_updated_on');
+  a.number = rec.getDisplayValue();
+  a.__table = z.getRecordClassName();
+  a.type = 'approval';
+  t.items.push(a);
+  t.count++;
+}
+
+function getRecordBeingApproved(gr) {
+  if (!gr.sysapproval.nil())
+    return gr.sysapproval.getRefRecord();
+
+  return gr.document_id.getRefRecord();
+}]]></record_script>
+        <sc_cat_item/>
+        <sc_category display_value="Benefits">f81f8a189f231200d9011977677fcf51</sc_category>
+        <short_description/>
+        <sp_page display_value="gdep_requests">4c85c277db0a1c9c59ac6e25ca96192d</sp_page>
+        <sp_rectangle_menu display_value="GDEP Portal Menu">2b2a405ddbbf8cdce670d48a48961974</sp_rectangle_menu>
+        <sp_rectangle_menu_item/>
+        <sys_class_name>sp_rectangle_menu_item</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-05 20:33:05</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>e7dc9d8cdbea9818bb5a4a281396198f</sys_id>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>My Approvals</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_rectangle_menu_item_e7dc9d8cdbea9818bb5a4a281396198f</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-11-30 22:16:04</sys_updated_on>
+        <table/>
+        <type>scripted</type>
+        <url/>
+        <url_target/>
+    </sp_rectangle_menu_item>
+    <sys_translated_text action="delete_multiple" query="documentkey=e7dc9d8cdbea9818bb5a4a281396198f"/>
+</record_update>

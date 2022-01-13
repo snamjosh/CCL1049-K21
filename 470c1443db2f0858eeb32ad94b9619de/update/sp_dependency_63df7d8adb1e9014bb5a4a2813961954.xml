@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_dependency">
+    <sp_dependency action="INSERT_OR_UPDATE">
+        <module/>
+        <name>GDEP Ticket Overview Styles</name>
+        <page_load>true</page_load>
+        <sp_portals/>
+        <sys_class_name>sp_dependency</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-30 17:57:24</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>63df7d8adb1e9014bb5a4a2813961954</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>GDEP Ticket Overview Styles</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_dependency_63df7d8adb1e9014bb5a4a2813961954</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-07-30 22:58:56</sys_updated_on>
+    </sp_dependency>
+</record_update>

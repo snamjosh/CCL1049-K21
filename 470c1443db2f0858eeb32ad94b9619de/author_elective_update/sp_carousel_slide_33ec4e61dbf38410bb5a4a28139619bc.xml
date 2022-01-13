@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_carousel_slide">
+    <sp_carousel_slide action="DELETE">
+        <background/>
+        <carousel display_value="">03d60e61db738410bb5a4a28139619a0</carousel>
+        <name>Annual Enrollment is now open in Workday!</name>
+        <order>300</order>
+        <sys_class_name>sp_carousel_slide</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-03-26 23:00:33</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>33ec4e61dbf38410bb5a4a28139619bc</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Annual Enrollment is now open in Workday!</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_carousel_slide_33ec4e61dbf38410bb5a4a28139619bc</sys_update_name>
+        <sys_updated_by>aerceg</sys_updated_by>
+        <sys_updated_on>2020-05-28 16:09:51</sys_updated_on>
+        <url>https://www.myworkday.com/godaddy/d/inst/13102!CK5mGhEKBggDEMenAhIHCgUI1A0QWw~~/cacheable-task/2997$2151.htmld</url>
+    </sp_carousel_slide>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>sp_carousel_slide_33ec4e61dbf38410bb5a4a28139619bc</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_carousel_slide"><sp_carousel_slide action="INSERT_OR_UPDATE"><background/><carousel display_value="">03d60e61db738410bb5a4a28139619a0</carousel><name>Annual Enrollment is now open in Workday!</name><order>300</order><sys_class_name>sp_carousel_slide</sys_class_name><sys_created_by>jbenedetti</sys_created_by><sys_created_on>2020-03-26 23:00:33</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>33ec4e61dbf38410bb5a4a28139619bc</sys_id><sys_mod_count>3</sys_mod_count><sys_name>Annual Enrollment is now open in Workday!</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>sp_carousel_slide_33ec4e61dbf38410bb5a4a28139619bc</sys_update_name><sys_updated_by>aerceg</sys_updated_by><sys_updated_on>2020-05-28 16:09:51</sys_updated_on><url>https://www.myworkday.com/godaddy/d/inst/13102!CK5mGhEKBggDEMenAhIHCgUI1A0QWw~~/cacheable-task/2997$2151.htmld</url></sp_carousel_slide></record_update>]]></payload>
+        <payload_hash>84294581</payload_hash>
+        <record_name>Annual Enrollment is now open in Workday!</record_name>
+        <reverted_from/>
+        <source>0c6740ecdb7598901093f40c0c9619f6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-06-30 20:49:57</sys_created_on>
+        <sys_id>f2a70c20dbb598901093f40c0c9619ad</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17306fe52860000001</sys_recorded_at>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-06-30 20:49:57</sys_updated_on>
+        <type>Carousel Slide</type>
+        <update_guid>c61b41798c85dc585304efa83ed55f71</update_guid>
+        <update_guid_history>c61b41798c85dc585304efa83ed55f71:84294581,a73a9c6a18299c90e887651c559e99e9:732192925,c61b41798c85dc585304efa83ed55f71:84294581,93d5c1797dcd9c588e1183998fa6ed18:446892436,6bb99f4316b38810f28059d384384947:2006897716,f3ec4e61fcf38410b9227774621b46bd:1158569492</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">1025a6dbdb0ce4144a21892d139619bc</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2020-10-29 17:42:28</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sp_carousel_slide">sp_carousel_slide</sys_db_object>
+        <sys_id>4d2547eca4c341cc8a1e4d729eb03ba4</sys_id>
+        <sys_metadata>33ec4e61dbf38410bb5a4a28139619bc</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Annual Enrollment is now open in Workday!</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sp_carousel_slide_33ec4e61dbf38410bb5a4a28139619bc</sys_update_name>
+        <sys_update_version display_value="sp_carousel_slide_33ec4e61dbf38410bb5a4a28139619bc">f2a70c20dbb598901093f40c0c9619ad</sys_update_version>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-10-29 17:42:28</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

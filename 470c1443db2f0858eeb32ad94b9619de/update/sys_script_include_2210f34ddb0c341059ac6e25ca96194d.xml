@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.AnalyticsHelper</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>AnalyticsHelper</name>
+        <script><![CDATA[var AnalyticsHelper = Class.create();
+AnalyticsHelper.prototype = {
+    initialize: function() {
+    },
+
+	helloWorld: function(){
+		return "hello world";
+	},
+	
+	logSearchEvent: function(payload){
+		var grSearchEvent = new GlideRecord("sys_search_event");
+		grSearchEvent.initialize();
+		grSearchEvent.setValue("application_id", payload.portal_id);
+		grSearchEvent.setValue("click_rank", payload.click_rank);
+		grSearchEvent.setValue("has_results", payload.has_results);
+		grSearchEvent.setValue("search_query", payload.search_query);
+		grSearchEvent.setValue("session", gs.getSession().getSessionID());
+		grSearchEvent.setValue("suggest_to_user", true);
+		grSearchEvent.setValue("user", payload.user);
+		grSearchEvent.setValue("application_table", payload.application_table);
+		grSearchEvent.setValue("browser", payload.browser);
+		grSearchEvent.setValue("ui_source", payload.ui_source);
+		grSearchEvent.setValue("language", gs.getSession().getLanguage());
+		grSearchEvent.setValue("refinements", 0);
+		var searchEventSysId = grSearchEvent.insert();
+		
+		var grSearchClickedEvent = new GlideRecord("sys_search_result_clicked");
+		grSearchClickedEvent.initialize();
+		grSearchClickedEvent.setValue("click_index", payload.click_rank);
+		grSearchClickedEvent.setValue("label_description", payload.label_description);
+		grSearchClickedEvent.setValue("search_event", searchEventSysId);
+		grSearchClickedEvent.setValue("source_table", payload.source_table);
+		grSearchClickedEvent.insert();
+	},
+	
+    type: 'AnalyticsHelper'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-09 19:35:36</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>2210f34ddb0c341059ac6e25ca96194d</sys_id>
+        <sys_mod_count>12</sys_mod_count>
+        <sys_name>AnalyticsHelper</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_script_include_2210f34ddb0c341059ac6e25ca96194d</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-09 22:11:01</sys_updated_on>
+    </sys_script_include>
+</record_update>

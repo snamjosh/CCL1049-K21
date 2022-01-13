@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_catalog_view_mtom">
+    <sc_catalog_view_mtom action="INSERT_OR_UPDATE">
+        <default>true</default>
+        <sc_catalog display_value="GDEP Catalog">4bc59f36db67c458eeb32ad94b961998</sc_catalog>
+        <sys_class_name>sc_catalog_view_mtom</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-03-18 15:15:49</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>4ad55376db67c458eeb32ad94b96194d</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>GDEP Catalog.catalog_gdep_catalog</sys_name>
+        <sys_package display_value="Global" source="global">global</sys_package>
+        <sys_policy/>
+        <sys_portal_page display_value="catalog_gdep_catalog">06d55376db67c458eeb32ad94b96194c</sys_portal_page>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sc_catalog_view_mtom_4ad55376db67c458eeb32ad94b96194d</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-03-18 20:28:44</sys_updated_on>
+    </sc_catalog_view_mtom>
+</record_update>

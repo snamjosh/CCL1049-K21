@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="announcement">
+    <announcement action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <click_target/>
+        <details/>
+        <details_link_text/>
+        <details_page/>
+        <details_url/>
+        <dismiss_options>dismissible</dismiss_options>
+        <display_first>false</display_first>
+        <display_style display_value="Normal">704dedd6e7d4030075c2a117c2f6a91b</display_style>
+        <from>2021-04-28 20:43:46</from>
+        <glyph>star</glyph>
+        <glyph_alt_text/>
+        <name>Example Normal Message</name>
+        <public>true</public>
+        <roles/>
+        <show_for_unauthenticated_users_only>false</show_for_unauthenticated_users_only>
+        <summary/>
+        <sys_class_name>announcement</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-04-29 18:04:53</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>765bf7bddbb32410bb5a4a281396190c</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Example Normal Message</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>announcement_765bf7bddbb32410bb5a4a281396190c</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-04-29 20:22:43</sys_updated_on>
+        <title>Example Normal Message</title>
+        <to>2021-05-01 20:43:49</to>
+        <type>67eaf134e7a3320075c2a117c2f6a9d2,52fa79f8e763320075c2a117c2f6a991</type>
+    </announcement>
+    <sys_translated_text action="delete_multiple" query="documentkey=765bf7bddbb32410bb5a4a281396190c"/>
+</record_update>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="gdep Copy of Knowledge List Widget Templ">95543aa0db16d05059ac6e25ca96199c</child>
+        <cloned>2020-07-26 05:55:44</cloned>
+        <last_validated>2020-07-26 05:55:44</last_validated>
+        <parent display_value="Knowledge List Widget Template">1e6b5b3adb20320099f93691f0b8f5a8</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category/&gt;&lt;client_script&gt;&lt;![CDATA[function($filter,spUtil,cabrillo,$rootScope) {
+	/* widget controller */
+	var c = this;
+	c.isNative = cabrillo.isNative();
+	
+	//Use KB specific stylic for "kb" &amp; 'mesp' portal
+	c.KBRatingStyle = c.options.kb_rating_style || ($rootScope.portal ? ($rootScope.portal.sys_id == "45d6680fdb52220099f93691f0b8f5ad" || $rootScope.portal.sys_id == "26f2fffb77322300454792718a1061e5") : false);
+
+	c.getOrderedItems = function() {
+		var filtered = $filter('limitTo') (c.options.result, c.options.max_records);
+		return $filter('orderBy') (filtered, 'count', c.options.reverse);
+	}
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.kb-list-item{
+  border-bottom: none;
+  border-top: none; 
+}
+small{
+  font-size:93%; 
+}
+.secondary-info{
+  color:$text-muted;
+  padding-top: 3px;
+}
+.main_text a{
+  display:block; 
+}
+.dot{
+  padding:5px; 
+}
+.kb-star-on {
+  color: $fav-star-color !important;
+  text-shadow: $fav-star-outline;
+}
+.kb-star-off {
+  color: $fav-star-color-off !important;
+  text-shadow: $fav-star-outline;
+}
+.sp-stars{
+  display: inline-flex;
+  letter-spacing: .5px;
+}
+.kb-rating-stars{
+  font-size: 12px;
+  display: inline-flex;
+  margin-top: -6px;
+
+  .glyphicon{
+    line-height: 0; 
+  }
+  .rating-stars [role="button"] {
+    cursor: text;
+  }
+}
+.kb-desktop{
+  .kb-rating-stars{
+    .glyphicon-star:before{
+      color: #ffca1f;
+    }
+    .glyphicon-star-empty{
+      color: #BDC0C4;
+    }
+  } 
+}
+.kb-mobile{
+  .kb-mobile-panel{
+    .panel-heading{
+      padding-left:0px !important;
+      .panel-title{
+        font-size:20px !important; 
+      }
+    }
+    .main_text{
+      letter-spacing: 1px; 
+    }
+    .secondary-info{
+      font-size: 16px;
+      font-weight: 100;
+      padding-top: 10px;
+      letter-spacing: 1px;
+    }
+    .kb-item-block{
+      box-shadow:1px 1px 10px 0.2px rgba(0,0,0,0.1);
+      padding:15px;
+      margin-bottom:10px;
+      margin-top: 15px;
+      border-radius: 7px;
+      a{
+        font-size:18px !important;
+      }
+    }
+  }
+}
+.kb-list-block.has-icon {
+  .kb-list-item {
+    .kb-list-row {
+      overflow: hidden;
+      clear: both;
+    }
+    .kb-list-col-icon {
+      float: left;
+      width : 30px;
+      padding-top: 3px;
+      .fa {
+        width: 30px;
+        font-size: 20px;
+        vertical-align: middle;
+        color: $brand-primary;
+        float: left;
+      }
+    }
+    .kb-list-col-content {
+      float: left;
+      width: calc(100% - 30px);
+    }
+  }
+}&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;kb-list-widget-template&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function(scope) {	
+	var c = scope.c;
+	
+	c.openArticleAttachment = function(url, name,  external) {
+		if(external) {
+			var params = 'toolbar=no,menubar=no,personalbar=no,height='+screen.height + ',' + 'width='+screen.width + ',' + 'scrollbars=yes,resizable=yes,fullscreen=yes';
+			window.open(url, name, params);
+		}
+		else
+			window.open(url, name, "toolbar=no,menubar=no,personalbar=no,width=800,height=600,scrollbars=yes,resizable=yes");
+	};
+	
+	c.roundOff = function(val){
+		if(val)
+			return Math.round(val);
+		else
+			return 0;
+	};
+}]]&gt;&lt;/link&gt;&lt;name&gt;Knowledge List Widget Template&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;true&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
+	data.useDocumentViewer = (gs.getProperty('sn_km_portal.glide.knowman.serviceportal.use_document_viewer', 'false') == 'true') &amp;&amp; GlidePluginManager.isActive('com.snc.documentviewer');
+	data.externalContentLabel = gs.getMessage(gs.getProperty('sn_km_intg.glide.knowman.external.ui_label_for_external_content', 'External Content')) || gs.getMessage('External Content');
+	options.kb_rating_style = options.kb_rating_style ? options.kb_rating_style == "true" : false;
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;true&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2017-01-30 07:36:42&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;1e6b5b3adb20320099f93691f0b8f5a8&lt;/sys_id&gt;&lt;sys_mod_count&gt;15&lt;/sys_mod_count&gt;&lt;sys_name&gt;Knowledge List Widget Template&lt;/sys_name&gt;&lt;sys_package display_value="Knowledge Management - Service Portal" source="sn_km_portal"&gt;bab6dea3db20320099f93691f0b8f590&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Knowledge Management - Service Portal"&gt;bab6dea3db20320099f93691f0b8f590&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_1e6b5b3adb20320099f93691f0b8f5a8&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2019-04-30 09:55:35&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="kb-list-block" ng-if="c.options.always_show || c.options.result.length" ng-class="{'has-icon' : c.options.glyph, 'kb-mobile' : c.isNative, 'kb-desktop' : !c.isNative}"&gt;
+  &lt;div ng-class="c.isNative ? 'kb-mobile-panel' : 'panel panel-{{::c.options.color}} b'"&gt;
+    &lt;div class="panel-heading" ng-class="{'b-b': !c.options.color}"&gt; &lt;h2 class="panel-title" ng-bind="::options.title"&gt;
+      &lt;fa ng-if="::options.glyph" name="{{::options.glyph}}" class="m-r-sm" /&gt;&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;div class="list-group hide-x-overflow" style="max-height: {{::c.options.panel_body_height || 'none'}}; overflow-y: auto;"&gt;
+      &lt;div ng-if="c.options.result.length &gt; 0" role="group" ng-repeat="item in c.getOrderedItems() track by item.id" class="list-group-item kb-list-item" ng-class="{'kb-item-block':c.isNative}"&gt;
+        &lt;div class="kb-list-row"&gt;
+          &lt;div class="kb-list-col-icon" ng-if="::c.options.glyph"&gt;
+            &lt;i class="fa fa-{{::c.options.glyph}}" aria-hidden="true"&gt;&lt;/i&gt;
+          &lt;/div&gt;
+          &lt;div class="kb-list-col-content"&gt;
+            &lt;div class="main_text"&gt;
+              &lt;a ng-href="{{((item.direct === true &amp;&amp; c.data.useDocumentViewer == true) || item.external_link) ? '#art' : item.link}}" ng-click="((item.direct === true &amp;&amp; c.data.useDocumentViewer == true) || item.external_link) ? c.openArticleAttachment(item.external_link || (item.link + '&amp;view=true'), item.id, item.external_link) : ''"&gt;
+                &lt;div ng-switch on="::item.display_field.type" ng-class="{'l-h-40': !item.secondary_fields.length}"&gt;
+                  &lt;span class="translated-html" ng-switch-when="translated_html" ng-bind-html="::item.display_field"&gt;&lt;/span&gt;
+                  &lt;div ng-switch-default ng-bind="::item.display_field"&gt;&lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/a&gt;
+            &lt;/div&gt;
+            &lt;small&gt;
+              &lt;div class="secondary-info"&gt;
+                &lt;span class="about-outer-span"&gt;
+                  &lt;span ng-repeat="f in item.secondary_fields track by $index"&gt;
+                    &lt;span ng-if="f.value || f.name == 'rating'"&gt;
+                      &lt;span ng-switch="f.name" title="{{::f.label}}"
+                            class="art-label"&gt;
+                        &lt;span ng-switch-when="rating"&gt;
+                          &lt;span ng-if="!$first" class="dot" aria-hidden="true"&gt; • &lt;/span&gt;
+                          &lt;span class="no-wrap" disabled="true" aria-hidden="true" ng-init="ratingVal = c.roundOff(f.value)"&gt;
+                            &lt;span class="kb-rating-stars" ng-if="::c.KBRatingStyle"&gt;
+                              &lt;uib-rating ng-model="ratingVal" max="5" readonly="true"/&gt;
+                            &lt;/span&gt;
+                            &lt;span class="sp-stars" ng-if="!c.KBRatingStyle"&gt;
+                              &lt;span uib-rating sp-rating ng-model="::ratingVal" max="5" readonly="true" aria-hidden="true" state-on="'fa fa-star kb-star-on'" state-off="'fa fa-star kb-star-off'" /&gt;
+                            &lt;/span&gt;
+                          &lt;/span&gt;
+                        &lt;/span&gt;
+                        &lt;span ng-switch-when="sys_view_count"&gt;
+                          &lt;span ng-if="!$first" class="dot" aria-hidden="true"&gt; • &lt;/span&gt;
+                          &lt;span class="no-warp"&gt;&lt;span ng-bind="::f.value"&gt;&lt;/span&gt; ${Views}&lt;/span&gt;
+                        &lt;/span&gt;
+                        &lt;span ng-switch-when="workflow_state"&gt;                        
+                          &lt;span ng-if="!$first" class="dot" aria-hidden="true"&gt; • &lt;/span&gt;&lt;span class="no-warp"&gt;&lt;span ng-bind="::f.display_value"&gt;&lt;/span&gt; ${State}&lt;/span&gt;
+                        &lt;/span&gt;
+                        &lt;span ng-switch-when="external"&gt;                        
+                          &lt;span ng-if="f.value == 'true'"&gt;
+                            &lt;span ng-if="!$first" class="dot" aria-hidden="true"&gt; • &lt;/span&gt;&lt;span ng-bind="::c.data.externalContentLabel"&gt;&lt;/span&gt;
+                          &lt;/span&gt;
+                        &lt;/span&gt;
+                        &lt;span ng-switch-default="" ng-switch="f.type"&gt;
+                          &lt;span ng-if="!$first" class="dot" aria-hidden="true"&gt; • &lt;/span&gt;
+                          &lt;span class="no-warp"&gt;&lt;span class="secondary-label" ng-if="c.options.show_secondary_fields_label"&gt;{{::f.label}}
+                            : &lt;/span&gt;
+                            &lt;span ng-switch-when="glide_date"&gt;
+                              &lt;sn-time-ago timestamp="::f.value" /&gt;
+                            &lt;/span&gt;
+                            &lt;span ng-switch-when="glide_date_time"&gt;
+                              &lt;sn-time-ago timestamp="::f.value" /&gt;
+                            &lt;/span&gt;
+                            &lt;span ng-switch-default="" ng-bind="::f.display_value"&gt;
+                            &lt;/span&gt;&lt;/span&gt;
+                        &lt;/span&gt;
+                      &lt;/span&gt;
+                    &lt;/span&gt;
+                  &lt;/span&gt;
+                &lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/small&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;       
+    &lt;/div&gt;
+    &lt;div ng-if="!c.options.result.length" class="list-group-item" style="border:none"&gt;
+      ${No content to display}
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-07-26 05:55:44</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>9d5472acdb16d05059ac6e25ca9619a1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>95543aa0db16d05059ac6e25ca96199c</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_9d5472acdb16d05059ac6e25ca9619a1</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-07-26 05:55:44</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

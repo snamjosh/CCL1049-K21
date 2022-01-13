@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_theme">
+    <sp_theme action="INSERT_OR_UPDATE">
+        <css_variables>$godaddyBlue: #1BDBDB;
+$brand-success:#5cb85c; /*green */
+$brand-warning:#f0ad4e; /* blue gray */
+$brand-danger:#d9534f; /* red */
+$brand-primary:#1BDBDB;  powder blue */
+$brand-info:#5bc0de; /* green */
+$state-success-text:#5cb85c; /* green */
+
+$navbar-inverse-bg:#ffffff;
+$navbar-inverse-link-color:#000000;
+$navbar-inverse-link-hover-color:#1BDBDB;
+$navbar-inverse-bg: 	#3a3f51 !default; /* dark blue */
+$navbar-inverse-link-color: #bdc0c4 !default;
+$navbar-inverse-link-hover-color: #3a3f51 /* dark blue */ /* #ffffff !default;*/
+
+$sp-homepage-bg:#fff;
+$sp-navbar-divider-color:#455464; /* blue gray */
+$sp-logo-margin-y:.5rem;
+$sp-tagline-color:#717171; /* gray */
+
+$body-bg:#ffffff;
+$text-color:#717171; /* gray */
+$panel-bg:#fff;
+$link-color:#000000;*/
+$btn-default-bg:#fff;
+$text-muted:#979797; /* lighter gray */
+
+body{font-family: 'GD-Sherpa-Regular';}
+a{font-family: 'GD-Sherpa-Regular';}
+div{font-family: 'GD-Sherpa-Regular';}
+</css_variables>
+        <footer/>
+        <footer_fixed>false</footer_fixed>
+        <header display_value="GD Header ">98950eee373c6ac0eb8163d2b3990e03</header>
+        <name>GDEP Theme</name>
+        <navbar_fixed>true</navbar_fixed>
+        <sys_class_name>sp_theme</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-03-12 21:48:18</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>8d2671c1db63cc54eeb32ad94b9619d8</sys_id>
+        <sys_mod_count>38</sys_mod_count>
+        <sys_name>GDEP Theme</sys_name>
+        <sys_package display_value="Global" source="global">global</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_theme_8d2671c1db63cc54eeb32ad94b9619d8</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-10-28 01:27:09</sys_updated_on>
+    </sp_theme>
+</record_update>

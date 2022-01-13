@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_search_source">
+    <m2m_sp_portal_search_source action="DELETE">
+        <order>100</order>
+        <sp_portal display_value="GoDaddy Employee Portal">680c18c9db2b0c54eeb32ad94b9619d7</sp_portal>
+        <sp_search_source display_value="Knowledge Base">bf2c4c15b3a31300e64be12b86a8dcb7</sp_search_source>
+        <sys_class_name>m2m_sp_portal_search_source</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-03-12 15:20:46</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>587d54c1db6b0c54eeb32ad94b9619f5</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>GoDaddy Employee Portal.Knowledge Base</sys_name>
+        <sys_package display_value="Global" source="global">global</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>m2m_sp_portal_search_source_587d54c1db6b0c54eeb32ad94b9619f5</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-03-18 20:30:38</sys_updated_on>
+    </m2m_sp_portal_search_source>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>m2m_sp_portal_search_source_587d54c1db6b0c54eeb32ad94b9619f5</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_search_source"><m2m_sp_portal_search_source action="INSERT_OR_UPDATE"><order>100</order><sp_portal display_value="GoDaddy Employee Portal">680c18c9db2b0c54eeb32ad94b9619d7</sp_portal><sp_search_source display_value="Knowledge Base">bf2c4c15b3a31300e64be12b86a8dcb7</sp_search_source><sys_class_name>m2m_sp_portal_search_source</sys_class_name><sys_created_by>jbenedetti</sys_created_by><sys_created_on>2020-03-12 15:20:46</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>587d54c1db6b0c54eeb32ad94b9619f5</sys_id><sys_mod_count>1</sys_mod_count><sys_name>GoDaddy Employee Portal.Knowledge Base</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>m2m_sp_portal_search_source_587d54c1db6b0c54eeb32ad94b9619f5</sys_update_name><sys_updated_by>jbenedetti</sys_updated_by><sys_updated_on>2020-03-18 20:30:38</sys_updated_on></m2m_sp_portal_search_source></record_update>]]></payload>
+        <payload_hash>81115491</payload_hash>
+        <record_name>GoDaddy Employee Portal.Knowledge Base</record_name>
+        <reverted_from/>
+        <source>0c6740ecdb7598901093f40c0c9619f6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-06-30 20:49:29</sys_created_on>
+        <sys_id>bb878420dbb598901093f40c0c9619a9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17306fde5550000001</sys_recorded_at>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-06-30 20:49:29</sys_updated_on>
+        <type>Search Source</type>
+        <update_guid>bded544fe92f0858067fbefeaf6b81cf</update_guid>
+        <update_guid_history>bded544fe92f0858067fbefeaf6b81cf:81115491,c13a1c6a38299c90a5854d0f5e20f018:618102479,bded544fe92f0858067fbefeaf6b81cf:81115491,587d54c12d6b0c54aaf6b892fbc9a9f6:1022144483</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Record deleted 2021-05-10 21:37:17">8ad57a21db8cb410bb5a4a28139619e2</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-11 04:37:17</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="m2m_sp_portal_search_source">m2m_sp_portal_search_source</sys_db_object>
+        <sys_id>047575e491434cdf972c372069a0b441</sys_id>
+        <sys_metadata>587d54c1db6b0c54eeb32ad94b9619f5</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>GoDaddy Employee Portal.Knowledge Base</sys_name>
+        <sys_package display_value="Global" source="global">global</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>m2m_sp_portal_search_source_587d54c1db6b0c54eeb32ad94b9619f5</sys_update_name>
+        <sys_update_version display_value="m2m_sp_portal_search_source_587d54c1db6b0c54eeb32ad94b9619f5">bb878420dbb598901093f40c0c9619a9</sys_update_version>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-11 04:37:17</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

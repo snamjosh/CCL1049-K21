@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_link">
+    <sp_instance_link action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph>info-circle</glyph>
+        <id/>
+        <kb_article display_value="KB0012231 v1.0">f6d6b81413f13f486d4976d66144b048</kb_article>
+        <kb_category/>
+        <kb_topic/>
+        <order>1</order>
+        <roles/>
+        <sc_cat_item/>
+        <sc_category/>
+        <short_description>Please Click Here for Documentation to Use Shopper Functionality</short_description>
+        <size>md</size>
+        <sp_column display_value="2">2eb52bb9dbcae49c59ac6e25ca961933</sp_column>
+        <sp_page display_value="gdep_kb_article">63e2c447dbe51c5c59ac6e25ca96195f</sp_page>
+        <sp_widget display_value="friends-help">8c8614cadbc6a454bb5a4a28139619ec</sp_widget>
+        <sys_class_name>sp_instance_link</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-02-01 21:19:51</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>f2e56842db42e454bb5a4a28139619f2</sys_id>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>Shopper Discount Help</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_instance_link_f2e56842db42e454bb5a4a28139619f2</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-02-02 19:02:50</sys_updated_on>
+        <title>Shopper Discount Help</title>
+        <type>url</type>
+        <url>https://godaddydev.service-now.com/gdsp?id=gdep_kb_article&amp;sysparm_article=KB0014256</url>
+        <widget_parameters><![CDATA[{
+	"link_template": {
+		"value": "",
+		"displayValue": "-- None --"
+	}
+}]]></widget_parameters>
+    </sp_instance_link>
+    <sys_translated_text action="DELETE" query="documentkey=f2e56842db42e454bb5a4a28139619f2"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>sp_instance_link_f2e56842db42e454bb5a4a28139619f2</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_instance_link"&gt;&lt;sp_instance_link action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;class_name/&gt;&lt;color&gt;default&lt;/color&gt;&lt;css/&gt;&lt;glyph&gt;info-circle&lt;/glyph&gt;&lt;id/&gt;&lt;kb_article display_value="KB0012231 v1.0"&gt;f6d6b81413f13f486d4976d66144b048&lt;/kb_article&gt;&lt;kb_category/&gt;&lt;kb_topic/&gt;&lt;order&gt;1&lt;/order&gt;&lt;roles/&gt;&lt;sc_cat_item/&gt;&lt;sc_category/&gt;&lt;short_description&gt;Please Click Here for Documentation to Use Shopper Functionality&lt;/short_description&gt;&lt;size&gt;md&lt;/size&gt;&lt;sp_column display_value="2"&gt;2eb52bb9dbcae49c59ac6e25ca961933&lt;/sp_column&gt;&lt;sp_page display_value="gdep_kb_article"&gt;63e2c447dbe51c5c59ac6e25ca96195f&lt;/sp_page&gt;&lt;sp_widget display_value="friends-help"&gt;8c8614cadbc6a454bb5a4a28139619ec&lt;/sp_widget&gt;&lt;sys_class_name&gt;sp_instance_link&lt;/sys_class_name&gt;&lt;sys_created_by&gt;snamjoshi&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2021-02-01 21:19:51&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;f2e56842db42e454bb5a4a28139619f2&lt;/sys_id&gt;&lt;sys_mod_count&gt;11&lt;/sys_mod_count&gt;&lt;sys_name&gt;Shopper Discount Help&lt;/sys_name&gt;&lt;sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de"&gt;470c1443db2f0858eeb32ad94b9619de&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="GDEP"&gt;470c1443db2f0858eeb32ad94b9619de&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_instance_link_f2e56842db42e454bb5a4a28139619f2&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;snamjoshi&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2021-02-02 19:02:50&lt;/sys_updated_on&gt;&lt;title&gt;Shopper Discount Help&lt;/title&gt;&lt;type&gt;url&lt;/type&gt;&lt;url&gt;https://godaddydev.service-now.com/gdsp?id=gdep_kb_article&amp;amp;sysparm_article=KB0014256&lt;/url&gt;&lt;widget_parameters&gt;&lt;![CDATA[{
+	"link_template": {
+		"value": "",
+		"displayValue": "-- None --"
+	}
+}]]&gt;&lt;/widget_parameters&gt;&lt;/sp_instance_link&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=f2e56842db42e454bb5a4a28139619f2"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1408759704</payload_hash>
+        <record_name>Shopper Discount Help</record_name>
+        <reverted_from/>
+        <source>cd844aac1bde64d0d671c9192a4bcb4a</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-02-09 22:38:04</sys_created_on>
+        <sys_id>ae84cee41b52a4d0d671c9192a4bcbf6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17788f1cf510000001</sys_recorded_at>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-02-09 22:38:04</sys_updated_on>
+        <type>Instance with Link</type>
+        <update_guid>5920ddda000aa094d916705a381cd6e0</update_guid>
+        <update_guid_history>5920ddda000aa094d916705a381cd6e0:1408759704,d2cf455a4d0aa094fff586285a435028:-287954366,2d9f4d964d0aa094ec89922da1e54d66:1408759704,d68fcd56840aa094cec715f02c289ac0:-287954366,5818e0826282e454f39a8faf2edf6be5:1642590664,bc77a84e3242e4547c96a53cb021fdd3:1544048191,df37a00ed042e454e496b871be633362:-927940416,70f6ac4aa642e454730aae10390bb4d4:858304161,6896ac464742e45468ea9ea25c489c82:-1689066560,0b66e0463742e454f10b3967e6389e25:-163148225,1c56e8c24442e454e0b4f0ccc8ef80ae:-1111079802,bae568426542e45495fa4e05b457c3f4:711161437</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">9de4ca281b52a4d0d671c9192a4bcb13</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-02-09 22:39:38</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sp_instance_link">sp_instance_link</sys_db_object>
+        <sys_id>0b02ae30a49541d48533ceb009e89f71</sys_id>
+        <sys_metadata>f2e56842db42e454bb5a4a28139619f2</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Shopper Discount Help</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sp_instance_link_f2e56842db42e454bb5a4a28139619f2</sys_update_name>
+        <sys_update_version display_value="sp_instance_link_f2e56842db42e454bb5a4a28139619f2">ae84cee41b52a4d0d671c9192a4bcbf6</sys_update_version>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-02-09 22:39:38</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

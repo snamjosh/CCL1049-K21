@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($rootScope, gdep) {
+  var c = this;
+	
+//	gdep.init();
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>cindy_test_widget</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>cindy test widget</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  data.kb_knowledge_base = $sp.getValue('kb_knowledge_base');
+	data.homePage = $sp.getValue('home');
+	data.catalog_home_page = $sp.getValue('catalog_homepage');
+	
+})();
+
+
+/*
+$rootScope.portal.kb_knowledge_base
+
+homepage_dv: "gdep_index"
+kb_knowledge_page_dv: "gdep_kb_home"
+sc_catalog_page_dv: "gdep_sc_home"
+kb_knowledge_base: "bb0370019f22120047a2d126c42e7073"
+
+
+default: false
+hide_portal_name: false
+homepage: "0b2e5009db6b0c54eeb32ad94b9619ab"
+
+icon: "ab2b4e59db73489ceeb32ad94b96196f.iix"
+kb_knowledge_base: "bb0370019f22120047a2d126c42e7073"
+kb_knowledge_base_dv: "Human Resources General Knowledge"
+kb_knowledge_page: "8b6a66d9db70545059ac6e25ca96193f"
+kb_knowledge_page_dv: "gdep_kb_home"
+login_page: "36c61807cb31120000f8d856634c9ca9"
+login_page_dv: "landing"
+logo: "cea0aa75dba9981cbb5a4a28139619d2.iix"
+logoutUrl: "/logout.do?sysparm_goto_url=/gdep"
+notfound_page: "3c2c9063cb11020000f8d856634c9c1f"
+notfound_page_dv: "404"
+sc_catalog_dv: ""
+sc_catalog_page: "0a780e52dbf0941459ac6e25ca961943"
+sc_catalog_page_dv: "gdep_sc_home"
+sc_category_page_dv: ""
+sp_chat_queue_dv: ""
+sp_rectangle_menu: "2b2a405ddbbf8cdce670d48a48961974"
+sp_rectangle_menu_dv: "GDEP Portal Menu"
+sqanda_knowledge_base_dv: ""
+sys_class_name: "sp_portal"
+sys_class_name_dv: "Service Portal"
+sys_id: "680c18c9db2b0c54eeb32ad94b9619d7"
+sys_name: "Compass"
+sys_tags: ""
+theme: "8d2671c1db63cc54eeb32ad94b9619d8"
+theme_dv: "GDEP Theme"
+title: "Compass"
+ts_index_group_dv: ""
+
+var index = peoples.findIndex(function(person) {
+  return person.attr1 == "john"
+}
+*/]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-07-16 21:43:15</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>9f4d62a5db82581859ac6e25ca961919</sys_id>
+        <sys_mod_count>51</sys_mod_count>
+        <sys_name>cindy test widget</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_9f4d62a5db82581859ac6e25ca961919</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-07-20 21:13:37</sys_updated_on>
+        <template><![CDATA[<div>
+  <a href="?id=gdep_test&sys_id=3470f9b7dbe11c10bb5a4a2813961906&kb_category=cd3b2459dbbb0010e670d48a489619ed&kb_id=bb0370019f22120047a2d126c42e7073&sysparm_article=KB0012877">link with kb parms</a>
+</div>
+
+
+<form class="form-horizontal">
+  <div class="form-group">
+    <label for="" class="col-sm-2 control-label">Subtitle Header</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" ng-bind="$root.data.cache.articleTitle"  placeholder="articleTitle" autocomplete="off"> </div>
+  </div>
+
+
+    </form>
+
+ 
+<pre>{{$root.portal | json}}</pre>]]></template>
+    </sp_widget>
+</record_update>

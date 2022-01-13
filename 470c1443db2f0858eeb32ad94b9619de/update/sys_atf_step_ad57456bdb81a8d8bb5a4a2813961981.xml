@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_atf_step">
+    <sys_atf_step action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <copied_from/>
+        <description>Open GoDaddy Employee Portal page in the Help Central portal</description>
+        <display_name>Open Service Portal Page</display_name>
+        <inputs/>
+        <mugshots_cache_json/>
+        <notes/>
+        <order>1</order>
+        <snapshot display_value="">b97351e3db09a8d8bb5a4a2813961999</snapshot>
+        <step_config display_value="Open Service Portal Page">fc7e65d577332300e46abe41a9106106</step_config>
+        <sys_class_name>sys_atf_step</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2020-12-18 22:34:28</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>ad57456bdb81a8d8bb5a4a2813961981</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>Open Service Portal Page</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_atf_step_ad57456bdb81a8d8bb5a4a2813961981</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-12-18 23:26:57</sys_updated_on>
+        <table/>
+        <test display_value="GDEP - Search Results Page - Open Quicklink">d32785e7db81a8d8bb5a4a2813961918</test>
+        <timeout/>
+        <warning_message/>
+    </sys_atf_step>
+    <sys_variable_value action="delete_multiple" query="document_key=ad57456bdb81a8d8bb5a4a2813961981"/>
+</record_update>

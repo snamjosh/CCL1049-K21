@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="GDEP KB Related">7a455a7adb65185c59ac6e25ca9619a1</child>
+        <cloned>2020-06-25 20:39:22</cloned>
+        <last_validated>2020-06-25 20:39:22</last_validated>
+        <parent display_value="Knowledge Related Articles">a8874e5bdb18330076e757a0cf961939</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function() {
+  /* widget controller */
+  var c = this;
+		c.template = "kb_article_list_template";
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.mesp-ui{
+ margin-bottom:40px; 
+}&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list&gt;title,color,glyph,css&lt;/field_list&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;kb_related_articles&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;Knowledge Related Articles&lt;/name&gt;&lt;option_schema&gt;[{"hint":"Knowledge","name":"table","default_value":"kb_knowledge","section":"other","label":"Table","type":"choice","choices":[{"label":"kb_knowledge","value":"kb_knowledge"}]},{"hint":"Display Field","name":"display_field","default_value":"short_description","section":"other","label":"Display Field","type":"field_name"},{"hint":"Additional Fields to be displayed","name":"secondary_fields","section":"other","label":"Secondary Fields","type":"field_list"},{"hint":"Number of records to show in widget","name":"max_records","default_value":"","section":"other","label":"Max number of records to show","type":"string"},{"hint":"Show even when empty","name":"always_show","section":"other","label":"Show even when empty","type":"boolean"},{"hint":"Show Secondary Fields Label","name":"show_secondary_fields_label","section":"other","label":"Show Secondary Fields Label","type":"boolean"},{"displayValue":"Knowledge Base","hint":"Show result for specific knowledge base. Keep blank to show for all bases.","name":"knowledge_base","section":"other","label":"Knowledge Base","type":"reference","value":"kb_knowledge_base","ed":{"reference":"kb_knowledge_base"}},{"hint":"Table that stores relationships with articles.","name":"source_table","section":"other","label":"Source Table","type":"choice","choices":[{"label":"kb_2_kb","value":"kb_2_kb"},{"label":"sc_2_kb","value":"sc_2_kb"}]},{"hint":"Column name that stores the reference of current record.","name":"source_column","section":"other","label":"Source Column","type":"choice","choices":[{"label":"kb_knowledge","value":"kb_knowledge"},{"label":"sc_cat_item","value":"sc_cat_item"}]},{"hint":"Column name that stores the reference of related article.","name":"target_column","section":"other","label":"Target Column","type":"choice","choices":[{"label":"kb_knowledge","value":"kb_knowledge"},{"label":"related_kb_knowledge","value":"related_kb_knowledge"}]},{"hint":"Sys Id of the current record.","name":"source_id","section":"other","label":"Source Id","type":"string"},{"hint":"Set this option to false when you want to set the widget width to 75%.","name":"use_full_width","section":"Behavior","default_value":"true","label":"Use Full Width","type":"boolean"}]&lt;/option_schema&gt;&lt;public&gt;true&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+	if(input)
+		return;
+	else {
+		options.title = options.title || gs.getMessage('Related Articles');
+		options.display_field = options.display_field || "short_description"; 
+		options.secondary_fields = options.secondary_fields ? options.secondary_fields.split(",") : getKnowledgeFieldsfromProperties();
+		options.show_secondary_fields_label = options.show_secondary_fields_label ? options.show_secondary_fields_label == 'true' : false;
+		options.max_records = options.max_records || gs.getProperty('glide.knowman.content_block_limit')|| '5';
+		options.always_show = options.always_show ? options.always_show == 'true' : true;
+		options.reverse = false;
+		options.source_id = options.source_id || 'sys_kb_id';
+		data.isMESP = ($sp.getParameter("id") == "me_kb_view") || false;
+		var pageID = data.isMESP ? "me_kb_view" : "kb_article_view";
+
+		var article_sys_id = $sp.getParameter(options.source_id) ? $sp.getParameter(options.source_id) + "" : $sp.getParameter('sys_id') + "";
+		if(article_sys_id){
+			var kbService = new KBPortalService();
+			options.knowledge_base = options.knowledge_base || String(kbService.getServicePortalKnowledgeBases($sp.getPortalRecord().url_suffix)) || "";
+			var result = kbService.getRelatedArticles(options.max_records,options.display_field,options.secondary_fields, options.knowledge_base,
+																								article_sys_id, article_sys_id, options.source_table, options.source_column, options.target_column,pageID);
+
+			options.result = result;
+			data.template = $sp.getWidget("kb-list-widget-template", options);
+		}
+
+	}
+
+	function getKnowledgeFieldsfromProperties(){
+
+		//Generate secondary fields based on legacy properties
+		var fields = [];
+
+		if(gs.getProperty('glide.knowman.search.show_article_number') &amp;&amp; gs.getProperty('glide.knowman.search.show_article_number') == 'true'){
+			var kbMod = new global.KBViewModel();
+			if(kbMod.isVersioningEnabled()){
+				fields.push('display_number');
+			}else{
+				fields.push('number');
+			}
+		}
+		if(gs.getProperty('glide.knowman.search.show_author') &amp;&amp; gs.getProperty('glide.knowman.search.show_author') == 'true')
+			fields.push('author');
+		if(gs.getProperty('glide.knowman.search.show_view_count') &amp;&amp; gs.getProperty('glide.knowman.search.show_view_count') == 'true')
+			fields.push('sys_view_count');		
+		if(gs.getProperty('glide.knowman.search.show_last_modified') &amp;&amp; gs.getProperty('glide.knowman.search.show_last_modified') == 'true')
+			fields.push('sys_updated_on');
+		if(gs.getProperty('glide.knowman.search.show_published') &amp;&amp; gs.getProperty('glide.knowman.search.show_published') == 'true')
+			fields.push('published');
+		if(gs.getProperty('glide.knowman.show_unpublished') &amp;&amp; gs.getProperty('glide.knowman.show_unpublished') == 'true'){
+			fields.push('workflow_state');
+		}
+
+		fields.push('rating');
+
+		return fields;
+	}
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2019-03-25 13:15:18&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;a8874e5bdb18330076e757a0cf961939&lt;/sys_id&gt;&lt;sys_mod_count&gt;2&lt;/sys_mod_count&gt;&lt;sys_name&gt;Knowledge Related Articles&lt;/sys_name&gt;&lt;sys_package display_value="Knowledge Management - Service Portal" source="sn_km_portal"&gt;bab6dea3db20320099f93691f0b8f590&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Knowledge Management - Service Portal"&gt;bab6dea3db20320099f93691f0b8f590&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_a8874e5bdb18330076e757a0cf961939&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2019-05-02 09:41:33&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="kb-article-list" ng-if="c.options.always_show || c.options.result.length" ng-class="{'row':options.use_full_width === 'false','mesp-ui' : c.data.isMESP}"&gt;
+  &lt;div ng-class="{true:'col-lg-9 col-md-9 col-sm-12'}[options.use_full_width === 'false']"&gt;
+    &lt;sp-widget widget="::c.data.template"&gt;&lt;/sp-widget&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-06-25 20:39:22</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>764592fadb65185c59ac6e25ca9619b6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>7a455a7adb65185c59ac6e25ca9619a1</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_764592fadb65185c59ac6e25ca9619b6</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-06-25 20:39:22</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

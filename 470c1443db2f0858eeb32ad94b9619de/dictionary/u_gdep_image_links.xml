@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="update_synch=true" extends="sys_metadata" max_length="40" name="u_gdep_image_links" sizeclass="499" type="collection">
+        <element label="Identifier" max_length="500" name="u_identifier" type="string"/>
+        <element attributes="edge_encryption_enabled=true,pdf_cell_type=image" label="Image" max_length="40" name="u_image" type="user_image"/>
+        <element label="KB Article_ID" max_length="32" name="u_kb_article_id" reference="kb_knowledge" type="string"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Link Type" max_length="40" name="u_link_type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Quick Links" value="Quick Links"/>
+                <element inactive_on_update="false" label="External Link" sequence="0" value="3"/>
+                <element inactive_on_update="false" label="KB Category" sequence="1" value="1"/>
+                <element inactive_on_update="false" label="Page" sequence="2" value="0"/>
+                <element inactive_on_update="false" label="Service Catalog Category" sequence="3" value="2"/>
+                <element inactive_on_update="false" label="KB Image" sequence="4" value="KB Image"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" label="Order" max_length="40" name="u_order" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" label="Related Document ID" max_length="32" name="u_related_document_id" type="document_id"/>
+        <element label="Related SysId" max_length="100" name="u_related_sysid" type="string"/>
+        <element label="Short Description" max_length="3000" name="u_short_description" type="string"/>
+        <element label="Title" max_length="1000" name="u_title" type="string"/>
+        <element label="Url" max_length="1000" name="u_url" type="string"/>
+        <index name="index">
+            <element name="u_related_document_id"/>
+        </index>
+    </element>
+</database>

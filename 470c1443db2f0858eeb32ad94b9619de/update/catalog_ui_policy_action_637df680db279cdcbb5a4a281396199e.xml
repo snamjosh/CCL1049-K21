@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="catalog_ui_policy_action">
+    <catalog_ui_policy_action action="INSERT_OR_UPDATE">
+        <catalog_item display_value="Submit a Security Risk Exception Request">52912a7bdb54941059ac6e25ca9619af</catalog_item>
+        <catalog_variable>IO:f47c7248dba39cdcbb5a4a2813961983</catalog_variable>
+        <cleared>false</cleared>
+        <disabled>ignore</disabled>
+        <field/>
+        <mandatory>ignore</mandatory>
+        <order>100</order>
+        <sys_class_name>catalog_ui_policy_action</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-09-24 20:37:28</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>637df680db279cdcbb5a4a281396199e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>related_problem_records</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>catalog_ui_policy_action_637df680db279cdcbb5a4a281396199e</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-09-24 20:37:28</sys_updated_on>
+        <table/>
+        <ui_policy display_value="Show AWS exception details">35104a09db0f9858bb5a4a2813961941</ui_policy>
+        <variable>related_problem_records</variable>
+        <variable_set/>
+        <visible>true</visible>
+    </catalog_ui_policy_action>
+</record_update>

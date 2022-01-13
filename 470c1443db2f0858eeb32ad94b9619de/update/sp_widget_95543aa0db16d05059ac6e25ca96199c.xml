@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($filter,spUtil,cabrillo,$rootScope) {
+	/* widget controller */
+	var c = this;
+	c.isNative = cabrillo.isNative();
+	
+	//Use KB specific stylic for "kb" & 'mesp' portal
+	c.KBRatingStyle = c.options.kb_rating_style || ($rootScope.portal ? ($rootScope.portal.sys_id == "45d6680fdb52220099f93691f0b8f5ad" || $rootScope.portal.sys_id == "26f2fffb77322300454792718a1061e5") : false);
+
+	c.getOrderedItems = function() {
+		var filtered = $filter('limitTo') (c.options.result, c.options.max_records);
+		return $filter('orderBy') (filtered, 'count', c.options.reverse);
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.kb-list-item{
+  border-bottom: none;
+  border-top: none; 
+}
+small{
+  font-size:93%; 
+}
+.secondary-info{
+  color:$text-muted;
+  padding-top: 3px;
+}
+.main_text a{
+  display:block; 
+}
+.dot{
+  padding:5px; 
+}
+.kb-star-on {
+  color: $fav-star-color !important;
+  text-shadow: $fav-star-outline;
+}
+.kb-star-off {
+  color: $fav-star-color-off !important;
+  text-shadow: $fav-star-outline;
+}
+.sp-stars{
+  display: inline-flex;
+  letter-spacing: .5px;
+}
+.kb-rating-stars{
+  font-size: 12px;
+  display: inline-flex;
+  margin-top: -6px;
+
+  .glyphicon{
+    line-height: 0; 
+  }
+  .rating-stars [role="button"] {
+    cursor: text;
+  }
+}
+.kb-desktop{
+  .kb-rating-stars{
+    .glyphicon-star:before{
+      color: #ffca1f;
+    }
+    .glyphicon-star-empty{
+      color: #BDC0C4;
+    }
+  } 
+}
+.kb-mobile{
+  .kb-mobile-panel{
+    .panel-heading{
+      padding-left:0px !important;
+      .panel-title{
+        font-size:20px !important; 
+      }
+    }
+    .main_text{
+      letter-spacing: 1px; 
+    }
+    .secondary-info{
+      font-size: 16px;
+      font-weight: 100;
+      padding-top: 10px;
+      letter-spacing: 1px;
+    }
+    .kb-item-block{
+      box-shadow:1px 1px 10px 0.2px rgba(0,0,0,0.1);
+      padding:15px;
+      margin-bottom:10px;
+      margin-top: 15px;
+      border-radius: 7px;
+      a{
+        font-size:18px !important;
+      }
+    }
+  }
+}
+.kb-list-block.has-icon {
+  .kb-list-item {
+    .kb-list-row {
+      overflow: hidden;
+      clear: both;
+    }
+    .kb-list-col-icon {
+      float: left;
+      width : 30px;
+      padding-top: 3px;
+      .fa {
+        width: 30px;
+        font-size: 20px;
+        vertical-align: middle;
+        color: $brand-primary;
+        float: left;
+      }
+    }
+    .kb-list-col-content {
+      float: left;
+      width: calc(100% - 30px);
+    }
+  }
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function(scope) {	
+	var c = scope.c;
+	
+	c.openArticleAttachment = function(url, name,  external) {
+		if(external) {
+			var params = 'toolbar=no,menubar=no,personalbar=no,height='+screen.height + ',' + 'width='+screen.width + ',' + 'scrollbars=yes,resizable=yes,fullscreen=yes';
+			window.open(url, name, params);
+		}
+		else
+			window.open(url, name, "toolbar=no,menubar=no,personalbar=no,width=800,height=600,scrollbars=yes,resizable=yes");
+	};
+	
+	c.roundOff = function(val){
+		if(val)
+			return Math.round(val);
+		else
+			return 0;
+	};
+}]]></link>
+        <name>gdep Copy of Knowledge List Widget Templ</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
+	data.useDocumentViewer = (gs.getProperty('sn_km_portal.glide.knowman.serviceportal.use_document_viewer', 'false') == 'true') && GlidePluginManager.isActive('com.snc.documentviewer');
+	data.externalContentLabel = gs.getMessage(gs.getProperty('sn_km_intg.glide.knowman.external.ui_label_for_external_content', 'External Content')) || gs.getMessage('External Content');
+	options.kb_rating_style = options.kb_rating_style ? options.kb_rating_style == "true" : false;
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-07-26 05:55:44</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>95543aa0db16d05059ac6e25ca96199c</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>gdep Copy of Knowledge List Widget Templ</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_95543aa0db16d05059ac6e25ca96199c</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-08-03 22:32:14</sys_updated_on>
+        <template><![CDATA[<div class="kb-list-block" ng-if="c.options.always_show || c.options.result.length" ng-class="{'has-icon' : c.options.glyph, 'kb-mobile' : c.isNative, 'kb-desktop' : !c.isNative}">
+  <div ng-class="c.isNative ? 'kb-mobile-panel' : 'panel panel-{{::c.options.color}} b'">
+    <div class="panel-heading" ng-class="{'b-b': !c.options.color}"> <h2 class="panel-title" ng-bind="::options.title">
+      <fa ng-if="::options.glyph" name="{{::options.glyph}}" class="m-r-sm" /></h2>
+    </div>
+    <div class="list-group hide-x-overflow" style="max-height: {{::c.options.panel_body_height || 'none'}}; overflow-y: auto;">
+      <div ng-if="c.options.result.length > 0" role="group" ng-repeat="item in c.getOrderedItems() track by item.id" class="list-group-item kb-list-item" ng-class="{'kb-item-block':c.isNative}">
+        <div class="kb-list-row">
+          <div class="kb-list-col-icon" ng-if="::c.options.glyph">
+            <i class="fa fa-{{::c.options.glyph}}" aria-hidden="true"></i>
+          </div>
+          <div class="kb-list-col-content">
+            <div class="main_text">
+              <a ng-href="{{((item.direct === true && c.data.useDocumentViewer == true) || item.external_link) ? '#art' : item.link}}" ng-click="((item.direct === true && c.data.useDocumentViewer == true) || item.external_link) ? c.openArticleAttachment(item.external_link || (item.link + '&view=true'), item.id, item.external_link) : ''">
+                <div ng-switch on="::item.display_field.type" ng-class="{'l-h-40': !item.secondary_fields.length}">
+                  <span class="translated-html" ng-switch-when="translated_html" ng-bind-html="::item.display_field"></span>
+                  <div ng-switch-default ng-bind="::item.display_field"></div>
+                </div>
+              </a>
+            </div>
+            <small>
+              <div class="secondary-info">
+                <span class="about-outer-span">
+                  <span ng-repeat="f in item.secondary_fields track by $index">
+                    <span ng-if="f.value || f.name == 'rating'">
+                      <span ng-switch="f.name" title="{{::f.label}}"
+                            class="art-label">
+                        <span ng-switch-when="rating">
+                          <span ng-if="!$first" class="dot" aria-hidden="true"> • </span>
+                          <span class="no-wrap" disabled="true" aria-hidden="true" ng-init="ratingVal = c.roundOff(f.value)">
+                            <span class="kb-rating-stars" ng-if="::c.KBRatingStyle">
+                              <uib-rating ng-model="ratingVal" max="5" readonly="true"/>
+                            </span>
+                            <span class="sp-stars" ng-if="!c.KBRatingStyle">
+                              <span uib-rating sp-rating ng-model="::ratingVal" max="5" readonly="true" aria-hidden="true" state-on="'fa fa-star kb-star-on'" state-off="'fa fa-star kb-star-off'" />
+                            </span>
+                          </span>
+                        </span>
+                        <span ng-switch-when="sys_view_count">
+                          <span ng-if="!$first" class="dot" aria-hidden="true"> • </span>
+                          <span class="no-warp"><span ng-bind="::f.value"></span> ${Views}</span>
+                        </span>
+                        <span ng-switch-when="workflow_state">                        
+                          <span ng-if="!$first" class="dot" aria-hidden="true"> • </span><span class="no-warp"><span ng-bind="::f.display_value"></span> ${State}</span>
+                        </span>
+                        <span ng-switch-when="external">                        
+                          <span ng-if="f.value == 'true'">
+                            <span ng-if="!$first" class="dot" aria-hidden="true"> • </span><span ng-bind="::c.data.externalContentLabel"></span>
+                          </span>
+                        </span>
+                        <span ng-switch-default="" ng-switch="f.type">
+                          <span ng-if="!$first" class="dot" aria-hidden="true"> • </span>
+                          <span class="no-warp"><span class="secondary-label" ng-if="c.options.show_secondary_fields_label">{{::f.label}}
+                            : </span>
+                            <span ng-switch-when="glide_date">
+                              <sn-time-ago timestamp="::f.value" />
+                            </span>
+                            <span ng-switch-when="glide_date_time">
+                              <sn-time-ago timestamp="::f.value" />
+                            </span>
+                            <span ng-switch-default="" ng-bind="::f.display_value">
+                            </span></span>
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </small>
+          </div>
+        </div>
+      </div>       
+    </div>
+    <div ng-if="!c.options.result.length" class="list-group-item" style="border:none">
+      ${No content to display}
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

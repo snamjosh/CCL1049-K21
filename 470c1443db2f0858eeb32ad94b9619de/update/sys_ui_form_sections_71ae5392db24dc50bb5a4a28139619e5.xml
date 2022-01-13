@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_form_sections form_id="71ae5392db24dc50bb5a4a28139619e5" sys_domain="global" table="sc_cat_item_producer" version="3">
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>0</position>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-05 19:40:08</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>fdaedb92db24dc50bb5a4a28139619ba</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="sc_cat_item_producer" name="sc_cat_item_producer" sys_domain="global" view="7966be310a0a0b8c00bd504090503227">71ae5392db24dc50bb5a4a28139619e5</sys_ui_form>
+            <sys_ui_section caption="NULL" display_value="" name="sc_cat_item_producer" sys_domain="global" view="7966be310a0a0b8c00bd504090503227">b1ae5392db24dc50bb5a4a28139619e8</sys_ui_section>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-05 19:40:08</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>1</position>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-05 19:40:08</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>f9aedb92db24dc50bb5a4a28139619bf</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="sc_cat_item_producer" name="sc_cat_item_producer" sys_domain="global" view="7966be310a0a0b8c00bd504090503227">71ae5392db24dc50bb5a4a28139619e5</sys_ui_form>
+            <sys_ui_section caption="Mobile" display_value="Mobile" name="sc_cat_item_producer" sys_domain="global" view="7966be310a0a0b8c00bd504090503227">7daedb92db24dc50bb5a4a28139619bb</sys_ui_section>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-05 19:40:08</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form action="INSERT_OR_UPDATE">
+            <name>sc_cat_item_producer</name>
+            <roles/>
+            <sys_class_name>sys_ui_form</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-05 19:40:07</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_id>71ae5392db24dc50bb5a4a28139619e5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>sc_cat_item_producer</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+            <sys_update_name>sys_ui_form_sections_71ae5392db24dc50bb5a4a28139619e5</sys_update_name>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-05 19:40:07</sys_updated_on>
+            <sys_user/>
+            <view display_value="Advanced" name="advanced">7966be310a0a0b8c00bd504090503227</view>
+            <view_name/>
+        </sys_ui_form>
+    </sys_ui_form_sections>
+</record_update>

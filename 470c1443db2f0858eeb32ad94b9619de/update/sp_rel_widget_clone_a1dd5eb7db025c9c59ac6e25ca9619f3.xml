@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="GDEP My Requests V2">a5dd5eb7db025c9c59ac6e25ca9619ed</child>
+        <cloned>2020-07-23 20:22:00</cloned>
+        <last_validated>2020-07-23 20:22:00</last_validated>
+        <parent display_value="My Requests">8cc0df25875023000f220cf888cb0bb5</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;sc&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function() {
+
+  var c = this;
+	c.viewFilter = 'open';
+	
+	c.changeView = function() {
+		c.server.get({
+					action: "change_view",
+					view: c.viewFilter,
+					search_text: c.filterText
+				}).then(function(response){
+					c.data = response.data;
+				});
+	}
+	
+	c.search = function() {
+		c.server.get({
+			action: 'search',
+			search_text: c.filterText,
+			view: c.viewFilter
+		}).then(function(response){
+					c.data = response.data;
+				});
+	}
+	
+	c.checkEnter = function(event) {
+		if (event.which === 13)
+			c.search();
+	}
+	
+	c.loadMore = function() {
+		c.fetching = true;
+		c.server.get({
+			action: 'fetch_more',
+			lastLimit: c.data.lastLimit,
+			view: c.viewFilter,
+			search_text: c.filterText
+		}).then(function(response){
+					c.data = response.data;
+					c.fetching = false;
+				});
+	}
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.panel-heading {
+  position: relative;
+  &amp;gt; .fa-filter { 
+    position: absolute;
+    top: 1rem; 
+    right: 1rem; 
+  }
+}
+
+.panel {
+  &amp;gt; .list-group, &amp;gt;.panel-collapse{
+    	.list-group-item {
+		  	border-width: 1px 0 0 0;
+      }
+  }
+}
+
+.btn-show-more {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;my-requests-v2&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;My Requests&lt;/name&gt;&lt;option_schema&gt;[{"name":"title","section":"Presentation","default_value":"My Requests","label":"Title","type":"string"},{"name":"show_view","section":"Behavior","default_value":"true","label":"Show View","type":"boolean"},{"hint":"Number of items per page","name":"items_per_page","section":"Behavior","default_value":"15","label":"Items per page","type":"integer"}]&lt;/option_schema&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+	
+	var alsoRequest = false;
+	
+	var localInput = input; //to safeguard pollution of 'input' via BR or other scripts
+	
+	data.filterMsg = gs.getMessage("Search open requests");
+	
+	if (localInput &amp;&amp; localInput.view === 'open')
+		data.filterMsg = gs.getMessage("Search open requests");
+	else if (localInput &amp;&amp; localInput.view === 'close')
+		data.filterMsg = gs.getMessage("Search closed requests");
+
+	function getField(gr, name) {
+			var f = {};
+			var id = gr.getUniqueValue();
+			gr = new GlideRecord(gr.getRecordClassName());
+			gr.get(id);
+			f.display_value = gr.getDisplayValue(name);
+			f.value = gr.getValue(name);
+			var ge = gr.getElement(name);
+		  if (ge) {
+				var ed = ge.getED();
+				if (ed)
+					f.type = ed.getInternalType();
+				f.label = ge.getLabel();
+			}
+			return f;
+	}
+
+	function getMyRequestSysIds() {
+		var ids = {};
+		var rq_filter = new GlideRecord('request_filter');
+		rq_filter.addActiveQuery();
+		if (rq_filter.isValidField('applies_to'))
+			rq_filter.addQuery('applies_to', 1).addOrCondition('applies_to', 10);
+		rq_filter.query();
+		while(rq_filter.next()) {
+			var tableName = rq_filter.table_name;
+			if (rq_filter.isValidField('table'))
+				tableName = rq_filter.table;
+			var gr = new GlideRecord(tableName);
+			gr.addQuery(rq_filter.filter);
+			gr.query();
+			if (tableName == 'sc_request')
+				alsoRequest = true;
+			while(gr.next()) {
+				var portalSettings = {};
+				portalSettings.page = rq_filter.portal_page.nil()? '' : rq_filter.portal_page.getDisplayValue() + '';
+				portalSettings.primary_display = rq_filter.primary_display.nil()? '': rq_filter.primary_display + '';
+				portalSettings.secondary_displays = rq_filter.secondary_display.nil()? '': rq_filter.secondary_display + '';
+				ids[gr.sys_id + ''] = portalSettings;
+			}
+		}
+		return ids;
+	}
+	
+	// retrieve the request's
+	var myRequestMap = getMyRequestSysIds();
+	var taskIDs = Object.keys(myRequestMap);
+
+	var gr = new GlideRecordSecure('task');
+	if (localInput &amp;&amp; localInput.view === 'open') 
+		gr.addActiveQuery();
+	else if (localInput &amp;&amp; localInput.view === 'close')
+		gr.addQuery('active', 0);
+	else
+		gr.addActiveQuery();
+
+	gr.orderByDesc('sys_updated_on');
+	if (localInput &amp;&amp; localInput.search_text) {
+			var req = [];
+			var task = new GlideRecordSecure('task');
+			task.addQuery('123TEXTQUERY321', localInput.search_text);
+			if (localInput &amp;&amp; localInput.view === 'open') 
+				task.addQuery('active', 1);
+			else if (localInput &amp;&amp; localInput.view === 'close')
+				task.addQuery('active', 0);
+			else
+				task.addQuery('active', 1);
+			task.addQuery('sys_id', taskIDs);
+			task.query();
+
+			while(task.next())
+				req.push(task.getUniqueValue());
+		
+			if (alsoRequest) {
+				var ritmGR = new GlideRecord('sc_req_item');
+				if (localInput &amp;&amp; localInput.view === 'open') 
+					ritmGR.addQuery('request.active', 1);
+				else if (localInput &amp;&amp; localInput.view === 'close')
+					ritmGR.addQuery('request.active', 0);
+				else
+					ritmGR.addQuery('request.active', 1);
+				ritmGR.addQuery('123TEXTQUERY321', localInput.search_text);
+				ritmGR.addQuery('request.sys_id', taskIDs);
+				ritmGR.query();
+				while(ritmGR.next())
+					req.push(ritmGR.getValue('request'));
+			}
+			gr.addQuery('sys_id', req);
+		}
+		else 
+			gr.addQuery('sys_id', taskIDs);
+	gr.query();
+
+	data.request = {};
+
+	data.request.req_list = [];
+	var recordIdx = 0;	
+	var limit = options.items_per_page? options.items_per_page : 15;
+	if (localInput &amp;&amp; localInput.action == 'fetch_more')
+		data.lastLimit = localInput.lastLimit + limit;
+	else
+		data.lastLimit = limit;
+
+	data.hasMore = false;
+	while (recordIdx != data.lastLimit &amp;&amp; gr.next()) {
+		var portalSettings = myRequestMap[gr.getUniqueValue()];
+		if (typeof portalSettings == 'undefined')
+			portalSettings = {};
+
+		var record = {};
+		record.sys_id = gr.getValue('sys_id');
+
+		if (gr.getRecordClassName() == 'sc_request') {
+				var ritm = new GlideRecord("sc_req_item");
+				ritm.addQuery("request", gr.getUniqueValue());
+				ritm.query();
+				if (ritm.getRowCount() == 0)
+					continue;
+				if (ritm.getRowCount() &gt; 1)
+					record.display_field = gs.getMessage("{0} requested items", ritm.getRowCount());
+				else {
+					ritm.next();
+					record.display_field = ritm.cat_item.getDisplayValue() || ritm.getDisplayValue("short_description");
+				}
+				record.url = { id: portalSettings.page? portalSettings.page: 'sc_request', table: 'sc_request', sys_id: record.sys_id};
+		} else {
+				record.display_field = portalSettings.primary_display ? getField(gr, portalSettings.primary_display).display_value : getField(gr, 'number').display_value;
+				record.url = { id: portalSettings.page? portalSettings.page :'ticket', table: gr.getRecordClassName(), sys_id: record.sys_id};
+		}
+		if (portalSettings.secondary_displays) {
+			record.secondary_displays = [];
+			portalSettings.secondary_displays.split(",").forEach(function (sDisplay){
+				record.secondary_displays.push(getField(gr, sDisplay));
+			});
+		}
+		else 
+			record.secondary_displays = getField(gr, 'short_description');
+		
+		record.updated_on = gr.getValue('sys_updated_on');
+		record.state = gr.getDisplayValue('state');
+		if((recordIdx !== 0) &amp;&amp; (data.lastLimit - limit === recordIdx))
+			record.highlight = true;
+
+		data.request.req_list.push(record);
+		recordIdx++;
+	}
+
+	if (gr.next())
+			data.hasMore = true;
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;true&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2018-09-02 11:54:47&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;8cc0df25875023000f220cf888cb0bb5&lt;/sys_id&gt;&lt;sys_mod_count&gt;32&lt;/sys_mod_count&gt;&lt;sys_name&gt;My Requests&lt;/sys_name&gt;&lt;sys_package display_value="Service Catalog Service Portal" source="sn_scportal"&gt;37c5cea187233200e0ef0cf888cb0bb8&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Service Catalog Service Portal"&gt;37c5cea187233200e0ef0cf888cb0bb8&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_8cc0df25875023000f220cf888cb0bb5&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2019-07-03 20:05:07&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="panel panel-default b"&gt;
+ &lt;div class="panel-heading" &gt;
+    &lt;h2 class="panel-title"&gt;{{c.options.title}}&lt;/h2&gt;
+  &lt;/div&gt; 	
+  &lt;div class="panels-container list-group"&gt;
+			&lt;div class="list-group-item row" style="margin:0px;border-top:0px;" &gt;
+        	&lt;div class="col-md-5" style=""&gt;
+            &lt;div class="input-group"&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class="col-md-3 col-xs-5" style=""&gt;
+            &lt;div class="form-inline" ng-if="c.options.show_view == 'true'"&gt;
+            	&lt;label class="control-label hidden-xs" for="view"&gt;${View}&lt;/label&gt;
+              &lt;select ng-model="c.viewFilter" id="view" class="sc-basic-select" ng-change="c.changeView()" style="width:80%"&gt;
+                &lt;option value="open" selected="true"&gt;${Open}&lt;/option&gt;
+                &lt;option value="close"&gt;${Closed}&lt;/option&gt;
+              &lt;/select&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class="col-md-4 col-xs-7" style=""&gt;
+            &lt;div class="input-group" style="width:100%"&gt;
+              &lt;input ng-model="c.filterText" ng-keypress="c.checkEnter($event)"class="form-control" style="width:100%" placeholder="{{data.filterMsg}}" aria-label="{{data.filterMsg}}"&gt;
+              &lt;span class="input-group-btn"&gt;
+                &lt;button class="btn btn-default" type="button" ng-click="c.search()" title="${Search}" aria-label="${Search}"&gt;
+                	&lt;i class="fa fa-search"&gt;&lt;/i&gt;
+                &lt;/button&gt;
+              &lt;/span&gt;
+            &lt;/div&gt;&lt;!-- /input-group --&gt;
+              
+          &lt;/div&gt;
+    	&lt;/div&gt;
+    	&lt;div ng-if="c.data.request.req_list.length == 0 &amp;&amp; !c.filterText" class="panel-body panels-container"&gt;
+        ${You do not have any requests} 
+      &lt;/div&gt;
+    	&lt;div ng-if="c.data.request.req_list.length == 0 &amp;&amp; c.filterText" class="panel-body panels-container"&gt;
+        ${Search didn't match any requests} 
+      &lt;/div&gt;
+    	&lt;div class="list-group-item row" ng-repeat="item in c.data.request.req_list | limitTo: c.data.lastLimit track by item.sys_id" style="margin:0px" &gt;
+      		&lt;div class="col-xs-6 padder-l-none padder-r-none main-column"&gt;
+            &lt;div class="primary-display"&gt;
+             &lt;a href="?id={{::item.url.id}}&amp;table={{::item.url.table}}&amp;sys_id={{::item.url.sys_id}}" sn-focus="{{::item.highlight}}"&gt; {{::item.display_field}} &lt;/a&gt;
+            &lt;/div&gt;
+            &lt;small class="text-muted"&gt;
+            	&lt;div ng-repeat="f in item.secondary_displays" class="secondary-display"&gt;
+            			&lt;span &gt;{{::f.display_value}}&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/small&gt;
+          &lt;/div&gt;
+        	&lt;div class="col-xs-3 padder-l-none padder-r-none state-column"&gt;
+            &lt;div class="state"&gt;
+              &lt;span&gt; {{::item.state}}&lt;/span&gt;
+            &lt;/div&gt;
+        	&lt;/div&gt;
+         	&lt;div class="col-xs-3 padder-l-none padder-r-none updated-column"&gt;
+            &lt;div class="updated"&gt;
+              &lt;i class="fa fa-clock-o" aria-hidden="true" title="${Updated}"&gt;&lt;/i&gt;
+              &lt;sn-time-ago timestamp="::item.updated_on"/&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;   
+      &lt;/div&gt;
+    	&lt;div class="col-sm-12" ng-if="c.data.hasMore" style="padding:15px"&gt;
+					&lt;div class="text-a-c" ng-if="c.fetching"&gt;
+          	&lt;i class="fa fa-spinner fa-pulse fa-2x fa-fw"&gt;&lt;/i&gt;
+						&lt;span class="sr-only"&gt;${Loading...}&lt;/span&gt;  
+  	      &lt;/div&gt;
+          &lt;button class="btn btn-default btn-show-more" ng-click="c.loadMore()"&gt; ${Show More} &lt;/button&gt;  
+      &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-23 20:22:00</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>a1dd5eb7db025c9c59ac6e25ca9619f3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>a5dd5eb7db025c9c59ac6e25ca9619ed</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_a1dd5eb7db025c9c59ac6e25ca9619f3</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-07-23 20:22:00</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

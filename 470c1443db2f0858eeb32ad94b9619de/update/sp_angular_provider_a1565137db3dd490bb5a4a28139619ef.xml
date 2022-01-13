@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_angular_provider">
+    <sp_angular_provider action="INSERT_OR_UPDATE">
+        <name>gdepCategoryButton</name>
+        <script><![CDATA[/*
+GDEP Category Buttons used in Layer 1. It's assumed that there will be this data object: 
+
+item = {title:"title", url:"url"} 
+
+*/
+
+
+function () {
+	return {
+		restrict: 'E',
+		scope: {category: '='},
+		replace: true,
+		template:
+			 '<a ng-href="{{::category.url}}"><div class="categoryBtnArea">' + 
+			 '<div>${{{::category.title}}}</div>' + 
+				'</div></a>'
+	};
+}
+
+]]></script>
+        <sys_class_name>sp_angular_provider</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-07-11 05:07:35</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>a1565137db3dd490bb5a4a28139619ef</sys_id>
+        <sys_mod_count>24</sys_mod_count>
+        <sys_name>gdepCategoryButton</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_angular_provider_a1565137db3dd490bb5a4a28139619ef</sys_update_name>
+        <sys_updated_by>iremigio</sys_updated_by>
+        <sys_updated_on>2020-07-21 16:33:46</sys_updated_on>
+        <type>directive</type>
+    </sp_angular_provider>
+</record_update>

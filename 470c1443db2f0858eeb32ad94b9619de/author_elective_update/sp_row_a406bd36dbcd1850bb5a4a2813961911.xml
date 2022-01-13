@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_row">
+    <sp_row action="DELETE">
+        <class_name/>
+        <order>1</order>
+        <sp_column/>
+        <sp_container display_value="Copy of GoDaddy Employee Portal (1) - Container 2">64067d36dbcd1850bb5a4a28139619b8</sp_container>
+        <sys_class_name>sp_row</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-05-31 21:51:17</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>a406bd36dbcd1850bb5a4a2813961911</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_row_a406bd36dbcd1850bb5a4a2813961911</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-05-31 21:51:17</sys_updated_on>
+    </sp_row>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>sp_row_a406bd36dbcd1850bb5a4a2813961911</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_row"><sp_row action="INSERT_OR_UPDATE"><class_name/><order>1</order><sp_column/><sp_container display_value="Copy of GoDaddy Employee Portal (1) - Container 2">64067d36dbcd1850bb5a4a28139619b8</sp_container><sys_class_name>sp_row</sys_class_name><sys_created_by>choskins</sys_created_by><sys_created_on>2020-05-31 21:51:17</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>a406bd36dbcd1850bb5a4a2813961911</sys_id><sys_mod_count>0</sys_mod_count><sys_name>1</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>sp_row_a406bd36dbcd1850bb5a4a2813961911</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2020-05-31 21:51:17</sys_updated_on></sp_row></record_update>]]></payload>
+        <payload_hash>630188847</payload_hash>
+        <record_name>1</record_name>
+        <reverted_from/>
+        <source>0c6740ecdb7598901093f40c0c9619f6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-06-30 20:50:54</sys_created_on>
+        <sys_id>20e7cc60dbb598901093f40c0c961913</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17306ff310a0000001</sys_recorded_at>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-06-30 20:50:54</sys_updated_on>
+        <type>Row</type>
+        <update_guid>6406bd360fcd1850969573cda5d5e012</update_guid>
+        <update_guid_history>6406bd360fcd1850969573cda5d5e012:630188847,195a98aa8f299c90482f0cc43dc9cf74:-1715627667,6406bd360fcd1850969573cda5d5e012:630188847</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">2dff870d13d2149019ed30128144b0b5</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-27 21:13:24</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sp_row">sp_row</sys_db_object>
+        <sys_id>acf3dda2bb4b48b0808208a5071bee24</sys_id>
+        <sys_metadata>a406bd36dbcd1850bb5a4a2813961911</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sp_row_a406bd36dbcd1850bb5a4a2813961911</sys_update_name>
+        <sys_update_version display_value="sp_row_a406bd36dbcd1850bb5a4a2813961911">20e7cc60dbb598901093f40c0c961913</sys_update_version>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-07-27 21:13:24</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

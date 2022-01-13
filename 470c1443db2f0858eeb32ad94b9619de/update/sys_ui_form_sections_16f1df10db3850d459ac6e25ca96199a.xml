@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_form_sections form_id="16f1df10db3850d459ac6e25ca96199a" sys_domain="global" table="u_gdep_instance_tiles" version="3">
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>0</position>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-11 23:52:35</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>66f1df10db3850d459ac6e25ca9619b3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="u_gdep_instance_tiles" name="u_gdep_instance_tiles" sys_domain="global" view="0ce54027b33232007a6de81816a8dca1">16f1df10db3850d459ac6e25ca96199a</sys_ui_form>
+            <sys_ui_section caption="Data" display_value="Data" name="u_gdep_instance_tiles" sys_domain="global" view="0ce54027b33232007a6de81816a8dca1">62f1df10db3850d459ac6e25ca9619af</sys_ui_section>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-11 23:52:35</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>1</position>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-11 23:52:35</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>6af1df10db3850d459ac6e25ca9619ae</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="u_gdep_instance_tiles" name="u_gdep_instance_tiles" sys_domain="global" view="0ce54027b33232007a6de81816a8dca1">16f1df10db3850d459ac6e25ca96199a</sys_ui_form>
+            <sys_ui_section caption="Presentation" display_value="Presentation" name="u_gdep_instance_tiles" sys_domain="global" view="0ce54027b33232007a6de81816a8dca1">92f1df10db3850d459ac6e25ca96199c</sys_ui_section>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-11 23:52:35</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>2</position>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-11 23:52:35</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>e2f1df10db3850d459ac6e25ca9619b7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="u_gdep_instance_tiles" name="u_gdep_instance_tiles" sys_domain="global" view="0ce54027b33232007a6de81816a8dca1">16f1df10db3850d459ac6e25ca96199a</sys_ui_form>
+            <sys_ui_section caption="Behavior" display_value="Behavior" name="u_gdep_instance_tiles" sys_domain="global" view="0ce54027b33232007a6de81816a8dca1">6ef1df10db3850d459ac6e25ca9619b3</sys_ui_section>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-11 23:52:35</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form action="INSERT_OR_UPDATE">
+            <name>u_gdep_instance_tiles</name>
+            <roles/>
+            <sys_class_name>sys_ui_form</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-11 23:52:35</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_id>16f1df10db3850d459ac6e25ca96199a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_gdep_instance_tiles</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+            <sys_update_name>sys_ui_form_sections_16f1df10db3850d459ac6e25ca96199a</sys_update_name>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-11 23:52:35</sys_updated_on>
+            <sys_user/>
+            <view display_value="SP Instance Config" name="sp_instance_config">0ce54027b33232007a6de81816a8dca1</view>
+            <view_name/>
+        </sys_ui_form>
+    </sys_ui_form_sections>
+</record_update>

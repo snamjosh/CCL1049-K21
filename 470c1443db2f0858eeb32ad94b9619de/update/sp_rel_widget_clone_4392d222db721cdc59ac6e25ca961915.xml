@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="GDEP Request Item Stages">4f92d222db721cdc59ac6e25ca961911</child>
+        <cloned>2020-08-26 05:07:39</cloned>
+        <last_validated>2020-08-26 05:07:39</last_validated>
+        <parent display_value="Request Item Workflow Stages">cb6631d39f2003002899d4b4232e7030</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;sc&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function($scope) {
+  /* widget controller */
+  var c = this;
+	c.data.expand = (c.options.onload_expand_request_item_stages == "true" );
+	$scope.toggle = function($event) {
+		c.data.expand = !c.data.expand;
+	}
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.color-positive {
+  color: $brand-success;
+}
+.color-accent {
+  color: $brand-primary;
+}
+.color-negative {
+  color: $brand-danger;
+}
+.requested-items-flex-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+/**/
+.stage-on .icon, .stage-off .icon{ margin-right:6px; }
+.stage-on, .stage-off { margin-bottom: 6px; }
+
+.l-h-40 {
+  line-height: 40px;
+}
+.list-action {
+  display:block;
+  padding:0 6px;
+  cursor: pointer;
+}
+.list-action:hover {
+  background-color: #fff;
+}
+
+button.flex-item {
+  padding:0;
+  background-color: inherit;
+  border: none;
+  height: 16px;
+}
+button.flex-item:focus {
+  box-shadow: none;
+}&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;request_item_workflow_stages&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;Request Item Workflow Stages&lt;/name&gt;&lt;option_schema&gt;[{"hint":"This will show the expanded view of stages","name":"onload_expand_request_item_stages","section":"other","default_value":"false","label":"OnLoad Expand Request Item Stages","type":"boolean"}]&lt;/option_schema&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+    var req_item_id = JSUtil.nil(options.req_item_id + '') ? '' : options.req_item_id + '';
+    if (!req_item_id) {
+        req_item_id = JSUtil.nil(input.req_item_id + '') ? '' : input.req_item_id + '';
+    }
+    if (!req_item_id) {
+        data.error = gs.getMessage("Request Item Not Provided");
+        return;
+    }
+    var sc_req_item = new GlideRecord('sc_req_item');
+    sc_req_item.get(req_item_id);
+
+    if (!sc_req_item.isValidRecord()) {
+        data.error = gs.getMessage("Invalid Request Item ID");
+        return;
+    }
+	
+		data.properties = {'workflow_driven_show_approvers': gs.getProperty("glide.workflow.renderer.workflowdriven.show_approver"),
+										 'linear_show_approvers': gs.getProperty("glide.workflow.renderer.linear.show_approver"),
+										 'main_flow_show_approvers': gs.getProperty("glide.workflow.renderer.mainflow.show_approver")
+										};
+		
+    var ref = sc_req_item.stage;
+
+    GlideController.putGlobal('sc_req_item', sc_req_item);
+    sc_req_item.putCurrent();
+    var renderer = RendererFactory.getRenderer(ref, sc_req_item.sys_id);
+    var api = new SNC.RendererAPI(renderer);
+    data.renderer = renderer + "";
+    var worflow_id = sc_req_item.stage;
+    var choiceList;
+    if (renderer == 'Legacy' || renderer == "SCReqItemRenderer") {
+				if (ref.getProviderType() == 'PFStagesProvider') {
+					choiceList = ref.getStages();
+				}
+				else {
+						var clGenerator = new GlideChoiceListGenerator('sc_req_item', 'stage');
+						clGenerator.none = false;
+						choiceList = clGenerator.get();
+						api.internationalizeChoices(choiceList);
+						var wfw;
+						if (sc_req_item.stage.hasAttribute('icons'))
+								wfw = new this[sc_req_item.stage.getAttribute('icons')]('sc_req_item.stage')
+						else
+								wfw = new WorkflowIcons('sc_req_item.stage');
+						choiceList = wfw.process(choiceList);
+						
+				}
+        var list = [];
+        if (!JSUtil.nil(choiceList)) {
+            for (var i = 0; i &lt; choiceList.size(); i++) {
+                var choice = choiceList.get(i);
+                if (!JSUtil.nil(choice.getValue())) {
+                    var temp = {};
+                    temp.label = choice.getLabel();
+                    temp.title = choice.getParameter('title') || choice.getLabel();
+										temp.state = choice.getParameter('state');
+										temp.name = choice.getParameter('name');
+                    if (ref.getProviderType() == 'PFStagesProvider')
+												temp.displayValue = temp.title + " (" + temp.state + ")";
+										else
+												temp.displayValue = temp.title + " (" + temp.label + ")";
+                    temp.value = choice.getValue();
+                    temp.id = choice.getId();
+                    temp.selected = choice.getSelected();
+
+                    var imgsrc = choice.image.split(' ');
+                    imgsrc = imgsrc.length ? imgsrc[0] : imgsrc;
+                    if (!imgsrc)
+                        imgsrc = temp.selected ? 'icon-check-circle' : 'icon-empty-circle';
+                    temp.image = imgsrc + '.png';
+                    list.push(temp);
+                }
+            }
+        }
+        data.choiceList = list;
+    } else if (renderer == "Linear" || renderer == "Main flow" || renderer == "Workflow-driven") {
+        if (renderer == "Linear" || renderer == "Workflow-driven")
+            choiceList = api.getAllWorkflowChoices(current, 'sc_req_item.stage');
+        else
+            choiceList = api.getParentWorkflowChoices(current, 'sc_req_item.stage');
+
+				var showApprovers = false;
+				if (renderer == "Linear")
+					showApprovers = data.properties.linear_show_approvers == "true";
+				else if (renderer == "Main flow")
+					showApprovers = data.properties.main_flow_show_approvers == "true";
+				else if (renderer == "Workflow-driven")
+					showApprovers = data.properties.workflow_driven_show_approvers == "true";
+			
+        api.addIconsAndStatus(choiceList);
+        var list = [];
+        if (!JSUtil.nil(choiceList)) {
+            for (var j = 0; j &lt; choiceList.size(); j++) {
+                var choice = choiceList.get(j);
+                var isVisible = true;
+                if (renderer == "Linear" &amp;&amp; !api.getOption('showSkipped'))
+                    if (choice.getParameter('state') + '' == 'skipped')
+                        isVisible = false;
+
+                if (renderer == "Main flow" || renderer == "Workflow-driven") {
+                    var isWorkFlow = SNC.WorkflowStageRenderer.isWorkflow('sc_req_item.stage');
+                    isVisible = (isWorkFlow == 'false') || ((choice.getParameter('visible') + '') == 'true');
+                }
+                if (choice.value == '')
+                    isVisible = false;
+
+                if (isVisible) {
+                    var temp = {};
+                    temp.label = choice.getLabel();
+                    temp.value = choice.getValue();
+										temp.state = choice.getParameter('state');
+										temp.name = choice.getParameter('name');
+                    temp.id = choice.getId();
+                    temp.selected = choice.getSelected();
+										if (showApprovers) {
+											var approvers = choice.getParameter('approvers');
+											var approverArr = [];
+											for(var i=0; i&lt;approvers.size(); i++) {
+												var approver = approvers.get(i);
+												approverArr.push(approver.get('label'));
+											}
+										}
+										temp.approvers = approverArr;
+                    temp.title = choice.getParameter('title') || choice.getLabel();
+                    temp.displayValue = temp.title + " (" + temp.label + ")"
+                    var imgsrc = choice.image.split(' ');
+                    imgsrc = imgsrc.length ? imgsrc[0] : imgsrc;
+                    if (!imgsrc)
+                        imgsrc = temp.selected ? 'icon-check-circle' : 'icon-empty-circle';
+                    temp.image = imgsrc + '.png';
+                    list.push(temp);
+                }
+            }
+        }
+        data.choiceList = list;
+    } else if (renderer == "SimpleProgressBar") {
+        choiceList = api.getParentWorkflowChoices(current, 'sc_req_item.stage');
+        var showValue = api.getOption('showValue') + '';
+        var increment = 100.00 / choiceList.getSize();
+        var percentComplete = 0;
+        var atEnd = true;
+
+        for (var i = 0; choiceList.getSize() &gt; i; i++) {
+            percentComplete += increment;
+            if (choiceList.getChoice(i).getParameter('state') + '' === 'active') {
+                atEnd = false;
+                break;
+            }
+        }
+        data.increment = increment;
+
+        percentComplete = atEnd ? 100 : parseInt(percentComplete);
+        if (!JSUtil.nil(choiceList)) {
+            var list = [];
+            for (var j = 0; j &lt; choiceList.size(); j++) {
+                var choice = choiceList.get(j);
+                var isVisible = true;
+                if (!api.getOption('showSkipped'))
+                    if (choice.getParameter('state') + '' == 'skipped')
+                        isVisible = false;
+
+                if (choice.value == '')
+                    isVisible = false;
+                if (isVisible) {
+                    var temp = {};
+                    temp.label = choice.getLabel();
+                    temp.value = choice.getValue();
+                    temp.id = choice.getId();
+										temp.state = choice.getParameter('state');
+										temp.name = choice.getParameter('name');
+                    temp.selected = choice.getSelected();
+                    temp.title = choice.getParameter('title') || choice.getLabel();
+                    var isVisible = true;
+                    temp.isVisible = isVisible;
+                    temp.displayValue = temp.label;
+
+                    var imgsrc = 'progress_pctnotdone.gifx';
+                    if (choice.getParameter('state') + '' != 'pending')
+                        imgsrc = 'progress_pctdone.gifx';
+                    temp.image = imgsrc;
+                    list.push(temp);
+                }
+            }
+        }
+        data.choiceList = list;
+				data.showValue = showValue;
+			data.percentComplete = percentComplete;
+    }
+    GlideController.removeGlobal('sc_req_item');
+    sc_req_item.popCurrent();
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;true&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2017-09-04 09:42:54&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;cb6631d39f2003002899d4b4232e7030&lt;/sys_id&gt;&lt;sys_mod_count&gt;50&lt;/sys_mod_count&gt;&lt;sys_name&gt;Request Item Workflow Stages&lt;/sys_name&gt;&lt;sys_package display_value="Service Portal - Service Catalog" source="com.glide.service-portal.service-catalog"&gt;30255714dbfa030092795096dc961908&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_cb6631d39f2003002899d4b4232e7030&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2019-05-02 12:20:30&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div ng-if="data.error"&gt;
+  &lt;h3&gt;
+    {{::data.error}}
+  &lt;/h3&gt;
+&lt;/div&gt;
+&lt;div ng-if="!data.error"&gt;
+  &lt;div ng-include="'ritm_stage_icons_bar'" ng-if="data.renderer == 'Legacy' || data.renderer == 'SCReqItemRenderer' || data.renderer == 'Linear' || data.renderer == 'Main flow' || data.renderer == 'Workflow-driven'"&gt;
+  &lt;/div&gt;
+  &lt;div ng-if="data.renderer == 'SimpleProgressBar'" ng-include="'ritm_stage_progress_bar'"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-26 05:07:39</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>4392d222db721cdc59ac6e25ca961915</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>4f92d222db721cdc59ac6e25ca961911</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_4392d222db721cdc59ac6e25ca961915</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-26 05:07:39</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

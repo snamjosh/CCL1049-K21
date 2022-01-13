@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_ng_pro_sp_widget">
+    <m2m_sp_ng_pro_sp_widget action="INSERT_OR_UPDATE">
+        <sp_angular_provider display_value="spKBCategoryService">10eb7596c7033200b0b0409b9b97631c</sp_angular_provider>
+        <sp_widget display_value="GDEP Category Page">e03dab57db5a9c94bb5a4a281396194e</sp_widget>
+        <sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-03 23:07:27</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>2c3dab57db5a9c94bb5a4a2813961950</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>spKBCategoryService.GDEP Category Page</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_2c3dab57db5a9c94bb5a4a2813961950</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-03 23:07:27</sys_updated_on>
+    </m2m_sp_ng_pro_sp_widget>
+</record_update>

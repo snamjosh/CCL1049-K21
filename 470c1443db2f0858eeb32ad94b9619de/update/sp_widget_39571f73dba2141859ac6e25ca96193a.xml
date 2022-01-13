@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope,$rootScope, $http, $location,$timeout, gdepCategoryService) {
+	/* widget controller */
+	var c = this;
+	//c.breadcrumbs = [];
+
+	c.pageName = $location.search().id;
+/*
+	$timeout(function(){
+		$rootScope.$broadcast("sp.update.gdep_breadcrumbs", c.data.breadcrumbs);
+		console.log("broadcasting rootscope");
+	});
+	
+	$timeout(function(){
+		$rootScope.$emit("sp.update.gdep_breadcrumbs", c.data.breadcrumbs);
+		console.log("emitting rootscope");
+	});
+	
+	$timeout(function(){
+		$scope.$broadcast("sp.update.gdep_breadcrumbs", c.data.breadcrumbs);
+		console.log("broadcasting scope");
+	});*/
+	
+	$timeout(function(){
+		$scope.$broadcast("sp.update.breadcrumbs", $scope.data.breadcrumbs);
+		console.log("emitting scope");
+	});
+
+	/*
+	// After the BC's have been self-reported by a widget, loops over each BC and attempts to "fix" 
+	// the wrong ones
+	$scope.$on("sp.update.breadcrumbs", function(e, list) {		
+
+		c.data.breadcrumbs = c.data.theRealBreadcrumbs;
+		return;
+		
+		if(list && list.length > 0 && list[0].stop == true){
+			return;
+		}
+
+		if(list && list.length > 0 && list[0].override){
+			c.data.breadcrumbs = list;
+			list[0].stop = true;
+			console.log(list);
+			return;
+		}
+		else{
+			return;
+		}
+
+		c.data.breadcrumbs = list;
+		console.log(e);
+		
+		console.log("sp.update.breadcrumbs");
+
+		var dirty = false;
+
+
+
+		_.forEach(c.data.breadcrumbs, function(bc) { 
+			if(bc.label == "Human Resources Catalog"){
+				bc.label = "Forms";
+				bc.url = "?id=gdep_forms&image=14b89d6cdb68dc50bb5a4a28139619a1";
+				dirty = true;
+			}
+			else if(bc.label == "All Knowledge Bases" || bc.label === "Human Resources General Knowledge"){
+				bc.del = true;
+				dirty = true;
+			}
+			else if(bc.url.startsWith("id=kb_article")){
+				bc.replace("id=kb_article", "id=gdep_kb_article");
+
+			else if(bc.label == "Performance Management"){
+				bc.url = "?id=gdep_performance_mgmt&sys_id=dfb0bce5dbff4010bb5a4a281396197c&kb_id=bb0370019f22120047a2d126c42e7073&kb_category=bc789009dbca909459ac6e25ca961997&image=9769d7acdb065cd0bb5a4a2813961909&spa=1";
+			}
+		});
+
+		if(dirty){
+			_.remove(c.data.breadcrumbs, function(obj) { return obj.del === true; });
+			$rootScope.$broadcast("sp.update.breadcrumbs", c.data.breadcrumbs);		
+			//console.log(c.data.breadcrumbs);
+		}
+	});*/
+
+
+}
+
+
+
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>button.btn.btn-default {
+  background-color: #000;
+  color: white;
+}
+
+.title-text {
+  font-family: $mediumFont !important;
+  color: #000000;
+  font-size: 3vw;
+  line-height: normal;
+  // white-space: nowrap;
+}
+
+.title-search-bar {
+  width: 100%;
+}
+
+
+
+.grid-container {
+  display: inline-grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  width: 100%;
+  align-items: center;
+}
+.grid-item {
+  padding: 0em;
+  align-self: center;
+  text-overflow: ellipsis;
+}
+
+.grid-item-title {
+  padding-top: 0rem;
+}
+
+.breadcrumbs {
+
+  i {
+    margin-top: 10px;
+  }
+
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) { 
+
+ }]]></link>
+        <name>GDSP Title Header</name>
+        <option_schema>[{"displayValue":"Catalog","name":"test_hr_sc_cat","display_value_list":[],"section":"other","label":"test hr sc cat","type":"glide_list","value":"sc_catalog","ed":{"reference":"sc_catalog"}},{"name":"field_list","section":"other","label":"field list","type":"field_list"},{"displayValue":"Catalog","name":"sc_catalog","display_value_list":[],"section":"other","label":"sc catalog glide list","type":"glide_list","value":"sc_catalog","ed":{"reference":"sc_catalog"}},{"name":"title","section":"Presentation","label":"Title","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function () {
+	data.title = options.title || "Service Catalog";
+	//	data.theRealBreadcrumbs = [];
+	// Initialize Breadcrumb
+	data.breadcrumbsWidget = $sp.getWidget("breadcrumbs");
+	//	data.breadcrumbs = [];
+	//	data.breadcrumbsReady = false;
+
+	// Initialize Type-Ahead Search
+	var typeAheadSearchOpts = {
+		title: gs.getMessage('Search'),
+		size: 'lg',
+		color: 'default'
+	};
+	data.typeAheadSearch = $sp.getWidget('gdep-main-typeahead-search', typeAheadSearchOpts);
+
+	// Initialize Parameters
+	data.parm = {};
+	data.parm.page = $sp.getParameter("id");
+	data.parm.sys_id = $sp.getParameter("sys_id");
+	data.parm.kb_category = $sp.getParameter("kb_category");
+	data.parm.sc_category = $sp.getParameter("sc_category");
+	data.parm.sysparm_article = $sp.getParameter("sysparm_article");
+	data.parm.sysparm_category = $sp.getParameter("sysparm_category");
+	data.parm.table = $sp.getParameter("table");
+
+	var kbSpecialPages = [];
+	kbSpecialPages.push({label:"Performance Management", page:"gdep_performance_mgmt"});
+	//	kbSpecialPages.push({label:"Forms",page:"gdep_forms"});
+	//	kbSpecialPages.push({label:"Quick Links",page:"gdep_quick_links"});
+
+	setBreadcrumbs();	
+
+
+	function setBreadcrumbs(){
+		//--------------------------------------------------
+		// [x] Catalog Layer 1,2,3
+		//--------------------------------------------------
+		if((data.parm.sysparm_category|| data.parm.page == "gdep_sc_category") && data.parm.sys_id){
+			getScCategoryTree(data.parm.sys_id);
+		}
+		//--------------------------------------------------
+		// [x] Knowledge Layer 1,2				
+		//--------------------------------------------------
+		else if(data.parm.page == "gdep_kb_home" || data.parm.page == "gdep_policy_center" || data.parm.page == "gdep_kb_category"){
+			//		console.log("kb category:" + data.parm.kb_category);
+			var grKbCat = new GlideRecord("kb_category");
+			if(grKbCat.get(data.parm.kb_category)){
+				var kbCatCrumbs = getKbCategoryTree(data.parm.kb_category);
+				//			console.log("kbCatCrumbs: " + JSON.stringify(kbCatCrumbs));
+				data.kbCatCrumbs = kbCatCrumbs;
+
+				//		console.log("do BC's need fixing? " + kbCatCrumbs && kbCatCrumbs[0].label == "Policy");
+				if(kbCatCrumbs && kbCatCrumbs[0].label == "Policy"){
+					fixCrumbsForPolicy(data.kbCatCrumbs);
+				}
+			}
+			data.breadcrumbs = data.kbCatCrumbs;
+			//			data.breadcrumbsReady = true;
+			//		console.log("breadcrumbs: " + JSON.stringify(data.breadcrumbs))
+		}
+		//--------------------------------------------------
+		// [x] Knowledge Layer 3				
+		//--------------------------------------------------
+		else if(data.parm.page == "gdep_kb_article" || data.parm.page == "gdep_performance_mgmt"){
+			var gr = new GlideRecord("kb_knowledge");
+			if(data.parm.sys_id) gr.addQuery('sys_id', data.parm.sys_id);
+			if(data.parm.sysparm_article) gr.addQuery('number',data.parm.sysparm_article);
+			gr.query();
+			gr.next();
+
+			var bcs = getKbCategoryTree(gr.kb_category.getValue('sys_id'));
+			//console.log("bcs: " + JSON.stringify(bcs));
+			data.bcs = bcs;
+
+			if(data.parm.page == "gdep_kb_article"){
+				var label = gr.getValue('short_description');
+				var page = getKbPage(gr.getValue('short_description'));
+				//'console'.log("url suffix: " + $sp.getValue("url_suffix"));
+
+				var url = "#";
+				var articleBc = {label:label, url:url}
+
+				bcs.push(articleBc);
+			}
+
+			if(bcs && bcs[0].label == "Policy"){
+				fixCrumbsForPolicy(bcs);
+			}
+			data.breadcrumbs = bcs;
+			//		data.breadcrumbsReady = true;
+		}
+
+		else if (data.parm.page == "gdep_sc_home") {
+			data.breadcrumbs = [{
+				"label": gs.getMessage("Forms"),
+				"url": "#"
+			}];
+			//		data.breadcrumbsReady = true;
+		}
+
+		//--------------------------------------------
+		// [x] Quick Links Layer 3				gdep_ql_perks
+		//--------------------------------------------
+		else if (data.parm.page == "gdep_ql_perks") {
+			data.breadcrumbs = [{
+				"label": gs.getMessage("Quick Links"),
+				"url": "?id=gdep_quick_links&title=Quick%20Links&image=962855a8db68dc50bb5a4a2813961999"
+			},{
+				"label": gs.getMessage("Employee Perks"),
+				"url": "#"
+			}];
+		}
+		//------------------------------------------------
+		// [x] Quick Links Layer 3				gdep_ql_financial
+		//------------------------------------------------
+		else if (data.parm.page == "gdep_ql_financial") {
+			data.breadcrumbs = [{
+				"label": gs.getMessage("Quick Links"),
+				"url": "?id=gdep_quick_links&title=Quick%20Links&image=962855a8db68dc50bb5a4a2813961999"
+			},{
+				"label": gs.getMessage("Financial"),
+				"url": "#"
+			}];
+		}
+		//--------------------------------------------
+		// [x] Quick Links Layer 3				gdep_ql_health
+		//--------------------------------------------
+		else if (data.parm.page == "gdep_ql_health") {
+			data.breadcrumbs = [{
+				"label": gs.getMessage("Quick Links"),
+				"url": "?id=gdep_quick_links&title=Quick%20Links&image=962855a8db68dc50bb5a4a2813961999"
+			},{
+				"label": gs.getMessage("Health & Wellness"),
+				"url": "#"
+			}];
+		}
+		//--------------------------------------------
+		// [x] Quick Links Layer 3				gdep_ql_workday
+		//--------------------------------------------
+		else if (data.parm.page == "gdep_ql_workday") {
+			data.breadcrumbs = [{
+				"label": gs.getMessage("Quick Links"),
+				"url": "?id=gdep_quick_links&title=Quick%20Links&image=962855a8db68dc50bb5a4a2813961999"
+			},{
+				"label": gs.getMessage("Workday"),
+				"url": "#"
+			}];
+		}
+
+		else if(data.parm.page == "gdep_hrm_ticket_page"){
+			var grTicket = new GlideRecord(data.parm.table);
+			grTicket.get(data.parm.sys_id);
+
+			data.breadcrumbs = [{
+				"label": gs.getMessage("My Requests"),
+				"url": "?id=gdep_requests",
+				"override":true
+			},{
+				"label": grTicket.getDisplayValue("number"),
+				"url": "#"
+			}];
+			data.theRealBreadcrumbs = data.breadcrumbs;
+		}
+		else if(data.parm.page == "gdep_ticket"){
+			var grTicket = new GlideRecord(data.parm.table);
+			grTicket.get(data.parm.sys_id);
+
+			console.log("breadcrumbs for gdep_ticket");
+
+			data.breadcrumbs = [{
+				"label": gs.getMessage("My Requests"),
+				"url": "?id=gdep_requests"
+			},{
+				"label": grTicket.getDisplayValue("number"),
+				"url": "#"
+			}];
+		}
+		else if(data.parm.page=="gdep_approvals"){
+
+
+		}
+
+	}
+
+	function fixCrumbsForPolicy(crumbs){
+
+		data.title = "Policy Center";
+		crumbs[0].url = "?id=gdep_policy_center&kb_category=2d5d5f53df101200dca6a5f59bf263a2&image=e3dd4568db64dc50bb5a4a28139619e5";
+
+		if(crumbs.length >= 2 ){
+			for(var index = 1; index < crumbs.length; index++){
+				if(crumbs[index].url.startsWith('?id=gdep_kb_category')){
+					crumbs[index].url = crumbs[index].url.replace('?id=gdep_kb_category', '?id=gdep_policy_center');
+				}
+				else if(crumbs[index].url.startsWith('?id=gdep_kb_home')){
+					crumbs[index].url = crumbs[index].url.replace('?id=gdep_kb_home', '?id=gdep_policy_center');
+				}
+			}
+		}
+
+	}
+
+	function getScCategoryTree(sc_category){
+		// sc_cat_item
+		var grSC = new GlideRecord("sc_cat_item");
+		grSC.get(data.parm.sys_id);
+
+		data.breadcrumbs = [{
+			"label": 'Service Requests',
+			"url": "?id=gdep_forms&image=14b89d6cdb68dc50bb5a4a28139619a1"
+		}];
+
+		if(grSC.category){
+			data.breadcrumbs.push(
+				{ label: grSC.getDisplayValue('category'),
+				 url: '?id=gdep_sc_category&sys_id=' + data.parm.sysparm_category
+				});
+
+			data.breadcrumbs.push(
+				{ "label": grSC.getDisplayValue('name'),
+				 "url": '#'});		
+		}
+		else {
+			var grScCat = new GlideRecord("sc_category");
+			grScCat.get(data.parm.sys_id);
+			
+			data.breadcrumbs.push(
+				{ label: grScCat.getDisplayValue("title"),
+				 url: '?id=gdep_sc_category&sys_id=' + data.parm.sys_id
+				});
+			
+		}
+	}
+
+	
+
+
+
+	function getKbCategoryTree(kb_category){
+		var models = [];
+		var kb = $sp.getKnowledgeBases();
+		//	console.log("kb:" + JSON.stringify(kb));
+		var c = kb_category;
+
+		do{
+			var cat = new GlideRecord('kb_category');
+			cat.get(c);
+			if(cat.getValue('label') == null) c = null;
+			else{
+				var m = {};
+
+				var page = getKbPage(cat.getValue('label'), cat.getValue('sys_id'));
+
+				m.label = cat.getValue('label');
+
+				//	m.url = $sp.getValue("url_suffix") +  '/?id=' + page + '&kb_category=' + cat.getValue('sys_id');
+				m.url = '?id=' + page + '&kb_category=' + cat.getValue('sys_id');
+				m.sys_id = cat.getValue('sys_id');
+				models.push(m);
+
+				c = cat.getValue('parent_id');
+			}
+		}
+		while(c != null);
+
+		return models.reverse();
+	}
+
+	function getKbPage(categoryLabel, kb_category){
+		if(data.parm.kb_category === kb_category){
+			return data.parm.page;
+		}
+
+		var indexOfSpecialPage = kbSpecialPages.findIndex(function(p) {
+			return p.label == categoryLabel;
+		})
+
+		if(indexOfSpecialPage >= 0){
+			var specialPage = kbSpecialPages[indexOfSpecialPage];
+			return specialPage.page;
+		}
+
+		return $sp.getDisplayValue("kb_knowledge_page");
+	}
+
+
+})();
+
+
+/*
+	location = {};
+	location.id = $sp.getParameter("id");
+	location.kb_category = $sp.getParameter("kb_category");
+	location.sys_id = $sp.getParameter("sys_id");
+	location.sysparm_article = $sp.getParameter("sysparm_article");
+	location.sc_category = $sp.getParameter("sc_category");*/
+
+
+
+//	data.breadcrumbs = [];
+
+// KB Category -- has kb_category parm
+// SC Category -- has sc_category parm
+
+
+
+
+
+
+
+/*
+	var kbNum = $sp.getParameter('sysparm_article');
+	var scCatId = $sp.getParameter('sc_category');
+	var kbCatId = $sp.getParameter('kb_category');
+	var title = $sp.getParameter('title');
+
+	if (kbNum) {
+		var grKB = new GlideRecord('kb_knowledge');
+		grKB.addQuery('number', kbNum);
+		grKB.addQuery('latest', true);
+		grKB.query();
+
+		while (grKB.next()) {
+			kbCatId = grKB.kb_category.sys_id.toString();
+			title = grKB.short_description.toString();
+		}
+	}*/]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2020-08-17 21:04:38</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>39571f73dba2141859ac6e25ca96193a</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>GDSP Title Header</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_39571f73dba2141859ac6e25ca96193a</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-08-17 21:20:07</sys_updated_on>
+        <template><![CDATA[<div  style="padding-bottom:10px;">
+  <div class=" title-container-gradient">
+
+    <div class="container-xl grid-container ">
+      <div class="grid-item title-text" >
+        {{data.title}}
+      </div>
+
+      <div class="grid-item hidden-xs breadcrumbs">
+        <ul class="nav nav-pills nav-sm">
+          <li><a ng-href="?id={{portal.homepage_dv}}">${Home}</a></li>
+          <li><i class="fa fa-chevron-right"></i></li>
+          <li ng-if="!c.data.breadcrumbs"><a href>{{page.title}}</a></li>
+          <li ng-repeat-start="item in c.data.breadcrumbs">
+            <a ng-href="{{item.url}}">{{item.label}}</a>
+          </li>
+          <li ng-if="!$last" ng-repeat-end>
+            <i class="fa fa-chevron-right"></i>
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="grid-item">
+        <div class="title-search-bar ">
+          <sp-widget widget="data.typeAheadSearch" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!--
+<pre>DEBUG INFO:{{ c.data.breadcrumbs   | json}}</pre>
+-->
+<!-- /*c.data.breadcrumbs*/ -->]]></template>
+    </sp_widget>
+</record_update>

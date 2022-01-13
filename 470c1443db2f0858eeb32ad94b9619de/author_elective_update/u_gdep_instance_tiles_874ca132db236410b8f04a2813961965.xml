@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="u_gdep_instance_tiles">
+    <u_gdep_instance_tiles action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column/>
+        <sp_widget display_value="GDEP Career Level Guide Tiles">04b933c4dbb1acd0bb5a4a2813961959</sp_widget>
+        <sys_class_name>u_gdep_instance_tiles</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-04-19 23:56:58</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>874ca132db236410b8f04a2813961965</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>u_gdep_instance_tiles_874ca132db236410b8f04a2813961965</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-04-19 23:56:58</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </u_gdep_instance_tiles>
+    <sys_translated_text action="DELETE" query="documentkey=874ca132db236410b8f04a2813961965"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>u_gdep_instance_tiles_874ca132db236410b8f04a2813961965</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="u_gdep_instance_tiles"><u_gdep_instance_tiles action="INSERT_OR_UPDATE"><active>true</active><class_name/><color>default</color><css/><glyph/><id/><order>1</order><roles/><short_description/><size>md</size><sp_column/><sp_widget display_value="GDEP Career Level Guide Tiles">04b933c4dbb1acd0bb5a4a2813961959</sp_widget><sys_class_name>u_gdep_instance_tiles</sys_class_name><sys_created_by>snamjoshi</sys_created_by><sys_created_on>2021-04-19 23:56:58</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>874ca132db236410b8f04a2813961965</sys_id><sys_mod_count>0</sys_mod_count><sys_name/><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>u_gdep_instance_tiles_874ca132db236410b8f04a2813961965</sys_update_name><sys_updated_by>snamjoshi</sys_updated_by><sys_updated_on>2021-04-19 23:56:58</sys_updated_on><title/><url/><widget_parameters/></u_gdep_instance_tiles><sys_translated_text action="delete_multiple" query="documentkey=874ca132db236410b8f04a2813961965"/></record_update>]]></payload>
+        <payload_hash>123328487</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>3b97cb9f6fb23100fda99aad5d3ee43a</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-04-19 23:56:58</sys_created_on>
+        <sys_id>074ca132db236410b8f04a2813961969</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>178ec90d7580000001</sys_recorded_at>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-04-19 23:56:58</sys_updated_on>
+        <type>GDEP Instance Tiles</type>
+        <update_guid>8b4ca132e923641033bee6d2fa7f1f68</update_guid>
+        <update_guid_history>8b4ca132e923641033bee6d2fa7f1f68:123328487</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">94bced32db236410b8f04a281396191c</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-04-19 23:58:41</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="u_gdep_instance_tiles">u_gdep_instance_tiles</sys_db_object>
+        <sys_id>0b822e8d71914894992e87be41a3d324</sys_id>
+        <sys_metadata>874ca132db236410b8f04a2813961965</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>u_gdep_instance_tiles_874ca132db236410b8f04a2813961965</sys_update_name>
+        <sys_update_version display_value="u_gdep_instance_tiles_874ca132db236410b8f04a2813961965">074ca132db236410b8f04a2813961969</sys_update_version>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-04-19 23:58:41</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_atf_test">
+    <sys_atf_test action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <copied_from display_value="GD - Search Results Page - Open Form">432c3568db452814bb5a4a28139619ec</copied_from>
+        <description>This test will open search results page for knowlege article search on GDSP Portal.</description>
+        <enable_parameterized_testing>false</enable_parameterized_testing>
+        <name>GDEP - Search Results Page - Open Form</name>
+        <parameters/>
+        <remember/>
+        <sys_class_name>sys_atf_test</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2020-12-18 23:53:38</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>6c995923dbc9a8d8bb5a4a281396190a</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>GDEP - Search Results Page - Open Form</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_atf_test_6c995923dbc9a8d8bb5a4a281396190a</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-12-18 23:53:47</sys_updated_on>
+    </sys_atf_test>
+    <sys_variable_value action="delete_multiple" query="document_key=6c995923dbc9a8d8bb5a4a281396190a"/>
+</record_update>

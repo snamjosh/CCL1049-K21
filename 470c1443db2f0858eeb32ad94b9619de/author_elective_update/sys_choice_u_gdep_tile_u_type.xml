@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="u_type" table="u_gdep_tile" version="3">
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>u_type</element>
+            <name>u_gdep_tile</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-15 04:36:15</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>c2e700a0dbb598901093f40c0c9619df</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_type</sys_name>
+            <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+            <sys_update_name>sys_choice_u_gdep_tile_u_type</sys_update_name>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-15 04:36:15</sys_updated_on>
+        </sys_choice_set>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Page</label>
+            <language>en</language>
+            <name>u_gdep_tile</name>
+            <sequence>0</sequence>
+            <synonyms/>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-15 04:36:15</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>4a9feb19db3c109059ac6e25ca961916</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-15 04:36:35</sys_updated_on>
+            <value>u_page</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Url</label>
+            <language>en</language>
+            <name>u_gdep_tile</name>
+            <sequence>1</sequence>
+            <synonyms/>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-15 04:36:45</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>07af6f19db3c109059ac6e25ca9619a3</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-15 04:36:52</sys_updated_on>
+            <value>u_url</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Catalog Category</label>
+            <language>en</language>
+            <name>u_gdep_tile</name>
+            <sequence>2</sequence>
+            <synonyms/>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-15 04:37:08</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>6acf6f19db3c109059ac6e25ca961933</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-15 04:37:28</sys_updated_on>
+            <value>u_sc_category</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Catalog Item</label>
+            <language>en</language>
+            <name>u_gdep_tile</name>
+            <sequence>3</sequence>
+            <synonyms/>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-15 20:14:53</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>f166c729db34189059ac6e25ca96196f</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-15 20:15:06</sys_updated_on>
+            <value>u_sc_cat_item</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>KB Article</label>
+            <language>en</language>
+            <name>u_gdep_tile</name>
+            <sequence>4</sequence>
+            <synonyms/>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-15 20:15:18</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>24864f29db34189059ac6e25ca961940</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-15 20:15:31</sys_updated_on>
+            <value>u_kb_article</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>KB Category</label>
+            <language>en</language>
+            <name>u_gdep_tile</name>
+            <sequence>5</sequence>
+            <synonyms/>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-15 20:15:39</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>e6968b69db34189059ac6e25ca9619d9</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-15 20:15:51</sys_updated_on>
+            <value>u_kb_category</value>
+        </sys_choice>
+    </sys_choice>
+</record_update>

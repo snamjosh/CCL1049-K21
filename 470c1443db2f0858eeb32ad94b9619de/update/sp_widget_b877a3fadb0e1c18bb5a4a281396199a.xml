@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>label{
+  /*position : absolute;
+  top : -10000px;*/
+  display : none !important;
+}
+.content-font{
+  font-size : 14px;
+}
+.sp-attachment-manager .attached-file{
+  padding : 5px 0px;
+  margin : 0px;
+  width : 100%;
+
+  a{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+  }
+}
+
+a{
+   color: #1a0db0 !important;
+  }
+
+.list-group-item{
+  padding : 5px 0px;
+  margin : 0px;
+  border : none;
+}
+.kb-list-block{
+  padding:15px 0; 
+}
+.panel-body{
+  padding : 5px 15px;
+}
+
+.main_text{
+  font-size:13px; 
+}
+
+.dot{
+  padding:5px; 
+}
+.rating-stars{
+  font-size: 10px;
+  display: inline-flex;
+  margin-top: -6px;
+}
+.glyphicon{
+  line-height: 0; 
+}
+.glyphicon-star:before{
+  color: #ffca1f;
+  text-shadow: 0 0 0 #C0A909, 0 0 0 #C0A909, 0 0px 0 #C0A909, 0 1px 0 #C0A909;
+}
+.glyphicon-star-empty{
+  color: #BDC0C4;
+  text-shadow:0 0 0 #BDC0C4, 0 0 0 #BDC0C4, 0 0px 0 #BDC0C4, 0 1px 0 #BDC0C4;
+}
+.rating-stars [role="button"] {
+  cursor: text;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description>Related Links for KB Articles</description>
+        <docs/>
+        <field_list>title,color</field_list>
+        <has_preview>false</has_preview>
+        <id>gdep-kb-relatedlinks</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Knowledge Related Links</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+	//var kbNum = $sp.getParameter('sysparm_article') || $sp.getParameter('sys_kb_id');
+	var kbNum = $sp.getParameter('sysparm_article');
+	
+	data.relatedLinks = [];
+	
+	if (kbNum){
+		var grKB = new GlideRecord('kb_knowledge');
+		grKB.addQuery('number',kbNum);
+		grKB.addQuery('latest',true);
+		grKB.query();
+		
+		while (grKB.next()){
+			data.kb = grKB.sys_id.toString();
+		}
+	}
+	else{
+		data.kb = $sp.getParameter('sys_kb_id') ||$sp.getParameter('sys_id') ;
+	}
+		
+	var grLink = new GlideRecord('u_gdep_image_links');
+	grLink.addQuery('u_kb_article_id', data.kb.toString());
+	grLink.query();
+		if (grLink.hasNext()){
+			while (grLink.next()){
+				var link = {};
+				link.title = grLink.u_title.toString();
+				link.url = grLink.u_url.toString();
+				data.relatedLinks.push(link);
+			}
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>aerceg</sys_created_by>
+        <sys_created_on>2020-07-20 23:09:42</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>b877a3fadb0e1c18bb5a4a281396199a</sys_id>
+        <sys_mod_count>66</sys_mod_count>
+        <sys_name>GDEP Knowledge Related Links</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_b877a3fadb0e1c18bb5a4a281396199a</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-10-14 05:01:31</sys_updated_on>
+        <template><![CDATA[<sp-panel style="width:100%;">
+	<div ng-if="data.relatedLinks.length>0"><h4 class="panel-title"></h4>
+      	<div ng-repeat="link in data.relatedLinks">
+          <a href={{link.url}} target ="_blank">{{link.title}}</a>
+          <br />
+  	</div>
+  </div>
+	<div ng-if="!data.relatedLinks.length>0"><h4 class="panel-title"></h4>
+			${No Related Links}
+  </div>
+</sp-panel>
+
+]]></template>
+    </sp_widget>
+</record_update>

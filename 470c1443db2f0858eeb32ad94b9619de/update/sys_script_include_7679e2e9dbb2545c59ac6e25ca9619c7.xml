@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.gdepTilesHelper</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Retrieves the data for each tile  that the current user has access to view.</description>
+        <name>gdepTilesHelper</name>
+        <script><![CDATA[var gdepTilesHelper = Class.create();
+gdepTilesHelper.prototype = {
+	initialize: function() {
+	},
+
+	getTilesForInstance: function(sys_id, disableUserCriteriaForKbArticles){
+		var items = [];
+		var gr = new GlideRecord('u_gdep_tile');
+		gr.addQuery('u_widget_instance', sys_id);
+		gr.orderBy('u_order');
+		gr.query();
+
+		while (gr.next()) {		
+			var item = {};
+			item.title = gr.getValue('u_title');
+			item.short_description = gr.getValue('u_short_description');
+			item.image = gr.getDisplayValue('u_image');
+			item.order = gr.getValue('u_order');
+
+			var grPage = GlideRecord('sp_page');
+			grPage.get(gr.getValue('u_page'));
+			item.url = "?id=" + grPage.getValue('sys_name');
+
+			if(gr.getValue('u_url')){
+				item.url = gr.getValue('u_url');
+			}
+			else if (gr.getValue("u_type") == "u_sc_category") {
+				//User criteria check SC Categories
+				var categoryJS = new sn_sc.CatCategory(gr.getValue("u_sc_category"));
+				if (!categoryJS.canView()){
+					continue;
+				}
+				item.url += "&sc_category=" + gr.getValue("u_sc_category") + "&sys_id=" + gr.getValue("u_sc_category");
+			} else if (gr.getValue("u_type") == "u_kb_category") {
+
+				if(!disableUserCriteriaForKbArticles){
+					//User criteria check KB Categories
+					var arts = $sp.getKBCategoryArticleSummary(gr.getValue("u_kb_category"), 250, 250);
+					articleCount = arts.length;
+					if (articleCount == 0){
+						continue;
+					}
+				}
+				item.url += "&kb_category=" + gr.getValue("u_kb_category");
+			} else if (gr.getValue("u_type") == "u_kb_article") {
+				var kt = new GlideRecord('kb_knowledge');
+				kt.get(gr.getValue("u_kb_article"));
+				item.url += "&sysparm_article=" + kt.getDisplayValue("number");
+			}
+			items.push(item);
+		}
+		return items;
+	},
+
+	type: 'gdepTilesHelper'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-23 04:23:45</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>7679e2e9dbb2545c59ac6e25ca9619c7</sys_id>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>gdepTilesHelper</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_script_include_7679e2e9dbb2545c59ac6e25ca9619c7</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-01-15 21:36:12</sys_updated_on>
+    </sys_script_include>
+</record_update>

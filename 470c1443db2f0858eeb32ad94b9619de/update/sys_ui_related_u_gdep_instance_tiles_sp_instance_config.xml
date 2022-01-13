@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_related sys_domain="global" table="u_gdep_instance_tiles" version="2" view="sp_instance_config">
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="GDEP Instance Tiles - SP Instance Config" name="u_gdep_instance_tiles" related_list="NULL" sys_domain="global" view="0ce54027b33232007a6de81816a8dca1">44ca3e51db70585059ac6e25ca961907</list_id>
+            <order_by/>
+            <position>0</position>
+            <related_list>u_gdep_tile.u_widget_instance</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-15 00:45:02</sys_created_on>
+            <sys_id>c4ca3e51db70585059ac6e25ca961908</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-15 00:45:02</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list action="INSERT_OR_UPDATE">
+            <calculated_name>GDEP Instance Tiles - SP Instance Config</calculated_name>
+            <filter/>
+            <name>u_gdep_instance_tiles</name>
+            <order_by/>
+            <position/>
+            <related_list/>
+            <sys_class_name>sys_ui_related_list</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-15 00:45:02</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_id>44ca3e51db70585059ac6e25ca961907</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>GDEP Instance Tiles - SP Instance Config</sys_name>
+            <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+            <sys_update_name>sys_ui_related_u_gdep_instance_tiles_sp_instance_config</sys_update_name>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-15 00:45:02</sys_updated_on>
+            <sys_user/>
+            <view display_value="SP Instance Config" name="sp_instance_config">0ce54027b33232007a6de81816a8dca1</view>
+            <view_name/>
+        </sys_ui_related_list>
+    </sys_ui_related>
+</record_update>

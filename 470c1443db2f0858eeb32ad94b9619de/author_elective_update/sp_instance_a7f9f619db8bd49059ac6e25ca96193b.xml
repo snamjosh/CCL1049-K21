@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css>.b{&#13;
+&#13;
+border: 4px solid #4d4d4d;&#13;
+border-top: 0px !important&#13;
+&#13;
+}</css>
+        <glyph/>
+        <id/>
+        <order>5</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">8218f5b7dbadd8dc59ac6e25ca9619b3</sp_column>
+        <sp_widget display_value="Knowledge Related Articles">a8874e5bdb18330076e757a0cf961939</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2020-09-03 21:02:59</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>a7f9f619db8bd49059ac6e25ca96193b</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>Related Articles</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_instance_a7f9f619db8bd49059ac6e25ca96193b</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-09-08 21:49:44</sys_updated_on>
+        <title>Related Articles</title>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"table": {
+		"value": "",
+		"displayValue": ""
+	},
+	"display_field": {
+		"value": "",
+		"displayValue": ""
+	},
+	"secondary_fields": {
+		"value": "",
+		"displayValue": ""
+	},
+	"max_records": {
+		"value": "",
+		"displayValue": ""
+	},
+	"always_show": {
+		"value": "",
+		"displayValue": ""
+	},
+	"show_secondary_fields_label": {
+		"value": "",
+		"displayValue": ""
+	},
+	"knowledge_base": {
+		"value": "",
+		"displayValue": ""
+	},
+	"source_table": {
+		"value": "",
+		"displayValue": ""
+	},
+	"source_column": {
+		"value": "",
+		"displayValue": ""
+	},
+	"target_column": {
+		"value": "",
+		"displayValue": ""
+	},
+	"source_id": {
+		"value": "",
+		"displayValue": ""
+	},
+	"use_full_width": {
+		"value": "true",
+		"displayValue": "true"
+	}
+}]]></widget_parameters>
+    </sp_instance>
+    <sys_translated_text action="DELETE" query="documentkey=a7f9f619db8bd49059ac6e25ca96193b"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>sp_instance_a7f9f619db8bd49059ac6e25ca96193b</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_instance"&gt;&lt;sp_instance action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;class_name/&gt;&lt;color&gt;default&lt;/color&gt;&lt;css&gt;.b{&amp;#13;
+&amp;#13;
+border: 4px solid #4d4d4d;&amp;#13;
+border-top: 0px !important&amp;#13;
+&amp;#13;
+}&lt;/css&gt;&lt;glyph/&gt;&lt;id/&gt;&lt;order&gt;5&lt;/order&gt;&lt;roles/&gt;&lt;short_description/&gt;&lt;size&gt;md&lt;/size&gt;&lt;sp_column display_value="1"&gt;8218f5b7dbadd8dc59ac6e25ca9619b3&lt;/sp_column&gt;&lt;sp_widget display_value="Knowledge Related Articles"&gt;a8874e5bdb18330076e757a0cf961939&lt;/sp_widget&gt;&lt;sys_class_name&gt;sp_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;snamjoshi&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2020-09-03 21:02:59&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;a7f9f619db8bd49059ac6e25ca96193b&lt;/sys_id&gt;&lt;sys_mod_count&gt;5&lt;/sys_mod_count&gt;&lt;sys_name&gt;Related Articles&lt;/sys_name&gt;&lt;sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de"&gt;470c1443db2f0858eeb32ad94b9619de&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="GDEP"&gt;470c1443db2f0858eeb32ad94b9619de&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_instance_a7f9f619db8bd49059ac6e25ca96193b&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;snamjoshi&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2020-09-08 21:49:44&lt;/sys_updated_on&gt;&lt;title&gt;Related Articles&lt;/title&gt;&lt;url/&gt;&lt;widget_parameters&gt;&lt;![CDATA[{
+	"table": {
+		"value": "",
+		"displayValue": ""
+	},
+	"display_field": {
+		"value": "",
+		"displayValue": ""
+	},
+	"secondary_fields": {
+		"value": "",
+		"displayValue": ""
+	},
+	"max_records": {
+		"value": "",
+		"displayValue": ""
+	},
+	"always_show": {
+		"value": "",
+		"displayValue": ""
+	},
+	"show_secondary_fields_label": {
+		"value": "",
+		"displayValue": ""
+	},
+	"knowledge_base": {
+		"value": "",
+		"displayValue": ""
+	},
+	"source_table": {
+		"value": "",
+		"displayValue": ""
+	},
+	"source_column": {
+		"value": "",
+		"displayValue": ""
+	},
+	"target_column": {
+		"value": "",
+		"displayValue": ""
+	},
+	"source_id": {
+		"value": "",
+		"displayValue": ""
+	},
+	"use_full_width": {
+		"value": "true",
+		"displayValue": "true"
+	}
+}]]&gt;&lt;/widget_parameters&gt;&lt;/sp_instance&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=a7f9f619db8bd49059ac6e25ca96193b"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-846289399</payload_hash>
+        <record_name>Related Articles</record_name>
+        <reverted_from/>
+        <source>3b97cb9f6fb23100fda99aad5d3ee43a</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2020-09-08 21:49:44</sys_created_on>
+        <sys_id>8da4fc0b134fd05c2729b53a6144b08a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1746fb2368d0000001</sys_recorded_at>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-09-08 21:49:44</sys_updated_on>
+        <type>Instance</type>
+        <update_guid>85a4fc0b0e4fd05ca6e0d33e1d784b8a</update_guid>
+        <update_guid_history>85a4fc0b0e4fd05ca6e0d33e1d784b8a:-846289399,fb740f59588fd490a583d2479bab77c0:-1590728696,0d12b08b4cc71050658ca8630445d4ea:-876113004,fb740f59588fd490a583d2479bab77c0:-1590728696,eaf14f9d6c4fd49096875126faae37a0:-1851702141,28dd72d5470fd4905d34199189927c0e:-588541516,3dca7e59a5cbd49007cec7533284eb3d:1458699692,6ff9f619c88bd4901a9f511b0bac023c:-369489054</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">46816e20db77905494fed1c2ca9619b1</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2020-10-08 18:07:46</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sp_instance">sp_instance</sys_db_object>
+        <sys_id>4ed14d15e9b14f0192208cb0fa304689</sys_id>
+        <sys_metadata>a7f9f619db8bd49059ac6e25ca96193b</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Related Articles</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sp_instance_a7f9f619db8bd49059ac6e25ca96193b</sys_update_name>
+        <sys_update_version display_value="sp_instance_a7f9f619db8bd49059ac6e25ca96193b">8da4fc0b134fd05c2729b53a6144b08a</sys_update_version>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2020-10-08 18:07:46</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

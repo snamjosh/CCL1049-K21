@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>kb_use</collection>
+        <condition/>
+        <description>This BR will make sure that we don't have dup records in kb_use table</description>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Fix Dup records in kb_use table</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    // Add your code here
+
+
+    function getDuplicates(tablename, val) {
+        var dupRecords = [];
+        var gaDupCheck = new GlideAggregate(tablename);
+        //gaDupCheck.addQuery('active', 'true');
+        gaDupCheck.addEncodedQuery('sys_created_onONLast minute@javascript:gs.beginningOfLastMinute()@javascript:gs.endOfLastMinute()');
+        gaDupCheck.addAggregate('COUNT', val);
+        gaDupCheck.addNotNullQuery(val);
+        gaDupCheck.groupBy(val);
+        gaDupCheck.addHaving('COUNT', '>', 1);
+        gaDupCheck.query();
+        while (gaDupCheck.next()) {
+            dupRecords.push(gaDupCheck[val].toString());
+        }
+        return dupRecords;
+    }
+
+
+
+    var a = getDuplicates('kb_use', 'session_id');
+    var l = new GlideRecord('kb_use');
+    l.addQuery('session_id', a);
+    l.query();
+    //l.setLimit(1);
+    if (l.next()) {
+
+
+        l.deleteRecord();
+    }
+
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2022-01-05 17:35:04</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_id>a4ca10f2db38c910f1e6eba813961961</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>Fix Dup records in kb_use table</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_script_a4ca10f2db38c910f1e6eba813961961</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2022-01-05 19:28:36</sys_updated_on>
+        <template/>
+        <when>async</when>
+    </sys_script>
+</record_update>

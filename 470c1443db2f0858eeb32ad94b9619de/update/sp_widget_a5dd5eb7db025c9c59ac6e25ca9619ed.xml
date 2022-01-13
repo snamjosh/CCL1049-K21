@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>sc</category>
+        <client_script><![CDATA[function() {
+  var c = this;
+	c.viewFilter = 'open';
+	c.typeFilter = 'all';
+	
+	c.formatApproverList = function(arrList) {
+		if(!arrList) return "";
+		return('\n' + arrList.join(', '));
+	}
+	
+	
+	c.changeView = function() {
+		c.server.get({
+					action: "change_view",
+					view: c.viewFilter,
+					type: c.typeFilter,
+					search_text: c.filterText
+				}).then(function(response){
+					c.data = response.data;
+				});
+	}
+	
+	c.search = function() {
+		c.server.get({
+			action: 'search',
+			search_text: c.filterText,
+			type: c.typeFilter,
+			view: c.viewFilter
+		}).then(function(response){
+					c.data = response.data;
+				});
+	}
+	
+	c.checkEnter = function(event) {
+		if (event.which === 13)
+			c.search();
+	}
+	
+	c.loadMore = function() {
+		c.fetching = true;
+		c.server.get({
+			action: 'fetch_more',
+			type: c.typeFilter,
+			lastLimit: c.data.lastLimit,
+			view: c.viewFilter,
+			search_text: c.filterText
+		}).then(function(response){
+					c.data = response.data;
+					c.fetching = false;
+				});
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.panel-heading {
+  position: relative;
+  &gt; .fa-filter { 
+    position: absolute;
+    top: 1rem; 
+    right: 1rem; 
+  }
+}
+
+.panel {
+  &gt; .list-group, &gt;.panel-collapse{
+    .list-group-item {
+      border-width: 1px 0 0 0;
+    }
+  }
+}
+
+.btn-show-more {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.fa-question-circle {
+  color:orange;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP My Requests V2</name>
+        <option_schema>[{"name":"title","section":"Presentation","default_value":"My Requests","label":"Title","type":"string"},{"name":"show_view","section":"Behavior","default_value":"true","label":"Show View","type":"boolean"},{"name":"show_type","section":"Behavior","default_value":"true","label":"Show Type","type":"boolean"},{"hint":"Number of items per page","name":"items_per_page","section":"Behavior","default_value":"15","label":"Items per page","type":"integer"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+    var alsoRequest = false;
+    var alsoWs = false;
+
+    var localInput = input; //to safeguard pollution of 'input' via BR or other scripts
+
+    data.filterMsg = gs.getMessage("Search open requests");
+
+    if (localInput && localInput.view === 'open')
+        data.filterMsg = gs.getMessage("Search open requests");
+    else if (localInput && localInput.view === 'close')
+        data.filterMsg = gs.getMessage("Search closed requests");
+
+
+
+    function getField(gr, name) {
+        var f = {};
+        var id = gr.getUniqueValue();
+        gr = new GlideRecord(gr.getRecordClassName());
+        gr.get(id);
+        f.display_value = gr.getDisplayValue(name);
+        f.value = gr.getValue(name);
+        var ge = gr.getElement(name);
+        if (ge) {
+            var ed = ge.getED();
+            if (ed)
+                f.type = ed.getInternalType();
+            f.label = ge.getLabel();
+        }
+        return f;
+    }
+
+    function getMyRequestSysIds() {
+        var ids = {};
+        var rq_filter = new GlideRecord('request_filter');
+        rq_filter.addActiveQuery();
+        if (rq_filter.isValidField('applies_to'))
+            rq_filter.addQuery('applies_to', 1).addOrCondition('applies_to', 10);
+        rq_filter.query();
+        while (rq_filter.next()) {
+            var tableName = rq_filter.table_name;
+            if (rq_filter.isValidField('table'))
+                tableName = rq_filter.table;
+            var gr = new GlideRecord(tableName);
+            gr.addQuery(rq_filter.filter);
+            gr.query();
+            if (tableName == 'sc_request' && (localInput.type === 'all' || localInput.type === 'it' || localInput.type === 'workplace_services'))
+                alsoRequest = true;
+
+            while (gr.next()) {
+                var portalSettings = {};
+                portalSettings.page = rq_filter.portal_page.nil() ? '' : rq_filter.portal_page.getDisplayValue() + '';
+                portalSettings.primary_display = rq_filter.primary_display.nil() ? '' : rq_filter.primary_display + '';
+                portalSettings.secondary_displays = rq_filter.secondary_display.nil() ? '' : rq_filter.secondary_display + '';
+                ids[gr.sys_id + ''] = portalSettings;
+            }
+        }
+        return ids;
+    }
+
+    // retrieve the request's
+    var myRequestMap = getMyRequestSysIds();
+    var taskIDs = Object.keys(myRequestMap);
+
+    //gs.log("TYPE of servie ris " + localInput.type);
+    var gr = new GlideRecordSecure('task');
+    //gr.addEncodedQuery('sys_class_name=incident^ORsys_class_name=sm_task^ORsys_class_name=sc_request^ORsys_class_nameINSTANCEOFsn_hr_core_case')
+    if (localInput && localInput.view === 'open')
+        gr.addEncodedQuery('sys_class_nameINSTANCEOFsn_hr_core_case^ORsys_class_nameINSTANCEOFincident^ORsys_class_nameINSTANCEOFsc_request^stateNOT IN3,4,7,8,6,-1,102,103,23');
+    //gr.addActiveQuery();
+    else if (localInput && localInput.view === 'close')
+        gr.addEncodedQuery('sys_class_nameINSTANCEOFsn_hr_core_case^ORsys_class_nameINSTANCEOFincident^ORsys_class_nameINSTANCEOFsc_request^stateIN3,4,7,8,6,-1,102,103,23');
+    //gr.addQuery('active', 0);
+    else
+        gr.addEncodedQuery('sys_class_nameINSTANCEOFsn_hr_core_case^ORsys_class_nameINSTANCEOFincident^ORsys_class_nameINSTANCEOFsc_request^stateNOT IN3,4,7,8,6,-1,102,103,23');
+    //gr.addActiveQuery();
+
+    if (localInput && localInput.type === 'finance') {
+        gr.addEncodedQuery('sys_class_nameINSTANCEOFsn_hr_core_case_finance');
+    } else if (localInput && localInput.type === 'hr') {
+        gr.addEncodedQuery('sys_class_nameINSTANCEOFsn_hr_core_case^sys_class_name!=sn_hr_core_case_finance');
+    } else if (localInput && localInput.type === 'it') {
+		
+        gr.addEncodedQuery('sys_class_nameINSTANCEOFincident^ORsys_class_nameINSTANCEOFsc_request');
+		
+      
+    } else if (localInput && localInput.type === 'workplace_services') {
+        gr.addEncodedQuery('sys_class_nameINSTANCEOFsc_request');
+        //gr.addEncodedQuery('cat_item.category.parent=f8e176b54fe1e6004a92e3414210c75d');
+		gr.addEncodedQuery('u_workplace_request=true');
+        alsoWs = true;
+
+    }
+
+    gr.orderByDesc('sys_updated_on');
+    if (localInput && localInput.search_text) {
+        var req = [];
+        var task = new GlideRecordSecure('task');
+        task.addQuery('123TEXTQUERY321', localInput.search_text);
+        if (localInput && localInput.view === 'open')
+            task.addEncodedQuery('stateIN5,1,2,3');
+        //task.addQuery('active', 1);
+        else if (localInput && localInput.view === 'close')
+            task.addEncodedQuery('stateNOT IN5,1,2,3');
+        //task.addQuery('active', 0);
+        else
+            task.addEncodedQuery('stateIN5,1,2,3');
+        //task.addQuery('active', 1);
+        task.addQuery('sys_id', taskIDs);
+        task.query();
+
+        while (task.next())
+            req.push(task.getUniqueValue());
+
+        if (alsoRequest) {
+            var ritmGR = new GlideRecord('sc_req_item');
+            if (localInput && localInput.view === 'open')
+                //ritmGR.addQuery('request.active', 1);
+                ritmGR.addEncodedQuery('stateIN5,1,2');
+            else if (localInput && localInput.view === 'close')
+                //ritmGR.addQuery('request.active', 0);
+                ritmGR.addEncodedQuery('stateNOT IN5,1,2');
+            else
+                //ritmGR.addQuery('request.active', 1);
+                ritmGR.addEncodedQuery('stateIN5,1,2,3');
+            ritmGR.addQuery('123TEXTQUERY321', localInput.search_text);
+            ritmGR.addQuery('request.sys_id', taskIDs);
+            ritmGR.query();
+			//gs.log("RITM Count is " + ritmGR.getRowCount());
+            while (ritmGR.next())
+                req.push(ritmGR.getValue('request'));
+        }
+        gr.addQuery('sys_id', req);
+    } else
+        gr.addQuery('sys_id', taskIDs);
+    gr.query();
+    gs.log("COUNT is " + gr.getRowCount());
+    // Get the total results
+    var count = new GlideAggregate('task');
+    count.addEncodedQuery(gr.getEncodedQuery());
+    count.addAggregate('COUNT');
+    count.query();
+    var numResults = 0;
+    if (count.next()) {
+        numResults = count.getAggregate('COUNT');
+        data.totalResults = numResults;
+    }
+
+    data.request = {};
+
+    data.request.req_list = [];
+    var recordIdx = 0;
+    var limit = options.items_per_page ? options.items_per_page : 15;
+    if (localInput && localInput.action == 'fetch_more')
+        data.lastLimit = localInput.lastLimit + limit;
+    else
+        data.lastLimit = limit;
+
+    data.hasMore = false;
+    while (recordIdx != data.lastLimit && gr.next()) {
+        var portalSettings = myRequestMap[gr.getUniqueValue()];
+        if (typeof portalSettings == 'undefined')
+            portalSettings = {};
+
+        var record = {};
+        record.sys_id = gr.getValue('sys_id');
+
+        if (gr.getRecordClassName() === 'sc_request') {
+            var ritm = new GlideRecord("sc_req_item");
+            if (alsoWs) {
+                ritm.addEncodedQuery('cat_item.category.parent=f8e176b54fe1e6004a92e3414210c75d');
+                //ritm.addQuery('cat_item.category','f8e176b54fe1e6004a92e3414210c75d');
+                //ritm.addQuery('cat_item.category.parent', 'f8e176b54fe1e6004a92e3414210c75d');
+                //} else if (localInput.type === 'it') {
+            } else {
+                ritm.addEncodedQuery('cat_item.category.parent!=f8e176b54fe1e6004a92e3414210c75d');
+                //ritm.addQuery('cat_item.category.parent', '!=', 'f8e176b54fe1e6004a92e3414210c75d');
+            }
+
+            ritm.addQuery("request", gr.getUniqueValue());
+            ritm.query();
+            if (ritm.getRowCount() == 0 && alsoWs) {
+                //record.url = {
+                //    id: portalSettings.page ? portalSettings.page : 'gdep_ticket',
+                //    table: gr.getRecordClassName(),
+                //    sys_id: record.sys_id
+                // };
+                // record.display_field = gr.getValue("short_description");
+                continue;
+            } else if (ritm.getRowCount() == 0 && !alsoWs) {
+                //continue;
+                record.url = {
+                    id: portalSettings.page ? portalSettings.page : 'gdep_ticket',
+                    table: gr.getRecordClassName(),
+                    sys_id: record.sys_id
+                };
+                record.display_field = gr.getValue("short_description");
+                //continue;
+            } else if (ritm.getRowCount() > 1) {
+                record.display_field = gs.getMessage("{0} requested items", ritm.getRowCount());
+            } else {
+                ritm.next();
+                record.display_field = ritm.cat_item.getDisplayValue() || ritm.getDisplayValue("short_description");
+            }
+            record.url = {
+                id: portalSettings.page ? portalSettings.page : 'gdep_order_status',
+                table: 'sc_request',
+                sys_id: record.sys_id
+            };
+
+        } else {
+            record.display_field = portalSettings.primary_display ? getField(gr, portalSettings.primary_display).display_value : getField(gr, 'number').display_value;
+            record.url = {
+                id: 'gdep_ticket',
+                table: gr.getRecordClassName(),
+                sys_id: record.sys_id
+            };
+        }
+        if (portalSettings.secondary_displays) {
+            record.secondary_displays = [];
+            portalSettings.secondary_displays.split(",").forEach(function(sDisplay) {
+                record.secondary_displays.push($sp.getField(gr, sDisplay));
+            });
+        } else {
+            record.secondary_displays = getField(gr, 'number');
+        }
+        record.updated_on = gr.getValue('sys_updated_on');
+        record.approval = gr.getDisplayValue('approval');
+
+        if (record.approval == 'Requested') {
+            record.approvers = getApprovalList(record.sys_id);
+        }
+
+        record.state = gr.getDisplayValue('state');
+        if ((recordIdx !== 0) && (data.lastLimit - limit === recordIdx))
+            record.highlight = true;
+
+        record.planned_end_time = getSla(record.sys_id);
+
+        data.request.req_list.push(record);
+        recordIdx++;
+    }
+
+    if (gr.next())
+        data.hasMore = true;
+})();
+
+function getSla(recordSysId) {
+    var dueDate = null;
+    var sla = new GlideRecord('task_sla');
+    sla.addQuery('task', recordSysId);
+    sla.orderByAsc('planned_end_time');
+    sla.query();
+    while (sla.next()) {
+        var slaName = sla.getDisplayValue('sla');
+        if (slaName.contains("- Response")) continue;
+
+        var stage = sla.getDisplayValue('stage');
+        if (stage == "Cancelled") continue;
+
+        var planned_end_time = $sp.getField(sla, 'planned_end_time');
+        if (planned_end_time) {
+            var gd = new GlideDate();
+            gd.setValue($sp.getField(sla, 'planned_end_time').display_value.split(' ')[0]);
+            dueDate = gd.getByFormat("MM/dd/yyyy");
+        }
+    }
+
+    return dueDate;
+}
+
+function getApprovalList(requestSysId) {
+    var approvers = [];
+    var approverGr = new GlideRecord("sysapproval_approver");
+    approverGr.addQuery("sysapproval", requestSysId);
+    approverGr.query();
+
+    while (approverGr.next()) {
+        var appr = approverGr.getDisplayValue('approver');
+        approvers.push(appr);
+    }
+
+    return approvers;
+}]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-23 20:22:00</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>a5dd5eb7db025c9c59ac6e25ca9619ed</sys_id>
+        <sys_mod_count>380</sys_mod_count>
+        <sys_name>GDEP My Requests V2</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_a5dd5eb7db025c9c59ac6e25ca9619ed</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2021-02-08 21:35:58</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default b">
+  <!--h2 class="panel-title">{{c.options.title}}</h2-->
+</div> 	
+<div class="panels-container list-group">
+  <div class="list-group-item row" style="margin:0px;border-top:0px;" >
+    <div class="col-md-3 col-xs-5" style="">
+      <div class="form-inline" ng-if="c.options.show_type == 'true'">
+        <select ng-model="c.typeFilter" id="type" class="sc-basic-select" ng-change="c.changeView()" style="width:100%">
+          <option value="all" selected="true">${All}</option>
+          <option value="it">${IT}</option>
+          <option value="hr">${People Operations}</option>
+          <option value="finance">${Finance}</option>
+          <option value="workplace_services">${Workplace Services}</option>
+        </select>
+
+
+      </div>
+    </div>
+    <div class="col-md-3 col-xs-5" style="">
+
+      <div class="form-inline" ng-if="c.options.show_type == 'true'">
+        <select ng-model="c.viewFilter" id="view" class="sc-basic-select" ng-change="c.changeView()" style="width:100%">
+          <option value="open" selected="true">${Open}</option>
+          <option value="close">${Closed}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-4 col-xs-7" style="">
+      <div class="input-group" style="width:100%">
+        <input ng-model="c.filterText" ng-keypress="c.checkEnter($event)"class="form-control" style="width:100%" placeholder="{{data.filterMsg}}" aria-label="{{data.filterMsg}}">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" ng-click="c.search()" title="${Search}" aria-label="${Search}">
+            <i class="fa fa-search"></i>
+          </button>
+        </span>
+      </div><!-- /input-group -->
+
+    </div>
+  </div>
+  <div ng-if="c.data.request.req_list.length == 0 && !c.filterText" class="panel-body panels-container">
+    ${You do not have any requests} 
+  </div>
+  <div ng-if="c.data.request.req_list.length == 0 && c.filterText" class="panel-body panels-container">
+    ${Search didn't match any requests} 
+  </div>
+  <!--div class="list-group-item row" style="margin:0px">
+    Showing {{c.data.request.req_list.length}} out of {{data.totalResults}} results <p>
+
+    </p-->
+    <div class="col-xs-5 padder-l-none padder-r-none main-column"><b>${Request Title}</b></div>    
+    <div class="col-xs-2 padder-l-none padder-r-none state-column"><b>${Approval}</b></div>
+    <div class="col-xs-2 padder-l-none padder-r-none state-column"><b>${State}</b></div>
+    <div class="col-xs-2 padder-l-none padder-r-none updated-column" style = "text-transform:capitalize;"><b>${Updated}</b></div>
+    <div class="col-xs-1 padder-l-none padder-r-none res-column"><b>${Due By}</b></div>  
+
+  </div>
+  <div class="list-group-item row" ng-repeat="item in c.data.request.req_list | limitTo: c.data.lastLimit track by item.sys_id" style="margin:0px" >
+
+    <div class="col-xs-5 padder-l-none padder-r-none main-column">
+      <div class="primary-display">
+        <a href="?id={{::item.url.id}}&table={{::item.url.table}}&sys_id={{::item.url.sys_id}}" sn-focus="{{::item.highlight}}"> {{::item.display_field}} </a>
+      </div>
+      <small class="text-muted">
+        <div ng-repeat="f in item.secondary_displays" class="secondary-display">
+          <span >{{::f.display_value}}</span>
+        </div>
+      </small>
+    </div>
+    <div class="col-xs-2 padder-l-none padder-r-none state-column">
+      <div class="state">
+        <span> {{::item.approval}}</span>
+        <i ng-if="item.approval=='Requested' && item.approvers" class="fa fa-question-circle" aria-hidden="true" 
+           uib-tooltip="Pending approval from {{c.formatApproverList(item.approvers)}}"></i>
+      </div>
+    </div>
+    <div class="col-xs-2 padder-l-none padder-r-none state-column">
+      <div class="state">
+        <span> {{::item.state}}</span>
+      </div>
+    </div>
+    <div class="col-xs-2 padder-l-none padder-r-none updated-column">
+      <div class="updated">
+        <i class="fa fa-clock-o" aria-hidden="true" title="${Updated}"></i>
+        <sn-time-ago timestamp="::item.updated_on"/>
+      </div>
+    </div>
+    <div class="col-xs-1 padder-l-none padder-r-none res-column">
+      <div class="updated">
+        <i ng-if="item.planned_end_time" class="fa fa-clock-o" aria-hidden="true" title="$(SLA)"></i>
+        <span ng-if="item.planned_end_time">{{::item.planned_end_time}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12" ng-if="c.data.hasMore" style="padding:15px">
+    <div class="text-a-c" ng-if="c.fetching">
+      <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+      <span class="sr-only">${Loading...}</span>  
+    </div>
+    <button class="btn btn-default btn-show-more" ng-click="c.loadMore()"> ${Show More} </button>  
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

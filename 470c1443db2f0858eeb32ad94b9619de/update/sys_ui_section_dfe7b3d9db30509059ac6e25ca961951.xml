@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_section caption="Instance with Link" section_id="dfe7b3d9db30509059ac6e25ca961951" sys_domain="global" table="u_gdep_tile" version="3" view="Tables">
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption>Instance with Link</caption>
+            <header>false</header>
+            <name>u_gdep_tile</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-15 05:12:19</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_id>dfe7b3d9db30509059ac6e25ca961951</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_gdep_tile</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+            <sys_update_name>sys_ui_section_dfe7b3d9db30509059ac6e25ca961951</sys_update_name>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-15 05:12:19</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="Tables" name="Tables">0c7c25a2db1b001067e8b1c0ef96198b</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

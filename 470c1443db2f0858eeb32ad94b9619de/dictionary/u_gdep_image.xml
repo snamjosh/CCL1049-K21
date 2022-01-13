@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="GDEP Image" max_length="40" name="u_gdep_image" sizeclass="0" type="collection">
+        <element attributes="edge_encryption_enabled=true,pdf_cell_type=image" display="true" label="image" max_length="40" name="u_image" type="user_image"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" dependent="u_instance" dependent_on_field="u_instance" label="Instance" max_length="32" name="u_instance" reference="sp_instance_link" type="reference" use_dependent_field="true"/>
+        <element attributes="edge_encryption_enabled=true" label="Order" max_length="40" name="u_order" type="integer"/>
+        <element label="Short Description" max_length="200" name="u_short_description" type="string"/>
+        <element label="Title" max_length="500" name="u_title" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Widget" max_length="32" name="u_widget" reference="sp_instance" type="reference"/>
+        <index name="index">
+            <element name="u_instance"/>
+        </index>
+        <index name="index2">
+            <element name="u_widget"/>
+        </index>
+    </element>
+</database>

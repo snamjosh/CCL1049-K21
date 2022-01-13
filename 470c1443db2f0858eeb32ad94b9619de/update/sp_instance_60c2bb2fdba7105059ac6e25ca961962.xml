@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css>.b{
+
+border: 4px solid #4d4d4d;
+border-top: 0px !important
+
+}</css>
+        <glyph/>
+        <id/>
+        <order>4</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">8218f5b7dbadd8dc59ac6e25ca9619b3</sp_column>
+        <sp_widget display_value="GDEP Knowledge Related Articles">a8ec632fdb5e1018bb5a4a28139619ca</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2020-10-05 21:28:44</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>60c2bb2fdba7105059ac6e25ca961962</sys_id>
+        <sys_mod_count>15</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_instance_60c2bb2fdba7105059ac6e25ca961962</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-11-11 22:59:46</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"table": {
+		"value": "kb_knowledge",
+		"displayValue": "kb_knowledge"
+	},
+	"display_field": {
+		"value": "",
+		"displayValue": ""
+	},
+	"secondary_fields": {
+		"value": "",
+		"displayValue": ""
+	},
+	"max_records": {
+		"value": "",
+		"displayValue": ""
+	},
+	"always_show": {
+		"value": "",
+		"displayValue": ""
+	},
+	"show_secondary_fields_label": {
+		"value": "",
+		"displayValue": ""
+	},
+	"knowledge_base": {
+		"value": "",
+		"displayValue": ""
+	},
+	"source_table": {
+		"value": "kb_2_kb",
+		"displayValue": "kb_2_kb"
+	},
+	"source_column": {
+		"value": "kb_knowledge",
+		"displayValue": "kb_knowledge"
+	},
+	"target_column": {
+		"value": "related_kb_knowledge",
+		"displayValue": "related_kb_knowledge"
+	},
+	"source_id": {
+		"value": "sysparm_article",
+		"displayValue": "sysparm_article"
+	},
+	"use_full_width": {
+		"value": "true",
+		"displayValue": "true"
+	}
+}]]></widget_parameters>
+    </sp_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=60c2bb2fdba7105059ac6e25ca961962"/>
+</record_update>

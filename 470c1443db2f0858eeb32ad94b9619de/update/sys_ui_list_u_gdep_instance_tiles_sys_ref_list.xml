@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_list parent="" relationship="" sys_domain="global" table="u_gdep_instance_tiles" version="2" view="sys_ref_list">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>title</element>
+            <list_id display_value="u_gdep_instance_tiles" element="NULL" name="u_gdep_instance_tiles" parent="NULL" relationship="NULL" sys_domain="global" view="afb60bd32b3e310054a41bc5a8da15f8">4d43508d1b90e4d0d671c9192a4bcbf8</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>snamjoshi</sys_created_by>
+            <sys_created_on>2020-11-03 17:34:34</sys_created_on>
+            <sys_id>0943508d1b90e4d0d671c9192a4bcbfa</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>snamjoshi</sys_updated_by>
+            <sys_updated_on>2020-11-03 17:34:34</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>u_gdep_instance_tiles</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>snamjoshi</sys_created_by>
+            <sys_created_on>2020-11-03 17:34:34</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_id>4d43508d1b90e4d0d671c9192a4bcbf8</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_gdep_instance_tiles</sys_name>
+            <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+            <sys_update_name>sys_ui_list_u_gdep_instance_tiles_sys_ref_list</sys_update_name>
+            <sys_updated_by>snamjoshi</sys_updated_by>
+            <sys_updated_on>2020-11-03 17:34:34</sys_updated_on>
+            <sys_user/>
+            <view display_value="Reference List" name="sys_ref_list">afb60bd32b3e310054a41bc5a8da15f8</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+</record_update>

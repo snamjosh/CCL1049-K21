@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function hrmTaskParentController($scope, $rootScope, spUtil, $window) {
+	var c = this;
+	var MOBILE_DEVICE_SCREEN_WIDTH = 767;
+	$scope.mobileDevice = c.data.isMobile || ($window.innerWidth < MOBILE_DEVICE_SCREEN_WIDTH);
+	c.showLeft = true;
+
+	$scope.$on('activitySetSelected', function(name, options) {
+		if (options == null || !options.clickActivitySetFromMobile || options.uncheckViewAllToDosFromMobile)
+			return;
+
+		$scope.toggleShowLeft();
+	});
+		
+	$scope.showActivitySetList = function() {
+		$scope.toggleShowLeft();
+		$rootScope.$broadcast("sn_hr_sp.navigateToActivitySetList");
+	};
+	
+	$scope.toggleShowLeft = function() {
+		c.showLeft = !c.showLeft;
+	};
+	
+	$scope.$on('sn_hr_sp.todoSummaryDetail', function(event, data) {
+		c.data.showSummary = !c.data.showSummary;
+	});
+	
+	$scope.$on('sn_hr_sp.summaryCountUpdate', function(event, summaryCounts) {
+		if(summaryCounts) {
+			summaryCounts.hideTodoSummary = !c.data.showSummary;
+			c.data.summaryCounts = summaryCounts;
+			var widget = {};
+			spUtil.get("hrm-todos-summary", summaryCounts).then(function(response) {
+				c.data.summaryWidgets = [];
+				widget.currentWidget = response;
+				widget.name = "hrm-todos-summary";
+				c.data.summaryWidgets.push(widget);
+			 });		
+		}
+	});	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>$height: calc(100vh - 260px);
+
+.no-bullets.nav {
+	padding: 10px 0px 10px 15px;
+  	a {
+     	cursor: pointer;
+   	}
+}
+
+sp-row-content.min-height {
+     min-height: $height;
+  	 padding: 0px;
+}
+
+.content-wrap.b.row-eq-height {
+    border-radius: 4px !important;
+    border-bottom: none;
+    min-height: $height;
+}
+
+.hr-slider {
+    width: 100%;
+    padding: 0px;
+    display: inline-block; 
+    vertical-align: middle; 
+    position: relative;
+  	.mobile-todo-summary {
+    	margin-top: 10px;
+    }
+} 
+
+#isLE{
+ $base-color: $color-darkest;
+ background-color:$body-bg;
+ border-top-left-radius: 4px;
+ border-bottom-left-radius: 4px;
+}
+ .container {
+     padding-left: 0px;
+     padding-right: 0px;
+     margin-right: auto;
+     margin-left: auto;
+}
+
+ ul, ol {
+     margin-top: 0;
+     margin-bottom: 10px;
+     padding 0px;
+}
+ .no-bullets {
+     list-style-type: none;
+     padding: 0px;
+}
+ element.style {
+     min-height: $height;
+}
+ .row-eq-height {
+     display: flex;
+     flex-wrap: wrap;
+}
+ .content-wrap {
+     background: $color-lightest;
+     min-height: $height;
+     
+}
+ .b {
+     border: 1px solid $border;
+     border-color: $color-lighter;
+     box-shadow: 0 1px 1px lighten($color-dark, 30%);
+}
+ .no-padder {
+     padding: 0 !important;
+     position: relative;
+}
+
+.back-padder {
+	padding-left: 0px;
+  	padding-right: 0px;
+}
+
+/* Animation sliding left and sliding right */
+
+@keyframes slideFromRight {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideFromLeft {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@-webkit-keyframes slideFromRight {
+    0% {
+        -webkit-transform: translateX(100%);
+    }
+
+    100% {
+        -webkit-transform: translateX(0);
+    }
+}
+
+@-webkit-keyframes slideFromLeft {
+    0% {
+        -webkit-transform: translateX(-100%);
+    }
+
+    100% {
+        -webkit-transform: translateX(0);
+    }
+}
+
+/*.animate-left.ng-show {
+  animation: 0.3s slideFromLeft;
+}*/
+.animate-left.ng-hide{
+  animation: 0.3s slideFromRight;
+}
+
+/*.animate-right.ng-show {
+  animation: 0.3s slideFromRight;
+}*/
+
+.animate-right.ng-hide {
+  animation: 0.3s slideFromLeft;
+}
+
+.add-scroll {
+  overflow: auto;
+  min-height: $height;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gdep_task_parent</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Task Parent</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	gs.include('global.gdep_hr_PortalUtil');
+	data.isMobile = gs.isMobile();
+	data.parentCaseId = options.sys_id || global.gdep_hr_PortalUtil.getParentFromUrl($sp.getParameter("sys_id"), $sp.getParameter("table"));
+	data.onTicketPage = !gs.nil(options.onTicketPage) ? options.onTicketPage : true;
+	var grCase = new GlideRecord('sn_hr_core_case');
+	grCase.get(data.parentCaseId);
+	var util = new global.gdep_hr_PortalUtil(grCase);
+	var isOpenedForView = util.isOpenedForView();
+	data.taskFilterPanel = $sp.getWidget("hrm-task-filter-panel", {
+		sys_id: grCase.getUniqueValue(),
+		onTicketPage: data.onTicketPage
+	});
+	data.taskListwidget = $sp.getWidget("hrm-task-list", {
+		sys_id: grCase.getUniqueValue(),
+		onTicketPage: data.onTicketPage
+	});
+	data.isLECase = false;
+
+	if (data.onTicketPage && (isOpenedForView || util.allowDisplayActivitySetToSubjectPerson()) && util.hasLifecycleEvents()) {
+		data.isLECase = true;
+		data.lifecycleWidget = $sp.getWidget("hrm-activity-set-progress", {
+			sys_id: grCase.getUniqueValue(),
+			isOpenedForView: isOpenedForView,
+			onTicketPage: data.onTicketPage
+		});
+	}
+
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-11 21:16:59</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>94a0eccadb22d09cbb5a4a2813961940</sys_id>
+        <sys_mod_count>23</sys_mod_count>
+        <sys_name>GDEP Task Parent</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_94a0eccadb22d09cbb5a4a2813961940</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-13 04:51:17</sys_updated_on>
+        <template><![CDATA[<div class="sp-row-content min-height">
+  <div ng-show="data.onTicketPage">
+    <div ng-show="(mobileDevice && !c.showLeft && data.isLECase && !data.showSummary)" class="col-xs-12 no-padder">
+          <div class="nav panel-body back-padder" aria-label="${Back Button}" role="navigation">
+             <a href="javascript:void(0)" ng-click="showActivitySetList()">
+                <span class="fa fa-chevron-left"></span>            
+                <span>${Back}</span>
+              </a>
+           </div>
+      </div>
+      <div class="hr-slider"> 
+         <ul class="no-bullets">
+            <li ng-show="!data.showSummary" id="case-todos" ng-class="{'lifecycle': data.isLECase, 'task-view':!data.isLECase}">
+               <div class="content-wrap b row-eq-height">
+                  <div ng-show="data.isLECase && c.showLeft" class="col-md-3 col-sm-3 col-xs-12 b-r no-padder" id="isLE">
+                     <sp-widget widget="data.lifecycleWidget"></sp-widget>
+                  </div>
+                  <div ng-show="!mobileDevice || (mobileDevice && !c.showLeft) || (mobileDevice && !data.isLECase)"  ng-class="{'col-md-9 col-sm-9': data.isLECase, 'col-md-12 col-sm-12': !data.isLECase}" class="col-xs-12 task-display no-padder">
+                     <sp-widget widget="data.taskFilterPanel" ></sp-widget>
+                     <sp-widget widget="data.taskListwidget"></sp-widget>
+                  </div>
+               </div>
+            </li>
+            <li ng-show="data.showSummary" ng-class="{'mobile-todo-summary': mobileDevice}">
+                <div id="summary-widget" ng-repeat="todoSummary in data.summaryWidgets">
+                    <sp-widget widget="todoSummary.currentWidget"></sp-widget>
+                </div>
+            </li> 
+         </ul>
+      </div>
+    </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

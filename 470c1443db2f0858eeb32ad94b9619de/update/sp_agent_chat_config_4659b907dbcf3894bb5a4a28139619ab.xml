@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_agent_chat_config">
+    <sp_agent_chat_config action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <name>HR agent chat</name>
+        <order>50</order>
+        <portal>81b75d3147032100ba13a5554ee4902b,680c18c9db2b0c54eeb32ad94b9619d7</portal>
+        <public>false</public>
+        <roles/>
+        <server_script><![CDATA[(function($sp) {
+	var isVAActive = GlidePluginManager.isActive('com.glide.cs.chatbot');
+	var isHRCoreActive = GlidePluginManager.isActive('com.sn_hr_core');
+	var configObj = {};
+	configObj.portal = $sp.getValue('url_suffix');
+	configObj.live_agent_only = !isVAActive;
+	if (isHRCoreActive)
+		configObj.liveagent_application = "hr";
+	
+	return configObj;
+})($sp);]]></server_script>
+        <sys_class_name>sp_agent_chat_config</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-10-11 19:12:49</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>4659b907dbcf3894bb5a4a28139619ab</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>HR agent chat</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_agent_chat_config_4659b907dbcf3894bb5a4a28139619ab</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-10-27 22:28:09</sys_updated_on>
+    </sp_agent_chat_config>
+    <sys_translated_text action="delete_multiple" query="documentkey=4659b907dbcf3894bb5a4a28139619ab"/>
+</record_update>

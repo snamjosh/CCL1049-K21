@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container">
+    <sp_container action="DELETE">
+        <background_color>#e6e8ea</background_color>
+        <background_image/>
+        <background_style>default</background_style>
+        <bootstrap_alt>false</bootstrap_alt>
+        <class_name/>
+        <container_class_name/>
+        <name>cindy test page - Container 2</name>
+        <order>2</order>
+        <sp_page display_value="cindy_test_page">79b5c0b3dbb76410bb5a4a2813961918</sp_page>
+        <subheader>false</subheader>
+        <sys_class_name>sp_container</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-06 05:35:25</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>a433dd04db84f010bb5a4a281396197a</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>cindy test page - Container 2</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_container_a433dd04db84f010bb5a4a281396197a</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-06 05:36:03</sys_updated_on>
+        <title/>
+        <width>container</width>
+    </sp_container>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>901500ac6f06314023b2a9cc5d3ee4b5</instance_id>
+        <instance_name>godaddydev</instance_name>
+        <name>sp_container_a433dd04db84f010bb5a4a281396197a</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container"><sp_container action="INSERT_OR_UPDATE"><background_color>#e6e8ea</background_color><background_image/><background_style>default</background_style><bootstrap_alt>false</bootstrap_alt><class_name/><container_class_name/><name>cindy test page - Container 2</name><order>2</order><sp_page display_value="cindy_test_page">79b5c0b3dbb76410bb5a4a2813961918</sp_page><subheader>false</subheader><sys_class_name>sp_container</sys_class_name><sys_created_by>choskins</sys_created_by><sys_created_on>2021-05-06 05:35:25</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>a433dd04db84f010bb5a4a281396197a</sys_id><sys_mod_count>1</sys_mod_count><sys_name>cindy test page - Container 2</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>sp_container_a433dd04db84f010bb5a4a281396197a</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2021-05-06 05:36:03</sys_updated_on><title/><width>container</width></sp_container></record_update>]]></payload>
+        <payload_hash>-2017721589</payload_hash>
+        <record_name>cindy test page - Container 2</record_name>
+        <reverted_from/>
+        <source>d71645ccdb8cb010bb5a4a28139619a6</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-06 05:36:03</sys_created_on>
+        <sys_id>0653d180db84f010bb5a4a28139619a1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>179402d097f0000001</sys_recorded_at>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-06 05:36:03</sys_updated_on>
+        <type>Container</type>
+        <update_guid>4a53d1807d84f01085144d99a83562a0</update_guid>
+        <update_guid_history>4a53d1807d84f01085144d99a83562a0:-2017721589,a433dd040a84f010f4890a79da678d7c:116657514</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Record deleted 2021-05-06 14:09:29">13f8a850db8cf810bb5a4a2813961926</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-05-06 21:09:29</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sp_container">sp_container</sys_db_object>
+        <sys_id>303939aa1f9e450492402ee386405de1</sys_id>
+        <sys_metadata>a433dd04db84f010bb5a4a281396197a</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>cindy test page - Container 2</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sp_container_a433dd04db84f010bb5a4a281396197a</sys_update_name>
+        <sys_update_version display_value="sp_container_a433dd04db84f010bb5a4a281396197a">0653d180db84f010bb5a4a28139619a1</sys_update_version>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-05-06 21:09:29</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

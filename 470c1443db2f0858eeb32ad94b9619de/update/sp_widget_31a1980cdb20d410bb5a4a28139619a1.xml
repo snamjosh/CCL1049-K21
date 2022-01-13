@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.margins { margin-left: 3% !important;margin-right: 2% !important;}&#13;
+.cta-wrapper{ width: 30% !important;height: 150px;}&#13;
+&#13;
+@media( min-width:768px ){&#13;
+  .margins {padding-left: 75px !important;padding-right: 75px !important; }&#13;
+  .cta-wrapper{ width: 490px;height: 150px;padding-left:40px;padding-right:0px;}&#13;
+}&#13;
+@media(min-width:1024px ){&#13;
+  .margins {margin-left: 60px !important;margin-right: 0px !important;padding-left: 0px !important;padding-right: 10px !important; }&#13;
+  .cta-wrapper{ width: 550px;height: 150px;padding-left:0px;padding-right:0px;  }&#13;
+}&#13;
+@media( min-width: 1366px ){&#13;
+  .margins {margin-left: 95px !important;margin-right: 0px !important;padding-left: 0px !important;padding-right: 10px !important; }&#13;
+  .cta-wrapper{ width: 550px;height: 150px;padding-left:0px;padding-right:0px;  }&#13;
+}&#13;
+@media( min-width: 1920px ){&#13;
+  .margins {margin-left: 95px !important;margin-right: 0px !important;padding-left: 40px !important;padding-right: 0px !important; }&#13;
+  .cta-wrapper{ width: 550px;height: 150px;padding-left:0px;padding-right:0px; }&#13;
+}&#13;
+@media( min-width: 2560px ){&#13;
+  .margins {margin-left: 95px !important;margin-right: 0px !important;padding-left: 85px !important;padding-right: 0px !important; }&#13;
+  .cta-wrapper{ width: 550px;height: 150px;padding-left:0px;padding-right:0px;}&#13;
+}&#13;
+&#13;
+&#13;
+.column-left {float: left; width: 25%;padding:none;}&#13;
+.column-right {float: left;width: 75%;}&#13;
+.row-categories { height: 132px}&#13;
+.row-categories:after {content: "";display: table;clear: both;}&#13;
+&#13;
+.itemTitle{font-family: $boldFont;font-size: 2.0vf;}&#13;
+.itemDescription{font-family: $mediumFont;color: #000000 !important;font-size:$base-font-size*1.2}&#13;
+.ui-notification {width: 400px;}&#13;
+.ui-notification.clickable:hover {opacity: 1.0;}&#13;
+.ui-notification a:hover {color: #2B2B2B !important; /* dark gray */}&#13;
+.ui-notification img {max-width: 100px;}&#13;
+&#13;
+hr { border: none;height: 2px;background-color: #F3F3F3; /* light gray */}&#13;
+img{ width:0.85in ;height:0.85in ;}&#13;
+a {text-decoration: none; }&#13;
+a:hover {border-color: $godaddyBlue !important;color: $godaddyBlue !important; text-decoration: none;}&#13;
+div:hover{border-color: $godaddyBlue !important; text-decoration: none;}&#13;
+div:active{border-color: $godaddyBlue !important; text-decoration: none;}&#13;
+&#13;
+&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>gdep_list_of_image_links</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP List of Image Links</name>
+        <option_schema>[{"name":"finance_center_image","section":"Data","default_value":"The unique name of the image from the attachment table - i.e. gdep_noun_manager_2234650.png","label":"Finance Center Image Name","type":"glyphicon"},{"name":"finance_center_title","section":"Presentation","default_value":"Finance Center","label":"Finance Center Title","type":"string"},{"name":"finance_center_short_description","section":"Presentation","default_value":"Financial Resources &amp; Information","label":"Finance Center Short Description","type":"string"},{"name":"finance_center_url","section":"Data","default_value":"google.com","label":"Finance Center Url","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	data.items = [];
+	
+	var gr = new GlideRecord("u_gdep_image_links");
+	gr.addQuery('u_identifier', 'GDEP Homepage Section');
+	gr.orderBy('u_order');
+	gr.query();
+	
+	while(gr.next()){
+		var item = {};
+		
+		item.title = gr.getValue('u_title');
+		item.description = gr.getValue('u_short_description');
+		item.image = gr.getDisplayValue('u_image');
+		if(gr.getValue('u_url')){
+			item.url = gr.getValue('u_url');
+		} else{
+			item.url ='#';
+		}
+		
+		data.items.push(item);
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-04-28 04:58:08</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>31a1980cdb20d410bb5a4a28139619a1</sys_id>
+        <sys_mod_count>312</sys_mod_count>
+        <sys_name>GDEP List of Image Links</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_31a1980cdb20d410bb5a4a28139619a1</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2020-08-22 04:19:24</sys_updated_on>
+        <template><![CDATA[
+<!--
+  <div class="row justify-content-md-center ">
+    <div class="col-md-1 left-right-col" >
+      1 of 3
+    </div>
+    <div class="col col-md-10 center-col">
+      Variable width content
+    </div>
+    <div class="col-mid-1 left-right-col">
+      3 of 3
+    </div>
+  </div>
+-->
+
+
+<div ng-if="data.items.length>0" class="">
+  <div class="margins">
+     <div ng-repeat="cat in ::data.items" >
+      <a class="cta-wrapper col-xs-10 col-md-10 col-lg-t" href="{{::cat.url}}">
+        <div style="display: table;" style="max-width:100%; max-height:100%;" >
+          <div class="row-categories">
+          	<div class="column-left">
+            	<img ng-src="{{::cat.image}}" class="hidden-sm hidden-xs">
+          </div>
+          
+          <div class="column-right">
+          	<div class="itemTitle">
+            	{{::cat.title}} 
+            </div>
+            <div class="itemDescription">
+            		{{::cat.description}}
+          		</div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+]]></template>
+    </sp_widget>
+</record_update>

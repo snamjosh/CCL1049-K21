@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="DELETE" field="u_link_type" table="u_gdep_image_links" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_link_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>External Link</label>
+            <language>en</language>
+            <name>u_gdep_image_links</name>
+            <sequence>0</sequence>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-04-29 23:46:52</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>9d7d99e4dbe8dc50bb5a4a2813961981</sys_id>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>jbenedetti</sys_updated_by>
+            <sys_updated_on>2020-07-20 19:39:29</sys_updated_on>
+            <value>3</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_link_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>KB Category</label>
+            <language>en</language>
+            <name>u_gdep_image_links</name>
+            <sequence>1</sequence>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-04-29 22:44:29</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>4c2fc560dba4dc50bb5a4a2813961956</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_updated_by>jbenedetti</sys_updated_by>
+            <sys_updated_on>2020-07-20 19:39:29</sys_updated_on>
+            <value>1</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_link_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Page</label>
+            <language>en</language>
+            <name>u_gdep_image_links</name>
+            <sequence>2</sequence>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-04-29 22:43:29</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>febec5ecdb64dc50bb5a4a28139619a9</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_updated_by>jbenedetti</sys_updated_by>
+            <sys_updated_on>2020-07-20 19:39:29</sys_updated_on>
+            <value>0</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_link_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Service Catalog Category</label>
+            <language>en</language>
+            <name>u_gdep_image_links</name>
+            <sequence>3</sequence>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-04-29 22:46:21</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>305fc560dba4dc50bb5a4a281396195f</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_updated_by>jbenedetti</sys_updated_by>
+            <sys_updated_on>2020-07-20 19:39:29</sys_updated_on>
+            <value>2</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>u_link_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>KB Image</label>
+            <language>en</language>
+            <name>u_gdep_image_links</name>
+            <sequence>4</sequence>
+            <sys_created_by>jbenedetti</sys_created_by>
+            <sys_created_on>2020-07-20 19:39:29</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>ad577236db4ed818bb5a4a2813961984</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>jbenedetti</sys_updated_by>
+            <sys_updated_on>2020-07-20 19:39:29</sys_updated_on>
+            <value>KB Image</value>
+        </sys_choice>
+        <sys_choice_set action="DELETE">
+            <element>u_link_type</element>
+            <name>u_gdep_image_links</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-04-29 22:43:29</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>491fc520dba4dc50bb5a4a281396197b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_link_type</sys_name>
+            <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+            <sys_update_name>sys_choice_u_gdep_image_links_u_link_type</sys_update_name>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-04-29 22:43:29</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>230540e06fca3900d54da9cc5d3ee4ab</instance_id>
+        <instance_name>godaddy</instance_name>
+        <name>sys_choice_u_gdep_image_links_u_link_type</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_choice action="INSERT_OR_UPDATE" field="u_link_type" table="u_gdep_image_links" version="3"><sys_choice action="INSERT_OR_UPDATE"><dependent_value/><element>u_link_type</element><hint/><inactive>false</inactive><label>External Link</label><language>en</language><name>u_gdep_image_links</name><sequence>0</sequence><sys_created_by>choskins</sys_created_by><sys_created_on>2020-04-29 23:46:52</sys_created_on><sys_domain>global</sys_domain><sys_id>9d7d99e4dbe8dc50bb5a4a2813961981</sys_id><sys_mod_count>2</sys_mod_count><sys_updated_by>jbenedetti</sys_updated_by><sys_updated_on>2020-07-20 19:39:29</sys_updated_on><value>3</value></sys_choice><sys_choice action="INSERT_OR_UPDATE"><dependent_value/><element>u_link_type</element><hint/><inactive>false</inactive><label>KB Category</label><language>en</language><name>u_gdep_image_links</name><sequence>1</sequence><sys_created_by>choskins</sys_created_by><sys_created_on>2020-04-29 22:44:29</sys_created_on><sys_domain>global</sys_domain><sys_id>4c2fc560dba4dc50bb5a4a2813961956</sys_id><sys_mod_count>1</sys_mod_count><sys_updated_by>jbenedetti</sys_updated_by><sys_updated_on>2020-07-20 19:39:29</sys_updated_on><value>1</value></sys_choice><sys_choice action="INSERT_OR_UPDATE"><dependent_value/><element>u_link_type</element><hint/><inactive>false</inactive><label>Page</label><language>en</language><name>u_gdep_image_links</name><sequence>2</sequence><sys_created_by>choskins</sys_created_by><sys_created_on>2020-04-29 22:43:29</sys_created_on><sys_domain>global</sys_domain><sys_id>febec5ecdb64dc50bb5a4a28139619a9</sys_id><sys_mod_count>1</sys_mod_count><sys_updated_by>jbenedetti</sys_updated_by><sys_updated_on>2020-07-20 19:39:29</sys_updated_on><value>0</value></sys_choice><sys_choice action="INSERT_OR_UPDATE"><dependent_value/><element>u_link_type</element><hint/><inactive>false</inactive><label>Service Catalog Category</label><language>en</language><name>u_gdep_image_links</name><sequence>3</sequence><sys_created_by>choskins</sys_created_by><sys_created_on>2020-04-29 22:46:21</sys_created_on><sys_domain>global</sys_domain><sys_id>305fc560dba4dc50bb5a4a281396195f</sys_id><sys_mod_count>1</sys_mod_count><sys_updated_by>jbenedetti</sys_updated_by><sys_updated_on>2020-07-20 19:39:29</sys_updated_on><value>2</value></sys_choice><sys_choice action="INSERT_OR_UPDATE"><dependent_value/><element>u_link_type</element><hint/><inactive>false</inactive><label>KB Image</label><language>en</language><name>u_gdep_image_links</name><sequence>4</sequence><sys_created_by>jbenedetti</sys_created_by><sys_created_on>2020-07-20 19:39:29</sys_created_on><sys_domain>global</sys_domain><sys_id>ad577236db4ed818bb5a4a2813961984</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>jbenedetti</sys_updated_by><sys_updated_on>2020-07-20 19:39:29</sys_updated_on><value>KB Image</value></sys_choice><sys_choice_set action="INSERT_OR_UPDATE"><element>u_link_type</element><name>u_gdep_image_links</name><sys_class_name>sys_choice_set</sys_class_name><sys_created_by>choskins</sys_created_by><sys_created_on>2020-04-29 22:43:29</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>491fc520dba4dc50bb5a4a281396197b</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_link_type</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>sys_choice_u_gdep_image_links_u_link_type</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2020-04-29 22:43:29</sys_updated_on></sys_choice_set></sys_choice></record_update>]]></payload>
+        <payload_hash>-1734812184</payload_hash>
+        <record_name>Application File.Link Type</record_name>
+        <reverted_from/>
+        <source>f3df434913d2149019ed30128144b0a8</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-27 21:13:38</sys_created_on>
+        <sys_id>05009f0d13d2149019ed30128144b042</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>173921fb7180000001</sys_recorded_at>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-07-27 21:13:38</sys_updated_on>
+        <type>Choice list</type>
+        <update_guid>ad5772360b4ed818cdcc0929174c8886</update_guid>
+        <update_guid_history>ad5772360b4ed818cdcc0929174c8886:-1734812184,ad5772360b4ed818cdcc0929174c8886:-1734812184,669ddde4d2e8dc5041c0150a1bce19d8:234370735,3fd9502605299c904c5da6a7488ba11f:835128742,3bd9502604299c90571d923f43588c1b:-824265514,b3d9502641299c90df85f15deed5f018:-812328891,3bd95caeb7e59c909d4575899d2cdbc2:-2046829651,669ddde4d2e8dc5041c0150a1bce19d8:234370735,399d99e41ae8dc503194c7fbc6164a87:84256969,4bbf856013a4dc50c880f03540e1831c:-2046829651,734f4d60c4a4dc50a14724538d0030a1:-556111605,c51fc52021a4dc509f5099c27ecdb57d:-681301133</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2020-08-25 23:29:27</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sys_choice_set">sys_choice_set</sys_db_object>
+        <sys_id>45009f0d13d2149019ed30128144b03c</sys_id>
+        <sys_metadata>45009f0d13d2149019ed30128144b03c</sys_metadata>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>u_link_type</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sys_metadata_delete_45009f0d13d2149019ed30128144b03c</sys_update_name>
+        <sys_update_version display_value="sys_choice_u_gdep_image_links_u_link_type">05009f0d13d2149019ed30128144b042</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-08-26 07:00:25</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

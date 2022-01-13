@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_list_control">
+    <sys_ui_list_control action="INSERT_OR_UPDATE">
+        <columns_condition/>
+        <disable_nlq>false</disable_nlq>
+        <edit_condition/>
+        <edit_default_filter/>
+        <edit_roles/>
+        <empty_condition/>
+        <filter_condition/>
+        <filter_roles/>
+        <hierarchical_lists>false</hierarchical_lists>
+        <label>Related Links</label>
+        <link_condition/>
+        <link_roles/>
+        <list_edit_insert_row>false</list_edit_insert_row>
+        <list_edit_ref_qual_tag/>
+        <list_edit_type/>
+        <name>kb_knowledge</name>
+        <new_condition/>
+        <new_roles/>
+        <omit_columns_if_empty>false</omit_columns_if_empty>
+        <omit_count>false</omit_count>
+        <omit_count_views>false</omit_count_views>
+        <omit_count_views_list/>
+        <omit_drilldown_link>false</omit_drilldown_link>
+        <omit_edit_button>false</omit_edit_button>
+        <omit_filters>false</omit_filters>
+        <omit_if_empty>false</omit_if_empty>
+        <omit_links>false</omit_links>
+        <omit_new_button>false</omit_new_button>
+        <related_list>u_gdep_image_links.u_kb_article_id</related_list>
+        <sys_class_name>sys_ui_list_control</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-20 19:38:29</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_id>2707f6b2db4ed818bb5a4a281396198d</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>kb_knowledge</sys_name>
+        <sys_overrides display_value="">global</sys_overrides>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_ui_list_control_2707f6b2db4ed818bb5a4a281396198d</sys_update_name>
+        <sys_updated_by>aerceg</sys_updated_by>
+        <sys_updated_on>2020-07-20 22:52:13</sys_updated_on>
+    </sys_ui_list_control>
+</record_update>

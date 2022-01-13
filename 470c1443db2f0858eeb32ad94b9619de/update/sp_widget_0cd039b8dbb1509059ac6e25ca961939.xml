@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($scope, $window, $sce, $location, spUtil, $rootScope) {
+	var c = this;
+
+	$(".panel").on('click','.search-panel-body a',(function(e){   
+		var index = $(this).parent().parent().index();
+		var resultClicked = e.currentTarget.innerText;
+		trackSearchResultClicked(resultClicked, index);
+	}));
+
+	spUtil.setSearchPage($scope.data.t);
+		
+	$scope.getBGImage = function(item) {
+		return {"background-image": "url('" + item.picture + "')"};
+	}
+
+	$scope.highlight = function(haystack, needle) {
+		if (!haystack)
+			return "";
+
+		if (!needle)
+			return $sce.trustAsHtml(haystack);
+
+		return $sce.trustAsHtml(haystack.replace(new RegExp(needle, "gi"), function(match) {
+			return '<mark class="highlight">' + match + '</mark>';
+		}));
+	}
+
+	function trackSearchResultClicked(resultClicked, rank) {
+		if (!rank || rank < 1) return ;
+		var c = $scope;
+		var query = _.get(c.data, 'q');
+		var results = _.get(c.data, 'results', []);
+		
+		var result = results.find(function(e) {
+				return e.primary.trim() === resultClicked.trim();
+		});
+	
+		var payloadObject = {
+			action: "GlideSPSearchAnalytics",
+			payload: {
+				portal_id: c.data.portalID,
+				click_rank: rank,
+				has_results: true,
+				search_query: query,
+				application_table: "sp_portal",
+				ui_source: $scope.page.id,
+				source_table: null,
+				label_description: resultClicked
+			}
+		};
+
+		$window.spSearchAnalytics = {
+			query: query
+		};
+
+		c.server.get(payloadObject);
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>a.question-tag {&#13;
+    color: #39739d;&#13;
+    background-color: #e1ecf4;&#13;
+    border: 1px solid #e1ecf4;&#13;
+    display: inline-block;&#13;
+    margin: 4px 4px 4px 0;&#13;
+    border-radius: 0;&#13;
+    text-align: center;&#13;
+    line-height: 1;&#13;
+    padding: .4em .5em;&#13;
+}&#13;
+.sc {&#13;
+  i.ta-icon, i.ta-img {&#13;
+    width: 30px;&#13;
+    height: 30px;&#13;
+    line-height: 20px;&#13;
+    background-size: contain;&#13;
+    display: inline-block;&#13;
+    background-repeat: no-repeat;&#13;
+    background-position: center center;&#13;
+    text-align: center;&#13;
+    float:left;&#13;
+    padding-right: 8px;&#13;
+  }&#13;
+}&#13;
+.result-item {&#13;
+  word-break: break-word;&#13;
+}&#13;
+&#13;
+mark, .mark {&#13;
+    background-color: #ffe883;&#13;
+}&#13;
+&#13;
+.itemTitle {&#13;
+    color: #1A0DB0;&#13;
+    font-size: 1.6em;&#13;
+    font-family: "Arial-black", "Helvetica Neue", Helvetica, sans-serif;&#13;
+    font-weight: normal;&#13;
+    padding-bottom: 0;&#13;
+    padding-top: 0; &#13;
+}&#13;
+&#13;
+.itemDescription {&#13;
+    /* color: #999; */&#13;
+    color: #2b2b2b;&#13;
+    font-size: 13px;&#13;
+    /*font-family: Impact, helvetica, sans-serif;*/&#13;
+  	font-family: "Arial-black", "Helvetica Neue", Helvetica, sans-serif;&#13;
+    line-height: 1.3;&#13;
+    margin-top: 5px;&#13;
+}&#13;
+&#13;
+.itemTitle:hover{&#13;
+	color: #2b2b2b;&#13;
+}&#13;
+&#13;
+.b-b {&#13;
+    margin-bottom: 8px;&#13;
+    margin-left: 20px;&#13;
+    margin-right: 20px;&#13;
+    float: left;&#13;
+    font-size: 14px;&#13;
+    position: relative;&#13;
+    background-color: #FFFFFF;&#13;
+    padding: 10px;&#13;
+    color: #2B2B2B;&#13;
+    line-height: 24px;&#13;
+    width: 95%;&#13;
+    min-height: 100px;&#13;
+    border-bottom: solid 3pt #d2d2d2 !important;&#13;
+}&#13;
+&#13;
+.search-panel-body {&#13;
+   padding: 25px 15px !important;&#13;
+}&#13;
+&#13;
+.panel-default{&#13;
+    border: 0px none transparent !important;&#13;
+}&#13;
+&#13;
+.panel-heading {&#13;
+    /*&#13;
+    color: #e2e2e2;&#13;
+    background-color: #3d3d3d;&#13;
+    */&#13;
+    color: #ffffff;&#13;
+    background-color: #000000;&#13;
+    opacity: .7;&#13;
+    border-color: #3d3d3d;&#13;
+    margin-top: 30px;&#13;
+    margin-bottom: 30px;&#13;
+    border-radius: 3;&#13;
+}&#13;
+&#13;
+img {&#13;
+    width: 1in !important;&#13;
+    height: 1in !important;&#13;
+}&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>GDEP Search Page</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function () {
+	var HR_KB = 'bb0370019f22120047a2d126c42e7073';
+	var GRC_KB = 'a9644643df101200dca6a5f59bf263b6';	
+
+	if (input && input.action === "GlideSPSearchAnalytics") {
+		if(!$sp.getParameter('q')) return;
+
+		input.action = "";
+        input.payload.user = gs.getUserID();     
+        input.payload.browser = gs.getSession().getProperty('user_agent_browser') + " " + gs.getSession().getProperty('user_agent_version'); 
+        input.payload.session = gs.getSession().getSessionID();
+	    var analyticsHelper = new global.AnalyticsHelper();
+        analyticsHelper.logSearchEvent(input.payload);
+		return ;
+	}
+
+	//populate sort options
+	data.availableOptions = {};
+	data.availableOptions.date = {id:'-published',name:'Last Updated'};
+	data.availableOptions.alpha = {id:'short_description',name:'Alphabetical'};
+	data.availableOptions.views = {id:'-sys_view_count',name:'Most Viewed'};
+	data.availableOptions.highrating = {id:'-rating',name:'Highest Rated'};
+
+	data.typeOptions = {};
+	data.typeOptions.article = {id:'portal_kb',name:'Articles'};
+	data.typeOptions.link = {id:'quicklink',name:'Quick Links'};
+	data.typeOptions.form = {id:'sc',name:'Forms'};
+
+	// populate the 'data' variable
+	var query = $sp.getParameter('q') ? $sp.getParameter('q') : '';
+	data.q = query.replace('*','');
+	data.t = $sp.getParameter('t');
+
+	// populate the 'data' variable
+	data.showPrices = $sp.showCatalogPrices();
+	data.portalID = $sp.getPortalRecord().getUniqueValue();
+	data.results = [];
+	data.searchSources = [];
+	data.searchSourceConfiguration = {};
+	options.show_did_you_mean = (options.show_did_you_mean == true || options.show_did_you_mean == "true");
+
+	if (data.t)
+		data.limit = options.max_group || 15;
+	else
+		data.limit = options.max_all || 30;
+
+	//Gotta decide if we want to use the portal's sources, or use the defaults declared by
+	//the sys property
+	var useDefaultPortals;
+	if (!$sp.getPortalRecord()) {
+		useDefaultPortals = true;
+	} else {
+		var searchSourcesForPortalGR = new GlideRecord("m2m_sp_portal_search_source");
+		searchSourcesForPortalGR.addQuery("sp_portal", $sp.getPortalRecord().getUniqueValue());
+		searchSourcesForPortalGR.query();
+		useDefaultPortals = searchSourcesForPortalGR.getRowCount() == 0;
+	}
+
+	data.resultTemplates = {};
+
+	if (useDefaultPortals) {
+		var defaultSearchSourceGR = new GlideRecord("sp_search_source");
+		var defaultSearchSourceIDList = gs.getProperty("glide.service_portal.default_search_sources", "");
+		defaultSearchSourceGR.addQuery("sys_id", "IN", defaultSearchSourceIDList);
+		if (data.t)
+			defaultSearchSourceGR.addQuery("id", data.t);
+		defaultSearchSourceGR.query();
+		while(defaultSearchSourceGR.next()) {
+			data.resultTemplates["sp-search-source-" + defaultSearchSourceGR.getValue("id") + ".html"] = $sp.translateTemplate(defaultSearchSourceGR.getValue("search_page_template"));
+			getResults(defaultSearchSourceGR);
+			var SearchSourceId = defaultSearchSourceGR.getValue("id");
+			data.searchSources.push(SearchSourceId);
+			data.searchSourceConfiguration[SearchSourceId] = defaultSearchSourceGR.getValue("sys_id");
+		}
+	} else {
+		var m2mSearchSourceGR = new GlideRecord("m2m_sp_portal_search_source");
+		if (data.t)
+			m2mSearchSourceGR.addQuery("sp_search_source.id", data.t);
+		m2mSearchSourceGR.addQuery("sp_portal", $sp.getPortalRecord().getUniqueValue());
+
+		// SERV-4668 order by Forms, Quick Links, followed by Knowledge
+		m2mSearchSourceGR.orderBy('order');
+		
+		m2mSearchSourceGR.query();
+		while(m2mSearchSourceGR.next()) {
+			var searchSourceGR = m2mSearchSourceGR.getElement("sp_search_source").getRefRecord();
+			data.resultTemplates["sp-search-source-" + searchSourceGR.getValue("id") + ".html"] = $sp.translateTemplate(searchSourceGR.getValue("search_page_template"));
+			getResults(searchSourceGR);
+			var SearchSourceId = searchSourceGR.getValue("id");
+			data.searchSources.push(SearchSourceId);
+			data.searchSourceConfiguration[SearchSourceId] = searchSourceGR.getValue("sys_id");
+		}
+	}
+
+	function getResults(gr) {
+		if(!data.q) return;
+		
+		//Check if the user is allowed to see this source.
+		if ($sp.isUserCriteriaEnabled()) {
+			if (!$sp.userCanSeeSearchSourceByCriteria(gr.getUniqueValue()))
+				return;
+		} else {
+			var gs = GlideSession.get();
+			var searchSourceRoles = gr.getValue("roles");
+			if (searchSourceRoles && !gs.hasRole(searchSourceRoles))
+				return;
+		}
+
+		if (gr.is_scripted_source) {
+			var allUserCriteria = SNC.UserCriteriaLoader.getAllUserCriteria();
+			var input = {};
+			input.query = data.q;
+			input.facets = {};
+			input.indexGroup = 'portal_index_group';
+			var evaluator = new GlideScopedEvaluator();
+			var results = evaluator.evaluateScript(gr, "data_fetch_script", input);
+			
+			if(results) {
+				for(var i = 0; i < results.length; i++){
+					if(results[i].type == "quicklink"){
+						var sys_id = results[i].sys_id;
+						var canRead = checkQuickLink(sys_id, allUserCriteria);
+						if(canRead) {
+							results[i].templateID = "sp-search-source-" + gr.getValue("id") + ".html";
+							data.results.push(results[i]);
+						}
+					}
+					else if(results[i].type == 'portal_kb'){
+						results[i].kbPage = getKbPage(results[i].sys_id);
+						
+						results[i].templateID = "sp-search-source-" + gr.getValue("id") + ".html";
+							data.results.push(results[i]);
+					}
+					else{
+						results[i].templateID = "sp-search-source-" + gr.getValue("id") + ".html";
+							data.results.push(results[i]);
+					}
+				}
+			}
+		} 
+		else {
+			var primaryField = gr.getValue("primary_display_field");
+			var displayFields = gr.getValue("display_fields");
+
+			var resultGR = new GlideRecordSecure(gr.getValue("source_table"));
+			var condition = gr.getValue("condition");
+			if (condition)
+				resultGR.addEncodedQuery(condition);
+			if (data.q)
+				resultGR.addQuery('123TEXTQUERY321', data.q);
+			resultGR.query();
+
+			var searchTableCount = 0;
+			while (resultGR.next() && searchTableCount < data.limit) {
+				if (!resultGR.canRead())
+					continue;
+
+				var secondaryValues = {};
+
+				if (displayFields)
+					displayFields.split(",").forEach(function(field) {
+						var obj = getField(resultGR, field);
+						secondaryValues[field] = obj;
+					});
+
+				data.results.push({
+					primary: (primaryField) ? resultGR.getValue(primaryField) : resultGR.getDisplayValue(),
+					sys_id: resultGR.getUniqueValue(),
+					table: resultGR.getTableName(),
+					templateID: "sp-search-source-" + gr.getValue("id") + ".html",
+					fields: secondaryValues,
+					type: gr.getValue("id")
+				});
+				searchTableCount++;
+			}
+		}
+
+		if (data.results.length == 0 && options.show_did_you_mean) {
+			var didYouMean = new GlideTSDidYouMean();
+			var suggestions = [];
+			data.suggestions = [];
+			if (data.t == 'portal_kb')
+				suggestions = didYouMean.getAlternatePhrases(data.q, 'kb_knowledge');
+			else if (data.t == 'sc')
+				suggestions = didYouMean.getAlternatePhrases(data.q, 'sc_cat_item');
+			else
+				suggestions = didYouMean.getAlternatePhrases(data.q, gr.getValue("source_table"));
+
+			for(var i=0; i<suggestions.size(); i++) {
+				if(data.suggestions.indexOf(suggestions.get(i) + '') == -1)
+					data.suggestions.push(suggestions.get(i) + '');
+			}
+		}
+	}
+	function checkQuickLink(quickLink, allUserCriteria){
+		var grCanRead = new GlideRecord('u_quick_links_can_read');
+		grCanRead.addQuery('u_quick_link', quickLink);
+		grCanRead.query();
+
+		var canRead = null;
+		if(grCanRead.hasNext()){
+			canRead = false;
+			while(grCanRead.next()) {
+				if(allUserCriteria.indexOf(grCanRead.u_can_read.getValue('sys_id')) > -1){
+					canRead = true;
+					break;
+				}
+			}
+		}
+		else{
+			// no criteria was defined so by default everyone has access to this tile
+			canRead = true;
+		}
+		return canRead;
+	}
+	
+	function getKbPage(sys_id){
+		var kbPage = "";
+		var kb = new GlideRecord('kb_knowledge');
+		kb.addQuery('sys_id', sys_id);
+		kb.addQuery('kb_knowledge_base', 'IN', HR_KB + ',' + GRC_KB);
+		kb.query();
+		if(kb.next()){
+			kbPage = '/gdep/?id=gdep_kb_article&sysparm_article=' + kb.number;
+			
+		}
+		else{
+			kbPage = '/gdsp/?id=kb_article&sys_id=' + sys_id + '&spa=1';
+		}
+		return kbPage;
+	}
+	
+	function getField(gr, name) {
+		var f = {};
+		f.display_value = gr.getDisplayValue(name);
+		f.value = gr.getValue(name);
+		var ge = gr.getElement(name);
+		if (ge == null)
+			return f;
+
+		f.type = ge.getED().getInternalType()
+		f.label = ge.getLabel();
+		return f;
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-01 23:07:49</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>0cd039b8dbb1509059ac6e25ca961939</sys_id>
+        <sys_mod_count>275</sys_mod_count>
+        <sys_name>GDEP Search Page</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sp_widget_0cd039b8dbb1509059ac6e25ca961939</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-06-03 22:45:32</sys_updated_on>
+        <template><![CDATA[<div>
+	<label for="sortMenu"> Sort Options: </label>
+    <select name="sortMenu" id="sortMenu" ng-model="data.sortOptions">
+      <option ng-repeat="option in data.availableOptions" value="{{option.id}}">{{option.name}}</option>
+    </select>
+  
+  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  
+  <label for="typeMenu"> Content Type: </label>
+  <select name="typeMenu" id="typeMenu" ng-model="data.filterOptions">
+      <option ng-repeat="option in data.typeOptions" value="{{option.id}}">{{option.name}}</option>
+    </select>
+  
+  <div class="panel panel-default">
+
+    <div ng-if="data.results.length==0">
+      <div class="panel-heading"><h4 class="panel-title">${No results}</h4></div>
+      <div class="panel-body wrapper break-word">
+        <p>${Your search - <b>{{data.q}}</b> - did not match any documents}</p>
+        <p>${Suggestions}:</p>
+        <ul>
+          <li>${Make sure all words are spelled correctly}</li>
+          <li>${Try different, more general, or fewer keywords}</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div ng-if="data.results.length>0" class="panel-heading break-word">
+      
+      <h4 class="panel-title gdepSearchResults">${Search results for '{{data.q}}'}</h4></div>
+
+    <div class="search-panel-body b-b" ng-repeat="item in data.results | filter: {type:data.filterOptions} | orderBy:data.sortOptions" ng-value="{{$index}}" >
+
+      <div ng-if="item.type == 'portal_kb'">
+        <a href="{{item.kbPage}}" class="itemTitle m-b-sm block" ng-value="{{$index}}">
+          <i class="fa fa-book m-r-sm"></i>
+          <span ng-bind-html="highlight(item.short_description, data.q)"></span></a>
+        <p ng-bind-html="highlight(item.text, data.q)"></p>
+        <span class="text-muted">${Article}: {{item.number}}</span>
+        <span class="text-muted">
+          <span class="m-l-xs m-r-xs"> &middot; </span>
+          ${Published}: <sn-day-ago date="item.published"/>
+          <span class="m-l-xs m-r-xs"> &middot; </span>
+          ${Last Updated On}: <sn-day-ago date="item.sys_updated_on"/>
+          <span class="m-l-xs m-r-xs"> &middot; </span>
+          <span class="text-muted">{{item.sys_view_count}} ${Views} </span>
+          <span class="m-l-xs m-r-xs"> &middot; </span>
+          <span class="text-muted">{{item.rating}} ${Rating} </span>
+        </span>
+      </div>
+      
+      <div ng-if="item.type == 'quicklink'">
+        <a href="{{item.url}}" target = "_blank" class="itemTitle m-b-sm block">
+          <img src="{{::item.image}}" class="img">
+          <span ng-bind-html="highlight(item.short_description, data.q)"></span></a>
+        <p ng-bind-html="highlight(item.text, data.q)"></p>
+        <span class="text-muted">${Quick Link}: {{item.label}}</span>
+      </div>
+
+      <div ng-if="item.type == 'sc'" class="row">
+        <!--a href="?id=gdep_sc_cat_item&amp;sys_id={{item.sys_id}}" class="m-b-sm block"-->
+        <a href="{{item.url}}" target = "_self" class="m-b-sm block">
+          
+        <div class="col-xs-1">
+        <img ng-if="(item.picture)"ng-src="{{ item.picture  }}" class="img-responsive search-image">
+        <img ng-if="(!item.picture)" ng-src="14b89d6cdb68dc50bb5a4a28139619a1.iix" class="img-responsive search-image">
+        </div>
+        <div class="col-xs-11">
+          <span ng-bind-html="highlight(item.name, data.q)" class="itemTitle"></span>
+          <p class="itemDescription" ng-bind-html="highlight(item.short_description, data.q)"></p>
+        </div>  
+        <span class="text-muted m-r-sm" ng-if="item.price != '$0.00'">{{item.price}}</span>
+        </a>
+      </div>
+      
+      <div ng-if="item.type == 'qa'">
+        <a href="?id=kb_social_qa_question&amp;question_id={{item.sys_id}}" class="itemTitle m-b-sm block">
+          <i class="fa fa-comments-o m-r-sm"></i>
+          <span ng-bind-html="highlight(item.label, data.q)"></span></a>
+        <p ng-bind-html="highlight(item.text, data.q)"></p>
+        <div>
+          <a ng-repeat="tag in item.tags" ng-href="?id=sqa_tagged_questions&sys_id={{tag.sys_id}}" class="question-tag">{{tag.name}}</a>
+        </div>
+        <span class="text-muted">${Asked} <sn-day-ago date="item.sys_created_on"/></span>
+        <span class="text-muted">
+          <span class="m-l-xs m-r-xs" ng-if="!$first"> &middot; </span>
+          ${Score}: {{item.votes}}
+        </span>
+      </div>
+      
+      <div ng-if="item.type == 'rec'">
+        <a href="?id=gdep_sc_cat_item&amp;sys_id={{item.sys_id}}&amp;table={{item.table}}" class="itemTitle m-b-sm block">
+          <span ng-bind-html="highlight(item.label, data.q)"></span>
+        </a>
+        <span class="text-muted" ng-repeat="f in item.fields | limitTo: 4">
+          <span class="m-l-xs m-r-xs" ng-if="!$first"> &middot; </span>
+          {{f.label}}: <span ng-bind-html="highlight(f.display_value, data.q)"></span>
+        </span>
+      </div>
+
+      <div class="clearfix"></div>
+
+    </div>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

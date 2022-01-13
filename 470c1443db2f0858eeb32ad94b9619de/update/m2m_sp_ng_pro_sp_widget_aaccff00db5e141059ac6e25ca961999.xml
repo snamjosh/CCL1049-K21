@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_ng_pro_sp_widget">
+    <m2m_sp_ng_pro_sp_widget action="INSERT_OR_UPDATE">
+        <sp_angular_provider display_value="gdepCategoryButton">a1565137db3dd490bb5a4a28139619ef</sp_angular_provider>
+        <sp_widget display_value="GDEP Quick Links">eeccff00db5e141059ac6e25ca961996</sp_widget>
+        <sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name>
+        <sys_created_by>jbenedetti</sys_created_by>
+        <sys_created_on>2020-07-24 21:55:20</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>aaccff00db5e141059ac6e25ca961999</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>gdepCategoryButton.Copy of GDEP Tiles</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_aaccff00db5e141059ac6e25ca961999</sys_update_name>
+        <sys_updated_by>jbenedetti</sys_updated_by>
+        <sys_updated_on>2020-07-24 21:55:20</sys_updated_on>
+    </m2m_sp_ng_pro_sp_widget>
+</record_update>

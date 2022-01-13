@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_db_view_table_field">
+    <sys_db_view_table_field action="DELETE">
+        <field>label_description</field>
+        <sys_class_name>sys_db_view_table_field</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-06-01 21:14:04</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>66536eacdba07cd0bb5a4a2813961922</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>label_description</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>sys_db_view_table_field_66536eacdba07cd0bb5a4a2813961922</sys_update_name>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-06-01 21:14:04</sys_updated_on>
+        <table>sys_search_result_clicked</table>
+        <view_table display_value="sys_search_result_clicked">bb9c5a6cdbac3cd0bb5a4a28139619b1</view_table>
+    </sys_db_view_table_field>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</application>
+        <file_path/>
+        <instance_id>901500ac6f06314023b2a9cc5d3ee4b5</instance_id>
+        <instance_name>godaddydev</instance_name>
+        <name>sys_db_view_table_field_66536eacdba07cd0bb5a4a2813961922</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_db_view_table_field"><sys_db_view_table_field action="INSERT_OR_UPDATE"><field>label_description</field><sys_class_name>sys_db_view_table_field</sys_class_name><sys_created_by>choskins</sys_created_by><sys_created_on>2021-06-01 21:14:04</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>66536eacdba07cd0bb5a4a2813961922</sys_id><sys_mod_count>0</sys_mod_count><sys_name>label_description</sys_name><sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope><sys_update_name>sys_db_view_table_field_66536eacdba07cd0bb5a4a2813961922</sys_update_name><sys_updated_by>choskins</sys_updated_by><sys_updated_on>2021-06-01 21:14:04</sys_updated_on><table>sys_search_result_clicked</table><view_table display_value="sys_search_result_clicked">bb9c5a6cdbac3cd0bb5a4a28139619b1</view_table></sys_db_view_table_field></record_update>]]></payload>
+        <payload_hash>2075117819</payload_hash>
+        <record_name>label_description</record_name>
+        <reverted_from/>
+        <source>cabbd660dbac3cd0bb5a4a2813961988</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-06-01 21:14:04</sys_created_on>
+        <sys_id>8c63e6ecdba07cd0bb5a4a2813961992</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>179c96d280c0000001</sys_recorded_at>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-06-01 21:14:04</sys_updated_on>
+        <type>View Field</type>
+        <update_guid>8463e6ec17a07cd0ea0a9ed1018ef692</update_guid>
+        <update_guid_history>8463e6ec17a07cd0ea0a9ed1018ef692:2075117819</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>choskins</sys_created_by>
+        <sys_created_on>2021-06-01 21:34:10</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_db_object display_value="" name="sys_db_view_table_field">sys_db_view_table_field</sys_db_object>
+        <sys_id>0d3b54f8655349c5a6691b49c27fd699</sys_id>
+        <sys_metadata>66536eacdba07cd0bb5a4a2813961922</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>label_description</sys_name>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_parent display_value="sys_search_result_clicked">bb9c5a6cdbac3cd0bb5a4a28139619b1</sys_parent>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_scope_delete display_value="">1103d4c67a374fe382596c353aeedc39</sys_scope_delete>
+        <sys_update_name>sys_db_view_table_field_66536eacdba07cd0bb5a4a2813961922</sys_update_name>
+        <sys_update_version display_value="sys_db_view_table_field_66536eacdba07cd0bb5a4a2813961922">8c63e6ecdba07cd0bb5a4a2813961992</sys_update_version>
+        <sys_updated_by>choskins</sys_updated_by>
+        <sys_updated_on>2021-06-01 21:34:10</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

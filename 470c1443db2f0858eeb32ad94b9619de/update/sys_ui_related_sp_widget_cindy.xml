@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_related sys_domain="global" table="sp_widget" version="2" view="cindy">
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Widget - cindy" name="sp_widget" related_list="NULL" sys_domain="global" view="53fe1bc7db2498d0bb5a4a28139619c7">5ffedbc7db2498d0bb5a4a28139619cd</list_id>
+            <order_by/>
+            <position>0</position>
+            <related_list>m2m_sp_widget_dependency.sp_widget</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-08 03:37:02</sys_created_on>
+            <sys_id>9ffedbc7db2498d0bb5a4a28139619ce</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-08 03:37:02</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Widget - cindy" name="sp_widget" related_list="NULL" sys_domain="global" view="53fe1bc7db2498d0bb5a4a28139619c7">5ffedbc7db2498d0bb5a4a28139619cd</list_id>
+            <order_by/>
+            <position>1</position>
+            <related_list>m2m_sp_ng_pro_sp_widget.sp_widget</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-08 03:37:02</sys_created_on>
+            <sys_id>1bfedbc7db2498d0bb5a4a28139619cf</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-08 03:37:02</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Widget - cindy" name="sp_widget" related_list="NULL" sys_domain="global" view="53fe1bc7db2498d0bb5a4a28139619c7">5ffedbc7db2498d0bb5a4a28139619cd</list_id>
+            <order_by/>
+            <position>2</position>
+            <related_list>sp_ng_template.sp_widget</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-08 03:37:02</sys_created_on>
+            <sys_id>9ffedbc7db2498d0bb5a4a28139619cf</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-08 03:37:02</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Widget - cindy" name="sp_widget" related_list="NULL" sys_domain="global" view="53fe1bc7db2498d0bb5a4a28139619c7">5ffedbc7db2498d0bb5a4a28139619cd</list_id>
+            <order_by/>
+            <position>3</position>
+            <related_list>REL:99079b30d7301200a9addd173e24d481</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-08 03:37:02</sys_created_on>
+            <sys_id>17fedbc7db2498d0bb5a4a28139619d0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-08 03:37:02</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Widget - cindy" name="sp_widget" related_list="NULL" sys_domain="global" view="53fe1bc7db2498d0bb5a4a28139619c7">5ffedbc7db2498d0bb5a4a28139619cd</list_id>
+            <order_by/>
+            <position>4</position>
+            <related_list>sp_instance.sp_widget</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-08 03:37:02</sys_created_on>
+            <sys_id>9bfedbc7db2498d0bb5a4a28139619d0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-08 03:37:02</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Widget - cindy" name="sp_widget" related_list="NULL" sys_domain="global" view="53fe1bc7db2498d0bb5a4a28139619c7">5ffedbc7db2498d0bb5a4a28139619cd</list_id>
+            <order_by/>
+            <position>5</position>
+            <related_list>REL:67bdac52374010008687ddb1967334ee</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-08 03:37:02</sys_created_on>
+            <sys_id>13fedbc7db2498d0bb5a4a28139619d1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-08 03:37:02</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list action="INSERT_OR_UPDATE">
+            <calculated_name>Widget - cindy</calculated_name>
+            <filter/>
+            <name>sp_widget</name>
+            <order_by/>
+            <position/>
+            <related_list/>
+            <sys_class_name>sys_ui_related_list</sys_class_name>
+            <sys_created_by>choskins</sys_created_by>
+            <sys_created_on>2020-05-08 03:37:02</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_id>5ffedbc7db2498d0bb5a4a28139619cd</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Widget - cindy</sys_name>
+            <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+            <sys_update_name>sys_ui_related_sp_widget_cindy</sys_update_name>
+            <sys_updated_by>choskins</sys_updated_by>
+            <sys_updated_on>2020-05-08 03:37:02</sys_updated_on>
+            <sys_user/>
+            <view display_value="cindy" name="cindy">53fe1bc7db2498d0bb5a4a28139619c7</view>
+            <view_name/>
+        </sys_ui_related_list>
+    </sys_ui_related>
+</record_update>

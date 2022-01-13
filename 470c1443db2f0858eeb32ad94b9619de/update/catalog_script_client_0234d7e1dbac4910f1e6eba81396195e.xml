@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="catalog_script_client">
+    <catalog_script_client action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <applies_catalog>true</applies_catalog>
+        <applies_extended>false</applies_extended>
+        <applies_req_item>false</applies_req_item>
+        <applies_sc_task>false</applies_sc_task>
+        <applies_target_record>false</applies_target_record>
+        <applies_to>item</applies_to>
+        <cat_item display_value="H-1B Lottery Registration Request">1ac0a216db18c194f1e6eba81396194e</cat_item>
+        <cat_variable>IO:380ea61edb140594f1e6eba8139619b7</cat_variable>
+        <condition/>
+        <description/>
+        <field/>
+        <global>true</global>
+        <isolate_script>true</isolate_script>
+        <messages/>
+        <name>Show popup</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading) {
+    if (isLoading || newValue == '') {
+        return;
+    }
+    
+
+
+        var dialog = new GlideDialogWindow('sn_hr_core_Create New Case'); //Render the dialog containing the UI Page 'terms_and_conditions_dialog'
+        dialog.setTitle('Create Case'); //Set the dialog title
+        dialog.setSize(600, 600); //Set the dialog size
+        //dialog.removeCloseDecoration(); //Remove the dialog close icon
+        dialog.setPreference('cancel_url', 'catalog_home.do?sysparm_view=catalog_default'); //Set optional cancel redirect URL
+        dialog.render();
+    
+
+}]]></script>
+        <sys_class_name>catalog_script_client</sys_class_name>
+        <sys_created_by>snamjoshi</sys_created_by>
+        <sys_created_on>2021-12-20 23:34:13</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_id>0234d7e1dbac4910f1e6eba81396195e</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Show popup</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="GDEP" source="470c1443db2f0858eeb32ad94b9619de">470c1443db2f0858eeb32ad94b9619de</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="GDEP">470c1443db2f0858eeb32ad94b9619de</sys_scope>
+        <sys_update_name>catalog_script_client_0234d7e1dbac4910f1e6eba81396195e</sys_update_name>
+        <sys_updated_by>snamjoshi</sys_updated_by>
+        <sys_updated_on>2021-12-21 01:23:16</sys_updated_on>
+        <table/>
+        <type>onChange</type>
+        <ui_type>10</ui_type>
+        <variable_set/>
+        <view/>
+    </catalog_script_client>
+</record_update>
